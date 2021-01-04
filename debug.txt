@@ -4185,3 +4185,2355 @@ ValueError: invalid literal for int() with base 10: '. Пр'
 20:59:41 Итоговая конкуренция: 42
 20:59:41 Итоговая конкуренция: 42
 20:59:41 Итоговая конкуренция: 42
+20:18:58 Класс Yandex создан
+20:18:58 Запрос: кликандер
+20:18:58 Стемированный запрос: ['кликандер']
+20:18:59 Собран список сайтов
+20:18:59 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-15' (5708):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-15, started 5708)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-15, started 5708)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-15, started 5708)>
+    │    │        │    └ ('15', <li class="serp-item" data-63iy="" data-cid="14" data-fast="1" data-log-node="re4bx" data-vgf6=""><div class="organic ...
+    │    │        └ <Thread(Thread-15, started 5708)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-15, started 5708)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-63iy="" data-cid="14" data-fast="1" data-log-node="re4bx" data-vgf6=""><div class="organic typo ty...
+    │    │                 │      │    └ '15'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ []
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC41B700>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'yandex.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC41B700>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC41B700>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DC401E80>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'yandex.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DC401E80>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'yandex.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DC42E9D0>
+
+sqlite3.OperationalError: no such table: domain
+20:18:59 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-16' (2676):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-16, started 2676)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-16, started 2676)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-16, started 2676)>
+    │    │        │    └ ('16', <li class="serp-item" data-63iy="" data-cid="15" data-fast="1" data-log-node="re4c8" data-vgf6=""><div class="organic ...
+    │    │        └ <Thread(Thread-16, started 2676)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-16, started 2676)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-63iy="" data-cid="15" data-fast="1" data-log-node="re4c8" data-vgf6=""><div class="organic typo ty...
+    │    │                 │      │    └ '16'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>]
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC43BAF0>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'yandex.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC43BAF0>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC43BAF0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DC43BC10>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'yandex.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DC43BC10>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'yandex.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DC47A9D0>
+
+sqlite3.OperationalError: no such table: domain
+20:18:59 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-10' (5604):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-10, started 5604)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-10, started 5604)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10, started 5604)>
+    │    │        │    └ ('10', <li class="serp-item" data-cid="9" data-fast="1" data-fast-subtype="v4thumbs" data-fast-wzrd="videowiz" data-log-node=...
+    │    │        └ <Thread(Thread-10, started 5604)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-10, started 5604)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="9" data-fast="1" data-fast-subtype="v4thumbs" data-fast-wzrd="videowiz" data-log-node="re49n"...
+    │    │                 │      │    └ '10'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>]
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC4011C0>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'yandex.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC4011C0>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC4011C0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DC4012E0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'yandex.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DC4012E0>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'yandex.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DC3F7730>
+
+sqlite3.OperationalError: no such table: domain
+20:18:59 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-11' (3292):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-11, started 3292)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-11, started 3292)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-11, started 3292)>
+    │    │        │    └ ('11', <li class="serp-item" data-cid="10" data-fast="1" data-log-node="re4b0"><div class="organic typo typo_text_m typo_line...
+    │    │        └ <Thread(Thread-11, started 3292)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-11, started 3292)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="10" data-fast="1" data-log-node="re4b0"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '11'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>]
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC401A60>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'yandex.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC401A60>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC401A60>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DC401B80>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'yandex.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DC401B80>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'yandex.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DC40FE30>
+
+sqlite3.OperationalError: no such table: domain
+20:18:59 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-14' (6856):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-14, started 6856)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-14, started 6856)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-14, started 6856)>
+    │    │        │    └ ('14', <li class="serp-item" data-63iy="" data-cid="13" data-fast="1" data-log-node="re4bl" data-vgf6=""><div class="organic ...
+    │    │        └ <Thread(Thread-14, started 6856)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-14, started 6856)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-63iy="" data-cid="13" data-fast="1" data-log-node="re4bl" data-vgf6=""><div class="organic typo ty...
+    │    │                 │      │    └ '14'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC3F6A60>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'yandex.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC3F6A60>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC3F6A60>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DC41BF70>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'yandex.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DC41BF70>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'yandex.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DC41E340>
+
+sqlite3.OperationalError: no such table: domain
+20:18:59 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-1' (7000):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-1, started 7000)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-1, started 7000)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1, started 7000)>
+    │    │        │    └ ('1', <li class="serp-item" data-63iy="" data-cid="0" data-fast="1" data-first-snippet="" data-log-node="re47h" data-nxoh="">...
+    │    │        └ <Thread(Thread-1, started 7000)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-1, started 7000)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-63iy="" data-cid="0" data-fast="1" data-first-snippet="" data-log-node="re47h" data-nxoh=""><div c...
+    │    │                 │      │    └ '1'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC3C0B80>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'yandex.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC3C0B80>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC3C0B80>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DC3C0CA0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'yandex.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DC3C0CA0>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'yandex.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DC3B2110>
+
+sqlite3.OperationalError: no such table: domain
+20:18:59 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-17' (6164):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-17, started 6164)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-17, started 6164)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-17, started 6164)>
+    │    │        │    └ ('17', <li class="serp-item" data-63iy="" data-cid="16" data-fast="1" data-log-node="re4ci" data-vgf6=""><div class="organic ...
+    │    │        └ <Thread(Thread-17, started 6164)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-17, started 6164)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-63iy="" data-cid="16" data-fast="1" data-log-node="re4ci" data-vgf6=""><div class="organic typo ty...
+    │    │                 │      │    └ '17'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC43BBB0>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'yandex.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC43BBB0>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC43BBB0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DC43BB50>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'yandex.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DC43BB50>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'yandex.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DC3B2490>
+
+sqlite3.OperationalError: no such table: domain
+20:18:59 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-2' (6388):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-2, started 6388)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-2, started 6388)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-2, started 6388)>
+    │    │        │    └ ('2', <li class="serp-item" data-63iy="" data-cid="1" data-fast="1" data-log-node="re47t" data-nxoh=""><div class="organic ty...
+    │    │        └ <Thread(Thread-2, started 6388)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-2, started 6388)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-63iy="" data-cid="1" data-fast="1" data-log-node="re47t" data-nxoh=""><div class="organic typo typ...
+    │    │                 │      │    └ '2'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC3C0C70>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'yandex.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC3C0C70>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC3C0C70>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DC3C0DC0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'yandex.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DC3C0DC0>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'yandex.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DC3B21F0>
+
+sqlite3.OperationalError: no such table: domain
+20:19:00 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-8' (6596):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-8, started 6596)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-8, started 6596)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started 6596)>
+    │    │        │    └ ('8', <li class="serp-item" data-cid="7" data-fast="1" data-log-node="re497"><div class="organic typo typo_text_m typo_line_s...
+    │    │        └ <Thread(Thread-8, started 6596)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-8, started 6596)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="7" data-fast="1" data-log-node="re497"><div class="organic typo typo_text_m typo_line_s i-bem...
+    │    │                 │      │    └ '8'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC3D3280>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'cpabaton.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC3D3280>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC3D3280>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DB74B490>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'cpabaton.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DB74B490>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'cpabaton.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DB723650>
+
+sqlite3.OperationalError: no such table: domain
+20:19:00 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-13' (6592):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-13, started 6592)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-13, started 6592)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-13, started 6592)>
+    │    │        │    └ ('13', <li class="serp-item" data-cid="12" data-fast="1" data-log-node="re4bd"><div class="organic typo typo_text_m typo_line...
+    │    │        └ <Thread(Thread-13, started 6592)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-13, started 6592)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="12" data-fast="1" data-log-node="re4bd"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '13'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC41BB20>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'reklu.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC41BB20>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC41BB20>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DE0C4C40>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'reklu.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DE0C4C40>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'reklu.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DE08E960>
+
+sqlite3.OperationalError: no such table: domain
+20:19:00 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-3' (2764):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-3, started 2764)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-3, started 2764)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started 2764)>
+    │    │        │    └ ('3', <li class="serp-item" data-cid="2" data-fast="1" data-log-node="re483"><div class="organic typo typo_text_m typo_line_s...
+    │    │        └ <Thread(Thread-3, started 2764)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-3, started 2764)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="2" data-fast="1" data-log-node="re483"><div class="organic typo typo_text_m typo_line_s i-bem...
+    │    │                 │      │    └ '3'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC3C0D90>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'visitweb.com'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC3C0D90>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC3C0D90>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DF16FA60>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'visitweb.com'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DF16FA60>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'visitweb.com'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DE027420>
+
+sqlite3.OperationalError: no such table: domain
+20:19:00 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-12' (4208):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-12, started 4208)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-12, started 4208)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-12, started 4208)>
+    │    │        │    └ ('12', <li class="serp-item" data-cid="11" data-fast="1" data-log-node="re4b8"><div class="organic typo typo_text_m typo_line...
+    │    │        └ <Thread(Thread-12, started 4208)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-12, started 4208)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="11" data-fast="1" data-log-node="re4b8"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '12'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC401EB0>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'wildo.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC401EB0>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC401EB0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168E078A4C0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'wildo.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168E078A4C0>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'wildo.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168E078BA40>
+
+sqlite3.OperationalError: no such table: domain
+20:19:01 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-5' (3700):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-5, started 3700)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-5, started 3700)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-5, started 3700)>
+    │    │        │    └ ('5', <li class="serp-item" data-cid="4" data-fast="1" data-log-node="re48j"><div class="organic typo typo_text_m typo_line_s...
+    │    │        └ <Thread(Thread-5, started 3700)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-5, started 3700)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="4" data-fast="1" data-log-node="re48j"><div class="organic typo typo_text_m typo_line_s i-bem...
+    │    │                 │      │    └ '5'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC3CADC0>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'protraffic.com'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC3CADC0>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC3CADC0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168E1755160>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'protraffic.com'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168E1755160>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'protraffic.com'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168E1758650>
+
+sqlite3.OperationalError: no such table: domain
+20:19:01 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-9' (5516):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-9, started 5516)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-9, started 5516)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-9, started 5516)>
+    │    │        │    └ ('9', <li class="serp-item" data-cid="8" data-fast="1" data-log-node="re49f"><div class="organic typo typo_text_m typo_line_s...
+    │    │        └ <Thread(Thread-9, started 5516)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-9, started 5516)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="8" data-fast="1" data-log-node="re49f"><div class="organic typo typo_text_m typo_line_s i-bem...
+    │    │                 │      │    └ '9'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC3F6AC0>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'aff1.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC3F6AC0>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC3F6AC0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DDF83BE0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'aff1.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DDF83BE0>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'aff1.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168E032FB20>
+
+sqlite3.OperationalError: no such table: domain
+20:19:01 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-6' (4872):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-6, started 4872)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-6, started 4872)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-6, started 4872)>
+    │    │        │    └ ('6', <li class="serp-item" data-cid="5" data-fast="1" data-log-node="re48r"><div class="organic typo typo_text_m typo_line_s...
+    │    │        └ <Thread(Thread-6, started 4872)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-6, started 4872)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="5" data-fast="1" data-log-node="re48r"><div class="organic typo typo_text_m typo_line_s i-bem...
+    │    │                 │      │    └ '6'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC3D3BB0>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'cpamafia.top'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC3D3BB0>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC3D3BB0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DB74B640>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'cpamafia.top'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DB74B640>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'cpamafia.top'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DF1E5340>
+
+sqlite3.OperationalError: no such table: domain
+20:19:01 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-4' (5040):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-4, started 5040)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-4, started 5040)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-4, started 5040)>
+    │    │        │    └ ('4', <li class="serp-item" data-cid="3" data-fast="1" data-log-node="re48b"><div class="organic typo typo_text_m typo_line_s...
+    │    │        └ <Thread(Thread-4, started 5040)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-4, started 5040)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="3" data-fast="1" data-log-node="re48b"><div class="organic typo typo_text_m typo_line_s i-bem...
+    │    │                 │      │    └ '4'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC3CA4C0>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'calltouch.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC3CA4C0>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC3CA4C0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DB3A17C0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'calltouch.ru'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DB3A17C0>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'calltouch.ru'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DB3A4B90>
+
+sqlite3.OperationalError: no such table: domain
+20:19:02 An error has been caught in function 'make_domain_object', process 'Process-1' (7044), thread 'Thread-7' (6512):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000168D7EEC700>
+    └ <Thread(Thread-7, started 6512)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000168D7EEC430>
+    └ <Thread(Thread-7, started 6512)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-7, started 6512)>
+    │    │        │    └ ('7', <li class="serp-item" data-cid="6" data-fast="1" data-log-node="re48z"><div class="organic typo typo_text_m typo_line_s...
+    │    │        └ <Thread(Thread-7, started 6512)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x00000168D7EFA880>>
+    └ <Thread(Thread-7, started 6512)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 167, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="6" data-fast="1" data-log-node="re48z"><div class="organic typo typo_text_m typo_line_s i-bem...
+    │    │                 │      │    └ '7'
+    │    │                 │      └ <function Site at 0x00000168DA85E3A0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 71, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000168DA85E700>
+    └ <__mp_main__.Site object at 0x00000168DC3E0AC0>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 101, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'partnerkin.com'
+    │    │               │      └ <__mp_main__.Site object at 0x00000168DC3E0AC0>
+    │    │               └ <function Domain at 0x00000168DA85FA60>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x00000168DC3E0AC0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 249, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000168DA85FB80>
+    └ <__mp_main__.Domain object at 0x00000168DF2500D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 252, in check_data_in_database
+    check = check_in_database('database.sqlite3', 'domain', 'name', self.domain)
+            │                                                       │    └ 'partnerkin.com'
+            │                                                       └ <__mp_main__.Domain object at 0x00000168DF2500D0>
+            └ <function check_in_database at 0x00000168DA85A9D0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 20, in check_in_database
+    cursor.execute(sql, [value_check])
+    │      │       │     └ 'partnerkin.com'
+    │      │       └ 'SELECT * FROM domain WHERE name=?'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x00000168DF2529D0>
+
+sqlite3.OperationalError: no such table: domain
+20:19:02 An error has been caught in function 'make_concurency_object', process 'Process-1' (7044), thread 'MainThread' (7036):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 276
+               │     └ 3
+               └ <function _main at 0x00000168D815A700>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 276
+           │    └ <function BaseProcess._bootstrap at 0x00000168D7F01310>
+           └ <Process name='Process-1' parent=1056 started>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x00000168D7F0D940>
+    └ <Process name='Process-1' parent=1056 started>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=1056 started>
+    │    │        │    └ ('кликандер', <multiprocessing.queues.Queue object at 0x00000168DA844D30>)
+    │    │        └ <Process name='Process-1' parent=1056 started>
+    │    └ <function Yandex at 0x00000168DA85EA60>
+    └ <Process name='Process-1' parent=1056 started>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 133, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x00000168DA85F160>
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 182, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['кликандер']
+    │    │                   │          │    │                  └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+    │    │                   │          │    └ [<__mp_main__.Site object at 0x00000168DC41B700>, <__mp_main__.Site object at 0x00000168DC43BAF0>, <__mp_main__.Site object a...
+    │    │                   │          └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+    │    │                   └ <function Concurency at 0x00000168DA8615E0>
+    │    └ ''
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 376, in __init__
+    self.calculate_site_age_concurency()
+    │    └ <function Concurency.calculate_site_age_concurency at 0x00000168DA861790>
+    └ <__mp_main__.Concurency object at 0x00000168DB6D2DC0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 404, in calculate_site_age_concurency
+    real_age_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
+    │                      │           │                          │    │       │           └ '8'
+    │                      │           │                          │    │       └ <__mp_main__.Site object at 0x00000168DC3D3280>
+    │                      │           │                          │    └ {'1': 21, '2': 15, '3': 11, '4': 8, '5': 6, '6': 4, '7': 3, '8': 2, '9': 2, '10': 2, '11': 2, '12': 2, '13': 2, '14': 2, '15'...
+    │                      │           │                          └ <__mp_main__.Concurency object at 0x00000168DB6D2DC0>
+    │                      │           └ None
+    │                      └ <__mp_main__.Site object at 0x00000168DC3D3280>
+    └ 480
+
+AttributeError: 'NoneType' object has no attribute 'domain_age'
+20:19:02 An error has been caught in function 'run', process 'Process-1' (7044), thread 'MainThread' (7036):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 276
+               │     └ 3
+               └ <function _main at 0x00000168D815A700>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 276
+           │    └ <function BaseProcess._bootstrap at 0x00000168D7F01310>
+           └ <Process name='Process-1' parent=1056 started>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x00000168D7F0D940>
+    └ <Process name='Process-1' parent=1056 started>
+
+> File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=1056 started>
+    │    │        │    └ ('кликандер', <multiprocessing.queues.Queue object at 0x00000168DA844D30>)
+    │    │        └ <Process name='Process-1' parent=1056 started>
+    │    └ <function Yandex at 0x00000168DA85EA60>
+    └ <Process name='Process-1' parent=1056 started>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 134, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x00000168DA85F280>
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 197, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__mp_main__.Yandex object at 0x00000168D7EFA880>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+20:21:44 Класс Yandex создан
+20:21:44 Запрос: кликандер
+20:21:44 Стемированный запрос: ['кликандер']
+20:21:45 Собран список сайтов
+20:21:48 protraffic.com данные не получены по причине Host is in process.
+20:21:49 protraffic.com данные не получены по причине Host is in process.
+20:21:49 reklu.ru данные не получены по причине Host is in process.
+20:21:49 aff1.ru данные не получены по причине Host is in process.
+20:21:49 visitweb.com данные не получены по причине Host is in process.
+20:21:49 calltouch.ru данные не получены по причине Host is in process.
+20:21:50 reklu.ru данные не получены по причине Host is in process.
+20:21:50 aff1.ru данные не получены по причине Host is in process.
+20:21:50 visitweb.com данные не получены по причине Host is in process.
+20:21:50 calltouch.ru данные не получены по причине Host is in process.
+20:21:50 cpamafia.top данные не получены по причине Host is in process.
+20:21:51 cpamafia.top данные не получены по причине Host is in process.
+20:21:51 wildo.ru данные не получены по причине Host is in process.
+20:21:51 wildo.ru данные не получены по причине Host is in process.
+20:21:53 Данные есть о 10 из 17 (58%)
+20:21:53 Выборки не хватило, начинаю сбор заново
+20:22:03 protraffic.com данные не получены по причине Host is in process.
+20:22:03 reklu.ru данные не получены по причине Host is in process.
+20:22:04 aff1.ru данные не получены по причине Host is in process.
+20:22:04 visitweb.com данные не получены по причине Host is in process.
+20:22:04 calltouch.ru данные не получены по причине Host is in process.
+20:22:05 cpamafia.top данные не получены по причине Host is in process.
+20:22:05 wildo.ru данные не получены по причине Host is in process.
+20:22:05 Данные есть о 10 из 17 (58%)
+20:22:05 Выборки не хватило, начинаю сбор заново
+20:22:16 protraffic.com данные не получены по причине Host is in process.
+20:22:16 reklu.ru данные не получены по причине Host is in process.
+20:22:16 aff1.ru данные не получены по причине Host is in process.
+20:22:17 visitweb.com данные не получены по причине Host is in process.
+20:22:17 calltouch.ru данные не получены по причине Host is in process.
+20:22:17 cpamafia.top данные не получены по причине Host is in process.
+20:22:18 wildo.ru данные не получены по причине Host is in process.
+20:22:18 Данные есть о 10 из 17 (58%)
+20:22:18 Выборки не хватило, начинаю сбор заново
+20:22:28 reklu.ru данные не получены по причине Host is in process.
+20:22:31 Данные есть о 16 из 17 (94%)
+20:22:31 Выборки хватило
+20:22:31 Директ обнаружен на позиции 17, текущий upscale = -34.4
+20:22:31 Директ обнаружен на позиции 2, текущий upscale = -25.4
+20:22:31 Директ обнаружен на позиции 1, текущий upscale = -12.4
+20:22:31 Директ обнаружен на позиции 15, текущий upscale = -11.8
+20:22:31 Директ обнаружен на позиции 14, текущий upscale = -11.2
+20:22:31 Директ обнаружен на позиции 16, текущий upscale = -10.6
+20:22:31 Конкуренция от возраста: 92
+20:22:31 Конкуренция от объема: 91
+20:22:31 Конкуренция от стема: 73
+20:22:31 Конкуренция от бэклинков: 89
+20:22:31 Модификатор от директа: -10.6
+20:22:31 Итоговая конкуренция: 74.4
+20:22:31 ('кликандер', 92, 73, 91, 89, 74.4, -10.6)
+20:22:32 An error has been caught in function 'run', process 'Process-1' (5552), thread 'MainThread' (6932):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 300
+               │     └ 3
+               └ <function _main at 0x0000027EE4F5A700>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 300
+           │    └ <function BaseProcess._bootstrap at 0x0000027EE4D01310>
+           └ <Process name='Process-1' parent=6940 started>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x0000027EE4D0D940>
+    └ <Process name='Process-1' parent=6940 started>
+
+> File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=6940 started>
+    │    │        │    └ ('кликандер', <multiprocessing.queues.Queue object at 0x0000027EE755BA00>)
+    │    │        └ <Process name='Process-1' parent=6940 started>
+    │    └ <function Yandex at 0x0000027EE765FA60>
+    └ <Process name='Process-1' parent=6940 started>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 134, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x0000027EE7660280>
+    └ <__mp_main__.Yandex object at 0x0000027EE4CFA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 204, in add_result_to_database
+    add_to_database('db.sqlite3', 'main_requests', values_to_go)
+    │                                              └ ('кликандер', 92, 73, 91, 89, 74.4, -10.6)
+    └ <function add_to_database at 0x0000027EE765A8B0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 8, in add_to_database
+    cursor.executemany(sql, [values_to_go])
+    │      │           │     └ ('кликандер', 92, 73, 91, 89, 74.4, -10.6)
+    │      │           └ 'INSERT INTO main_requests VALUES (?,?,?,?,?,?,?)'
+    │      └ <method 'executemany' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x0000027EE859BAB0>
+
+sqlite3.OperationalError: no such table: main_requests
+20:23:07 Класс Yandex создан
+20:23:07 Запрос: кликандер
+20:23:07 Стемированный запрос: ['кликандер']
+20:23:08 Собран список сайтов
+20:23:10 Данные есть о 17 из 17 (100%)
+20:23:10 Выборки хватило
+20:23:10 Директ обнаружен на позиции 2, текущий upscale = -26.0
+20:23:10 Директ обнаружен на позиции 1, текущий upscale = -13.0
+20:23:10 Директ обнаружен на позиции 14, текущий upscale = -12.4
+20:23:10 Директ обнаружен на позиции 16, текущий upscale = -11.8
+20:23:10 Директ обнаружен на позиции 15, текущий upscale = -11.2
+20:23:10 Директ обнаружен на позиции 17, текущий upscale = -10.6
+20:23:10 Конкуренция от возраста: 92
+20:23:10 Конкуренция от объема: 91
+20:23:10 Конкуренция от стема: 73
+20:23:10 Конкуренция от бэклинков: 89
+20:23:10 Модификатор от директа: -10.6
+20:23:10 Итоговая конкуренция: 74.4
+20:23:10 ('кликандер', 92, 73, 91, 89, 74.4, -10.6)
+20:23:10 An error has been caught in function 'run', process 'Process-1' (3092), thread 'MainThread' (6336):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 268
+               │     └ 3
+               └ <function _main at 0x0000020C4A98A700>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 268
+           │    └ <function BaseProcess._bootstrap at 0x0000020C4A731310>
+           └ <Process name='Process-1' parent=2132 started>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x0000020C4A73D940>
+    └ <Process name='Process-1' parent=2132 started>
+
+> File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=2132 started>
+    │    │        │    └ ('кликандер', <multiprocessing.queues.Queue object at 0x0000020C4D018A60>)
+    │    │        └ <Process name='Process-1' parent=2132 started>
+    │    └ <function Yandex at 0x0000020C4D08EA60>
+    └ <Process name='Process-1' parent=2132 started>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 134, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x0000020C4D08F280>
+    └ <__mp_main__.Yandex object at 0x0000020C4A72A880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 204, in add_result_to_database
+    add_to_database('db.sqlite3', 'main_request', values_to_go)
+    │                                             └ ('кликандер', 92, 73, 91, 89, 74.4, -10.6)
+    └ <function add_to_database at 0x0000020C4D08A8B0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 8, in add_to_database
+    cursor.executemany(sql, [values_to_go])
+    │      │           │     └ ('кликандер', 92, 73, 91, 89, 74.4, -10.6)
+    │      │           └ 'INSERT INTO main_request VALUES (?,?,?,?,?,?,?)'
+    │      └ <method 'executemany' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x0000020C51E4E030>
+
+sqlite3.OperationalError: table main_request has 8 columns but 7 values were supplied
+20:26:16 Класс Yandex создан
+20:26:16 Запрос: кликандер
+20:26:26 Класс Yandex создан
+20:26:26 Запрос: кликандер
+20:26:27 Стемированный запрос: ['кликандер']
+20:26:28 Собран список сайтов
+20:26:34 Данные есть о 17 из 17 (100%)
+20:26:34 Выборки хватило
+20:26:34 Директ обнаружен на позиции 1, текущий upscale = -22.0
+20:26:34 Директ обнаружен на позиции 2, текущий upscale = -13.0
+20:26:34 Директ обнаружен на позиции 14, текущий upscale = -12.4
+20:26:34 Директ обнаружен на позиции 15, текущий upscale = -11.8
+20:26:34 Директ обнаружен на позиции 16, текущий upscale = -11.2
+20:26:34 Директ обнаружен на позиции 17, текущий upscale = -10.6
+20:26:34 Конкуренция от возраста: 92
+20:26:34 Конкуренция от объема: 91
+20:26:34 Конкуренция от стема: 73
+20:26:34 Конкуренция от бэклинков: 89
+20:26:34 Модификатор от директа: -10.6
+20:26:34 Итоговая конкуренция: 74.4
+20:26:34 ('кликандер', 92, 73, 91, 89, 74.4, -10.6)
+20:26:34 An error has been caught in function 'run', process 'Process-1' (6244), thread 'MainThread' (3880):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 604
+               │     └ 3
+               └ <function _main at 0x000001BA3D76A8B0>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 604
+           │    └ <function BaseProcess._bootstrap at 0x000001BA3D751D30>
+           └ <Process name='Process-1' parent=6640 started>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x000001BA3D7513A0>
+    └ <Process name='Process-1' parent=6640 started>
+
+> File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=6640 started>
+    │    │        │    └ ('кликандер', <multiprocessing.queues.Queue object at 0x000001BA3E3FFA30>)
+    │    │        └ <Process name='Process-1' parent=6640 started>
+    │    └ <function Yandex at 0x000001BA3E427790>
+    └ <Process name='Process-1' parent=6640 started>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 134, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x000001BA3E427F70>
+    └ <__mp_main__.Yandex object at 0x000001BA3D6F85E0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 204, in add_result_to_database
+    add_to_database('db.sqlite3', 'main_request', values_to_go)
+    │                                             └ ('кликандер', 92, 73, 91, 89, 74.4, -10.6)
+    └ <function add_to_database at 0x000001BA3E409550>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 8, in add_to_database
+    cursor.executemany(sql, [values_to_go])
+    │      │           │     └ ('кликандер', 92, 73, 91, 89, 74.4, -10.6)
+    │      │           └ 'INSERT INTO main_request VALUES (?,?,?,?,?,?,?)'
+    │      └ <method 'executemany' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000001BA45B40730>
+
+sqlite3.OperationalError: table main_request has 8 columns but 7 values were supplied
+20:27:29 Класс Yandex создан
+20:27:29 Запрос: кликандер
+20:27:29 Стемированный запрос: ['кликандер']
+20:27:29 Собран список сайтов
+20:27:34 Данные есть о 17 из 17 (100%)
+20:27:34 Выборки хватило
+20:27:34 Директ обнаружен на позиции 1, текущий upscale = -22.0
+20:27:34 Директ обнаружен на позиции 2, текущий upscale = -13.0
+20:27:34 Директ обнаружен на позиции 3, текущий upscale = -7.0
+20:27:34 Директ обнаружен на позиции 15, текущий upscale = -6.4
+20:27:34 Директ обнаружен на позиции 16, текущий upscale = -5.8
+20:27:34 Директ обнаружен на позиции 17, текущий upscale = -5.2
+20:27:34 Конкуренция от возраста: 93
+20:27:34 Конкуренция от объема: 92
+20:27:34 Конкуренция от стема: 79
+20:27:34 Конкуренция от бэклинков: 91
+20:27:34 Модификатор от директа: -5.2
+20:27:34 Итоговая конкуренция: 82.8
+20:27:34 ('кликандер', 93, 79, 92, 91, 82.8, -5.2)
+20:27:56 Класс Yandex создан
+20:27:56 Запрос: кликандер
+20:27:56 Стемированный запрос: ['кликандер']
+20:27:57 Собран список сайтов
+20:28:01 Данные есть о 17 из 17 (100%)
+20:28:01 Выборки хватило
+20:28:01 Директ обнаружен на позиции 1, текущий upscale = -22.0
+20:28:01 Директ обнаружен на позиции 2, текущий upscale = -13.0
+20:28:01 Директ обнаружен на позиции 3, текущий upscale = -7.0
+20:28:01 Директ обнаружен на позиции 15, текущий upscale = -6.4
+20:28:01 Директ обнаружен на позиции 16, текущий upscale = -5.8
+20:28:01 Директ обнаружен на позиции 17, текущий upscale = -5.2
+20:28:01 Конкуренция от возраста: 93
+20:28:01 Конкуренция от объема: 92
+20:28:01 Конкуренция от стема: 79
+20:28:01 Конкуренция от бэклинков: 91
+20:28:01 Модификатор от директа: -5.2
+20:28:01 Итоговая конкуренция: 82.8
+20:28:01 ('кликандер', 93, 79, 92, 91, 82.8, -5.2)
+20:29:28 Класс Yandex создан
+20:29:28 Запрос: кликандер
+20:29:49 Класс Yandex создан
+20:29:49 Запрос: грибы лисички
+20:29:49 Стемированный запрос: ['грибы', 'лисичка']
+20:29:50 Собран список сайтов
+20:29:54 ogorodlegko.ru данные не получены по причине Host is in process.
+20:29:55 ogorodlegko.ru данные не получены по причине Host is in process.
+20:29:56 gribnik.info данные не получены по причине Host is in process.
+20:29:57 sad6sotok.ru данные не получены по причине Host is in process.
+20:29:57 gribnik.info данные не получены по причине Host is in process.
+20:29:57 sad6sotok.ru данные не получены по причине Host is in process.
+20:29:57 Данные есть о 13 из 16 (81%)
+20:29:57 Выборки хватило
+20:29:57 Директ обнаружен на позиции 13, текущий upscale = -34.4
+20:29:57 Директ обнаружен на позиции 14, текущий upscale = -33.8
+20:29:57 Директ обнаружен на позиции 15, текущий upscale = -33.2
+20:29:57 Директ обнаружен на позиции 16, текущий upscale = -32.6
+20:29:57 Конкуренция от возраста: 71
+20:29:57 Конкуренция от объема: 99
+20:29:57 Конкуренция от стема: 52
+20:29:57 Конкуренция от бэклинков: 65
+20:29:57 Модификатор от директа: -32.6
+20:29:57 Итоговая конкуренция: 33.4
+20:29:57 ('грибы лисички', 71, 52, 99, 65, 33.4, -32.6)
+20:37:10 Класс Yandex создан
+20:37:10 Запрос: коррекция зрения
+20:37:10 Класс Yandex создан
+20:37:10 Запрос: конь
+20:37:10 Стемированный запрос: ['коррекция', 'зрение']
+20:37:10 Стемированный запрос: ['конь']
+20:37:11 Собран список сайтов
+20:37:11 Собран список сайтов
+20:37:16 reproduktor.net данные не получены по причине Host is in process.
+20:37:17 reproduktor.net данные не получены по причине Host is in process.
+20:37:17 Данные есть о 11 из 12 (91%)
+20:37:17 Выборки хватило
+20:37:17 Конкуренция от возраста: 92
+20:37:17 Конкуренция от объема: 88
+20:37:17 Конкуренция от стема: 94
+20:37:17 Конкуренция от бэклинков: 91
+20:37:17 Модификатор от директа: -35
+20:37:17 Итоговая конкуренция: 57
+20:37:17 ('конь', 92, 94, 88, 91, 57, -35)
+20:37:17 Данные есть о 21 из 21 (100%)
+20:37:17 Выборки хватило
+20:37:17 Директ обнаружен на позиции 1, текущий upscale = -22.0
+20:37:17 Директ обнаружен на позиции 2, текущий upscale = -13.0
+20:37:17 Директ обнаружен на позиции 4, текущий upscale = -9.0
+20:37:17 Директ обнаружен на позиции 3, текущий upscale = -3.0
+20:37:17 Директ обнаружен на позиции 16, текущий upscale = -2.4
+20:37:17 Директ обнаружен на позиции 17, текущий upscale = -1.8
+20:37:17 Директ обнаружен на позиции 18, текущий upscale = -1.2
+20:37:17 Директ обнаружен на позиции 19, текущий upscale = -0.6
+20:37:17 Директ обнаружен на позиции 20, текущий upscale = 0.0
+20:37:17 Директ обнаружен на позиции 21, текущий upscale = 0.6
+20:37:17 Конкуренция от возраста: 95
+20:37:17 Конкуренция от объема: 100
+20:37:17 Конкуренция от стема: 94
+20:37:17 Конкуренция от бэклинков: 94
+20:37:17 Модификатор от директа: 0.6
+20:37:17 Итоговая конкуренция: 95.6
+20:37:17 ('коррекция зрения', 95, 94, 100, 94, 95.6, 0.6)
+20:39:19 Класс Yandex создан
+20:39:19 Запрос: коррекция зрения
+20:39:19 Класс Yandex создан
+20:39:19 Запрос: конь
+20:39:19 Стемированный запрос: ['коррекция', 'зрение']
+20:39:19 Стемированный запрос: ['конь']
+20:39:20 Собран список сайтов
+20:39:20 Собран список сайтов
+20:48:15 Класс Yandex создан
+20:48:15 Запрос: коррекция зрения
+20:48:15 Запрос: конь
+20:48:15 Стемированный запрос: ['конь']
+20:48:15 Стемированный запрос: ['коррекция', 'зрение']
+20:48:16 Собран список сайтов
+20:48:16 Собран список сайтов
+20:48:18 Данные есть о 12 из 12 (100%)
+20:48:18 Выборки хватило
+20:48:18 Конкуренция от возраста: 92
+20:48:18 Конкуренция от объема: 88
+20:48:18 Конкуренция от стема: 94
+20:48:18 Конкуренция от бэклинков: 93
+20:48:18 Модификатор от директа: -35
+20:48:18 Итоговая конкуренция: 57
+20:48:18 ('конь', 92, 94, 88, 93, 57, -35)
+20:48:18 Данные есть о 21 из 21 (100%)
+20:48:18 Выборки хватило
+20:48:18 Директ обнаружен на позиции 1, текущий upscale = -22.0
+20:48:18 Директ обнаружен на позиции 3, текущий upscale = -16.0
+20:48:18 Директ обнаружен на позиции 4, текущий upscale = -12.0
+20:48:18 Директ обнаружен на позиции 2, текущий upscale = -3.0
+20:48:18 Директ обнаружен на позиции 16, текущий upscale = -2.4
+20:48:18 Директ обнаружен на позиции 17, текущий upscale = -1.8
+20:48:18 Директ обнаружен на позиции 18, текущий upscale = -1.2
+20:48:18 Директ обнаружен на позиции 19, текущий upscale = -0.6
+20:48:18 Директ обнаружен на позиции 21, текущий upscale = 0.0
+20:48:18 Директ обнаружен на позиции 20, текущий upscale = 0.6
+20:48:18 Конкуренция от возраста: 95
+20:48:18 Конкуренция от объема: 100
+20:48:18 Конкуренция от стема: 94
+20:48:18 Конкуренция от бэклинков: 94
+20:48:18 Модификатор от директа: 0.6
+20:48:18 Итоговая конкуренция: 95.6
+20:48:18 ('коррекция зрения', 95, 94, 100, 94, 95.6, 0.6)
+20:50:20 Класс Yandex создан
+20:50:20 Запрос: коррекция зрения
+20:50:20 Запрос: конь
+20:52:41 Класс Yandex создан
+20:52:41 Класс Yandex создан
+20:52:41 Запрос: кошка соня
+20:52:41 Запрос: любимый лосик
+20:52:41 Стемированный запрос: ['любимый', 'лосик']
+20:52:41 Стемированный запрос: ['кошка', 'сонить']
+20:52:42 Собран список сайтов
+20:52:42 Собран список сайтов
+20:52:43 An error has been caught in function 'make_domain_object', process 'Process-2' (6560), thread 'Thread-7' (6772):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000002946B4EC700>
+    └ <Thread(Thread-7, started 6772)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000002946B4EC430>
+    └ <Thread(Thread-7, started 6772)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-7, started 6772)>
+    │    │        │    └ ('7', <li class="serp-item" data-cid="6" data-fast="1" data-log-node="ick5an"><div class="organic typo typo_text_m typo_line_...
+    │    │        └ <Thread(Thread-7, started 6772)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x000002946B4FA880>>
+    └ <Thread(Thread-7, started 6772)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 177, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="6" data-fast="1" data-log-node="ick5an"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '7'
+    │    │                 │      └ <function Site at 0x000002946DE4F550>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x000002946FD8A130>, <__mp_main__.Site object at 0x000002946FD8A6D0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x000002946B4FA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 81, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x000002946DE4F8B0>
+    └ <__mp_main__.Site object at 0x000002946FD8A160>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 111, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'pokupki.market.yandex.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x000002946FD8A160>
+    │    │               └ <function Domain at 0x000002946DE51C10>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x000002946FD8A160>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 259, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x000002946DE51D30>
+    └ <__mp_main__.Domain object at 0x000002946FD8AA30>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 268, in check_data_in_database
+    self.get_domain_age()
+    │    └ <function Domain.get_domain_age at 0x000002946DE51DC0>
+    └ <__mp_main__.Domain object at 0x000002946FD8AA30>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 308, in get_domain_age
+    self.domain_age = 2020 - int(item)
+    │    │                       └ '. Пр'
+    │    └ ''
+    └ <__mp_main__.Domain object at 0x000002946FD8AA30>
+
+ValueError: invalid literal for int() with base 10: '. Пр'
+20:52:48 WildBerries.ru данные не получены по причине Host is in process.
+20:52:48 stars-top.ru данные не получены по причине Host is in process.
+20:52:49 stars-top.ru данные не получены по причине Host is in process.
+20:52:49 WildBerries.ru данные не получены по причине Host is in process.
+20:52:49 sima-land.ru данные не получены по причине Host is in process.
+20:52:49 sima-land.ru данные не получены по причине Host is in process.
+20:52:53 Данные есть о 11 из 12 (91%)
+20:52:53 Выборки хватило
+20:52:53 Конкуренция от возраста: 98
+20:52:53 Конкуренция от объема: 77
+20:52:53 Конкуренция от стема: 60
+20:52:53 Конкуренция от бэклинков: 98
+20:52:53 Модификатор от директа: -35
+20:52:53 Итоговая конкуренция: 49
+20:52:53 ('любимый лосик', 98, 60, 77, 98, 49, -35)
+20:52:56 An error has been caught in function 'make_domain_object', process 'Process-2' (6560), thread 'Thread-3' (4304):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000002946B4EC700>
+    └ <Thread(Thread-3, started 4304)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000002946B4EC430>
+    └ <Thread(Thread-3, started 4304)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started 4304)>
+    │    │        │    └ ('3', <li class="serp-item" data-cid="2" data-fast="1" data-log-node="ick575"><div class="organic typo typo_text_m typo_line_...
+    │    │        └ <Thread(Thread-3, started 4304)>
+    │    └ <bound method Yandex.make_site_object of <__mp_main__.Yandex object at 0x000002946B4FA880>>
+    └ <Thread(Thread-3, started 4304)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 177, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="2" data-fast="1" data-log-node="ick575"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '3'
+    │    │                 │      └ <function Site at 0x000002946DE4F550>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__mp_main__.Site object at 0x000002946FD8A130>, <__mp_main__.Site object at 0x000002946FD8A6D0>, <__mp_main__.Site object a...
+    └ <__mp_main__.Yandex object at 0x000002946B4FA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 81, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x000002946DE4F8B0>
+    └ <__mp_main__.Site object at 0x000002946FD7E730>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 111, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'irecommend.ru'
+    │    │               │      └ <__mp_main__.Site object at 0x000002946FD7E730>
+    │    │               └ <function Domain at 0x000002946DE51C10>
+    │    └ ''
+    └ <__mp_main__.Site object at 0x000002946FD7E730>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 259, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x000002946DE51D30>
+    └ <__mp_main__.Domain object at 0x0000029473A58D60>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 274, in check_data_in_database
+    add_to_database('db.sqlite3', 'main_domain', values_to_go)
+    │                                            └ ('irecommend.ru', 10, 8141, 723923)
+    └ <function add_to_database at 0x000002946DE4A8B0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 8, in add_to_database
+    cursor.executemany(sql, [values_to_go])
+    │      │           │     └ ('irecommend.ru', 10, 8141, 723923)
+    │      │           └ 'INSERT INTO main_domain VALUES (?,?,?,?)'
+    │      └ <method 'executemany' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x0000029473A31490>
+
+sqlite3.IntegrityError: UNIQUE constraint failed: main_domain.name
+20:52:56 An error has been caught in function 'make_concurency_object', process 'Process-2' (6560), thread 'MainThread' (736):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 280
+               │     └ 3
+               └ <function _main at 0x000002946B74A700>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 280
+           │    └ <function BaseProcess._bootstrap at 0x000002946B501310>
+           └ <Process name='Process-2' parent=4108 started>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x000002946B50D940>
+    └ <Process name='Process-2' parent=4108 started>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=4108 started>
+    │    │        │    └ ('кошка соня', <multiprocessing.queues.Queue object at 0x000002946DE2B610>)
+    │    │        └ <Process name='Process-2' parent=4108 started>
+    │    └ <function Yandex at 0x000002946DE4FC10>
+    └ <Process name='Process-2' parent=4108 started>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 143, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x000002946DE51310>
+    └ <__mp_main__.Yandex object at 0x000002946B4FA880>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 192, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['кошка', 'сонить']
+    │    │                   │          │    │                  └ <__mp_main__.Yandex object at 0x000002946B4FA880>
+    │    │                   │          │    └ [<__mp_main__.Site object at 0x000002946FD8A130>, <__mp_main__.Site object at 0x000002946FD8A6D0>, <__mp_main__.Site object a...
+    │    │                   │          └ <__mp_main__.Yandex object at 0x000002946B4FA880>
+    │    │                   └ <function Concurency at 0x000002946DE53790>
+    │    └ ''
+    └ <__mp_main__.Yandex object at 0x000002946B4FA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 386, in __init__
+    self.calculate_site_age_concurency()
+    │    └ <function Concurency.calculate_site_age_concurency at 0x000002946DE53940>
+    └ <__mp_main__.Concurency object at 0x000002946ECC5850>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 414, in calculate_site_age_concurency
+    real_age_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
+    │                      │           │                          │    │       │           └ '3'
+    │                      │           │                          │    │       └ <__mp_main__.Site object at 0x000002946FD7E730>
+    │                      │           │                          │    └ {'1': 21, '2': 15, '3': 11, '4': 8, '5': 6, '6': 4, '7': 3, '8': 2, '9': 2, '10': 2, '11': 2, '12': 2, '13': 2, '14': 2, '15'...
+    │                      │           │                          └ <__mp_main__.Concurency object at 0x000002946ECC5850>
+    │                      │           └ None
+    │                      └ <__mp_main__.Site object at 0x000002946FD7E730>
+    └ 710
+
+AttributeError: 'NoneType' object has no attribute 'domain_age'
+20:52:56 An error has been caught in function 'run', process 'Process-2' (6560), thread 'MainThread' (736):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 280
+               │     └ 3
+               └ <function _main at 0x000002946B74A700>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 280
+           │    └ <function BaseProcess._bootstrap at 0x000002946B501310>
+           └ <Process name='Process-2' parent=4108 started>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x000002946B50D940>
+    └ <Process name='Process-2' parent=4108 started>
+
+> File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=4108 started>
+    │    │        │    └ ('кошка соня', <multiprocessing.queues.Queue object at 0x000002946DE2B610>)
+    │    │        └ <Process name='Process-2' parent=4108 started>
+    │    └ <function Yandex at 0x000002946DE4FC10>
+    └ <Process name='Process-2' parent=4108 started>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 144, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x000002946DE51430>
+    └ <__mp_main__.Yandex object at 0x000002946B4FA880>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 207, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__mp_main__.Yandex object at 0x000002946B4FA880>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+20:55:05 Класс Yandex создан
+20:55:05 Запрос: кошка соня
+20:55:05 Стемированный запрос: ['кошка', 'сонить']
+20:55:06 Собран список сайтов
+20:55:15 Класс Yandex создан
+20:55:15 Запрос: кошка соня
+20:55:15 Стемированный запрос: ['кошка', 'сонить']
+20:55:16 Собран список сайтов
+20:55:17 An error has been caught in function 'make_domain_object', process 'MainProcess' (6684), thread 'Thread-8' (1076):
+Traceback (most recent call last):
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000269E181D9D0>
+    └ <Thread(Thread-8, started 1076)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000269E181D700>
+    └ <Thread(Thread-8, started 1076)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-8, started 1076)>
+    │    │        │    └ ('7', <li class="serp-item" data-cid="6" data-fast="1" data-log-node="fey0an"><div class="organic typo typo_text_m typo_line_...
+    │    │        └ <Thread(Thread-8, started 1076)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x00000269E46DBF10>>
+    └ <Thread(Thread-8, started 1076)>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 177, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="6" data-fast="1" data-log-node="fey0an"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '7'
+    │    │                 │      └ <function Site at 0x00000269E4676C10>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x00000269E5D868E0>, <__main__.Site object at 0x00000269E5D920A0>, <__main__.Site object at 0x00000...
+    └ <__main__.Yandex object at 0x00000269E46DBF10>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 81, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000269E4676F70>
+    └ <__main__.Site object at 0x00000269E5D922E0>
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 111, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'pokupki.market.yandex.ru'
+    │    │               │      └ <__main__.Site object at 0x00000269E5D922E0>
+    │    │               └ <function Domain at 0x00000269E3D62310>
+    │    └ ''
+    └ <__main__.Site object at 0x00000269E5D922E0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 259, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000269E3D62430>
+    └ <__main__.Domain object at 0x00000269E5D92430>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 268, in check_data_in_database
+    self.get_domain_age()
+    │    └ <function Domain.get_domain_age at 0x00000269E3D624C0>
+    └ <__main__.Domain object at 0x00000269E5D92430>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 308, in get_domain_age
+    self.domain_age = 2020 - int(item)
+    │    │                       └ '. Пр'
+    │    └ ''
+    └ <__main__.Domain object at 0x00000269E5D92430>
+
+ValueError: invalid literal for int() with base 10: '. Пр'
+20:56:13 Класс Yandex создан
+20:56:13 Запрос: кошка соня
+20:56:13 Стемированный запрос: ['кошка', 'сонить']
+20:56:14 Собран список сайтов
+20:57:26 An error has been caught in function 'make_domain_object', process 'MainProcess' (2920), thread 'Thread-14' (3584):
+Traceback (most recent call last):
+
+  File "C:\Program Files\JetBrains\PyCharm 2020.1\plugins\python\helpers\pydev\_pydev_bundle\pydev_monkey.py", line 770, in __call__
+    ret = self.original_func(*self.args, **self.kwargs)
+          │    │              │    │       │    └ {}
+          │    │              │    │       └ <_pydev_bundle.pydev_monkey._NewThreadStartupWithTrace object at 0x00000279FE50E1C0>
+          │    │              │    └ ()
+          │    │              └ <_pydev_bundle.pydev_monkey._NewThreadStartupWithTrace object at 0x00000279FE50E1C0>
+          │    └ <bound method Thread._bootstrap of <Thread(Thread-14, started 3584)>>
+          └ <_pydev_bundle.pydev_monkey._NewThreadStartupWithTrace object at 0x00000279FE50E1C0>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 912, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000279FB6CEC10>
+    └ <Thread(Thread-14, started 3584)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 954, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x00000279FB6CE940>
+    └ <Thread(Thread-14, started 3584)>
+
+  File "C:\Users\Ольга\AppData\Local\Programs\Python\Python39\lib\threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-14, started 3584)>
+    │    │        │    └ ('7', <li class="serp-item" data-cid="6" data-fast="1" data-log-node="gw14an"><div class="organic typo typo_text_m typo_line_...
+    │    │        └ <Thread(Thread-14, started 3584)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x00000279FE4E5FA0>>
+    └ <Thread(Thread-14, started 3584)>
+
+  File "C:/Users/Ольга/PycharmProjects/concurent_site/main.py", line 177, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="6" data-fast="1" data-log-node="gw14an"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '7'
+    │    │                 │      └ <function Site at 0x00000279FE48BAF0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x00000279FEA43820>, <__main__.Site object at 0x00000279FE663EB0>, <__main__.Site object at 0x00000...
+    └ <__main__.Yandex object at 0x00000279FE4E5FA0>
+
+  File "C:/Users/Ольга/PycharmProjects/concurent_site/main.py", line 81, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x00000279FE48BE50>
+    └ <__main__.Site object at 0x00000279FE6637C0>
+
+> File "C:/Users/Ольга/PycharmProjects/concurent_site/main.py", line 111, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'pokupki.market.yandex.ru'
+    │    │               │      └ <__main__.Site object at 0x00000279FE6637C0>
+    │    │               └ <function Domain at 0x00000279FE48D1F0>
+    │    └ ''
+    └ <__main__.Site object at 0x00000279FE6637C0>
+
+  File "C:/Users/Ольга/PycharmProjects/concurent_site/main.py", line 259, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x00000279FE48D310>
+    └ <__main__.Domain object at 0x00000279FE663AF0>
+
+  File "C:/Users/Ольга/PycharmProjects/concurent_site/main.py", line 268, in check_data_in_database
+    self.get_domain_age()
+    │    └ <function Domain.get_domain_age at 0x00000279FE48D3A0>
+    └ <__main__.Domain object at 0x00000279FE663AF0>
+
+  File "C:/Users/Ольга/PycharmProjects/concurent_site/main.py", line 308, in get_domain_age
+    self.domain_age = 2020 - int(item)
+    │    │                       └ '. Пр'
+    │    └ ''
+    └ <__main__.Domain object at 0x00000279FE663AF0>
+
+ValueError: invalid literal for int() with base 10: '. Пр'
+20:58:06 Класс Yandex создан
+20:58:06 Запрос: кошка соня
+20:58:06 Стемированный запрос: ['кошка', 'сонить']
+20:58:07 Собран список сайтов
+20:59:06 Класс Yandex создан
+20:59:06 Запрос: кошка соня
+20:59:06 Стемированный запрос: ['кошка', 'сонить']
+20:59:07 Собран список сайтов
+21:04:36 Класс Yandex создан
+21:04:36 Запрос: кошка соня
+21:04:36 Стемированный запрос: ['кошка', 'сонить']
+21:04:38 Собран список сайтов
+21:06:16 Класс Yandex создан
+21:06:16 Запрос: кошка соня
+21:06:16 Стемированный запрос: ['кошка', 'сонить']
+21:06:17 Собран список сайтов
+21:06:37 Класс Yandex создан
+21:06:37 Запрос: кошка соня
+21:06:37 Стемированный запрос: ['кошка', 'сонить']
+21:06:38 Собран список сайтов
+21:08:06 Класс Yandex создан
+21:08:06 Запрос: кошка соня
+21:08:06 Стемированный запрос: ['кошка', 'сонить']
+21:08:06 Собран список сайтов
+21:08:09 Данные есть о 14 из 14 (100%)
+21:08:09 Выборки хватило
+21:08:09 Директ обнаружен на позиции 14, текущий upscale = -34.4
+21:08:09 Конкуренция от возраста: 100
+21:08:09 Конкуренция от объема: 87
+21:08:09 Конкуренция от стема: 32
+21:08:09 Конкуренция от бэклинков: 100
+21:08:09 Модификатор от директа: -34.4
+21:08:09 Итоговая конкуренция: 43.6
+21:08:09 ('кошка соня', 100, 32, 87, 100, 43.6, -34.4)
+21:10:09 Класс Yandex создан
+21:10:09 Класс Yandex создан
+21:10:09 Запрос: кошка соня
+21:10:09 Запрос: кошка соня
+21:12:09 Класс Yandex создан
+21:12:09 Класс Yandex создан
+21:12:09 Класс Yandex создан
+21:12:09 Запрос: кошка соня
+21:12:09 Запрос: кошка соня
+21:12:09 Запрос: кошка соня
+21:14:10 Класс Yandex создан
+21:14:10 Класс Yandex создан
+21:14:10 Класс Yandex создан
+21:14:10 Класс Yandex создан
+21:14:10 Запрос: кошка соня
+21:14:10 Запрос: кошка соня
+21:14:10 Запрос: кошка соня
+21:14:10 Запрос: кошка соня
+21:16:10 Класс Yandex создан
+21:16:10 Класс Yandex создан
+21:16:10 Класс Yandex создан
+21:16:10 Класс Yandex создан
+21:16:10 Класс Yandex создан
+21:16:10 Запрос: кошка соня
+21:16:10 Запрос: кошка соня
+21:16:10 Запрос: кошка соня
+21:16:10 Запрос: кошка соня
+21:16:10 Запрос: кошка соня
+21:18:11 Класс Yandex создан
+21:18:11 Класс Yandex создан
+21:18:11 Класс Yandex создан
+21:18:11 Класс Yandex создан
+21:18:11 Класс Yandex создан
+21:18:11 Класс Yandex создан
+21:18:11 Запрос: кошка соня
+21:18:11 Запрос: кошка соня
+21:18:11 Запрос: кошка соня
+21:18:11 Запрос: кошка соня
+21:18:11 Запрос: кошка соня
+21:18:11 Запрос: кошка соня
+21:20:11 Класс Yandex создан
+21:20:11 Класс Yandex создан
+21:20:11 Класс Yandex создан
+21:20:11 Класс Yandex создан
+21:20:11 Класс Yandex создан
+21:20:11 Класс Yandex создан
+21:20:11 Класс Yandex создан
+21:20:11 Запрос: кошка соня
+21:20:11 Запрос: кошка соня
+21:20:11 Запрос: кошка соня
+21:20:11 Запрос: кошка соня
+21:20:11 Запрос: кошка соня
+21:20:11 Запрос: кошка соня
+21:20:11 Запрос: кошка соня
+21:22:11 Класс Yandex создан
+21:22:11 Класс Yandex создан
+21:22:11 Класс Yandex создан
+21:22:11 Класс Yandex создан
+21:22:11 Класс Yandex создан
+21:22:11 Класс Yandex создан
+21:22:11 Класс Yandex создан
+21:22:11 Класс Yandex создан
+21:22:11 Запрос: кошка соня
+21:22:11 Запрос: кошка соня
+21:22:11 Запрос: кошка соня
+21:22:11 Запрос: кошка соня
+21:22:11 Запрос: кошка соня
+21:22:11 Запрос: кошка соня
+21:22:11 Запрос: кошка соня
+21:22:11 Запрос: кошка соня
+21:24:12 Класс Yandex создан
+21:24:12 Класс Yandex создан
+21:24:12 Класс Yandex создан
+21:24:12 Класс Yandex создан
+21:24:12 Класс Yandex создан
+21:24:12 Класс Yandex создан
+21:24:12 Класс Yandex создан
+21:24:12 Класс Yandex создан
+21:24:12 Класс Yandex создан
+21:24:12 Запрос: кошка соня
+21:24:12 Запрос: кошка соня
+21:24:12 Запрос: кошка соня
+21:24:12 Запрос: кошка соня
+21:24:12 Запрос: кошка соня
+21:24:12 Запрос: кошка соня
+21:24:12 Запрос: кошка соня
+21:24:12 Запрос: кошка соня
+21:24:12 Запрос: кошка соня
+21:26:12 Класс Yandex создан
+21:26:12 Класс Yandex создан
+21:26:12 Класс Yandex создан
+21:26:12 Класс Yandex создан
+21:26:12 Класс Yandex создан
+21:26:12 Класс Yandex создан
+21:26:12 Класс Yandex создан
+21:26:12 Класс Yandex создан
+21:26:12 Класс Yandex создан
+21:26:12 Класс Yandex создан
+21:26:12 Запрос: кошка соня
+21:26:12 Запрос: кошка соня
+21:26:12 Запрос: кошка соня
+21:26:12 Запрос: кошка соня
+21:26:12 Запрос: кошка соня
+21:26:12 Запрос: кошка соня
+21:26:12 Запрос: кошка соня
+21:26:12 Запрос: кошка соня
+21:26:12 Запрос: кошка соня
+21:26:12 Запрос: кошка соня
+21:28:12 Класс Yandex создан
+21:28:12 Класс Yandex создан
+21:28:12 Класс Yandex создан
+21:28:12 Класс Yandex создан
+21:28:12 Класс Yandex создан
+21:28:12 Класс Yandex создан
+21:28:12 Класс Yandex создан
+21:28:12 Класс Yandex создан
+21:28:12 Класс Yandex создан
+21:28:12 Класс Yandex создан
+21:28:12 Класс Yandex создан
+21:28:12 Запрос: кошка соня
+21:28:12 Запрос: кошка соня
+21:28:12 Запрос: кошка соня
+21:28:12 Запрос: кошка соня
+21:28:12 Запрос: кошка соня
+21:28:12 Запрос: кошка соня
+21:28:12 Запрос: кошка соня
+21:28:12 Запрос: кошка соня
+21:28:12 Запрос: кошка соня
+21:28:12 Запрос: кошка соня
+21:28:12 Запрос: кошка соня
+21:30:13 Класс Yandex создан
+21:30:13 Класс Yandex создан
+21:30:13 Класс Yandex создан
+21:30:13 Класс Yandex создан
+21:30:13 Класс Yandex создан
+21:30:13 Класс Yandex создан
+21:30:13 Класс Yandex создан
+21:30:13 Класс Yandex создан
+21:30:13 Класс Yandex создан
+21:30:13 Класс Yandex создан
+21:30:13 Класс Yandex создан
+21:30:13 Класс Yandex создан
+21:30:13 Запрос: кошка соня
+21:30:13 Запрос: кошка соня
+21:30:13 Запрос: кошка соня
+21:30:13 Запрос: кошка соня
+21:30:13 Запрос: кошка соня
+21:30:13 Запрос: кошка соня
+21:30:13 Запрос: кошка соня
+21:30:13 Запрос: кошка соня
+21:30:13 Запрос: кошка соня
+21:30:13 Запрос: кошка соня
+21:30:13 Запрос: кошка соня
+21:30:13 Запрос: кошка соня
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Класс Yandex создан
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+21:32:13 Запрос: кошка соня
+17:33:50 Класс Yandex создан
+17:33:50 Запрос: кошка соня
+17:34:34 Класс Yandex создан
+17:34:34 Запрос: кошка соня
+17:34:34 An error has been caught in function '<module>', process 'MainProcess' (2036), thread 'MainThread' (6304):
+Traceback (most recent call last):
+
+> File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 528, in <module>
+    Manager()
+    └ <function Manager at 0x0000023440AEC8B0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 27, in __init__
+    self.delete_requests_from_queue()
+    │    └ <function Manager.delete_requests_from_queue at 0x0000023443DE59D0>
+    └ <__main__.Manager object at 0x0000023443DD5E50>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\main.py", line 61, in delete_requests_from_queue
+    delete_from_database('db.sqlite3', 'main_requestqueue', self.requests)
+    │                                                       │    └ ('кошка соня',)
+    │                                                       └ <__main__.Manager object at 0x0000023443DD5E50>
+    └ <function delete_from_database at 0x0000023443DE55E0>
+
+  File "C:\Users\Ольга\PycharmProjects\concurent_site\sqlite_mode.py", line 58, in delete_from_database
+    cursor.execute(sql)
+    │      │       └ 'DELETE FROM main_requestqueue WHERE request = кошка соня'
+    │      └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x0000023443E0F730>
+
+sqlite3.OperationalError: near "соня": syntax error
+17:35:04 Класс Yandex создан
+17:35:04 Запрос: кошка соня
+17:53:08 Класс Yandex создан
+17:53:08 Класс Yandex создан
+17:53:08 Запрос: семнадцать мгновений весны
+17:53:08 Запрос: семнадцать мгновений весны
+17:53:09 Стемированный запрос: ['семнадцать', 'мгновений', 'весный']
+17:53:09 Стемированный запрос: ['семнадцать', 'мгновений', 'весный']
+17:53:10 Собран список сайтов
+17:53:10 Собран список сайтов
+17:53:11 ЖОПА megogo.ru. 
+17:53:11 ЖОПА megogo.ru. 
+17:53:15 ivi.ru данные не получены по причине Host is in process.
+17:53:15 ivi.ru данные не получены по причине Host is in process.
+17:53:16 ivi.ru данные не получены по причине Host is in process.
+17:53:16 ivi.ru данные не получены по причине Host is in process.
+17:53:16 Данные есть о 12 из 13 (92%)
+17:53:16 Данные есть о 12 из 13 (92%)
+17:53:16 Выборки хватило
+17:53:16 Выборки хватило
+17:53:16 Директ обнаружен на позиции 12, текущий upscale = -34.4
+17:53:16 Директ обнаружен на позиции 12, текущий upscale = -34.4
+17:53:16 Директ обнаружен на позиции 13, текущий upscale = -33.8
+17:53:16 Директ обнаружен на позиции 13, текущий upscale = -33.8
+17:53:16 Конкуренция от возраста: 98
+17:53:16 Конкуренция от возраста: 98
+17:53:16 Конкуренция от объема: 78
+17:53:16 Конкуренция от объема: 78
+17:53:16 Конкуренция от стема: 46
+17:53:16 Конкуренция от стема: 46
+17:53:16 Конкуренция от бэклинков: 81
+17:53:16 Конкуренция от бэклинков: 81
+17:53:16 Модификатор от директа: -33.8
+17:53:16 Модификатор от директа: -33.8
+17:53:16 Итоговая конкуренция: 43.2
+17:53:16 Итоговая конкуренция: 43.2
+17:53:16 ('семнадцать мгновений весны', 98, 46, 78, 81, 43.2, -33.8)
+17:53:16 ('семнадцать мгновений весны', 98, 46, 78, 81, 43.2, -33.8)
+18:15:21 Класс Yandex создан
+18:15:21 Класс Yandex создан
+18:15:21 Класс Yandex создан
+18:15:21 Запрос: add_to_queue
+18:15:21 Запрос: add_to_queue
+18:15:21 Запрос: add_to_queue
+18:15:21 Стемированный запрос: ['add_to_queue']
+18:15:21 Стемированный запрос: ['add_to_queue']
+18:15:21 Стемированный запрос: ['add_to_queue']
+18:15:22 Собран список сайтов
+18:15:22 Собран список сайтов
+18:15:22 Собран список сайтов
+18:15:29 english-grammar.biz данные не получены по причине Host is in process.
+18:15:29 english-grammar.biz данные не получены по причине Host is in process.
+18:15:29 english-grammar.biz данные не получены по причине Host is in process.
+18:15:30 english-grammar.biz данные не получены по причине Host is in process.
+18:15:30 english-grammar.biz данные не получены по причине Host is in process.
+18:15:30 english-grammar.biz данные не получены по причине Host is in process.
+18:15:30 linguee.ru данные не получены по причине Host is in process.
+18:15:30 linguee.ru данные не получены по причине Host is in process.
+18:15:30 linguee.ru данные не получены по причине Host is in process.
+18:15:30 linguee.ru данные не получены по причине Host is in process.
+18:15:30 linguee.ru данные не получены по причине Host is in process.
+18:15:30 linguee.ru данные не получены по причине Host is in process.
+18:15:31 glosbe.com данные не получены по причине Host is in process.
+18:15:31 glosbe.com данные не получены по причине Host is in process.
+18:15:31 glosbe.com данные не получены по причине Host is in process.
+18:15:32 glosbe.com данные не получены по причине Host is in process.
+18:15:32 glosbe.com данные не получены по причине Host is in process.
+18:15:32 glosbe.com данные не получены по причине Host is in process.
+18:15:32 tr-ex.me данные не получены по причине Host is in process.
+18:15:32 tr-ex.me данные не получены по причине Host is in process.
+18:15:32 tr-ex.me данные не получены по причине Host is in process.
+18:15:33 tr-ex.me данные не получены по причине Host is in process.
+18:15:33 tr-ex.me данные не получены по причине Host is in process.
+18:15:33 tr-ex.me данные не получены по причине Host is in process.
+18:15:33 Данные есть о 7 из 11 (63%)
+18:15:33 Данные есть о 7 из 11 (63%)
+18:15:33 Данные есть о 7 из 11 (63%)
+18:15:33 Выборки не хватило, начинаю сбор заново
+18:15:33 Выборки не хватило, начинаю сбор заново
+18:15:33 Выборки не хватило, начинаю сбор заново
+18:15:43 english-grammar.biz данные не получены по причине Host is in process.
+18:15:43 english-grammar.biz данные не получены по причине Host is in process.
+18:15:43 english-grammar.biz данные не получены по причине Host is in process.
+18:15:44 linguee.ru данные не получены по причине Host is in process.
+18:15:44 linguee.ru данные не получены по причине Host is in process.
+18:15:44 linguee.ru данные не получены по причине Host is in process.
+18:15:44 glosbe.com данные не получены по причине Host is in process.
+18:15:44 glosbe.com данные не получены по причине Host is in process.
+18:15:44 glosbe.com данные не получены по причине Host is in process.
+18:15:44 tr-ex.me данные не получены по причине Host is in process.
+18:15:44 tr-ex.me данные не получены по причине Host is in process.
+18:15:44 tr-ex.me данные не получены по причине Host is in process.
+18:15:44 Данные есть о 7 из 11 (63%)
+18:15:44 Данные есть о 7 из 11 (63%)
+18:15:44 Данные есть о 7 из 11 (63%)
+18:15:44 Выборки не хватило, начинаю сбор заново
+18:15:44 Выборки не хватило, начинаю сбор заново
+18:15:44 Выборки не хватило, начинаю сбор заново
+18:15:55 english-grammar.biz данные не получены по причине Host is in process.
+18:15:55 english-grammar.biz данные не получены по причине Host is in process.
+18:15:55 english-grammar.biz данные не получены по причине Host is in process.
+18:15:55 linguee.ru данные не получены по причине Host is in process.
+18:15:55 linguee.ru данные не получены по причине Host is in process.
+18:15:55 linguee.ru данные не получены по причине Host is in process.
+18:15:56 glosbe.com данные не получены по причине Host is in process.
+18:15:56 glosbe.com данные не получены по причине Host is in process.
+18:15:56 glosbe.com данные не получены по причине Host is in process.
+18:15:56 tr-ex.me данные не получены по причине Host is in process.
+18:15:56 tr-ex.me данные не получены по причине Host is in process.
+18:15:56 tr-ex.me данные не получены по причине Host is in process.
+18:15:56 Данные есть о 7 из 11 (63%)
+18:15:56 Данные есть о 7 из 11 (63%)
+18:15:56 Данные есть о 7 из 11 (63%)
+18:15:56 Выборки не хватило, начинаю сбор заново
+18:15:56 Выборки не хватило, начинаю сбор заново
+18:15:56 Выборки не хватило, начинаю сбор заново
+18:16:08 glosbe.com данные не получены по причине Host is in process.
+18:16:08 glosbe.com данные не получены по причине Host is in process.
+18:16:08 glosbe.com данные не получены по причине Host is in process.
+18:16:09 tr-ex.me данные не получены по причине Host is in process.
+18:16:09 tr-ex.me данные не получены по причине Host is in process.
+18:16:09 tr-ex.me данные не получены по причине Host is in process.
+18:16:09 Данные есть о 9 из 11 (81%)
+18:16:09 Данные есть о 9 из 11 (81%)
+18:16:09 Данные есть о 9 из 11 (81%)
+18:16:09 Выборки хватило
+18:16:09 Выборки хватило
+18:16:09 Выборки хватило
+18:16:09 Конкуренция от возраста: 91
+18:16:09 Конкуренция от возраста: 91
+18:16:09 Конкуренция от возраста: 91
+18:16:09 Конкуренция от объема: 81
+18:16:09 Конкуренция от объема: 81
+18:16:09 Конкуренция от объема: 81
+18:16:09 Конкуренция от стема: 24
+18:16:09 Конкуренция от стема: 24
+18:16:09 Конкуренция от стема: 24
+18:16:09 Конкуренция от бэклинков: 58
+18:16:09 Конкуренция от бэклинков: 58
+18:16:09 Конкуренция от бэклинков: 58
+18:16:09 Модификатор от директа: -35
+18:16:09 Модификатор от директа: -35
+18:16:09 Модификатор от директа: -35
+18:16:09 Итоговая конкуренция: 28
+18:16:09 Итоговая конкуренция: 28
+18:16:09 Итоговая конкуренция: 28
+18:16:09 ('add_to_queue', 91, 24, 81, 58, 28, -35)
+18:16:09 ('add_to_queue', 91, 24, 81, 58, 28, -35)
+18:16:09 ('add_to_queue', 91, 24, 81, 58, 28, -35)
