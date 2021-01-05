@@ -6537,3 +6537,106 @@ sqlite3.OperationalError: near "соня": syntax error
 18:16:09 ('add_to_queue', 91, 24, 81, 58, 28, -35)
 18:16:09 ('add_to_queue', 91, 24, 81, 58, 28, -35)
 18:16:09 ('add_to_queue', 91, 24, 81, 58, 28, -35)
+21:18:53 Класс Yandex создан
+21:18:53 Запрос: lalaa
+21:23:32 Класс Yandex создан
+21:23:32 Запрос: lalaa
+21:23:32 An error has been caught in function 'run', process 'MainProcess' (13843), thread 'Thread-1' (140022333003520):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f597e575f70>
+    └ <Thread(Thread-1, started 140022333003520)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f597e575ca0>
+    └ <Thread(Thread-1, started 140022333003520)>
+> File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1, started 140022333003520)>
+    │    │        │    └ ('lalaa', <multiprocessing.queues.Queue object at 0x7f597e8a0f40>)
+    │    │        └ <Thread(Thread-1, started 140022333003520)>
+    │    └ <function Yandex at 0x7f597d87ef70>
+    └ <Thread(Thread-1, started 140022333003520)>
+
+  File "/home/django/concurent_site/main.py", line 137, in __init__
+    if not self.check_request_in_db():
+           │    └ <function Yandex.check_request_in_db at 0x7f597d880160>
+           └ <__main__.Yandex object at 0x7f597d6d90a0>
+
+  File "/home/django/concurent_site/main.py", line 160, in check_request_in_db
+    if check[8] == 'ready':
+       └ [(13, 'lalaa', 0, 0, 0, 0, 0.0, 0.0, 'progress')]
+
+IndexError: list index out of range
+21:23:37 Класс Yandex создан
+21:23:37 Запрос: lalaa
+21:23:37 An error has been caught in function 'run', process 'MainProcess' (13847), thread 'Thread-1' (140443490932480):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fbb8d516f70>
+    └ <Thread(Thread-1, started 140443490932480)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fbb8d516ca0>
+    └ <Thread(Thread-1, started 140443490932480)>
+> File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1, started 140443490932480)>
+    │    │        │    └ ('lalaa', <multiprocessing.queues.Queue object at 0x7fbb8c8e40d0>)
+    │    │        └ <Thread(Thread-1, started 140443490932480)>
+    │    └ <function Yandex at 0x7fbb8c7e5f70>
+    └ <Thread(Thread-1, started 140443490932480)>
+
+  File "/home/django/concurent_site/main.py", line 137, in __init__
+    if not self.check_request_in_db():
+           │    └ <function Yandex.check_request_in_db at 0x7fbb8c7e6160>
+           └ <__main__.Yandex object at 0x7fbb8c63d2e0>
+
+  File "/home/django/concurent_site/main.py", line 160, in check_request_in_db
+    if check[8] == 'ready':
+       └ [(13, 'lalaa', 0, 0, 0, 0, 0.0, 0.0, 'progress')]
+
+IndexError: list index out of range
+21:23:57 Класс Yandex создан
+21:23:57 Запрос: lalaa
+21:24:16 Класс Yandex создан
+21:24:16 Запрос: lalaa
+21:24:19 Класс Yandex создан
+21:24:19 Запрос: lalaa
+21:24:20 Стемированный запрос: ['lalaa']
+21:24:21 Собран список сайтов
+21:24:25 perevod-pesen.ru данные не получены по причине Host is in process.
+21:24:26 perevod-pesen.ru данные не получены по причине Host is in process.
+21:24:26 lightaudio.ru данные не получены по причине Host is in process.
+21:24:27 lightaudio.ru данные не получены по причине Host is in process.
+21:24:28 hitmo.me данные не получены по причине Host is in process.
+21:24:28 hitmo.me данные не получены по причине Host is in process.
+21:24:28 Данные есть о 9 из 12 (75%)
+21:24:28 Выборки не хватило, начинаю сбор заново
+21:24:39 perevod-pesen.ru данные не получены по причине Host is in process.
+21:24:39 lightaudio.ru данные не получены по причине Host is in process.
+21:24:39 hitmo.me данные не получены по причине Host is in process.
+21:24:39 Данные есть о 9 из 12 (75%)
+21:24:39 Выборки не хватило, начинаю сбор заново
+21:24:50 perevod-pesen.ru данные не получены по причине Host is in process.
+21:24:50 lightaudio.ru данные не получены по причине Host is in process.
+21:24:51 hitmo.me данные не получены по причине Host is in process.
+21:24:51 Данные есть о 9 из 12 (75%)
+21:24:51 Выборки не хватило, начинаю сбор заново
+21:25:02 lightaudio.ru данные не получены по причине Host is in process.
+21:25:02 hitmo.me данные не получены по причине Host is in process.
+21:25:02 Данные есть о 10 из 12 (83%)
+21:25:02 Выборки хватило
+21:25:02 Конкуренция от возраста: 78
+21:25:02 Конкуренция от объема: 80
+21:25:02 Конкуренция от стема: 62
+21:25:02 Конкуренция от бэклинков: 70
+21:25:02 Модификатор от директа: -35
+21:25:02 Итоговая конкуренция: 36
+21:25:02 ('lalaa', 78, 62, 80, 70, 36, -35, 'ready')

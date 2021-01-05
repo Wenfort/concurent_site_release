@@ -157,7 +157,7 @@ class Yandex:
 
     def check_request_in_db(self):
         check = check_in_database('db.sqlite3', 'main_request', 'request', self.request)
-        if check:
+        if check[0][8] == 'ready':
             self.result = check
             return True
 
@@ -207,13 +207,18 @@ class Yandex:
         }
 
     def add_result_to_database(self):
+
+        delete_from_database('db.sqlite3', 'main_request', (self.request,))
+
+
         values_to_go = (self.request,
                         self.concurency_object.site_age_concurency,
                         self.concurency_object.site_stem_concurency,
                         self.concurency_object.site_volume_concurency,
                         self.concurency_object.site_backlinks_concurency,
                         self.concurency_object.site_total_concurency,
-                        self.concurency_object.direct_upscale,)
+                        self.concurency_object.direct_upscale,
+                        'ready')
         logger.debug(values_to_go)
         add_to_database_with_autoincrement('db.sqlite3', 'main_request', values_to_go)
 
@@ -526,4 +531,4 @@ class Concurency:
 if __name__ == "__main__":
     while True:
         Manager()
-        time.sleep(120)
+        time.sleep(10)
