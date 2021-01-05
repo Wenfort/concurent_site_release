@@ -19,6 +19,12 @@
 
   <tbody>
   {% for request in all_requests_list %}
+      {% if request.status == 'progress'  %}
+          <tr>
+          <td>{{ request.request }}</td>
+          <td colspan="6" style="text-align: center">Запрос в обработке. Это может занять около минуты.</td>
+              </tr>
+      {% else %}
     <tr>
       <td> {{ request.request }} </td>
       <td> {{ request.site_age_concurency }} </td>
@@ -27,7 +33,7 @@
       <td>{{ request.site_backlinks_concurency }}</td>
       <td>{{ request.site_total_concurency }}</td>
         <td>{{ request.direct_upscale }}</td>
-
+        {% endif %}
     </tr>
     {% endfor %}
   </tbody>

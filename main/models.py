@@ -27,6 +27,7 @@ class Request(models.Model):
     site_backlinks_concurency = models.IntegerField(default=0)
     site_total_concurency = models.FloatField(default=0)
     direct_upscale = models.FloatField(default=0)
+    status = models.CharField(max_length=100, default='progress')
 
     def __str__(self):
         return self.request
