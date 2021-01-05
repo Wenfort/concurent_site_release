@@ -39,7 +39,7 @@ class Manager:
 
 
     def make_processes(self):
-        self.process_list = [Thread(target=Yandex, args=(request.lower(), self.q)) for request in self.requests]
+        self.process_list = [Process(target=Yandex, args=(request.lower(), self.q)) for request in self.requests]
 
     def run_processes(self):
         for process in self.process_list:
@@ -157,9 +157,12 @@ class Yandex:
 
     def check_request_in_db(self):
         check = check_in_database('db.sqlite3', 'main_request', 'request', self.request)
-        if check[0][8] == 'ready':
-            self.result = check
-            return True
+        try:
+            if check[0][8] == 'ready':
+                self.result = check
+                return True
+        except:
+            pass
 
     def stem_request(self):
         morph = pymorphy2.MorphAnalyzer()

@@ -10,7 +10,7 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
-def publish_request_info(request):
+def results(request):
     all_requests_list = get_list_or_404(Request)
     context = {'all_requests_list': all_requests_list}
     return render(request, 'main/index.html', context)
@@ -25,7 +25,7 @@ def add_new_requests_to_queue(request):
             RequestQueue(request=req).save()
             Request(request=req).save()
         form = NewRequest()
-        return publish_request_info(request)
+        return results(request)
     else:
         form = NewRequest()
         return render(request, 'main/add_to_queue.html', {'form': form})

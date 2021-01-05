@@ -6640,3 +6640,2122 @@ IndexError: list index out of range
 21:25:02 Модификатор от директа: -35
 21:25:02 Итоговая конкуренция: 36
 21:25:02 ('lalaa', 78, 62, 80, 70, 36, -35, 'ready')
+21:42:33 Класс Yandex создан
+21:42:33 Запрос: lala
+21:42:33 Класс Yandex создан
+21:42:33 Запрос: курасава
+21:42:33 Класс Yandex создан
+21:42:33 Запрос: бамболейо
+21:42:33 Класс Yandex создан
+21:42:33 Запрос: лалалфл
+21:42:33 Стемированный запрос: ['курасава']
+21:42:33 Стемированный запрос: ['бамболейо']
+21:42:33 Стемированный запрос: ['лалалфл']
+21:42:33 Стемированный запрос: ['lala']
+21:42:33 Собран список сайтов
+21:42:34 Собран список сайтов
+21:42:34 Собран список сайтов
+21:42:34 Собран список сайтов
+21:42:34 An error has been caught in function 'make_site_object', process 'Process-2' (14446), thread 'Thread-10' (140181734672128):
+Traceback (most recent call last):
+
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f7eab066b80>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7eaa31c2e0>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 382, in _make_request
+    self._validate_conn(conn)
+    │    │              └ <urllib3.connection.HTTPSConnection object at 0x7f7eaa31c760>
+    │    └ <function HTTPSConnectionPool._validate_conn at 0x7f7eab0670d0>
+    └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7eaa31c2e0>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 1010, in _validate_conn
+    conn.connect()
+    │    └ <function HTTPSConnection.connect at 0x7f7eab0c9a60>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7eaa31c760>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connection.py", line 411, in connect
+    self.sock = ssl_wrap_socket(
+    │    │      └ <function ssl_wrap_socket at 0x7f7eab0bf790>
+    │    └ None
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7eaa31c760>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/ssl_.py", line 428, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(
+               └ <function _ssl_wrap_socket_impl at 0x7f7eab0bf940>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/ssl_.py", line 472, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           │           │           │                     └ 'www.amalgama-lab.com'
+           │           │           └ <socket.socket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+           │           └ <function SSLContext.wrap_socket at 0x7f7eab5898b0>
+           └ <ssl.SSLContext object at 0x7f7eaa31dac0>
+  File "/usr/lib/python3.8/ssl.py", line 500, in wrap_socket
+    return self.sslsocket_class._create(
+           │    │               └ <classmethod object at 0x7f7eab5884c0>
+           │    └ <class 'ssl.SSLSocket'>
+           └ <ssl.SSLContext object at 0x7f7eaa31dac0>
+  File "/usr/lib/python3.8/ssl.py", line 1040, in _create
+    self.do_handshake()
+    │    └ <function SSLSocket.do_handshake at 0x7f7eab58e790>
+    └ <ssl.SSLSocket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+  File "/usr/lib/python3.8/ssl.py", line 1309, in do_handshake
+    self._sslobj.do_handshake()
+    │    └ None
+    └ <ssl.SSLSocket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+
+ssl.SSLError: [SSL: WRONG_SIGNATURE_TYPE] wrong signature type (_ssl.c:1123)
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "/home/django/env/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f7eab066dc0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7eaa31c2e0>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+              │       └ <function Retry.increment at 0x7f7eab111c10>
+              └ Retry(total=0, connect=None, read=False, redirect=None, status=None)
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/retry.py", line 573, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+          │             │      │    │        │             └ 'unknown'
+          │             │      │    │        └ <class 'urllib3.exceptions.ResponseError'>
+          │             │      │    └ SSLError(SSLError(1, '[SSL: WRONG_SIGNATURE_TYPE] wrong signature type (_ssl.c:1123)'))
+          │             │      └ '/songs/g/gipsy_kings/bamboleo.html'
+          │             └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7eaa31c2e0>
+          └ <class 'urllib3.exceptions.MaxRetryError'>
+
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.amalgama-lab.com', port=443): Max retries exceeded with url: /songs/g/gipsy_kings/bamboleo.html (Caused by SSLError(SSLError(1, '[SSL: WRONG_SIGNATURE_TYPE] wrong signature type (_ssl.c:1123)')))
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7eaba5ef70>
+    └ <Thread(Thread-10, started 140181734672128)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7eaba5eca0>
+    └ <Thread(Thread-10, started 140181734672128)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10, started 140181734672128)>
+    │    │        │    └ ('10', <li class="serp-item" data-cid="9" data-fast="1" data-log-node="bdqt9y"><div class="organic typo typo_text_m typo_line...
+    │    │        └ <Thread(Thread-10, started 140181734672128)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f7eaba6baf0>>
+    └ <Thread(Thread-10, started 140181734672128)>
+
+> File "/home/django/concurent_site/main.py", line 181, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="9" data-fast="1" data-log-node="bdqt9y"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '10'
+    │    │                 │      └ <function Site at 0x7f7eaad2d8b0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f7eaa389790>, <__main__.Site object at 0x7f7eaa389850>, <__main__.Site object at 0x7f7eaa3899a0>...
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+  File "/home/django/concurent_site/main.py", line 82, in __init__
+    self.get_html()
+    │    └ <function Site.get_html at 0x7f7eaad2db80>
+    └ <__main__.Site object at 0x7f7eaa3b0d90>
+
+  File "/home/django/concurent_site/main.py", line 111, in get_html
+    r = requests.get(self.url, headers=HEADERS, verify=False).content
+        │        │   │    │            └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/...
+        │        │   │    └ 'https://www.amalgama-lab.com/songs/g/gipsy_kings/bamboleo.html'
+        │        │   └ <__main__.Site object at 0x7f7eaa3b0d90>
+        │        └ <function get at 0x7f7eaae14af0>
+        └ <module 'requests' from '/home/django/env/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/django/env/lib/python3.8/site-packages/requests/api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147...
+           │              │           └ None
+           │              └ 'https://www.amalgama-lab.com/songs/g/gipsy_kings/bamboleo.html'
+           └ <function request at 0x7f7eaae7c940>
+  File "/home/django/env/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ...
+           │       │              │           └ 'https://www.amalgama-lab.com/songs/g/gipsy_kings/bamboleo.html'
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f7eaae14280>
+           └ <requests.sessions.Session object at 0x7f7eaa3b0eb0>
+  File "/home/django/env/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': None, 'allow_redirects': True, 'verify': False, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f7eaae14700>
+           └ <requests.sessions.Session object at 0x7f7eaa3b0eb0>
+  File "/home/django/env/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': None, 'verify': False, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f7eaae8cb80>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7eaa3b0f70>
+  File "/home/django/env/lib/python3.8/site-packages/requests/adapters.py", line 514, in send
+    raise SSLError(e, request=request)
+          │                   └ <PreparedRequest [GET]>
+          └ <class 'requests.exceptions.SSLError'>
+
+requests.exceptions.SSLError: HTTPSConnectionPool(host='www.amalgama-lab.com', port=443): Max retries exceeded with url: /songs/g/gipsy_kings/bamboleo.html (Caused by SSLError(SSLError(1, '[SSL: WRONG_SIGNATURE_TYPE] wrong signature type (_ssl.c:1123)')))
+21:42:37 musify.club данные не получены по причине Host is in process.
+21:42:38 musify.club данные не получены по причине Host is in process.
+21:42:39 hotplayer.ru данные не получены по причине Host is in process.
+21:42:39 hotplayer.ru данные не получены по причине Host is in process.
+21:42:40 lyrsense.com данные не получены по причине Host is in process.
+21:42:40 arzamas.academy данные не получены по причине Host is in process.
+21:42:40 lyrsense.com данные не получены по причине Host is in process.
+21:42:40 arzamas.academy данные не получены по причине Host is in process.
+21:42:40 Данные есть о 10 из 12 (83%)
+21:42:40 Выборки хватило
+21:42:40 Конкуренция от возраста: 76
+21:42:40 Конкуренция от объема: 55
+21:42:40 Конкуренция от стема: 56
+21:42:40 Конкуренция от бэклинков: 67
+21:42:40 Модификатор от директа: -35
+21:42:40 Итоговая конкуренция: 31
+21:42:41 ('lala', 76, 56, 55, 67, 31, -35, 'ready')
+21:42:42 kinorium.com данные не получены по причине Host is in process.
+21:42:42 An error has been caught in function 'make_domain_object', process 'Process-4' (14448), thread 'Thread-4' (140181759850240):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7eaba5ef70>
+    └ <Thread(Thread-4, started 140181759850240)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7eaba5eca0>
+    └ <Thread(Thread-4, started 140181759850240)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-4, started 140181759850240)>
+    │    │        │    └ ('4', <li class="serp-item" data-cid="4" data-fast="1" data-log-node="96h85z"><div class="organic typo typo_text_m typo_line_...
+    │    │        └ <Thread(Thread-4, started 140181759850240)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f7eaba6baf0>>
+    └ <Thread(Thread-4, started 140181759850240)>
+
+  File "/home/django/concurent_site/main.py", line 181, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="4" data-fast="1" data-log-node="96h85z"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '4'
+    │    │                 │      └ <function Site at 0x7f7eaad2d8b0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f7eaa3fab80>, <__main__.Site object at 0x7f7eaa3faac0>, <__main__.Site object at 0x7f7eaa3facd0>...
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+  File "/home/django/concurent_site/main.py", line 85, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f7eaad2dc10>
+    └ <__main__.Site object at 0x7f7eaa3fa040>
+
+> File "/home/django/concurent_site/main.py", line 115, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'ask.fm'
+    │    │               │      └ <__main__.Site object at 0x7f7eaa3fa040>
+    │    │               └ <function Domain at 0x7f7eaad2ef70>
+    │    └ ''
+    └ <__main__.Site object at 0x7f7eaa3fa040>
+
+  File "/home/django/concurent_site/main.py", line 268, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x7f7eaad2f0d0>
+    └ <__main__.Domain object at 0x7f7ea9c1ac70>
+
+  File "/home/django/concurent_site/main.py", line 283, in check_data_in_database
+    add_to_database('db.sqlite3', 'main_domain', values_to_go)
+    │                                            └ ('ask.fm', 10, 32736, 5091636)
+    └ <function add_to_database at 0x7f7eaad26af0>
+
+  File "/home/django/concurent_site/sqlite_mode.py", line 8, in add_to_database
+    cursor.executemany(sql, [values_to_go])
+    │      │           │     └ ('ask.fm', 10, 32736, 5091636)
+    │      │           └ 'INSERT INTO main_domain VALUES (?,?,?,?)'
+    │      └ <method 'executemany' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x7f7ea9c953b0>
+
+sqlite3.IntegrityError: UNIQUE constraint failed: main_domain.name
+21:42:42 An error has been caught in function 'make_domain_object', process 'Process-4' (14448), thread 'Thread-2' (140181981787904):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7eaba5ef70>
+    └ <Thread(Thread-2, started 140181981787904)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7eaba5eca0>
+    └ <Thread(Thread-2, started 140181981787904)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-2, started 140181981787904)>
+    │    │        │    └ ('2', <li class="serp-item" data-cid="2" data-fast="1" data-log-node="96h85p"><div class="organic typo typo_text_m typo_line_...
+    │    │        └ <Thread(Thread-2, started 140181981787904)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f7eaba6baf0>>
+    └ <Thread(Thread-2, started 140181981787904)>
+
+  File "/home/django/concurent_site/main.py", line 181, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="2" data-fast="1" data-log-node="96h85p"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '2'
+    │    │                 │      └ <function Site at 0x7f7eaad2d8b0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f7eaa3fab80>, <__main__.Site object at 0x7f7eaa3faac0>, <__main__.Site object at 0x7f7eaa3facd0>...
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+  File "/home/django/concurent_site/main.py", line 85, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f7eaad2dc10>
+    └ <__main__.Site object at 0x7f7eaa4649d0>
+
+> File "/home/django/concurent_site/main.py", line 115, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'ask.fm'
+    │    │               │      └ <__main__.Site object at 0x7f7eaa4649d0>
+    │    │               └ <function Domain at 0x7f7eaad2ef70>
+    │    └ ''
+    └ <__main__.Site object at 0x7f7eaa4649d0>
+
+  File "/home/django/concurent_site/main.py", line 268, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x7f7eaad2f0d0>
+    └ <__main__.Domain object at 0x7f7e7bff1100>
+
+  File "/home/django/concurent_site/main.py", line 283, in check_data_in_database
+    add_to_database('db.sqlite3', 'main_domain', values_to_go)
+    │                                            └ ('ask.fm', 10, 32736, 5091636)
+    └ <function add_to_database at 0x7f7eaad26af0>
+
+  File "/home/django/concurent_site/sqlite_mode.py", line 8, in add_to_database
+    cursor.executemany(sql, [values_to_go])
+    │      │           │     └ ('ask.fm', 10, 32736, 5091636)
+    │      │           └ 'INSERT INTO main_domain VALUES (?,?,?,?)'
+    │      └ <method 'executemany' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x7f7ea81003b0>
+
+sqlite3.IntegrityError: UNIQUE constraint failed: main_domain.name
+21:42:42 An error has been caught in function 'make_domain_object', process 'Process-4' (14448), thread 'Thread-10' (140181709494016):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7eaba5ef70>
+    └ <Thread(Thread-10, started 140181709494016)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7eaba5eca0>
+    └ <Thread(Thread-10, started 140181709494016)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10, started 140181709494016)>
+    │    │        │    └ ('10', <li class="serp-item" data-cid="10" data-fast="1" data-log-node="96h86r"><div class="organic typo typo_text_m typo_lin...
+    │    │        └ <Thread(Thread-10, started 140181709494016)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f7eaba6baf0>>
+    └ <Thread(Thread-10, started 140181709494016)>
+
+  File "/home/django/concurent_site/main.py", line 181, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="10" data-fast="1" data-log-node="96h86r"><div class="organic typo typo_text_m typo_line_s i-b...
+    │    │                 │      │    └ '10'
+    │    │                 │      └ <function Site at 0x7f7eaad2d8b0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f7eaa3fab80>, <__main__.Site object at 0x7f7eaa3faac0>, <__main__.Site object at 0x7f7eaa3facd0>...
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+  File "/home/django/concurent_site/main.py", line 85, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f7eaad2dc10>
+    └ <__main__.Site object at 0x7f7eaa4089a0>
+
+> File "/home/django/concurent_site/main.py", line 115, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'ask.fm'
+    │    │               │      └ <__main__.Site object at 0x7f7eaa4089a0>
+    │    │               └ <function Domain at 0x7f7eaad2ef70>
+    │    └ ''
+    └ <__main__.Site object at 0x7f7eaa4089a0>
+
+  File "/home/django/concurent_site/main.py", line 268, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x7f7eaad2f0d0>
+    └ <__main__.Domain object at 0x7f7e984338b0>
+
+  File "/home/django/concurent_site/main.py", line 283, in check_data_in_database
+    add_to_database('db.sqlite3', 'main_domain', values_to_go)
+    │                                            └ ('ask.fm', 10, 32736, 5091636)
+    └ <function add_to_database at 0x7f7eaad26af0>
+
+  File "/home/django/concurent_site/sqlite_mode.py", line 8, in add_to_database
+    cursor.executemany(sql, [values_to_go])
+    │      │           │     └ ('ask.fm', 10, 32736, 5091636)
+    │      │           └ 'INSERT INTO main_domain VALUES (?,?,?,?)'
+    │      └ <method 'executemany' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x7f7e7bce3490>
+
+sqlite3.IntegrityError: UNIQUE constraint failed: main_domain.name
+21:42:42 An error has been caught in function 'make_domain_object', process 'Process-4' (14448), thread 'Thread-3' (140181973395200):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7eaba5ef70>
+    └ <Thread(Thread-3, started 140181973395200)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7eaba5eca0>
+    └ <Thread(Thread-3, started 140181973395200)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started 140181973395200)>
+    │    │        │    └ ('3', <li class="serp-item" data-cid="3" data-fast="1" data-log-node="96h85u"><div class="organic typo typo_text_m typo_line_...
+    │    │        └ <Thread(Thread-3, started 140181973395200)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f7eaba6baf0>>
+    └ <Thread(Thread-3, started 140181973395200)>
+
+  File "/home/django/concurent_site/main.py", line 181, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="3" data-fast="1" data-log-node="96h85u"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '3'
+    │    │                 │      └ <function Site at 0x7f7eaad2d8b0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f7eaa3fab80>, <__main__.Site object at 0x7f7eaa3faac0>, <__main__.Site object at 0x7f7eaa3facd0>...
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+  File "/home/django/concurent_site/main.py", line 85, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f7eaad2dc10>
+    └ <__main__.Site object at 0x7f7eaa470550>
+
+> File "/home/django/concurent_site/main.py", line 115, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'ask.fm'
+    │    │               │      └ <__main__.Site object at 0x7f7eaa470550>
+    │    │               └ <function Domain at 0x7f7eaad2ef70>
+    │    └ ''
+    └ <__main__.Site object at 0x7f7eaa470550>
+
+  File "/home/django/concurent_site/main.py", line 268, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x7f7eaad2f0d0>
+    └ <__main__.Domain object at 0x7f7ea9cb8760>
+
+  File "/home/django/concurent_site/main.py", line 283, in check_data_in_database
+    add_to_database('db.sqlite3', 'main_domain', values_to_go)
+    │                                            └ ('ask.fm', 10, 32736, 5091636)
+    └ <function add_to_database at 0x7f7eaad26af0>
+
+  File "/home/django/concurent_site/sqlite_mode.py", line 8, in add_to_database
+    cursor.executemany(sql, [values_to_go])
+    │      │           │     └ ('ask.fm', 10, 32736, 5091636)
+    │      │           └ 'INSERT INTO main_domain VALUES (?,?,?,?)'
+    │      └ <method 'executemany' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x7f7ea9c953b0>
+
+sqlite3.IntegrityError: UNIQUE constraint failed: main_domain.name
+21:42:42 kinorium.com данные не получены по причине Host is in process.
+21:42:42 Данные есть о 9 из 11 (81%)
+21:42:42 Выборки хватило
+21:42:42 Конкуренция от возраста: 95
+21:42:42 Конкуренция от объема: 85
+21:42:42 Конкуренция от стема: 38
+21:42:42 Конкуренция от бэклинков: 87
+21:42:42 Модификатор от директа: -35
+21:42:42 Итоговая конкуренция: 40
+21:42:43 ('курасава', 95, 38, 85, 87, 40, -35, 'ready')
+21:42:43 An error has been caught in function 'make_domain_object', process 'Process-4' (14448), thread 'Thread-1' (140181990180608):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f7eaba5ef70>
+    └ <Thread(Thread-1, started 140181990180608)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f7eaba5eca0>
+    └ <Thread(Thread-1, started 140181990180608)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1, started 140181990180608)>
+    │    │        │    └ ('1', <li class="serp-item" data-cid="1" data-fast="1" data-first-snippet="" data-log-node="96h85k"><div class="organic typo ...
+    │    │        └ <Thread(Thread-1, started 140181990180608)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f7eaba6baf0>>
+    └ <Thread(Thread-1, started 140181990180608)>
+
+  File "/home/django/concurent_site/main.py", line 181, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="1" data-fast="1" data-first-snippet="" data-log-node="96h85k"><div class="organic typo typo_t...
+    │    │                 │      │    └ '1'
+    │    │                 │      └ <function Site at 0x7f7eaad2d8b0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f7eaa3fab80>, <__main__.Site object at 0x7f7eaa3faac0>, <__main__.Site object at 0x7f7eaa3facd0>...
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+  File "/home/django/concurent_site/main.py", line 85, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f7eaad2dc10>
+    └ <__main__.Site object at 0x7f7eaa460ee0>
+
+> File "/home/django/concurent_site/main.py", line 115, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'ask.fm'
+    │    │               │      └ <__main__.Site object at 0x7f7eaa460ee0>
+    │    │               └ <function Domain at 0x7f7eaad2ef70>
+    │    └ ''
+    └ <__main__.Site object at 0x7f7eaa460ee0>
+
+  File "/home/django/concurent_site/main.py", line 268, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x7f7eaad2f0d0>
+    └ <__main__.Domain object at 0x7f7e987de8b0>
+
+  File "/home/django/concurent_site/main.py", line 283, in check_data_in_database
+    add_to_database('db.sqlite3', 'main_domain', values_to_go)
+    │                                            └ ('ask.fm', 10, 32736, 5091636)
+    └ <function add_to_database at 0x7f7eaad26af0>
+
+  File "/home/django/concurent_site/sqlite_mode.py", line 8, in add_to_database
+    cursor.executemany(sql, [values_to_go])
+    │      │           │     └ ('ask.fm', 10, 32736, 5091636)
+    │      │           └ 'INSERT INTO main_domain VALUES (?,?,?,?)'
+    │      └ <method 'executemany' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x7f7e7beeb2d0>
+
+sqlite3.IntegrityError: UNIQUE constraint failed: main_domain.name
+21:42:43 An error has been caught in function 'make_concurency_object', process 'Process-4' (14448), thread 'MainThread' (140182031312704):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 533, in <module>
+    Manager()
+    └ <function Manager at 0x7f7eabb794c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f7eaad2d430>
+    └ <__main__.Manager object at 0x7f7eaae8eee0>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f7eaba864c0>
+    └ <Process name='Process-4' parent=14444 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-4' parent=14444 started>
+    │    │        │    └ <staticmethod object at 0x7f7eabb87850>
+    │    │        └ <Process name='Process-4' parent=14444 started>
+    │    └ None
+    └ <Process name='Process-4' parent=14444 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-4' parent=14444 started>
+           │                └ <function DefaultContext.get_context at 0x7f7eabad7e50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f7eaba8b190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-4' parent=14444 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-4' parent=14444 started>
+    │    └ <function Popen._launch at 0x7f7eaab870d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f7eaab85580>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 13
+           │           └ <function BaseProcess._bootstrap at 0x7f7eaba86dc0>
+           └ <Process name='Process-4' parent=14444 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f7eaba86430>
+    └ <Process name='Process-4' parent=14444 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-4' parent=14444 started>
+    │    │        │    └ ('лалалфл', <multiprocessing.queues.Queue object at 0x7f7eaae8e460>)
+    │    │        └ <Process name='Process-4' parent=14444 started>
+    │    └ <function Yandex at 0x7f7eaad2df70>
+    └ <Process name='Process-4' parent=14444 started>
+
+  File "/home/django/concurent_site/main.py", line 147, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f7eaad2e670>
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+> File "/home/django/concurent_site/main.py", line 196, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['лалалфл']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f7eaba6baf0>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f7eaa3fab80>, <__main__.Site object at 0x7f7eaa3faac0>, <__main__.Site object at 0x7f7eaa3facd0>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f7eaba6baf0>
+    │    │                   └ <function Concurency at 0x7f7eaad2faf0>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+  File "/home/django/concurent_site/main.py", line 395, in __init__
+    self.calculate_site_age_concurency()
+    │    └ <function Concurency.calculate_site_age_concurency at 0x7f7eaad2fca0>
+    └ <__main__.Concurency object at 0x7f7eaa56b5e0>
+
+  File "/home/django/concurent_site/main.py", line 423, in calculate_site_age_concurency
+    real_age_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
+    │                      │           │                          │    │       │           └ '4'
+    │                      │           │                          │    │       └ <__main__.Site object at 0x7f7eaa3fa040>
+    │                      │           │                          │    └ {'1': 33, '2': 22, '3': 17, '4': 12, '5': 9, '6': 6, '7': 4, '8': 3, '9': 3, '10': 2, '11': 2, '12': 2, '13': 2, '14': 2, '15...
+    │                      │           │                          └ <__main__.Concurency object at 0x7f7eaa56b5e0>
+    │                      │           └ None
+    │                      └ <__main__.Site object at 0x7f7eaa3fa040>
+    └ 250
+
+AttributeError: 'NoneType' object has no attribute 'domain_age'
+21:42:43 An error has been caught in function 'run', process 'Process-4' (14448), thread 'MainThread' (140182031312704):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 533, in <module>
+    Manager()
+    └ <function Manager at 0x7f7eabb794c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f7eaad2d430>
+    └ <__main__.Manager object at 0x7f7eaae8eee0>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f7eaba864c0>
+    └ <Process name='Process-4' parent=14444 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-4' parent=14444 started>
+    │    │        │    └ <staticmethod object at 0x7f7eabb87850>
+    │    │        └ <Process name='Process-4' parent=14444 started>
+    │    └ None
+    └ <Process name='Process-4' parent=14444 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-4' parent=14444 started>
+           │                └ <function DefaultContext.get_context at 0x7f7eabad7e50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f7eaba8b190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-4' parent=14444 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-4' parent=14444 started>
+    │    └ <function Popen._launch at 0x7f7eaab870d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f7eaab85580>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 13
+           │           └ <function BaseProcess._bootstrap at 0x7f7eaba86dc0>
+           └ <Process name='Process-4' parent=14444 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f7eaba86430>
+    └ <Process name='Process-4' parent=14444 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-4' parent=14444 started>
+    │    │        │    └ ('лалалфл', <multiprocessing.queues.Queue object at 0x7f7eaae8e460>)
+    │    │        └ <Process name='Process-4' parent=14444 started>
+    │    └ <function Yandex at 0x7f7eaad2df70>
+    └ <Process name='Process-4' parent=14444 started>
+
+  File "/home/django/concurent_site/main.py", line 148, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f7eaad2e790>
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+  File "/home/django/concurent_site/main.py", line 215, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+21:42:46 sefon.pro данные не получены по причине Host is in process.
+21:42:46 sefon.pro данные не получены по причине Host is in process.
+21:42:46 An error has been caught in function 'make_concurency_object', process 'Process-2' (14446), thread 'MainThread' (140182031312704):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 533, in <module>
+    Manager()
+    └ <function Manager at 0x7f7eabb794c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f7eaad2d430>
+    └ <__main__.Manager object at 0x7f7eaae8eee0>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f7eaba864c0>
+    └ <Process name='Process-2' parent=14444 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=14444 started>
+    │    │        │    └ <staticmethod object at 0x7f7eabb87850>
+    │    │        └ <Process name='Process-2' parent=14444 started>
+    │    └ None
+    └ <Process name='Process-2' parent=14444 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=14444 started>
+           │                └ <function DefaultContext.get_context at 0x7f7eabad7e50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f7eaba8b190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=14444 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=14444 started>
+    │    └ <function Popen._launch at 0x7f7eaab870d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f7eaab850d0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f7eaba86dc0>
+           └ <Process name='Process-2' parent=14444 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f7eaba86430>
+    └ <Process name='Process-2' parent=14444 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=14444 started>
+    │    │        │    └ ('бамболейо', <multiprocessing.queues.Queue object at 0x7f7eaae8e460>)
+    │    │        └ <Process name='Process-2' parent=14444 started>
+    │    └ <function Yandex at 0x7f7eaad2df70>
+    └ <Process name='Process-2' parent=14444 started>
+
+  File "/home/django/concurent_site/main.py", line 147, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f7eaad2e670>
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+> File "/home/django/concurent_site/main.py", line 196, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['бамболейо']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f7eaba6baf0>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f7eaa389790>, <__main__.Site object at 0x7f7eaa389850>, <__main__.Site object at 0x7f7eaa3899a0>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f7eaba6baf0>
+    │    │                   └ <function Concurency at 0x7f7eaad2faf0>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+  File "/home/django/concurent_site/main.py", line 388, in __init__
+    self.check_site_object_type()
+    │    └ <function Concurency.check_site_object_type at 0x7f7eaad2fc10>
+    └ <__main__.Concurency object at 0x7f7eaa56c520>
+
+  File "/home/django/concurent_site/main.py", line 409, in check_site_object_type
+    if site_object.site_type == 'organic':
+       └ None
+
+AttributeError: 'NoneType' object has no attribute 'site_type'
+21:42:46 An error has been caught in function 'run', process 'Process-2' (14446), thread 'MainThread' (140182031312704):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 533, in <module>
+    Manager()
+    └ <function Manager at 0x7f7eabb794c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f7eaad2d430>
+    └ <__main__.Manager object at 0x7f7eaae8eee0>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f7eaba864c0>
+    └ <Process name='Process-2' parent=14444 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=14444 started>
+    │    │        │    └ <staticmethod object at 0x7f7eabb87850>
+    │    │        └ <Process name='Process-2' parent=14444 started>
+    │    └ None
+    └ <Process name='Process-2' parent=14444 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=14444 started>
+           │                └ <function DefaultContext.get_context at 0x7f7eabad7e50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f7eaba8b190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=14444 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=14444 started>
+    │    └ <function Popen._launch at 0x7f7eaab870d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f7eaab850d0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f7eaba86dc0>
+           └ <Process name='Process-2' parent=14444 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f7eaba86430>
+    └ <Process name='Process-2' parent=14444 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=14444 started>
+    │    │        │    └ ('бамболейо', <multiprocessing.queues.Queue object at 0x7f7eaae8e460>)
+    │    │        └ <Process name='Process-2' parent=14444 started>
+    │    └ <function Yandex at 0x7f7eaad2df70>
+    └ <Process name='Process-2' parent=14444 started>
+
+  File "/home/django/concurent_site/main.py", line 148, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f7eaad2e790>
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+  File "/home/django/concurent_site/main.py", line 215, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__main__.Yandex object at 0x7f7eaba6baf0>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+21:46:18 Класс Yandex создан
+21:46:18 Запрос: семь
+21:46:18 Стемированный запрос: ['семь']
+21:46:19 Собран список сайтов
+21:46:24 lordsfilms.tube данные не получены по причине Host is in process.
+21:46:25 lordsfilms.tube данные не получены по причине Host is in process.
+21:46:25 Данные есть о 10 из 11 (90%)
+21:46:25 Выборки хватило
+21:46:25 Конкуренция от возраста: 94
+21:46:25 Конкуренция от объема: 68
+21:46:25 Конкуренция от стема: 76
+21:46:25 Конкуренция от бэклинков: 94
+21:46:25 Модификатор от директа: -35
+21:46:25 Итоговая конкуренция: 51
+21:46:25 ('семь', 94, 76, 68, 94, 51, -35, 'ready')
+21:46:56 Класс Yandex создан
+21:46:56 Запрос: семнадцать
+21:46:56 Класс Yandex создан
+21:46:56 Запрос: ученый
+21:46:56 Стемированный запрос: ['семнадцать']
+21:46:56 Стемированный запрос: ['учёный']
+21:46:57 Собран список сайтов
+21:46:57 Собран список сайтов
+21:46:59 An error has been caught in function 'make_domain_object', process 'Process-3' (14679), thread 'Thread-10' (140205516388096):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f8445e94f70>
+    └ <Thread(Thread-10, started 140205516388096)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f8445e94ca0>
+    └ <Thread(Thread-10, started 140205516388096)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10, started 140205516388096)>
+    │    │        │    └ ('10', <li class="serp-item" data-cid="9" data-fast="1" data-log-node="deek7c"><div class="organic typo typo_text_m typo_line...
+    │    │        └ <Thread(Thread-10, started 140205516388096)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f8445ea1af0>>
+    └ <Thread(Thread-10, started 140205516388096)>
+
+  File "/home/django/concurent_site/main.py", line 181, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="9" data-fast="1" data-log-node="deek7c"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '10'
+    │    │                 │      └ <function Site at 0x7f84451638b0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f8444834730>, <__main__.Site object at 0x7f84448347f0>, <__main__.Site object at 0x7f84448347c0>...
+    └ <__main__.Yandex object at 0x7f8445ea1af0>
+
+  File "/home/django/concurent_site/main.py", line 85, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f8445163c10>
+    └ <__main__.Site object at 0x7f84447ce8b0>
+
+> File "/home/django/concurent_site/main.py", line 115, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'posmotre.li'
+    │    │               │      └ <__main__.Site object at 0x7f84447ce8b0>
+    │    │               └ <function Domain at 0x7f8445164f70>
+    │    └ ''
+    └ <__main__.Site object at 0x7f84447ce8b0>
+
+  File "/home/django/concurent_site/main.py", line 268, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x7f84451650d0>
+    └ <__main__.Domain object at 0x7f8423163f70>
+
+  File "/home/django/concurent_site/main.py", line 277, in check_data_in_database
+    self.get_domain_age()
+    │    └ <function Domain.get_domain_age at 0x7f8445165160>
+    └ <__main__.Domain object at 0x7f8423163f70>
+
+  File "/home/django/concurent_site/main.py", line 317, in get_domain_age
+    self.domain_age = 2020 - int(item)
+    │    │                       └ '. Пр'
+    │    └ ''
+    └ <__main__.Domain object at 0x7f8423163f70>
+
+ValueError: invalid literal for int() with base 10: '. Пр'
+21:47:02 okobzor.ru данные не получены по причине Host is in process.
+21:47:02 gramotei.online данные не получены по причине Host is in process.
+21:47:02 obrazovaka.ru данные не получены по причине Host is in process.
+21:47:02 KakPishem.ru данные не получены по причине Host is in process.
+21:47:02 okobzor.ru данные не получены по причине Host is in process.
+21:47:02 gramotei.online данные не получены по причине Host is in process.
+21:47:02 obrazovaka.ru данные не получены по причине Host is in process.
+21:47:02 RusskiiYazyk.ru данные не получены по причине Host is in process.
+21:47:03 KakPishem.ru данные не получены по причине Host is in process.
+21:47:03 mnogovoprosov.ru данные не получены по причине Host is in process.
+21:47:03 RusskiiYazyk.ru данные не получены по причине Host is in process.
+21:47:03 gufo.me данные не получены по причине Host is in process.
+21:47:03 mnogovoprosov.ru данные не получены по причине Host is in process.
+21:47:03 An error has been caught in function 'make_concurency_object', process 'Process-3' (14679), thread 'MainThread' (140206094255936):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 533, in <module>
+    Manager()
+    └ <function Manager at 0x7f8445faf4c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f8445163430>
+    └ <__main__.Manager object at 0x7f84460bba90>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f8445ebc4c0>
+    └ <Process name='Process-3' parent=14651 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-3' parent=14651 started>
+    │    │        │    └ <staticmethod object at 0x7f8445fbd850>
+    │    │        └ <Process name='Process-3' parent=14651 started>
+    │    └ None
+    └ <Process name='Process-3' parent=14651 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-3' parent=14651 started>
+           │                └ <function DefaultContext.get_context at 0x7f8445f0de50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f8445ec1190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-3' parent=14651 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-3' parent=14651 started>
+    │    └ <function Popen._launch at 0x7f8444fbd0d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f8444fbb1c0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f8445ebcdc0>
+           └ <Process name='Process-3' parent=14651 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f8445ebc430>
+    └ <Process name='Process-3' parent=14651 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-3' parent=14651 started>
+    │    │        │    └ ('ученый', <multiprocessing.queues.Queue object at 0x7f8445f9c3d0>)
+    │    │        └ <Process name='Process-3' parent=14651 started>
+    │    └ <function Yandex at 0x7f8445163f70>
+    └ <Process name='Process-3' parent=14651 started>
+
+  File "/home/django/concurent_site/main.py", line 147, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f8445164670>
+    └ <__main__.Yandex object at 0x7f8445ea1af0>
+
+> File "/home/django/concurent_site/main.py", line 196, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['учёный']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f8445ea1af0>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f8444834730>, <__main__.Site object at 0x7f84448347f0>, <__main__.Site object at 0x7f84448347c0>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f8445ea1af0>
+    │    │                   └ <function Concurency at 0x7f8445165af0>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f8445ea1af0>
+
+  File "/home/django/concurent_site/main.py", line 395, in __init__
+    self.calculate_site_age_concurency()
+    │    └ <function Concurency.calculate_site_age_concurency at 0x7f8445165ca0>
+    └ <__main__.Concurency object at 0x7f84449113d0>
+
+  File "/home/django/concurent_site/main.py", line 423, in calculate_site_age_concurency
+    real_age_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
+    │                      │           │                          │    │       │           └ '10'
+    │                      │           │                          │    │       └ <__main__.Site object at 0x7f84447ce8b0>
+    │                      │           │                          │    └ {'1': 33, '2': 22, '3': 17, '4': 12, '5': 9, '6': 6, '7': 4, '8': 3, '9': 3, '10': 2, '11': 2, '12': 2, '13': 2, '14': 2, '15...
+    │                      │           │                          └ <__main__.Concurency object at 0x7f84449113d0>
+    │                      │           └ None
+    │                      └ <__main__.Site object at 0x7f84447ce8b0>
+    └ 931
+
+AttributeError: 'NoneType' object has no attribute 'domain_age'
+21:47:03 An error has been caught in function 'run', process 'Process-3' (14679), thread 'MainThread' (140206094255936):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 533, in <module>
+    Manager()
+    └ <function Manager at 0x7f8445faf4c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f8445163430>
+    └ <__main__.Manager object at 0x7f84460bba90>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f8445ebc4c0>
+    └ <Process name='Process-3' parent=14651 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-3' parent=14651 started>
+    │    │        │    └ <staticmethod object at 0x7f8445fbd850>
+    │    │        └ <Process name='Process-3' parent=14651 started>
+    │    └ None
+    └ <Process name='Process-3' parent=14651 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-3' parent=14651 started>
+           │                └ <function DefaultContext.get_context at 0x7f8445f0de50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f8445ec1190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-3' parent=14651 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-3' parent=14651 started>
+    │    └ <function Popen._launch at 0x7f8444fbd0d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f8444fbb1c0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f8445ebcdc0>
+           └ <Process name='Process-3' parent=14651 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f8445ebc430>
+    └ <Process name='Process-3' parent=14651 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-3' parent=14651 started>
+    │    │        │    └ ('ученый', <multiprocessing.queues.Queue object at 0x7f8445f9c3d0>)
+    │    │        └ <Process name='Process-3' parent=14651 started>
+    │    └ <function Yandex at 0x7f8445163f70>
+    └ <Process name='Process-3' parent=14651 started>
+
+  File "/home/django/concurent_site/main.py", line 148, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f8445164790>
+    └ <__main__.Yandex object at 0x7f8445ea1af0>
+
+  File "/home/django/concurent_site/main.py", line 215, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__main__.Yandex object at 0x7f8445ea1af0>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+21:47:03 gufo.me данные не получены по причине Host is in process.
+21:47:03 Данные есть о 5 из 10 (50%)
+21:47:03 Выборки не хватило, начинаю сбор заново
+21:47:14 gramotei.online данные не получены по причине Host is in process.
+21:47:14 obrazovaka.ru данные не получены по причине Host is in process.
+21:47:14 KakPishem.ru данные не получены по причине Host is in process.
+21:47:15 RusskiiYazyk.ru данные не получены по причине Host is in process.
+21:47:15 gufo.me данные не получены по причине Host is in process.
+21:47:15 Данные есть о 5 из 10 (50%)
+21:47:15 Выборки не хватило, начинаю сбор заново
+21:47:26 gramotei.online данные не получены по причине Host is in process.
+21:47:26 obrazovaka.ru данные не получены по причине Host is in process.
+21:47:26 KakPishem.ru данные не получены по причине Host is in process.
+21:47:27 RusskiiYazyk.ru данные не получены по причине Host is in process.
+21:47:27 gufo.me данные не получены по причине Host is in process.
+21:47:27 Данные есть о 5 из 10 (50%)
+21:47:27 Выборки не хватило, начинаю сбор заново
+21:47:37 gramotei.online данные не получены по причине Host is in process.
+21:47:38 obrazovaka.ru данные не получены по причине Host is in process.
+21:47:38 KakPishem.ru данные не получены по причине Host is in process.
+21:47:39 RusskiiYazyk.ru данные не получены по причине Host is in process.
+21:47:39 gufo.me данные не получены по причине Host is in process.
+21:47:39 Данные есть о 5 из 10 (50%)
+21:47:39 Выборки не хватило, начинаю сбор заново
+21:47:51 RusskiiYazyk.ru данные не получены по причине Host is in process.
+21:47:51 Данные есть о 9 из 10 (90%)
+21:47:51 Выборки хватило
+21:47:51 Конкуренция от возраста: 63
+21:47:51 Конкуренция от объема: 63
+21:47:51 Конкуренция от стема: 43
+21:47:51 Конкуренция от бэклинков: 60
+21:47:51 Модификатор от директа: -35
+21:47:51 Итоговая конкуренция: 21
+21:47:51 ('семнадцать', 63, 43, 63, 60, 21, -35, 'ready')
+21:48:40 Класс Yandex создан
+21:48:40 Запрос: ученый
+21:48:40 An error has been caught in function 'run', process 'Process-1' (14740), thread 'MainThread' (140399982491456):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 533, in <module>
+    Manager()
+    └ <function Manager at 0x7fb16a9ea4c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fb169b9e430>
+    └ <__main__.Manager object at 0x7fb169c9d130>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fb16a8f74c0>
+    └ <Process name='Process-1' parent=14739 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=14739 started>
+    │    │        │    └ <staticmethod object at 0x7fb16a9f8850>
+    │    │        └ <Process name='Process-1' parent=14739 started>
+    │    └ None
+    └ <Process name='Process-1' parent=14739 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=14739 started>
+           │                └ <function DefaultContext.get_context at 0x7fb16a948e50>
+           └ <multiprocessing.context.DefaultContext object at 0x7fb16a8fc190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=14739 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=14739 started>
+    │    └ <function Popen._launch at 0x7fb1699f80d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fb1699f60a0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7fb16a8f7dc0>
+           └ <Process name='Process-1' parent=14739 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fb16a8f7430>
+    └ <Process name='Process-1' parent=14739 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=14739 started>
+    │    │        │    └ ('ученый', <multiprocessing.queues.Queue object at 0x7fb169c9d0d0>)
+    │    │        └ <Process name='Process-1' parent=14739 started>
+    │    └ <function Yandex at 0x7fb169b9ef70>
+    └ <Process name='Process-1' parent=14739 started>
+
+  File "/home/django/concurent_site/main.py", line 137, in __init__
+    if not self.check_request_in_db():
+           │    └ <function Yandex.check_request_in_db at 0x7fb169b9f160>
+           └ <__main__.Yandex object at 0x7fb16a8dcaf0>
+
+  File "/home/django/concurent_site/main.py", line 160, in check_request_in_db
+    if check[0][8] == 'ready':
+       └ []
+
+IndexError: list index out of range
+21:49:08 Класс Yandex создан
+21:49:08 Запрос: ученый
+21:51:34 Класс Yandex создан
+21:51:34 Запрос: семнадцать
+21:51:34 Класс Yandex создан
+21:51:34 Запрос: ученый
+21:51:34 Стемированный запрос: ['семнадцать']
+21:51:34 Стемированный запрос: ['учёный']
+21:51:34 Собран список сайтов
+21:51:34 Собран список сайтов
+21:51:36 An error has been caught in function 'make_domain_object', process 'Process-2' (14870), thread 'Thread-10' (140158509713152):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f79359a9f70>
+    └ <Thread(Thread-10, started 140158509713152)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f79359a9ca0>
+    └ <Thread(Thread-10, started 140158509713152)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10, started 140158509713152)>
+    │    │        │    └ ('10', <li class="serp-item" data-cid="9" data-fast="1" data-log-node="13xv7c"><div class="organic typo typo_text_m typo_line...
+    │    │        └ <Thread(Thread-10, started 140158509713152)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f79359b6af0>>
+    └ <Thread(Thread-10, started 140158509713152)>
+
+  File "/home/django/concurent_site/main.py", line 181, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="9" data-fast="1" data-log-node="13xv7c"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '10'
+    │    │                 │      └ <function Site at 0x7f7934c788b0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f793436ae50>, <__main__.Site object at 0x7f793436af10>, <__main__.Site object at 0x7f7934371cd0>...
+    └ <__main__.Yandex object at 0x7f79359b6af0>
+
+  File "/home/django/concurent_site/main.py", line 85, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f7934c78c10>
+    └ <__main__.Site object at 0x7f79343100d0>
+
+> File "/home/django/concurent_site/main.py", line 115, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'posmotre.li'
+    │    │               │      └ <__main__.Site object at 0x7f79343100d0>
+    │    │               └ <function Domain at 0x7f7934c79f70>
+    │    └ ''
+    └ <__main__.Site object at 0x7f79343100d0>
+
+  File "/home/django/concurent_site/main.py", line 268, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x7f7934c7a0d0>
+    └ <__main__.Domain object at 0x7f79135102e0>
+
+  File "/home/django/concurent_site/main.py", line 277, in check_data_in_database
+    self.get_domain_age()
+    │    └ <function Domain.get_domain_age at 0x7f7934c7a160>
+    └ <__main__.Domain object at 0x7f79135102e0>
+
+  File "/home/django/concurent_site/main.py", line 317, in get_domain_age
+    self.domain_age = 2020 - int(item)
+    │    │                       └ '. Пр'
+    │    └ ''
+    └ <__main__.Domain object at 0x7f79135102e0>
+
+ValueError: invalid literal for int() with base 10: '. Пр'
+21:51:36 An error has been caught in function 'make_concurency_object', process 'Process-2' (14870), thread 'MainThread' (140158576023360):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 533, in <module>
+    Manager()
+    └ <function Manager at 0x7f7935ac44c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f7934c78430>
+    └ <__main__.Manager object at 0x7f7934d00eb0>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f79359d14c0>
+    └ <Process name='Process-2' parent=14868 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=14868 started>
+    │    │        │    └ <staticmethod object at 0x7f7935ad2850>
+    │    │        └ <Process name='Process-2' parent=14868 started>
+    │    └ None
+    └ <Process name='Process-2' parent=14868 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=14868 started>
+           │                └ <function DefaultContext.get_context at 0x7f7935a22e50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f79359d6190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=14868 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=14868 started>
+    │    └ <function Popen._launch at 0x7f7934ad20d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f7934c99f70>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f79359d1dc0>
+           └ <Process name='Process-2' parent=14868 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f79359d1430>
+    └ <Process name='Process-2' parent=14868 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=14868 started>
+    │    │        │    └ ('ученый', <multiprocessing.queues.Queue object at 0x7f7934d00f10>)
+    │    │        └ <Process name='Process-2' parent=14868 started>
+    │    └ <function Yandex at 0x7f7934c78f70>
+    └ <Process name='Process-2' parent=14868 started>
+
+  File "/home/django/concurent_site/main.py", line 147, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f7934c79670>
+    └ <__main__.Yandex object at 0x7f79359b6af0>
+
+> File "/home/django/concurent_site/main.py", line 196, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['учёный']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f79359b6af0>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f793436ae50>, <__main__.Site object at 0x7f793436af10>, <__main__.Site object at 0x7f7934371cd0>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f79359b6af0>
+    │    │                   └ <function Concurency at 0x7f7934c7aaf0>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f79359b6af0>
+
+  File "/home/django/concurent_site/main.py", line 395, in __init__
+    self.calculate_site_age_concurency()
+    │    └ <function Concurency.calculate_site_age_concurency at 0x7f7934c7aca0>
+    └ <__main__.Concurency object at 0x7f793431c1f0>
+
+  File "/home/django/concurent_site/main.py", line 423, in calculate_site_age_concurency
+    real_age_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
+    │                      │           │                          │    │       │           └ '10'
+    │                      │           │                          │    │       └ <__main__.Site object at 0x7f79343100d0>
+    │                      │           │                          │    └ {'1': 33, '2': 22, '3': 17, '4': 12, '5': 9, '6': 6, '7': 4, '8': 3, '9': 3, '10': 2, '11': 2, '12': 2, '13': 2, '14': 2, '15...
+    │                      │           │                          └ <__main__.Concurency object at 0x7f793431c1f0>
+    │                      │           └ None
+    │                      └ <__main__.Site object at 0x7f79343100d0>
+    └ 939
+
+AttributeError: 'NoneType' object has no attribute 'domain_age'
+21:51:36 An error has been caught in function 'run', process 'Process-2' (14870), thread 'MainThread' (140158576023360):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 533, in <module>
+    Manager()
+    └ <function Manager at 0x7f7935ac44c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f7934c78430>
+    └ <__main__.Manager object at 0x7f7934d00eb0>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f79359d14c0>
+    └ <Process name='Process-2' parent=14868 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=14868 started>
+    │    │        │    └ <staticmethod object at 0x7f7935ad2850>
+    │    │        └ <Process name='Process-2' parent=14868 started>
+    │    └ None
+    └ <Process name='Process-2' parent=14868 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=14868 started>
+           │                └ <function DefaultContext.get_context at 0x7f7935a22e50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f79359d6190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=14868 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=14868 started>
+    │    └ <function Popen._launch at 0x7f7934ad20d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f7934c99f70>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f79359d1dc0>
+           └ <Process name='Process-2' parent=14868 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f79359d1430>
+    └ <Process name='Process-2' parent=14868 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=14868 started>
+    │    │        │    └ ('ученый', <multiprocessing.queues.Queue object at 0x7f7934d00f10>)
+    │    │        └ <Process name='Process-2' parent=14868 started>
+    │    └ <function Yandex at 0x7f7934c78f70>
+    └ <Process name='Process-2' parent=14868 started>
+
+  File "/home/django/concurent_site/main.py", line 148, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f7934c79790>
+    └ <__main__.Yandex object at 0x7f79359b6af0>
+
+  File "/home/django/concurent_site/main.py", line 215, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__main__.Yandex object at 0x7f79359b6af0>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+21:51:36 Данные есть о 10 из 10 (100%)
+21:51:36 Выборки хватило
+21:51:36 Конкуренция от возраста: 63
+21:51:36 Конкуренция от объема: 63
+21:51:36 Конкуренция от стема: 43
+21:51:36 Конкуренция от бэклинков: 77
+21:51:36 Модификатор от директа: -35
+21:51:36 Итоговая конкуренция: 24
+21:51:37 ('семнадцать', 63, 43, 63, 77, 24, -35, 'ready')
+21:55:05 Класс Yandex создан
+21:55:05 Запрос: семнадцать
+21:55:05 Класс Yandex создан
+21:55:05 Запрос: мгновений
+21:55:05 Стемированный запрос: ['семнадцать']
+21:55:05 Стемированный запрос: ['мгновение']
+21:55:05 Собран список сайтов
+21:55:06 Собран список сайтов
+21:55:06 ЖОПА megogo.ru. 
+21:55:07 Данные есть о 10 из 10 (100%)
+21:55:07 Выборки хватило
+21:55:07 Конкуренция от возраста: 63
+21:55:07 Конкуренция от объема: 63
+21:55:07 Конкуренция от стема: 43
+21:55:07 Конкуренция от бэклинков: 77
+21:55:07 Модификатор от директа: -35
+21:55:07 Итоговая конкуренция: 24
+21:55:07 ('семнадцать', 63, 43, 63, 77, 24, -35, 'ready')
+21:55:12 russia.tv данные не получены по причине Host is in process.
+21:55:13 russia.tv данные не получены по причине Host is in process.
+21:55:13 Данные есть о 10 из 11 (90%)
+21:55:13 Выборки хватило
+21:55:13 Конкуренция от возраста: 98
+21:55:13 Конкуренция от объема: 79
+21:55:13 Конкуренция от стема: 88
+21:55:13 Конкуренция от бэклинков: 98
+21:55:13 Модификатор от директа: -35
+21:55:13 Итоговая конкуренция: 58
+21:55:13 ('мгновений', 98, 88, 79, 98, 58, -35, 'ready')
+21:56:15 Класс Yandex создан
+21:56:15 Запрос: четыере
+21:56:15 Класс Yandex создан
+21:56:15 Запрос: серебряника
+21:56:15 Класс Yandex создан
+21:56:15 Запрос: иуды
+21:56:15 Стемированный запрос: ['четыер']
+21:56:16 Стемированный запрос: ['серебряник']
+21:56:16 Стемированный запрос: ['иуда']
+21:56:16 Собран список сайтов
+21:56:16 Собран список сайтов
+21:56:16 Собран список сайтов
+21:56:16 An error has been caught in function 'make_site_object', process 'Process-3' (15053), thread 'Thread-5' (139954005735168):
+Traceback (most recent call last):
+
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f49971beb80>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f49965576a0>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 382, in _make_request
+    self._validate_conn(conn)
+    │    │              └ <urllib3.connection.HTTPSConnection object at 0x7f4996557c10>
+    │    └ <function HTTPSConnectionPool._validate_conn at 0x7f49971c00d0>
+    └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f49965576a0>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 1010, in _validate_conn
+    conn.connect()
+    │    └ <function HTTPSConnection.connect at 0x7f4997221a60>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f4996557c10>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connection.py", line 411, in connect
+    self.sock = ssl_wrap_socket(
+    │    │      └ <function ssl_wrap_socket at 0x7f4997217790>
+    │    └ None
+    └ <urllib3.connection.HTTPSConnection object at 0x7f4996557c10>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/ssl_.py", line 428, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(
+               └ <function _ssl_wrap_socket_impl at 0x7f4997217940>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/ssl_.py", line 472, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           │           │           │                     └ 'youon.ru'
+           │           │           └ <socket.socket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+           │           └ <function SSLContext.wrap_socket at 0x7f49976e18b0>
+           └ <ssl.SSLContext object at 0x7f499650a9c0>
+  File "/usr/lib/python3.8/ssl.py", line 500, in wrap_socket
+    return self.sslsocket_class._create(
+           │    │               └ <classmethod object at 0x7f49976de4c0>
+           │    └ <class 'ssl.SSLSocket'>
+           └ <ssl.SSLContext object at 0x7f499650a9c0>
+  File "/usr/lib/python3.8/ssl.py", line 1040, in _create
+    self.do_handshake()
+    │    └ <function SSLSocket.do_handshake at 0x7f49976e6790>
+    └ <ssl.SSLSocket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+  File "/usr/lib/python3.8/ssl.py", line 1309, in do_handshake
+    self._sslobj.do_handshake()
+    │    └ None
+    └ <ssl.SSLSocket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+
+ssl.SSLError: [SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1123)
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "/home/django/env/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f49971bedc0>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f49965576a0>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+              │       └ <function Retry.increment at 0x7f4997269c10>
+              └ Retry(total=0, connect=None, read=False, redirect=None, status=None)
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/retry.py", line 573, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+          │             │      │    │        │             └ 'unknown'
+          │             │      │    │        └ <class 'urllib3.exceptions.ResponseError'>
+          │             │      │    └ SSLError(SSLError(1, '[SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1123)'))
+          │             │      └ '/%D0%90%D0%BD%D0%B4%D1%80%D0%BE%D0%B8%D0%B4/%D0%98%D0%B3%D1%80%D1%8B/vse-otvety-k-igre-4-fotki-1-slovo-dlya-android-i-ios-ot...
+          │             └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f49965576a0>
+          └ <class 'urllib3.exceptions.MaxRetryError'>
+
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='youon.ru', port=443): Max retries exceeded with url: /%D0%90%D0%BD%D0%B4%D1%80%D0%BE%D0%B8%D0%B4/%D0%98%D0%B3%D1%80%D1%8B/vse-otvety-k-igre-4-fotki-1-slovo-dlya-android-i-ios-otvet-na-lyuboj-vopros (Caused by SSLError(SSLError(1, '[SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1123)')))
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4997bb7f70>
+    └ <Thread(Thread-5, started 139954005735168)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4997bb7ca0>
+    └ <Thread(Thread-5, started 139954005735168)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-5, started 139954005735168)>
+    │    │        │    └ ('5', <li class="serp-item" data-cid="5" data-fast="1" data-log-node="bf7n6j"><div class="organic typo typo_text_m typo_line_...
+    │    │        └ <Thread(Thread-5, started 139954005735168)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f4997bc4af0>>
+    └ <Thread(Thread-5, started 139954005735168)>
+
+> File "/home/django/concurent_site/main.py", line 184, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="5" data-fast="1" data-log-node="bf7n6j"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '5'
+    │    │                 │      └ <function Site at 0x7f4996e858b0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f499654bf10>, <__main__.Site object at 0x7f499654bfa0>, <__main__.Site object at 0x7f4996557cd0>...
+    └ <__main__.Yandex object at 0x7f4997bc4af0>
+
+  File "/home/django/concurent_site/main.py", line 82, in __init__
+    self.get_html()
+    │    └ <function Site.get_html at 0x7f4996e85b80>
+    └ <__main__.Site object at 0x7f4996557100>
+
+  File "/home/django/concurent_site/main.py", line 111, in get_html
+    r = requests.get(self.url, headers=HEADERS, verify=False).content
+        │        │   │    │            └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/...
+        │        │   │    └ 'https://youon.ru/%D0%90%D0%BD%D0%B4%D1%80%D0%BE%D0%B8%D0%B4/%D0%98%D0%B3%D1%80%D1%8B/vse-otvety-k-igre-4-fotki-1-slovo-dlya-...
+        │        │   └ <__main__.Site object at 0x7f4996557100>
+        │        └ <function get at 0x7f4996f6caf0>
+        └ <module 'requests' from '/home/django/env/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/django/env/lib/python3.8/site-packages/requests/api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147...
+           │              │           └ None
+           │              └ 'https://youon.ru/%D0%90%D0%BD%D0%B4%D1%80%D0%BE%D0%B8%D0%B4/%D0%98%D0%B3%D1%80%D1%8B/vse-otvety-k-igre-4-fotki-1-slovo-dlya-...
+           └ <function request at 0x7f4996fd4940>
+  File "/home/django/env/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ...
+           │       │              │           └ 'https://youon.ru/%D0%90%D0%BD%D0%B4%D1%80%D0%BE%D0%B8%D0%B4/%D0%98%D0%B3%D1%80%D1%8B/vse-otvety-k-igre-4-fotki-1-slovo-dlya-...
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f4996f6c280>
+           └ <requests.sessions.Session object at 0x7f49965572b0>
+  File "/home/django/env/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': None, 'allow_redirects': True, 'verify': False, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f4996f6c700>
+           └ <requests.sessions.Session object at 0x7f49965572b0>
+  File "/home/django/env/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': None, 'verify': False, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f4996fe4b80>
+        └ <requests.adapters.HTTPAdapter object at 0x7f4996557370>
+  File "/home/django/env/lib/python3.8/site-packages/requests/adapters.py", line 514, in send
+    raise SSLError(e, request=request)
+          │                   └ <PreparedRequest [GET]>
+          └ <class 'requests.exceptions.SSLError'>
+
+requests.exceptions.SSLError: HTTPSConnectionPool(host='youon.ru', port=443): Max retries exceeded with url: /%D0%90%D0%BD%D0%B4%D1%80%D0%BE%D0%B8%D0%B4/%D0%98%D0%B3%D1%80%D1%8B/vse-otvety-k-igre-4-fotki-1-slovo-dlya-android-i-ios-otvet-na-lyuboj-vopros (Caused by SSLError(SSLError(1, '[SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1123)')))
+21:56:20 pravoslavium.ru данные не получены по причине Host is in process.
+21:56:21 pravoslavium.ru данные не получены по причине Host is in process.
+21:56:21 slovaronline.com данные не получены по причине Host is in process.
+21:56:22 4lapy.ru данные не получены по причине Host is in process.
+21:56:22 slovaronline.com данные не получены по причине Host is in process.
+21:56:22 raritetus.ru данные не получены по причине Host is in process.
+21:56:22 Monetnik.ru данные не получены по причине Host is in process.
+21:56:22 4lapy.ru данные не получены по причине Host is in process.
+21:56:22 raritetus.ru данные не получены по причине Host is in process.
+21:56:22 Monetnik.ru данные не получены по причине Host is in process.
+21:56:22 how-to-all.com данные не получены по причине Host is in process.
+21:56:22 Данные есть о 9 из 12 (75%)
+21:56:22 Выборки не хватило, начинаю сбор заново
+21:56:23 how-to-all.com данные не получены по причине Host is in process.
+21:56:23 An error has been caught in function 'make_concurency_object', process 'Process-3' (15053), thread 'MainThread' (139954063910720):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 536, in <module>
+    Manager()
+    └ <function Manager at 0x7f4997cd14c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f4996e85430>
+    └ <__main__.Manager object at 0x7f4997ddda90>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f4997bde4c0>
+    └ <Process name='Process-3' parent=14999 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-3' parent=14999 started>
+    │    │        │    └ <staticmethod object at 0x7f4997cdf850>
+    │    │        └ <Process name='Process-3' parent=14999 started>
+    │    └ None
+    └ <Process name='Process-3' parent=14999 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-3' parent=14999 started>
+           │                └ <function DefaultContext.get_context at 0x7f4997c2fe50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f4997be3190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-3' parent=14999 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-3' parent=14999 started>
+    │    └ <function Popen._launch at 0x7f4996cdf0d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f4996cdd1f0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f4997bdedc0>
+           └ <Process name='Process-3' parent=14999 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f4997bde430>
+    └ <Process name='Process-3' parent=14999 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-3' parent=14999 started>
+    │    │        │    └ ('четыере', <multiprocessing.queues.Queue object at 0x7f4997cbe3d0>)
+    │    │        └ <Process name='Process-3' parent=14999 started>
+    │    └ <function Yandex at 0x7f4996e85f70>
+    └ <Process name='Process-3' parent=14999 started>
+
+  File "/home/django/concurent_site/main.py", line 147, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f4996e86670>
+    └ <__main__.Yandex object at 0x7f4997bc4af0>
+
+> File "/home/django/concurent_site/main.py", line 199, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['четыер']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f4997bc4af0>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f499654bf10>, <__main__.Site object at 0x7f499654bfa0>, <__main__.Site object at 0x7f4996557cd0>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f4997bc4af0>
+    │    │                   └ <function Concurency at 0x7f4996e88af0>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f4997bc4af0>
+
+  File "/home/django/concurent_site/main.py", line 391, in __init__
+    self.check_site_object_type()
+    │    └ <function Concurency.check_site_object_type at 0x7f4996e88c10>
+    └ <__main__.Concurency object at 0x7f49964ebe80>
+
+  File "/home/django/concurent_site/main.py", line 412, in check_site_object_type
+    if site_object.site_type == 'organic':
+       └ None
+
+AttributeError: 'NoneType' object has no attribute 'site_type'
+21:56:23 An error has been caught in function 'run', process 'Process-3' (15053), thread 'MainThread' (139954063910720):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 536, in <module>
+    Manager()
+    └ <function Manager at 0x7f4997cd14c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f4996e85430>
+    └ <__main__.Manager object at 0x7f4997ddda90>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f4997bde4c0>
+    └ <Process name='Process-3' parent=14999 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-3' parent=14999 started>
+    │    │        │    └ <staticmethod object at 0x7f4997cdf850>
+    │    │        └ <Process name='Process-3' parent=14999 started>
+    │    └ None
+    └ <Process name='Process-3' parent=14999 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-3' parent=14999 started>
+           │                └ <function DefaultContext.get_context at 0x7f4997c2fe50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f4997be3190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-3' parent=14999 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-3' parent=14999 started>
+    │    └ <function Popen._launch at 0x7f4996cdf0d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f4996cdd1f0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f4997bdedc0>
+           └ <Process name='Process-3' parent=14999 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f4997bde430>
+    └ <Process name='Process-3' parent=14999 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-3' parent=14999 started>
+    │    │        │    └ ('четыере', <multiprocessing.queues.Queue object at 0x7f4997cbe3d0>)
+    │    │        └ <Process name='Process-3' parent=14999 started>
+    │    └ <function Yandex at 0x7f4996e85f70>
+    └ <Process name='Process-3' parent=14999 started>
+
+  File "/home/django/concurent_site/main.py", line 148, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f4996e86790>
+    └ <__main__.Yandex object at 0x7f4997bc4af0>
+
+  File "/home/django/concurent_site/main.py", line 218, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__main__.Yandex object at 0x7f4997bc4af0>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+21:56:23 Данные есть о 12 из 13 (92%)
+21:56:23 Выборки хватило
+21:56:23 Директ обнаружен на позиции 12, текущий upscale = -34.4
+21:56:23 Директ обнаружен на позиции 13, текущий upscale = -33.8
+21:56:23 Конкуренция от возраста: 96
+21:56:23 Конкуренция от объема: 98
+21:56:23 Конкуренция от стема: 95
+21:56:23 Конкуренция от бэклинков: 97
+21:56:23 Модификатор от директа: -33.8
+21:56:23 Итоговая конкуренция: 62.2
+21:56:23 ('иуды', 96, 95, 98, 97, 62.2, -33.8, 'ready')
+21:56:33 slovaronline.com данные не получены по причине Host is in process.
+21:56:33 raritetus.ru данные не получены по причине Host is in process.
+21:56:33 Monetnik.ru данные не получены по причине Host is in process.
+21:56:33 Данные есть о 9 из 12 (75%)
+21:56:33 Выборки не хватило, начинаю сбор заново
+21:56:44 slovaronline.com данные не получены по причине Host is in process.
+21:56:44 raritetus.ru данные не получены по причине Host is in process.
+21:56:45 Monetnik.ru данные не получены по причине Host is in process.
+21:56:45 Данные есть о 9 из 12 (75%)
+21:56:45 Выборки не хватило, начинаю сбор заново
+21:56:55 slovaronline.com данные не получены по причине Host is in process.
+21:56:55 raritetus.ru данные не получены по причине Host is in process.
+21:56:56 Monetnik.ru данные не получены по причине Host is in process.
+21:56:56 Данные есть о 9 из 12 (75%)
+21:56:56 Выборки не хватило, начинаю сбор заново
+21:57:06 slovaronline.com данные не получены по причине Host is in process.
+21:57:07 Данные есть о 11 из 12 (91%)
+21:57:07 Выборки хватило
+21:57:07 Конкуренция от возраста: 66
+21:57:07 Конкуренция от объема: 56
+21:57:07 Конкуренция от стема: 37
+21:57:07 Конкуренция от бэклинков: 96
+21:57:07 Модификатор от директа: -35
+21:57:07 Итоговая конкуренция: 27
+21:57:07 ('серебряника', 66, 37, 56, 96, 27, -35, 'ready')
+21:58:31 Класс Yandex создан
+21:58:31 Запрос: мотя
+21:58:31 Класс Yandex создан
+21:58:31 Запрос: котя
+21:58:31 Класс Yandex создан
+21:58:31 Запрос: бегемотя
+21:58:31 Стемированный запрос: ['мотя']
+21:58:31 Стемированный запрос: ['котить']
+21:58:31 Стемированный запрос: ['бегемотя']
+21:58:32 Собран список сайтов
+21:58:32 Собран список сайтов
+21:58:32 Собран список сайтов
+21:58:32 ЖОПА twitter.com. 
+21:58:34 Данные есть о 13 из 13 (100%)
+21:58:34 Выборки хватило
+21:58:34 Директ обнаружен на позиции 13, текущий upscale = -34.4
+21:58:34 Конкуренция от возраста: 100
+21:58:34 Конкуренция от объема: 90
+21:58:34 Конкуренция от стема: 95
+21:58:34 Конкуренция от бэклинков: 100
+21:58:34 Модификатор от директа: -34.4
+21:58:34 Итоговая конкуренция: 62.6
+21:58:34 ('котя', 100, 95, 90, 100, 62.6, -34.4, 'ready')
+21:58:36 An error has been caught in function 'make_domain_object', process 'Process-3' (15140), thread 'Thread-1' (139949371946752):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4882856f70>
+    └ <Thread(Thread-1, started 139949371946752)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4882856ca0>
+    └ <Thread(Thread-1, started 139949371946752)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1, started 139949371946752)>
+    │    │        │    └ ('1', <li class="serp-item" data-cid="0" data-fast="1" data-first-snippet="" data-log-node="1nld62"><div class="organic bno" ...
+    │    │        └ <Thread(Thread-1, started 139949371946752)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f4882863af0>>
+    └ <Thread(Thread-1, started 139949371946752)>
+
+  File "/home/django/concurent_site/main.py", line 184, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="0" data-fast="1" data-first-snippet="" data-log-node="1nld62"><div class="organic bno" data-l...
+    │    │                 │      │    └ '1'
+    │    │                 │      └ <function Site at 0x7f4881b248b0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f4881186580>, <__main__.Site object at 0x7f48811867c0>, <__main__.Site object at 0x7f4881186670>...
+    └ <__main__.Yandex object at 0x7f4882863af0>
+
+  File "/home/django/concurent_site/main.py", line 85, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f4881b24c10>
+    └ <__main__.Site object at 0x7f4881170280>
+
+> File "/home/django/concurent_site/main.py", line 115, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'Begemotya.ru'
+    │    │               │      └ <__main__.Site object at 0x7f4881170280>
+    │    │               └ <function Domain at 0x7f4881b25f70>
+    │    └ ''
+    └ <__main__.Site object at 0x7f4881170280>
+
+  File "/home/django/concurent_site/main.py", line 271, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x7f4881b270d0>
+    └ <__main__.Domain object at 0x7f4863e8cca0>
+
+  File "/home/django/concurent_site/main.py", line 286, in check_data_in_database
+    add_to_database('db.sqlite3', 'main_domain', values_to_go)
+    │                                            └ ('Begemotya.ru', 10, 258, 909)
+    └ <function add_to_database at 0x7f4881b1daf0>
+
+  File "/home/django/concurent_site/sqlite_mode.py", line 8, in add_to_database
+    cursor.executemany(sql, [values_to_go])
+    │      │           │     └ ('Begemotya.ru', 10, 258, 909)
+    │      │           └ 'INSERT INTO main_domain VALUES (?,?,?,?)'
+    │      └ <method 'executemany' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x7f4878429260>
+
+sqlite3.IntegrityError: UNIQUE constraint failed: main_domain.name
+21:58:37 omskaya1.ru данные не получены по причине Host is in process.
+21:58:37 An error has been caught in function 'make_domain_object', process 'Process-3' (15140), thread 'Thread-3' (139949286352640):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f4882856f70>
+    └ <Thread(Thread-3, started 139949286352640)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f4882856ca0>
+    └ <Thread(Thread-3, started 139949286352640)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-3, started 139949286352640)>
+    │    │        │    └ ('3', <li class="serp-item" data-cid="2" data-fast="1" data-log-node="1nld6t"><div class="organic typo typo_text_m typo_line_...
+    │    │        └ <Thread(Thread-3, started 139949286352640)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f4882863af0>>
+    └ <Thread(Thread-3, started 139949286352640)>
+
+  File "/home/django/concurent_site/main.py", line 184, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ <li class="serp-item" data-cid="2" data-fast="1" data-log-node="1nld6t"><div class="organic typo typo_text_m typo_line_s i-be...
+    │    │                 │      │    └ '3'
+    │    │                 │      └ <function Site at 0x7f4881b248b0>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f4881186580>, <__main__.Site object at 0x7f48811867c0>, <__main__.Site object at 0x7f4881186670>...
+    └ <__main__.Yandex object at 0x7f4882863af0>
+
+  File "/home/django/concurent_site/main.py", line 85, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f4881b24c10>
+    └ <__main__.Site object at 0x7f488117a940>
+
+> File "/home/django/concurent_site/main.py", line 115, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'Begemotya.ru'
+    │    │               │      └ <__main__.Site object at 0x7f488117a940>
+    │    │               └ <function Domain at 0x7f4881b25f70>
+    │    └ ''
+    └ <__main__.Site object at 0x7f488117a940>
+
+  File "/home/django/concurent_site/main.py", line 271, in __init__
+    self.check_data_in_database()
+    │    └ <function Domain.check_data_in_database at 0x7f4881b270d0>
+    └ <__main__.Domain object at 0x7f48782de520>
+
+  File "/home/django/concurent_site/main.py", line 286, in check_data_in_database
+    add_to_database('db.sqlite3', 'main_domain', values_to_go)
+    │                                            └ ('Begemotya.ru', 10, 258, 909)
+    └ <function add_to_database at 0x7f4881b1daf0>
+
+  File "/home/django/concurent_site/sqlite_mode.py", line 8, in add_to_database
+    cursor.executemany(sql, [values_to_go])
+    │      │           │     └ ('Begemotya.ru', 10, 258, 909)
+    │      │           └ 'INSERT INTO main_domain VALUES (?,?,?,?)'
+    │      └ <method 'executemany' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x7f48811d5a40>
+
+sqlite3.IntegrityError: UNIQUE constraint failed: main_domain.name
+21:58:37 Данные есть о 12 из 12 (100%)
+21:58:37 Выборки хватило
+21:58:37 Конкуренция от возраста: 100
+21:58:37 Конкуренция от объема: 83
+21:58:37 Конкуренция от стема: 35
+21:58:37 Конкуренция от бэклинков: 100
+21:58:37 Модификатор от директа: -35
+21:58:37 Итоговая конкуренция: 43
+21:58:37 ('мотя', 100, 35, 83, 100, 43, -35, 'ready')
+21:58:38 omskaya1.ru данные не получены по причине Host is in process.
+21:58:38 An error has been caught in function 'make_concurency_object', process 'Process-3' (15140), thread 'MainThread' (139949413078848):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 536, in <module>
+    Manager()
+    └ <function Manager at 0x7f48829704c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f4881b24430>
+    └ <__main__.Manager object at 0x7f4881c23160>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f488287d4c0>
+    └ <Process name='Process-3' parent=15137 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-3' parent=15137 started>
+    │    │        │    └ <staticmethod object at 0x7f488297e850>
+    │    │        └ <Process name='Process-3' parent=15137 started>
+    │    └ None
+    └ <Process name='Process-3' parent=15137 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-3' parent=15137 started>
+           │                └ <function DefaultContext.get_context at 0x7f48828cee50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f4882882190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-3' parent=15137 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-3' parent=15137 started>
+    │    └ <function Popen._launch at 0x7f48819800d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f4881977850>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 11
+           │           └ <function BaseProcess._bootstrap at 0x7f488287ddc0>
+           └ <Process name='Process-3' parent=15137 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f488287d430>
+    └ <Process name='Process-3' parent=15137 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-3' parent=15137 started>
+    │    │        │    └ ('бегемотя', <multiprocessing.queues.Queue object at 0x7f4881c23190>)
+    │    │        └ <Process name='Process-3' parent=15137 started>
+    │    └ <function Yandex at 0x7f4881b24f70>
+    └ <Process name='Process-3' parent=15137 started>
+
+  File "/home/django/concurent_site/main.py", line 147, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f4881b25670>
+    └ <__main__.Yandex object at 0x7f4882863af0>
+
+> File "/home/django/concurent_site/main.py", line 199, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['бегемотя']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f4882863af0>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f4881186580>, <__main__.Site object at 0x7f48811867c0>, <__main__.Site object at 0x7f4881186670>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f4882863af0>
+    │    │                   └ <function Concurency at 0x7f4881b27af0>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f4882863af0>
+
+  File "/home/django/concurent_site/main.py", line 398, in __init__
+    self.calculate_site_age_concurency()
+    │    └ <function Concurency.calculate_site_age_concurency at 0x7f4881b27ca0>
+    └ <__main__.Concurency object at 0x7f4878388520>
+
+  File "/home/django/concurent_site/main.py", line 426, in calculate_site_age_concurency
+    real_age_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
+    │                      │           │                          │    │       │           └ '1'
+    │                      │           │                          │    │       └ <__main__.Site object at 0x7f4881170280>
+    │                      │           │                          │    └ {'1': 33, '2': 22, '3': 17, '4': 12, '5': 9, '6': 6, '7': 4, '8': 3, '9': 3, '10': 2, '11': 2, '12': 2, '13': 2, '14': 2, '15...
+    │                      │           │                          └ <__main__.Concurency object at 0x7f4878388520>
+    │                      │           └ None
+    │                      └ <__main__.Site object at 0x7f4881170280>
+    └ 560
+
+AttributeError: 'NoneType' object has no attribute 'domain_age'
+21:58:38 An error has been caught in function 'run', process 'Process-3' (15140), thread 'MainThread' (139949413078848):
+Traceback (most recent call last):
+
+  File "/home/django/concurent_site/main.py", line 536, in <module>
+    Manager()
+    └ <function Manager at 0x7f48829704c0>
+
+  File "/home/django/concurent_site/main.py", line 23, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f4881b24430>
+    └ <__main__.Manager object at 0x7f4881c23160>
+
+  File "/home/django/concurent_site/main.py", line 46, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f488287d4c0>
+    └ <Process name='Process-3' parent=15137 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-3' parent=15137 started>
+    │    │        │    └ <staticmethod object at 0x7f488297e850>
+    │    │        └ <Process name='Process-3' parent=15137 started>
+    │    └ None
+    └ <Process name='Process-3' parent=15137 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-3' parent=15137 started>
+           │                └ <function DefaultContext.get_context at 0x7f48828cee50>
+           └ <multiprocessing.context.DefaultContext object at 0x7f4882882190>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-3' parent=15137 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-3' parent=15137 started>
+    │    └ <function Popen._launch at 0x7f48819800d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f4881977850>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 11
+           │           └ <function BaseProcess._bootstrap at 0x7f488287ddc0>
+           └ <Process name='Process-3' parent=15137 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f488287d430>
+    └ <Process name='Process-3' parent=15137 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-3' parent=15137 started>
+    │    │        │    └ ('бегемотя', <multiprocessing.queues.Queue object at 0x7f4881c23190>)
+    │    │        └ <Process name='Process-3' parent=15137 started>
+    │    └ <function Yandex at 0x7f4881b24f70>
+    └ <Process name='Process-3' parent=15137 started>
+
+  File "/home/django/concurent_site/main.py", line 148, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f4881b25790>
+    └ <__main__.Yandex object at 0x7f4882863af0>
+
+  File "/home/django/concurent_site/main.py", line 218, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__main__.Yandex object at 0x7f4882863af0>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+21:59:44 Класс Yandex создан
+21:59:44 Класс Yandex создан
+21:59:44 Запрос: мотя
+21:59:44 Запрос: котя
+21:59:44 Класс Yandex создан
+21:59:44 Запрос: вертолётя
+21:59:44 Стемированный запрос: ['мотя']
+21:59:44 Стемированный запрос: ['котить']
+21:59:44 Стемированный запрос: ['вертолётить']
+21:59:45 Собран список сайтов
+21:59:45 Собран список сайтов
+21:59:45 Собран список сайтов
+21:59:45 ЖОПА twitter.com. 
+21:59:47 Данные есть о 12 из 12 (100%)
+21:59:47 Выборки хватило
+21:59:47 Конкуренция от возраста: 100
+21:59:47 Конкуренция от объема: 83
+21:59:47 Конкуренция от стема: 35
+21:59:47 Конкуренция от бэклинков: 100
+21:59:47 Модификатор от директа: -35
+21:59:47 Итоговая конкуренция: 43
+21:59:47 ('мотя', 100, 35, 83, 100, 43, -35, 'ready')
+21:59:47 Данные есть о 13 из 13 (100%)
+21:59:47 Выборки хватило
+21:59:47 Директ обнаружен на позиции 13, текущий upscale = -34.4
+21:59:47 Конкуренция от возраста: 100
+21:59:47 Конкуренция от объема: 90
+21:59:47 Конкуренция от стема: 95
+21:59:47 Конкуренция от бэклинков: 100
+21:59:47 Модификатор от директа: -34.4
+21:59:47 Итоговая конкуренция: 62.6
+21:59:47 ('котя', 100, 95, 90, 100, 62.6, -34.4, 'ready')
+21:59:52 bigenc.ru данные не получены по причине Host is in process.
+21:59:52 bigenc.ru данные не получены по причине Host is in process.
+21:59:52 Данные есть о 16 из 17 (94%)
+21:59:52 Выборки хватило
+21:59:52 Директ обнаружен на позиции 14, текущий upscale = -34.4
+21:59:52 Директ обнаружен на позиции 15, текущий upscale = -33.8
+21:59:52 Директ обнаружен на позиции 16, текущий upscale = -33.2
+21:59:52 Директ обнаружен на позиции 17, текущий upscale = -32.6
+21:59:52 Конкуренция от возраста: 92
+21:59:52 Конкуренция от объема: 100
+21:59:52 Конкуренция от стема: 75
+21:59:52 Конкуренция от бэклинков: 87
+21:59:52 Модификатор от директа: -32.6
+21:59:52 Итоговая конкуренция: 53.4
+21:59:53 ('вертолётя', 92, 75, 100, 87, 53.4, -32.6, 'ready')
