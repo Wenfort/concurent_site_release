@@ -86,16 +86,11 @@ class Site:
         self.make_domain_object()
 
     def get_url(self):
-        self.url = self.soup.find('a', 'organic__url').get('href')
+        self.url = self.soup.find('url').text
 
     def get_site_type(self):
-        if 'data-fast-wzrd' in self.soup:
-            self.site_type = 'wizard'
-        elif 'yandex.ru' in self.url or 'youtube.com' in self.url or 'wikipedia.org' in self.url:
-            if 'yabs' in self.url:
-                self.site_type = 'direct'
-            else:
-                self.site_type = 'super'
+        if 'yandex.ru' in self.url or 'youtube.com' in self.url or 'wikipedia.org' in self.url:
+            self.site_type = 'super'
         else:
             self.site_type = 'organic'
 
