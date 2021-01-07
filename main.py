@@ -6,6 +6,7 @@ import time
 import pymorphy2
 import requests
 from bs4 import BeautifulSoup
+import lxml
 from urllib.parse import urlparse
 from sqlite_mode import *
 
@@ -124,8 +125,8 @@ class Yandex:
         self.request = request
         self.q = q
         self.stemmed_request = list()
-        self.page_url = ''
-        self.page_html = ''
+        self.xml_request = ''
+        self.page_xml = ''
         self.site_list = ''
         self.site_objects_list = list()
         self.thread_list = ''
@@ -136,8 +137,8 @@ class Yandex:
 
         if not self.check_request_in_db():
             self.stem_request()
-            self.get_page_url()
-            self.get_page_html()
+            self.make_xml_request_url()
+            self.get_page_xml()
             self.get_site_list()
 
             self.make_threads()
@@ -169,15 +170,15 @@ class Yandex:
         self.stemmed_request = morph.parse(self.request)[0].normal_form.split()
         logger.info(f'Стемированный запрос: {self.stemmed_request}')
 
-    def get_page_url(self):
-        self.page_url = f'https://yandex.ru/search/?text={self.request}&lr={REGIONS["Москва"]}'
+    def make_xml_request_url(self):
+        self.xml_request = f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={self.request}'
 
-    def get_page_html(self):
-        r = requests.get(self.page_url, headers=HEADERS).content
-        self.page_html = BeautifulSoup(r, 'html.parser')
+    def get_page_xml(self):
+        r = requests.get(self.xml_request).content
+        self.page_xml = BeautifulSoup(r, 'lxml')
 
     def get_site_list(self):
-        self.site_list = self.page_html.find_all('li', 'serp-item')
+        self.site_list = self.page_xml.find_all('doc')
         logger.info(f'Собран список сайтов')
 
     def make_site_object(self, position, site):
@@ -226,7 +227,7 @@ class Yandex:
         add_to_database_with_autoincrement('db.sqlite3', 'main_request', values_to_go)
 
     def get_scalp(self):
-        print(self.page_html.prettify())
+        print(self.page_xml.prettify())
 
 
 @logger.catch
