@@ -65,8 +65,9 @@ class Manager:
 @logger.catch
 class Site:
     def __init__(self, position, soup):
-
-        self.soup = soup
+        self.start = time.time()
+        self.soup = soup[0]
+        self.estimated_site_type = soup[1]
         self.position = position
         self.url = ''
         self.domain = ''
@@ -79,25 +80,29 @@ class Site:
         self.get_domain()
         self.get_site_type()
 
-        if self.site_type == 'organic':
+        if self.estimated_site_type == 'unknown':
             self.get_html()
-
-        self.make_content_object()
-        self.make_domain_object()
+            self.make_content_object()
+            self.make_domain_object()
 
     def get_url(self):
         self.url = self.soup.find('url').text
 
     def get_site_type(self):
-        if 'yandex.ru' in self.url or 'youtube.com' in self.url or 'wikipedia.org' in self.url:
+        if self.estimated_site_type == 'direct':
+            self.site_type = 'direct'
+        elif 'yandex.ru' in self.url or 'youtube.com' in self.url or 'wikipedia.org' in self.url:
             self.site_type = 'super'
         else:
             self.site_type = 'organic'
 
     def get_domain(self):
-        self.domain = urlparse(self.url)
-        self.domain = self.domain.netloc
-        self.domain.replace('www.', '')
+        if self.estimated_site_type == 'direct':
+            self.domain = self.url
+        else:
+            self.domain = urlparse(self.url)
+            self.domain = self.domain.netloc
+            self.domain.replace('www.', '')
 
         while self.domain.count('.') != 1:
             first_dot = self.domain.find('.') + 1
@@ -105,6 +110,7 @@ class Site:
 
     def get_html(self):
         r = requests.get(self.url, headers=HEADERS, verify=False).content
+        logger.info(f'html сайта {self.url} собран за {time.time() - self.start}')
         self.html = BeautifulSoup(r, 'html.parser')
 
     def make_domain_object(self):
@@ -122,7 +128,7 @@ class Yandex:
         self.stemmed_request = list()
         self.xml_request = ''
         self.page_xml = ''
-        self.site_list = ''
+        self.site_list = list()
         self.site_objects_list = list()
         self.thread_list = ''
         self.concurency_object = ''
@@ -173,8 +179,28 @@ class Yandex:
         self.page_xml = BeautifulSoup(r, 'lxml')
 
     def get_site_list(self):
-        self.site_list = self.page_xml.find_all('doc')
-        logger.info(f'Собран список сайтов')
+        try:
+            top_direct_sites = self.page_xml.find('topads').find_all('query')
+        except:
+            top_direct_sites = []
+
+        organic_sites = self.page_xml.find_all('doc')
+
+        try:
+            bottom_direct_sites = self.page_xml.find('bottomads').find_all('query')
+        except:
+            bottom_direct_sites = []
+
+        for site in top_direct_sites:
+            self.site_list.append((site, 'direct'))
+
+        for site in organic_sites:
+            self.site_list.append((site, 'unknown'))
+
+        for site in bottom_direct_sites:
+            self.site_list.append((site, 'direct'))
+
+        logger.info(f'Собран список сайтов {self.request}')
 
     def make_site_object(self, position, site):
         self.site_objects_list.append(Site(position, site))
@@ -186,6 +212,7 @@ class Yandex:
     def run_threads(self):
         for thread in self.thread_list:
             thread.start()
+
 
     def check_threads(self):
         for thread in self.thread_list:
@@ -266,6 +293,8 @@ class Domain:
 
         self.check_data_in_database()
 
+        logger.info('Объект Domain создан')
+
     def check_data_in_database(self):
         check = check_in_database('db.sqlite3', 'main_domain', 'name', self.domain)
 
@@ -325,6 +354,7 @@ class Domain:
 @logger.catch
 class Content:
     def __init__(self, html, site_type, domain):
+        self.start = time.time()
         self.domain = domain
         self.html = html
         self.site_type = site_type
@@ -344,6 +374,8 @@ class Content:
             except:
                 logger.critical(f"ЖОПА {self.domain}. ")
                 self.letters_amount = 5000
+
+        logger.debug(f'Закончил собирать контент сайта {domain} за {time.time() - self.start}')
 
     def get_text(self):
         self.text = self.html.text.replace('\n', '')
@@ -456,14 +488,14 @@ class Concurency:
     def check_valid_backlinks_sample(self):
         valid_backlinks = 0
         limit_for_validation = 0.8
-        domains_amount = len(self.site_objects_list)
+        domains_amount = len(self.organic_site_objects_list) + len(self.super_site_objects_list)
 
         for site_object in self.site_objects_list:
             try:
                 if site_object.domain_object.backlinks > 0:
                     valid_backlinks += 1
             except:
-                print('STOP')
+                pass
 
         valid_backlinks_rate = valid_backlinks / domains_amount
         self.valid_backlinks_rate = valid_backlinks_rate
@@ -471,7 +503,11 @@ class Concurency:
         if valid_backlinks_rate < limit_for_validation:
             logger.info(f'Выборки не хватило, начинаю сбор заново')
             time.sleep(10)
-            for site_object in self.site_objects_list:
+            for site_object in self.organic_site_objects_list:
+                if site_object.domain_object.backlinks == 0:
+                    site_object.domain_object.check_data_in_database()
+
+            for site_object in self.super_site_objects_list:
                 if site_object.domain_object.backlinks == 0:
                     site_object.domain_object.check_data_in_database()
 
@@ -481,11 +517,14 @@ class Concurency:
         maximum_backlinks = 500
 
         for site_object in self.site_objects_list:
-            max_backlinks_concurency += 100 * self.WEIGHTS[site_object.position]
-            if site_object.domain_object.backlinks > maximum_backlinks:
-                site_object.domain_object.backlinks = maximum_backlinks
-            real_backlinks_concurency += int(
-                site_object.domain_object.backlinks / maximum_backlinks * 100 * self.WEIGHTS[site_object.position])
+            try:
+
+                if site_object.domain_object.backlinks > maximum_backlinks:
+                    site_object.domain_object.backlinks = maximum_backlinks
+                real_backlinks_concurency += int(site_object.domain_object.backlinks / maximum_backlinks * 100 * self.WEIGHTS[site_object.position])
+                max_backlinks_concurency += 100 * self.WEIGHTS[site_object.position]
+            except:
+                pass
         self.site_backlinks_concurency = int(real_backlinks_concurency / max_backlinks_concurency * 100)
 
     def calculate_direct_upscale(self):
