@@ -13,6 +13,7 @@ from sqlite_mode import *
 
 @logger.catch
 class Manager:
+    print('ya')
     def __init__(self):
         self.requests = tuple()
         self.yandex_objects_list = list()
