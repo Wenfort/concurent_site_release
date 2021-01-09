@@ -13,7 +13,6 @@ from sqlite_mode import *
 
 @logger.catch
 class Manager:
-    print('ya')
     def __init__(self):
         self.requests = tuple()
         self.yandex_objects_list = list()
@@ -139,7 +138,6 @@ class Yandex:
 
         if not self.check_request_in_db():
             self.stem_request()
-            self.make_xml_request_url()
             self.get_page_xml()
             self.get_site_list()
 
@@ -172,12 +170,9 @@ class Yandex:
         self.stemmed_request = morph.parse(self.request)[0].normal_form.split()
         logger.info(f'Стемированный запрос: {self.stemmed_request}')
 
-    def make_xml_request_url(self):
-        self.xml_request = f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={self.request}'
 
     def get_page_xml(self):
-        r = requests.get(self.xml_request).content
-        self.page_xml = BeautifulSoup(r, 'lxml')
+        pass
 
     def get_site_list(self):
         try:

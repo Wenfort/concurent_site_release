@@ -32,10 +32,13 @@ def check_in_database(database, table, row_check, value_check):
     return check
 
 
-def get_data_from_database(database, table):
+def get_data_from_database(database, table, limit=0):
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
-    sql = f'SELECT * FROM {table}'
+    if limit == 0:
+        sql = f'SELECT * FROM {table}'
+    else:
+        sql = f'SELECT * FROM {table} LIMIT {limit}'
     cursor.execute(sql)
     data = cursor.fetchall()
     conn.close()
@@ -59,3 +62,14 @@ def delete_from_database(database, table, values):
         cursor.execute(sql)
     conn.commit()
     conn.close()
+
+
+def count_items_from_database(database, table):
+    conn = sqlite3.connect(database)
+    cursor = conn.cursor()
+    sql = f'SELECT COUNT (*) FROM {table}'
+    cursor.execute(sql)
+    result = cursor.fetchone()[0]
+    conn.commit()
+    conn.close()
+    return result

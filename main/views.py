@@ -22,8 +22,11 @@ def add_new_requests_to_queue(request):
         requests_list = requests_list.replace('\r','')
         requests_list = requests_list.split('\n')
         for req in requests_list:
-            RequestQueue(request=req).save()
-            Request(request=req).save()
+            if Request.objects.filter(request=req):
+                pass
+            else:
+                RequestQueue(request=req).save()
+                Request(request=req).save()
         form = NewRequest()
         return results(request)
     else:
