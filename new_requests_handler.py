@@ -113,7 +113,12 @@ class Site:
             self.domain = self.domain[first_dot:]
 
     def get_html(self):
-        r = requests.get(self.url, headers=HEADERS, verify=False).content
+        try:
+            r = requests.get(self.url, headers=HEADERS, verify=False).content
+        except:
+            logger.critical(f'Не удалось загрузить {self.url}')
+            raise
+            quit()
         logger.info(f'html сайта {self.url} собран за {time.time() - self.start}')
         self.html = BeautifulSoup(r, 'html.parser')
 
@@ -155,7 +160,7 @@ class Yandex:
         self.q.put(self.result)
 
     def start_logging(self):
-        logger.add("debug.txt", format="{time:HH:mm:ss} {message}", encoding="UTF-8")
+        logger.add("critical.txt", format="{time:HH:mm:ss} {message}", level='CRITICAL', encoding="UTF-8")
         logger.debug('Класс Yandex создан')
         logger.info(f'Запрос: {self.request}')
 
@@ -290,8 +295,10 @@ class Domain:
         self.backlinks = ''
         self.backlinks_object = ''
 
-        self.check_data_in_database()
-
+        try:
+            self.check_data_in_database()
+        except:
+            logger.critical(f'Проблемы с доменом {self.domain}')
         logger.info('Объект Domain создан')
 
     def check_data_in_database(self):
@@ -326,6 +333,11 @@ class Domain:
             start = soup.find('Creation Date') + 15
             finish = start + 4
             item = soup[start:finish]
+            self.domain_age = 2020 - int(item)
+        elif 'Registered on' in soup:
+            start = soup.find('Registered on')
+            finish = soup.find('Registry fee')
+            item = soup[start:finish].split()[4]
             self.domain_age = 2020 - int(item)
         elif 'created' in soup:
             if 'com.ua' in self.domain:

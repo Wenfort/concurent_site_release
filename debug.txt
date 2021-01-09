@@ -22661,3 +22661,507 @@ AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
 00:49:37 Модификатор от директа: 0.0
 00:49:37 Итоговая конкуренция: 94.0
 00:49:37 ('корм для собак', 98, 98, 97, 82, 94.0, 0.0, 'ready')
+01:05:13 Класс Yandex создан
+01:05:13 Запрос: коррекция зрения
+01:05:13 Стемированный запрос: ['коррекция', 'зрение']
+01:05:13 Собран список сайтов коррекция зрения
+01:05:14 Не удалось загрузить https://www.nlv.ru/laser-correction
+01:05:14 html сайта https://www.nlv.ru/laser-correction собран за 0.11449623107910156
+01:05:14 An error has been caught in function 'make_site_object', process 'Process-1' (7761), thread 'Thread-19' (140342854661888):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fa45dfd50d0>
+    └ <Thread(Thread-19, started 140342854661888)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fa45dfd3dc0>
+    └ <Thread(Thread-19, started 140342854661888)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-19, started 140342854661888)>
+    │    │        │    └ ('19', (<doc><url>https://www.nlv.ru/laser-correction</url><title>Лазерная коррекция зрения в Москве . Клиника Новый...</titl...
+    │    │        └ <Thread(Thread-19, started 140342854661888)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7fa45dfe0a60>>
+    └ <Thread(Thread-19, started 140342854661888)>
+
+> File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 208, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://www.nlv.ru/laser-correction</url><title>Лазерная коррекция зрения в Москве . Клиника Новый...</title><pass...
+    │    │                 │      │    └ '19'
+    │    │                 │      └ <function Site at 0x7fa45c8ddb80>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7fa45c06eac0>, <__main__.Site object at 0x7fa45c001280>, <__main__.Site object at 0x7fa45c0013a0>...
+    └ <__main__.Yandex object at 0x7fa45dfe0a60>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 88, in __init__
+    self.get_html()
+    │    └ <function Site.get_html at 0x7fa45c8dde50>
+    └ <__main__.Site object at 0x7fa45bfe2dc0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 121, in get_html
+    self.html = BeautifulSoup(r, 'html.parser')
+    │    │      └ <class 'bs4.BeautifulSoup'>
+    │    └ ''
+    └ <__main__.Site object at 0x7fa45bfe2dc0>
+
+UnboundLocalError: local variable 'r' referenced before assignment
+01:05:14 html сайта https://www.celt.ru/napravlenija/oftalm/uslugi/korrekcija-zrenija/ собран за 0.26387453079223633
+01:05:14 html сайта https://ProDoctorov.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 0.34299302101135254
+01:05:14 html сайта https://lazernaya-korrekciya-zreniya.ru/ собран за 0.4027392864227295
+01:05:14 html сайта https://elitplus-clinic.ru/stati/obzor-luchshix-klinik-po-lazernoj-korrekczii-zreniya-v-moskve.html собран за 0.4149610996246338
+01:05:14 html сайта https://mgkl.ru/uslugi/lazernaya собран за 0.6238150596618652
+01:05:14 html сайта https://www.lensmaster.ru/articles/lazernaya-kerrekciya-plusy-i-minusy.html собран за 0.6796531677246094
+01:05:14 html сайта https://www.vseozrenii.ru/rejtingi/rejting-klinik-po-lazernoj-korrekcii-zreniya-v-moskve-top-5/ собран за 0.6723806858062744
+01:05:14 html сайта https://www.kiz.ru/content/zdorove/zabolevaniya/novye-tekhnologii-korrektsii-zreniya/ собран за 0.8783013820648193
+01:05:14 html сайта https://www.medicina.ru/patsientam/uslugi-kliniki/lazernaja-korrekcija-zrenija/ собран за 0.8934509754180908
+01:05:14 html сайта https://proglazki.ru/operatsii/lazernaya-korrektsiya-zreniya-o/ собран за 0.9295542240142822
+01:05:15 html сайта https://spid.center/ru/articles/2470/ собран за 1.092681884765625
+01:05:15 html сайта https://napopravku.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 1.1529464721679688
+01:05:15 html сайта https://mag.103.by/topic/45713-bolyshe-nikakih-mifov-oftalymolog-otvechajet-na-tipichnyje-voprosy-o-lazernoj-korrekcii-zrenija/ собран за 1.2026216983795166
+01:05:15 html сайта https://health.mail.ru/news/ochki_linzy_ili_operatsiya_okulist_o_plyusah_i/ собран за 1.3266384601593018
+01:05:15 html сайта https://www.ochkov.net/wiki/lazernaya-korrekciya-zreniya-vidy-operacij.htm собран за 1.4957904815673828
+01:05:15 html сайта https://msk.excimerclinic.ru/laser-correction/ собран за 1.57185697555542
+01:05:15 html сайта https://zoon.ru/msk/m/lazernaya_korrektsiya_zreniya/ собран за 1.8605105876922607
+01:05:16 html сайта https://www.emcmos.ru/directions/oftalmologiyalazernaya-korrekciya-zreniya/ собран за 2.8402230739593506
+01:05:17 Закончил собирать контент сайта celt.ru за 3.010006904602051
+01:05:17 Объект Domain создан
+01:05:18 html сайта https://yandex.ru/health/turbo/articles?id=3355 собран за 4.759881973266602
+01:05:18 Закончил собирать контент сайта yandex.ru за 4.76837158203125e-06
+01:05:19 Объект Domain создан
+01:05:19 Закончил собирать контент сайта lensmaster.ru за 3.7891502380371094
+01:05:19 Объект Domain создан
+01:05:20 Закончил собирать контент сайта elitplus-clinic.ru за 5.962648630142212
+01:05:20 Объект Domain создан
+01:05:20 Закончил собирать контент сайта mgkl.ru за 5.972477436065674
+01:05:20 Объект Domain создан
+01:05:21 Закончил собирать контент сайта spid.center за 5.6110570430755615
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта zoon.ru за 2.9446825981140137
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта ProDoctorov.ru за 6.626211881637573
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта vseozrenii.ru за 6.296643495559692
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта lazernaya-korrekciya-zreniya.ru за 6.573071241378784
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта excimerclinic.ru за 3.826756715774536
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта ochkov.net за 5.447760343551636
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта kiz.ru за 5.185525178909302
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта 103.by за 5.019793510437012
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта mail.ru за 5.593844652175903
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта proglazki.ru за 6.284993886947632
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта napopravku.ru за 2.799079656600952
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта emcmos.ru за 2.510770797729492
+01:05:21 Объект Domain создан
+01:05:21 Закончил собирать контент сайта medicina.ru за 1.0435428619384766
+01:05:21 Объект Domain создан
+01:05:21 An error has been caught in function 'make_concurency_object', process 'Process-1' (7761), thread 'MainThread' (140343937169216):
+Traceback (most recent call last):
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 573, in <module>
+    Manager()
+    └ <function Manager at 0x7fa45e0ea5e0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 24, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fa45c8dd700>
+    └ <__main__.Manager object at 0x7fa45e1faaf0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fa45dff55e0>
+    └ <Process name='Process-1' parent=7752 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=7752 started>
+    │    │        │    └ <staticmethod object at 0x7fa45e0f5f10>
+    │    │        └ <Process name='Process-1' parent=7752 started>
+    │    └ None
+    └ <Process name='Process-1' parent=7752 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=7752 started>
+           │                └ <function DefaultContext.get_context at 0x7fa45e04c040>
+           └ <multiprocessing.context.DefaultContext object at 0x7fa45e000100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=7752 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=7752 started>
+    │    └ <function Popen._launch at 0x7fa45c6c80d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fa45c747670>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7fa45dff5ee0>
+           └ <Process name='Process-1' parent=7752 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fa45dff5550>
+    └ <Process name='Process-1' parent=7752 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=7752 started>
+    │    │        │    └ (('коррекция зрения', b'<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210109T220...
+    │    │        └ <Process name='Process-1' parent=7752 started>
+    │    └ <function Yandex at 0x7fa45c8de280>
+    └ <Process name='Process-1' parent=7752 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 155, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7fa45c8de820>
+    └ <__main__.Yandex object at 0x7fa45dfe0a60>
+
+> File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 224, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['коррекция', 'зрение']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7fa45dfe0a60>
+    │    │                   │          │    └ [<__main__.Site object at 0x7fa45c06eac0>, <__main__.Site object at 0x7fa45c001280>, <__main__.Site object at 0x7fa45c0013a0>...
+    │    │                   │          └ <__main__.Yandex object at 0x7fa45dfe0a60>
+    │    │                   └ <function Concurency at 0x7fa45c8e0ca0>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7fa45dfe0a60>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 421, in __init__
+    self.check_site_object_type()
+    │    └ <function Concurency.check_site_object_type at 0x7fa45c8e0dc0>
+    └ <__main__.Concurency object at 0x7fa45c0a5460>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 442, in check_site_object_type
+    if site_object.site_type == 'organic':
+       └ None
+
+AttributeError: 'NoneType' object has no attribute 'site_type'
+01:05:22 An error has been caught in function 'run', process 'Process-1' (7761), thread 'MainThread' (140343937169216):
+Traceback (most recent call last):
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 573, in <module>
+    Manager()
+    └ <function Manager at 0x7fa45e0ea5e0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 24, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fa45c8dd700>
+    └ <__main__.Manager object at 0x7fa45e1faaf0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fa45dff55e0>
+    └ <Process name='Process-1' parent=7752 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=7752 started>
+    │    │        │    └ <staticmethod object at 0x7fa45e0f5f10>
+    │    │        └ <Process name='Process-1' parent=7752 started>
+    │    └ None
+    └ <Process name='Process-1' parent=7752 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=7752 started>
+           │                └ <function DefaultContext.get_context at 0x7fa45e04c040>
+           └ <multiprocessing.context.DefaultContext object at 0x7fa45e000100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=7752 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=7752 started>
+    │    └ <function Popen._launch at 0x7fa45c6c80d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fa45c747670>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7fa45dff5ee0>
+           └ <Process name='Process-1' parent=7752 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fa45dff5550>
+    └ <Process name='Process-1' parent=7752 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=7752 started>
+    │    │        │    └ (('коррекция зрения', b'<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210109T220...
+    │    │        └ <Process name='Process-1' parent=7752 started>
+    │    └ <function Yandex at 0x7fa45c8de280>
+    └ <Process name='Process-1' parent=7752 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 156, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7fa45c8de940>
+    └ <__main__.Yandex object at 0x7fa45dfe0a60>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 243, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__main__.Yandex object at 0x7fa45dfe0a60>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+01:06:21 Класс Yandex создан
+01:06:21 Запрос: коррекция зрения
+01:06:22 Стемированный запрос: ['коррекция', 'зрение']
+01:06:22 Собран список сайтов коррекция зрения
+01:06:22 Не удалось загрузить https://www.nlv.ru/laser-correction
+01:06:22 html сайта https://www.nlv.ru/laser-correction собран за 0.106231689453125
+01:06:22 An error has been caught in function 'make_site_object', process 'Process-1' (7981), thread 'Thread-19' (139845628303104):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f30908800d0>
+    └ <Thread(Thread-19, started 139845628303104)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f309087edc0>
+    └ <Thread(Thread-19, started 139845628303104)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-19, started 139845628303104)>
+    │    │        │    └ ('19', (<doc><url>https://www.nlv.ru/laser-correction</url><title>Лазерная коррекция зрения в Москве . Клиника Новый...</titl...
+    │    │        └ <Thread(Thread-19, started 139845628303104)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f309088ba60>>
+    └ <Thread(Thread-19, started 139845628303104)>
+
+> File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 208, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://www.nlv.ru/laser-correction</url><title>Лазерная коррекция зрения в Москве . Клиника Новый...</title><pass...
+    │    │                 │      │    └ '19'
+    │    │                 │      └ <function Site at 0x7f308f188b80>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f308e9a9dc0>, <__main__.Site object at 0x7f308e8aa130>, <__main__.Site object at 0x7f308e8aa280>...
+    └ <__main__.Yandex object at 0x7f309088ba60>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 88, in __init__
+    self.get_html()
+    │    └ <function Site.get_html at 0x7f308f188e50>
+    └ <__main__.Site object at 0x7f308e88bbe0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 121, in get_html
+    self.html = BeautifulSoup(r, 'html.parser')
+    │    │      └ <class 'bs4.BeautifulSoup'>
+    │    └ ''
+    └ <__main__.Site object at 0x7f308e88bbe0>
+
+UnboundLocalError: local variable 'r' referenced before assignment
+01:06:22 html сайта https://proglazki.ru/operatsii/lazernaya-korrektsiya-zreniya-o/ собран за 0.1343522071838379
+01:06:22 html сайта https://elitplus-clinic.ru/stati/obzor-luchshix-klinik-po-lazernoj-korrekczii-zreniya-v-moskve.html собран за 0.2850658893585205
+01:06:22 html сайта https://lazernaya-korrekciya-zreniya.ru/ собран за 0.3076305389404297
+01:06:22 html сайта https://www.vseozrenii.ru/rejtingi/rejting-klinik-po-lazernoj-korrekcii-zreniya-v-moskve-top-5/ собран за 0.37218308448791504
+01:06:22 html сайта https://www.celt.ru/napravlenija/oftalm/uslugi/korrekcija-zrenija/ собран за 0.47371506690979004
+01:06:22 html сайта https://ProDoctorov.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 0.5707004070281982
+01:06:22 html сайта https://mgkl.ru/uslugi/lazernaya собран за 0.6616029739379883
+01:06:23 html сайта https://www.lensmaster.ru/articles/lazernaya-kerrekciya-plusy-i-minusy.html собран за 0.8143928050994873
+01:06:23 html сайта https://www.kiz.ru/content/zdorove/zabolevaniya/novye-tekhnologii-korrektsii-zreniya/ собран за 0.8275940418243408
+01:06:23 html сайта https://spid.center/ru/articles/2470/ собран за 0.8938608169555664
+01:06:23 html сайта https://www.medicina.ru/patsientam/uslugi-kliniki/lazernaja-korrekcija-zrenija/ собран за 0.9086508750915527
+01:06:23 html сайта https://napopravku.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 1.0307469367980957
+01:06:23 html сайта https://mag.103.by/topic/45713-bolyshe-nikakih-mifov-oftalymolog-otvechajet-na-tipichnyje-voprosy-o-lazernoj-korrekcii-zrenija/ собран за 1.1556589603424072
+01:06:23 html сайта https://health.mail.ru/news/ochki_linzy_ili_operatsiya_okulist_o_plyusah_i/ собран за 1.3173425197601318
+01:06:23 html сайта https://www.ochkov.net/wiki/lazernaya-korrekciya-zreniya-vidy-operacij.htm собран за 1.564527988433838
+01:06:24 html сайта https://msk.excimerclinic.ru/laser-correction/ собран за 1.8673944473266602
+01:06:24 html сайта https://zoon.ru/msk/m/lazernaya_korrektsiya_zreniya/ собран за 1.933311939239502
+01:06:25 html сайта https://www.emcmos.ru/directions/oftalmologiyalazernaya-korrekciya-zreniya/ собран за 3.503983497619629
+01:06:26 Закончил собирать контент сайта proglazki.ru за 4.153490781784058
+01:06:26 html сайта https://yandex.ru/health/turbo/articles?id=3355 собран за 4.413770437240601
+01:06:26 Закончил собирать контент сайта yandex.ru за 5.9604644775390625e-06
+01:06:27 Объект Domain создан
+01:06:27 Объект Domain создан
+01:06:28 Закончил собирать контент сайта celt.ru за 5.510869264602661
+01:06:28 Объект Domain создан
+01:06:29 Закончил собирать контент сайта spid.center за 5.5997326374053955
+01:06:29 Объект Domain создан
+01:06:29 Закончил собирать контент сайта kiz.ru за 5.388906478881836
+01:06:29 Объект Domain создан
+01:06:29 Закончил собирать контент сайта lazernaya-korrekciya-zreniya.ru за 6.479480028152466
+01:06:29 Объект Domain создан
+01:06:29 Закончил собирать контент сайта 103.by за 4.9590888023376465
+01:06:29 Объект Domain создан
+01:06:29 Закончил собирать контент сайта lensmaster.ru за 5.535264253616333
+01:06:29 Объект Domain создан
+01:06:29 Закончил собирать контент сайта ProDoctorov.ru за 6.106026649475098
+01:06:29 Объект Domain создан
+01:06:29 Закончил собирать контент сайта elitplus-clinic.ru за 6.929833650588989
+01:06:29 Объект Domain создан
+01:06:29 Закончил собирать контент сайта excimerclinic.ru за 4.420528888702393
+01:06:29 Объект Domain создан
+01:06:29 Закончил собирать контент сайта mail.ru за 5.8273515701293945
+01:06:29 Объект Domain создан
+01:06:29 Закончил собирать контент сайта mgkl.ru за 6.644140720367432
+01:06:29 Объект Domain создан
+01:06:30 Закончил собирать контент сайта ochkov.net за 5.63936185836792
+01:06:30 Объект Domain создан
+01:06:30 Закончил собирать контент сайта vseozrenii.ru за 7.093034982681274
+01:06:30 Объект Domain создан
+01:06:30 Закончил собирать контент сайта zoon.ru за 3.2256343364715576
+01:06:30 Объект Domain создан
+01:06:30 Закончил собирать контент сайта napopravku.ru за 2.4888534545898438
+01:06:30 Объект Domain создан
+01:06:30 Закончил собирать контент сайта emcmos.ru за 2.1825950145721436
+01:06:30 Объект Domain создан
+01:06:30 Закончил собирать контент сайта medicina.ru за 1.1825342178344727
+01:06:30 Объект Domain создан
+01:06:30 An error has been caught in function 'make_concurency_object', process 'Process-1' (7981), thread 'MainThread' (139846568912704):
+Traceback (most recent call last):
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 573, in <module>
+    Manager()
+    └ <function Manager at 0x7f30909955e0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 24, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f308f188700>
+    └ <__main__.Manager object at 0x7f308fb35f40>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f30908a05e0>
+    └ <Process name='Process-1' parent=7979 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=7979 started>
+    │    │        │    └ <staticmethod object at 0x7f30909a0f10>
+    │    │        └ <Process name='Process-1' parent=7979 started>
+    │    └ None
+    └ <Process name='Process-1' parent=7979 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=7979 started>
+           │                └ <function DefaultContext.get_context at 0x7f30908f7040>
+           └ <multiprocessing.context.DefaultContext object at 0x7f30908ab100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=7979 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=7979 started>
+    │    └ <function Popen._launch at 0x7f308effb3a0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f308eff2580>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f30908a0ee0>
+           └ <Process name='Process-1' parent=7979 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f30908a0550>
+    └ <Process name='Process-1' parent=7979 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=7979 started>
+    │    │        │    └ (('коррекция зрения', b'<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210109T220...
+    │    │        └ <Process name='Process-1' parent=7979 started>
+    │    └ <function Yandex at 0x7f308f189280>
+    └ <Process name='Process-1' parent=7979 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 155, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f308f189820>
+    └ <__main__.Yandex object at 0x7f309088ba60>
+
+> File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 224, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['коррекция', 'зрение']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f309088ba60>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f308e9a9dc0>, <__main__.Site object at 0x7f308e8aa130>, <__main__.Site object at 0x7f308e8aa280>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f309088ba60>
+    │    │                   └ <function Concurency at 0x7f308f18cca0>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f309088ba60>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 421, in __init__
+    self.check_site_object_type()
+    │    └ <function Concurency.check_site_object_type at 0x7f308f18cdc0>
+    └ <__main__.Concurency object at 0x7f308e9d5790>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 442, in check_site_object_type
+    if site_object.site_type == 'organic':
+       └ None
+
+AttributeError: 'NoneType' object has no attribute 'site_type'
+01:06:30 An error has been caught in function 'run', process 'Process-1' (7981), thread 'MainThread' (139846568912704):
+Traceback (most recent call last):
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 573, in <module>
+    Manager()
+    └ <function Manager at 0x7f30909955e0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 24, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f308f188700>
+    └ <__main__.Manager object at 0x7f308fb35f40>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f30908a05e0>
+    └ <Process name='Process-1' parent=7979 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=7979 started>
+    │    │        │    └ <staticmethod object at 0x7f30909a0f10>
+    │    │        └ <Process name='Process-1' parent=7979 started>
+    │    └ None
+    └ <Process name='Process-1' parent=7979 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=7979 started>
+           │                └ <function DefaultContext.get_context at 0x7f30908f7040>
+           └ <multiprocessing.context.DefaultContext object at 0x7f30908ab100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=7979 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=7979 started>
+    │    └ <function Popen._launch at 0x7f308effb3a0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f308eff2580>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f30908a0ee0>
+           └ <Process name='Process-1' parent=7979 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f30908a0550>
+    └ <Process name='Process-1' parent=7979 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=7979 started>
+    │    │        │    └ (('коррекция зрения', b'<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210109T220...
+    │    │        └ <Process name='Process-1' parent=7979 started>
+    │    └ <function Yandex at 0x7f308f189280>
+    └ <Process name='Process-1' parent=7979 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 156, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f308f189940>
+    └ <__main__.Yandex object at 0x7f309088ba60>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 243, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__main__.Yandex object at 0x7f309088ba60>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
