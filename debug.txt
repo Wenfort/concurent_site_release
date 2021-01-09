@@ -20715,3 +20715,1949 @@ AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
 22:11:15 Стемированный запрос: ['кукурузел']
 22:11:15 Стемированный запрос: ['коррекция', 'зрение']
 22:11:15 Стемированный запрос: ['кукузел']
+00:07:57 Класс Yandex создан
+00:07:57 Запрос: lasik
+00:07:57 Класс Yandex создан
+00:07:57 Класс Yandex создан
+00:07:57 Запрос: кукузла
+00:07:57 Запрос: коррекция зрения
+00:07:57 Класс Yandex создан
+00:07:57 Запрос: кукурузла
+00:07:58 Стемированный запрос: ['lasik']
+00:07:58 Стемированный запрос: ['коррекция', 'зрение']
+00:07:58 Стемированный запрос: ['кукурузел']
+00:07:58 Стемированный запрос: ['кукузел']
+00:19:29 Класс Yandex создан
+00:19:29 Запрос: коррекция зрения
+00:19:29 Стемированный запрос: ['коррекция', 'зрение']
+00:19:29 Собран список сайтов коррекция зрения
+00:19:29 html сайта https://www.celt.ru/napravlenija/oftalm/uslugi/korrekcija-zrenija/ собран за 0.3162672519683838
+00:19:29 html сайта https://ProDoctorov.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 0.38954854011535645
+00:19:29 html сайта https://elitplus-clinic.ru/stati/obzor-luchshix-klinik-po-lazernoj-korrekczii-zreniya-v-moskve.html собран за 0.4004325866699219
+00:19:29 html сайта https://fedorovmedcenter.ru/stati/oft-lazernaya-korrektsiya-zreniya/ собран за 0.4427652359008789
+00:19:29 html сайта https://lazernaya-korrekciya-zreniya.ru/ собран за 0.4827463626861572
+00:19:30 html сайта https://mgkl.ru/uslugi/lazernaya собран за 0.5920851230621338
+00:19:30 html сайта https://www.lensmaster.ru/articles/lazernaya-kerrekciya-plusy-i-minusy.html собран за 0.8248205184936523
+00:19:30 html сайта https://www.kiz.ru/content/zdorove/zabolevaniya/novye-tekhnologii-korrektsii-zreniya/ собран за 0.8058438301086426
+00:19:30 html сайта https://www.medicina.ru/patsientam/uslugi-kliniki/lazernaja-korrekcija-zrenija/ собран за 0.8450498580932617
+00:19:30 html сайта https://mag.103.by/topic/45713-bolyshe-nikakih-mifov-oftalymolog-otvechajet-na-tipichnyje-voprosy-o-lazernoj-korrekcii-zrenija/ собран за 0.9650661945343018
+00:19:30 html сайта https://proglazki.ru/operatsii/lazernaya-korrektsiya-zreniya-o/ собран за 0.9602968692779541
+00:19:30 html сайта https://health.mail.ru/news/ochki_linzy_ili_operatsiya_okulist_o_plyusah_i/ собран за 1.0578622817993164
+00:19:30 html сайта https://www.vseozrenii.ru/ceny/stoimost-lazernoj-korrekcii-zreniya-v-moskve/ собран за 1.1821355819702148
+00:19:30 html сайта https://napopravku.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 1.3848950862884521
+00:19:30 html сайта https://www.ochkov.net/wiki/lazernaya-korrekciya-zreniya-vidy-operacij.htm собран за 1.439941167831421
+00:19:31 html сайта https://spid.center/ru/articles/2470/ собран за 1.667417049407959
+00:19:31 html сайта https://msk.excimerclinic.ru/laser-correction/ собран за 1.7289061546325684
+00:19:31 html сайта https://zoon.ru/msk/m/lazernaya_korrektsiya_zreniya/ собран за 2.298907995223999
+00:19:33 html сайта https://www.emcmos.ru/directions/oftalmologiyalazernaya-korrekciya-zreniya/ собран за 3.7036468982696533
+00:19:34 html сайта https://yandex.ru/health/turbo/articles?id=3355 собран за 5.558196783065796
+00:19:35 Закончил собирать контент сайта yandex.ru за 5.9604644775390625e-06
+00:19:35 Объект Domain создан
+00:19:35 Закончил собирать контент сайта celt.ru за 6.014742374420166
+00:19:35 Объект Domain создан
+00:19:35 Закончил собирать контент сайта ProDoctorov.ru за 5.757827520370483
+00:19:35 Объект Domain создан
+00:19:36 Закончил собирать контент сайта elitplus-clinic.ru за 5.849722385406494
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта lazernaya-korrekciya-zreniya.ru за 5.877793312072754
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта mgkl.ru за 5.881418704986572
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта fedorovmedcenter.ru за 6.040621042251587
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта mail.ru за 4.988685131072998
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта kiz.ru за 5.381524085998535
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта spid.center за 5.068127632141113
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта lensmaster.ru за 4.815245151519775
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта proglazki.ru за 4.971254587173462
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта ochkov.net за 4.981007814407349
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта vseozrenii.ru за 5.2020039558410645
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта excimerclinic.ru за 4.236275911331177
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта 103.by за 4.975162029266357
+00:19:36 Объект Domain создан
+00:19:36 Закончил собирать контент сайта zoon.ru за 3.946720838546753
+00:19:36 Объект Domain создан
+00:19:37 Закончил собирать контент сайта napopravku.ru за 3.301300525665283
+00:19:37 Объект Domain создан
+00:19:37 Закончил собирать контент сайта emcmos.ru за 2.4287524223327637
+00:19:37 Объект Domain создан
+00:19:37 Закончил собирать контент сайта medicina.ru за 1.4757795333862305
+00:19:37 Объект Domain создан
+00:19:37 Данные есть о 20 из 20 (100%)
+00:19:37 Выборки хватило
+00:19:37 Директ обнаружен на позиции 1, текущий upscale = -22.0
+00:19:37 Директ обнаружен на позиции 2, текущий upscale = -13.0
+00:19:37 Директ обнаружен на позиции 23, текущий upscale = -12.4
+00:19:37 Директ обнаружен на позиции 24, текущий upscale = -11.8
+00:19:37 Директ обнаружен на позиции 25, текущий upscale = -11.2
+00:19:37 Директ обнаружен на позиции 26, текущий upscale = -10.6
+00:19:37 Директ обнаружен на позиции 27, текущий upscale = -10.0
+00:19:37 Конкуренция от возраста: 91
+00:19:37 Конкуренция от объема: 99
+00:19:37 Конкуренция от стема: 84
+00:19:37 Конкуренция от бэклинков: 82
+00:19:37 Модификатор от директа: -10.0
+00:19:37 Итоговая конкуренция: 77.0
+00:19:37 ('коррекция зрения', 91, 84, 99, 82, 77.0, -10.0, 'ready')
+00:19:37 An error has been caught in function 'run', process 'Process-1' (4581), thread 'MainThread' (140478962329408):
+Traceback (most recent call last):
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 567, in <module>
+    Manager()
+    └ <function Manager at 0x7fc3ce2f6430>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 24, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fc3ccae45e0>
+    └ <__main__.Manager object at 0x7fc3cd492730>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fc3ce202430>
+    └ <Process name='Process-1' parent=4580 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=4580 started>
+    │    │        │    └ <staticmethod object at 0x7fc3ce2fcee0>
+    │    │        └ <Process name='Process-1' parent=4580 started>
+    │    └ None
+    └ <Process name='Process-1' parent=4580 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=4580 started>
+           │                └ <function DefaultContext.get_context at 0x7fc3ce252ee0>
+           └ <multiprocessing.context.DefaultContext object at 0x7fc3ce207100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=4580 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=4580 started>
+    │    └ <function Popen._launch at 0x7fc3cc957280>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fc3cc950220>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7fc3ce202d30>
+           └ <Process name='Process-1' parent=4580 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fc3ce2023a0>
+    └ <Process name='Process-1' parent=4580 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=4580 started>
+    │    │        │    └ (('коррекция зрения', b'<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210109T191...
+    │    │        └ <Process name='Process-1' parent=4580 started>
+    │    └ <function Yandex at 0x7fc3ccae5160>
+    └ <Process name='Process-1' parent=4580 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 150, in __init__
+    self.check_request_in_db()
+    └ <__main__.Yandex object at 0x7fc3ce1e8a60>
+
+AttributeError: 'Yandex' object has no attribute 'check_request_in_db'
+00:20:19 Класс Yandex создан
+00:20:19 Запрос: коррекция зрения
+00:20:19 Стемированный запрос: ['коррекция', 'зрение']
+00:20:19 Собран список сайтов коррекция зрения
+00:20:20 html сайта https://elitplus-clinic.ru/stati/obzor-luchshix-klinik-po-lazernoj-korrekczii-zreniya-v-moskve.html собран за 0.25695109367370605
+00:20:20 html сайта https://www.celt.ru/napravlenija/oftalm/uslugi/korrekcija-zrenija/ собран за 0.2568063735961914
+00:20:20 html сайта https://proglazki.ru/operatsii/lazernaya-korrektsiya-zreniya-o/ собран за 0.20908713340759277
+00:20:20 html сайта https://ProDoctorov.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 0.3767983913421631
+00:20:20 html сайта https://fedorovmedcenter.ru/stati/oft-lazernaya-korrektsiya-zreniya/ собран за 0.3928558826446533
+00:20:20 html сайта https://lazernaya-korrekciya-zreniya.ru/ собран за 0.6014173030853271
+00:20:20 html сайта https://www.lensmaster.ru/articles/lazernaya-kerrekciya-plusy-i-minusy.html собран за 0.645575761795044
+00:20:20 html сайта https://mag.103.by/topic/45713-bolyshe-nikakih-mifov-oftalymolog-otvechajet-na-tipichnyje-voprosy-o-lazernoj-korrekcii-zrenija/ собран за 0.5802860260009766
+00:20:20 html сайта https://mgkl.ru/uslugi/lazernaya собран за 0.6830964088439941
+00:20:20 html сайта https://napopravku.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 0.9516308307647705
+00:20:20 html сайта https://spid.center/ru/articles/2470/ собран за 1.0297906398773193
+00:20:20 html сайта https://www.medicina.ru/patsientam/uslugi-kliniki/lazernaja-korrekcija-zrenija/ собран за 1.055558681488037
+00:20:21 html сайта https://www.kiz.ru/content/zdorove/zabolevaniya/novye-tekhnologii-korrektsii-zreniya/ собран за 1.1547369956970215
+00:20:21 html сайта https://health.mail.ru/news/ochki_linzy_ili_operatsiya_okulist_o_plyusah_i/ собран за 1.3041296005249023
+00:20:21 html сайта https://msk.excimerclinic.ru/laser-correction/ собран за 1.4966766834259033
+00:20:21 html сайта https://www.ochkov.net/wiki/lazernaya-korrekciya-zreniya-vidy-operacij.htm собран за 1.59244966506958
+00:20:21 html сайта https://zoon.ru/msk/m/lazernaya_korrektsiya_zreniya/ собран за 1.9131407737731934
+00:20:22 html сайта https://www.vseozrenii.ru/ceny/stoimost-lazernoj-korrekcii-zreniya-v-moskve/ собран за 2.2831923961639404
+00:20:22 html сайта https://www.emcmos.ru/directions/oftalmologiyalazernaya-korrekciya-zreniya/ собран за 2.438654661178589
+00:20:25 html сайта https://yandex.ru/health/turbo/articles?id=3355 собран за 5.937440633773804
+00:20:25 Закончил собирать контент сайта yandex.ru за 6.4373016357421875e-06
+00:20:25 Объект Domain создан
+00:20:26 Закончил собирать контент сайта elitplus-clinic.ru за 6.39416766166687
+00:20:26 Объект Domain создан
+00:20:26 Закончил собирать контент сайта celt.ru за 5.953157186508179
+00:20:26 Объект Domain создан
+00:20:26 Закончил собирать контент сайта fedorovmedcenter.ru за 5.827054262161255
+00:20:26 Объект Domain создан
+00:20:27 Закончил собирать контент сайта mgkl.ru за 5.542541742324829
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта proglazki.ru за 6.257226467132568
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта mail.ru за 5.095033168792725
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта lazernaya-korrekciya-zreniya.ru за 5.8626110553741455
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта spid.center за 5.385383367538452
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта lensmaster.ru за 4.909178972244263
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта ProDoctorov.ru за 5.772434949874878
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта excimerclinic.ru за 4.3599865436553955
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта kiz.ru за 4.757917642593384
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта vseozrenii.ru за 4.330355882644653
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта 103.by за 4.84749174118042
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта ochkov.net за 4.932098627090454
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта napopravku.ru за 2.703721761703491
+00:20:27 Объект Domain создан
+00:20:27 Закончил собирать контент сайта zoon.ru за 3.77689266204834
+00:20:27 Объект Domain создан
+00:20:28 Закончил собирать контент сайта emcmos.ru за 3.0902578830718994
+00:20:28 Объект Domain создан
+00:20:28 Закончил собирать контент сайта medicina.ru за 1.5301978588104248
+00:20:28 Объект Domain создан
+00:20:28 Данные есть о 20 из 20 (100%)
+00:20:28 Выборки хватило
+00:20:28 Директ обнаружен на позиции 1, текущий upscale = -22.0
+00:20:28 Директ обнаружен на позиции 2, текущий upscale = -13.0
+00:20:28 Директ обнаружен на позиции 23, текущий upscale = -12.4
+00:20:28 Директ обнаружен на позиции 24, текущий upscale = -11.8
+00:20:28 Директ обнаружен на позиции 25, текущий upscale = -11.2
+00:20:28 Директ обнаружен на позиции 26, текущий upscale = -10.6
+00:20:28 Директ обнаружен на позиции 27, текущий upscale = -10.0
+00:20:28 Конкуренция от возраста: 91
+00:20:28 Конкуренция от объема: 99
+00:20:28 Конкуренция от стема: 84
+00:20:28 Конкуренция от бэклинков: 82
+00:20:28 Модификатор от директа: -10.0
+00:20:28 Итоговая конкуренция: 77.0
+00:20:28 ('коррекция зрения', 91, 84, 99, 82, 77.0, -10.0, 'ready')
+00:20:38 Класс Yandex создан
+00:20:38 Запрос: коррекция зрения
+00:20:38 Стемированный запрос: ['коррекция', 'зрение']
+00:20:38 Собран список сайтов коррекция зрения
+00:20:38 html сайта https://www.celt.ru/napravlenija/oftalm/uslugi/korrekcija-zrenija/ собран за 0.13136577606201172
+00:20:39 html сайта https://health.mail.ru/news/ochki_linzy_ili_operatsiya_okulist_o_plyusah_i/ собран за 0.1965954303741455
+00:20:39 html сайта https://lazernaya-korrekciya-zreniya.ru/ собран за 0.2905104160308838
+00:20:39 html сайта https://elitplus-clinic.ru/stati/obzor-luchshix-klinik-po-lazernoj-korrekczii-zreniya-v-moskve.html собран за 0.3382399082183838
+00:20:39 html сайта https://fedorovmedcenter.ru/stati/oft-lazernaya-korrektsiya-zreniya/ собран за 0.33531713485717773
+00:20:39 html сайта https://ProDoctorov.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 0.3890218734741211
+00:20:39 html сайта https://www.vseozrenii.ru/ceny/stoimost-lazernoj-korrekcii-zreniya-v-moskve/ собран за 0.4615767002105713
+00:20:39 html сайта https://mgkl.ru/uslugi/lazernaya собран за 0.6784093379974365
+00:20:39 html сайта https://www.lensmaster.ru/articles/lazernaya-kerrekciya-plusy-i-minusy.html собран за 0.9010438919067383
+00:20:39 html сайта https://mag.103.by/topic/45713-bolyshe-nikakih-mifov-oftalymolog-otvechajet-na-tipichnyje-voprosy-o-lazernoj-korrekcii-zrenija/ собран за 0.8905031681060791
+00:20:39 html сайта https://proglazki.ru/operatsii/lazernaya-korrektsiya-zreniya-o/ собран за 0.8787374496459961
+00:20:39 html сайта https://www.kiz.ru/content/zdorove/zabolevaniya/novye-tekhnologii-korrektsii-zreniya/ собран за 0.9060416221618652
+00:20:39 html сайта https://www.medicina.ru/patsientam/uslugi-kliniki/lazernaja-korrekcija-zrenija/ собран за 1.0056633949279785
+00:20:39 html сайта https://napopravku.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 1.0610084533691406
+00:20:40 html сайта https://msk.excimerclinic.ru/laser-correction/ собран за 1.3203167915344238
+00:20:40 html сайта https://www.ochkov.net/wiki/lazernaya-korrekciya-zreniya-vidy-operacij.htm собран за 1.3235816955566406
+00:20:40 html сайта https://spid.center/ru/articles/2470/ собран за 1.4303219318389893
+00:20:41 html сайта https://zoon.ru/msk/m/lazernaya_korrektsiya_zreniya/ собран за 2.157780170440674
+00:20:42 html сайта https://www.emcmos.ru/directions/oftalmologiyalazernaya-korrekciya-zreniya/ собран за 3.383262872695923
+00:20:44 html сайта https://yandex.ru/health/turbo/articles?id=3355 собран за 5.678708076477051
+00:20:44 Закончил собирать контент сайта yandex.ru за 5.7220458984375e-06
+00:20:44 Объект Domain создан
+00:20:45 Закончил собирать контент сайта lazernaya-korrekciya-zreniya.ru за 5.659215450286865
+00:20:45 Объект Domain создан
+00:20:45 Закончил собирать контент сайта 103.by за 4.440822601318359
+00:20:45 Объект Domain создан
+00:20:45 Закончил собирать контент сайта celt.ru за 6.737412452697754
+00:20:45 Объект Domain создан
+00:20:45 Закончил собирать контент сайта mail.ru за 6.6144938468933105
+00:20:45 Объект Domain создан
+00:20:45 Закончил собирать контент сайта ProDoctorov.ru за 6.16349458694458
+00:20:45 Объект Domain создан
+00:20:45 Закончил собирать контент сайта elitplus-clinic.ru за 6.504767179489136
+00:20:45 Объект Domain создан
+00:20:46 Закончил собирать контент сайта ochkov.net за 4.945256471633911
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта lensmaster.ru за 5.151810646057129
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта zoon.ru за 3.544858932495117
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта excimerclinic.ru за 4.86956787109375
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта proglazki.ru за 5.798832178115845
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта mgkl.ru за 6.6647937297821045
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта fedorovmedcenter.ru за 6.996162176132202
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта kiz.ru за 6.327143907546997
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта spid.center за 6.071277618408203
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта vseozrenii.ru за 7.035905599594116
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта emcmos.ru за 2.6298880577087402
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта napopravku.ru за 3.1961963176727295
+00:20:46 Объект Domain создан
+00:20:46 Закончил собирать контент сайта medicina.ru за 1.3067636489868164
+00:20:46 Объект Domain создан
+00:24:51 Класс Yandex создан
+00:24:51 Запрос: коррекция зрения
+00:24:51 Стемированный запрос: ['коррекция', 'зрение']
+00:24:51 Собран список сайтов коррекция зрения
+00:24:52 html сайта https://elitplus-clinic.ru/stati/obzor-luchshix-klinik-po-lazernoj-korrekczii-zreniya-v-moskve.html собран за 0.4899485111236572
+00:24:52 html сайта https://lazernaya-korrekciya-zreniya.ru/ собран за 0.4510178565979004
+00:24:52 html сайта https://ProDoctorov.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 0.4307587146759033
+00:24:52 html сайта https://www.celt.ru/napravlenija/oftalm/uslugi/korrekcija-zrenija/ собран за 0.43000268936157227
+00:24:52 html сайта https://www.vseozrenii.ru/rejtingi/rejting-klinik-po-lazernoj-korrekcii-zreniya-v-moskve-top-5/ собран за 0.5770106315612793
+00:24:53 html сайта https://proglazki.ru/operatsii/lazernaya-korrektsiya-zreniya-o/ собран за 0.9489169120788574
+00:24:53 html сайта https://mgkl.ru/uslugi/lazernaya собран за 1.3529088497161865
+00:24:53 html сайта https://www.lensmaster.ru/articles/lazernaya-kerrekciya-plusy-i-minusy.html собран за 1.4476838111877441
+00:24:53 html сайта https://www.ochkov.net/wiki/lazernaya-korrekciya-zreniya-vidy-operacij.htm собран за 1.685129165649414
+00:24:53 html сайта https://napopravku.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 1.5085501670837402
+00:24:53 html сайта https://mag.103.by/topic/45713-bolyshe-nikakih-mifov-oftalymolog-otvechajet-na-tipichnyje-voprosy-o-lazernoj-korrekcii-zrenija/ собран за 1.7184550762176514
+00:24:53 html сайта https://www.kiz.ru/content/zdorove/zabolevaniya/novye-tekhnologii-korrektsii-zreniya/ собран за 1.6459946632385254
+00:24:54 html сайта https://msk.excimerclinic.ru/laser-correction/ собран за 2.212059736251831
+00:24:54 html сайта https://health.mail.ru/news/ochki_linzy_ili_operatsiya_okulist_o_plyusah_i/ собран за 2.0066027641296387
+00:24:54 html сайта https://www.medicina.ru/patsientam/uslugi-kliniki/lazernaja-korrekcija-zrenija/ собран за 1.9291720390319824
+00:24:54 html сайта https://spid.center/ru/articles/2470/ собран за 2.453807830810547
+00:24:55 html сайта https://zoon.ru/msk/m/lazernaya_korrektsiya_zreniya/ собран за 3.5640742778778076
+00:24:52 An error has been caught in function 'make_site_object', process 'Process-1' (5039), thread 'Thread-22' (140322252240640):
+Traceback (most recent call last):
+
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f9f7a502820>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f9f6a4cb940>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 382, in _make_request
+    self._validate_conn(conn)
+    │    │              └ <urllib3.connection.HTTPSConnection object at 0x7f9f6a4dc520>
+    │    └ <function HTTPSConnectionPool._validate_conn at 0x7f9f7a502d30>
+    └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f9f6a4cb940>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 1010, in _validate_conn
+    conn.connect()
+    │    └ <function HTTPSConnection.connect at 0x7f9f78c62430>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f9f6a4dc520>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connection.py", line 411, in connect
+    self.sock = ssl_wrap_socket(
+    │    │      └ <function ssl_wrap_socket at 0x7f9f78c58160>
+    │    └ None
+    └ <urllib3.connection.HTTPSConnection object at 0x7f9f6a4dc520>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/ssl_.py", line 428, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(
+               └ <function _ssl_wrap_socket_impl at 0x7f9f78c58310>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/ssl_.py", line 472, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           │           │           │                     └ 'www.nlv.ru'
+           │           │           └ <socket.socket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+           │           └ <function SSLContext.wrap_socket at 0x7f9f7ad78670>
+           └ <ssl.SSLContext object at 0x7f9f6a450bc0>
+  File "/usr/lib/python3.8/ssl.py", line 500, in wrap_socket
+    return self.sslsocket_class._create(
+           │    │               └ <classmethod object at 0x7f9f7ad76df0>
+           │    └ <class 'ssl.SSLSocket'>
+           └ <ssl.SSLContext object at 0x7f9f6a450bc0>
+  File "/usr/lib/python3.8/ssl.py", line 1040, in _create
+    self.do_handshake()
+    │    └ <function SSLSocket.do_handshake at 0x7f9f7ad7d550>
+    └ <ssl.SSLSocket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+  File "/usr/lib/python3.8/ssl.py", line 1309, in do_handshake
+    self._sslobj.do_handshake()
+    │    └ None
+    └ <ssl.SSLSocket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+
+ssl.SSLError: [SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "/home/django/env/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f9f7a502a60>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f9f6a4cb940>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+              │       └ <function Retry.increment at 0x7f9f7a4f95e0>
+              └ Retry(total=0, connect=None, read=False, redirect=None, status=None)
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/retry.py", line 573, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+          │             │      │    │        │             └ 'unknown'
+          │             │      │    │        └ <class 'urllib3.exceptions.ResponseError'>
+          │             │      │    └ SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)'))
+          │             │      └ '/laser-correction'
+          │             └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f9f6a4cb940>
+          └ <class 'urllib3.exceptions.MaxRetryError'>
+
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.nlv.ru', port=443): Max retries exceeded with url: /laser-correction (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)')))
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_bundle/pydev_monkey.py", line 770, in __call__
+    ret = self.original_func(*self.args, **self.kwargs)
+          │    │              │    │       │    └ {}
+          │    │              │    │       └ <_pydev_bundle.pydev_monkey._NewThreadStartupWithTrace object at 0x7f9f6a4bf790>
+          │    │              │    └ ()
+          │    │              └ <_pydev_bundle.pydev_monkey._NewThreadStartupWithTrace object at 0x7f9f6a4bf790>
+          │    └ <bound method Thread._bootstrap of <Thread(Thread-22, started 140322252240640)>>
+          └ <_pydev_bundle.pydev_monkey._NewThreadStartupWithTrace object at 0x7f9f6a4bf790>
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f9f7b3d6a60>
+    └ <Thread(Thread-22, started 140322252240640)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f9f7b3d6790>
+    └ <Thread(Thread-22, started 140322252240640)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-22, started 140322252240640)>
+    │    │        │    └ ('11', (<doc><url>https://www.nlv.ru/laser-correction</url><title>Лазерная коррекция зрения в Москве . Клиника Новый...</titl...
+    │    │        └ <Thread(Thread-22, started 140322252240640)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f9f7a69eb80>>
+    └ <Thread(Thread-22, started 140322252240640)>
+
+> File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 201, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://www.nlv.ru/laser-correction</url><title>Лазерная коррекция зрения в Москве . Клиника Новый...</title><pass...
+    │    │                 │      │    └ '11'
+    │    │                 │      └ <function Site at 0x7f9f7817d670>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f9f7811aa30>, <__main__.Site object at 0x7f9f6a4ea280>, <__main__.Site object at 0x7f9f6a3cefa0>...
+    └ <__main__.Yandex object at 0x7f9f7a69eb80>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 84, in __init__
+    self.get_html()
+    │    └ <function Site.get_html at 0x7f9f7817d940>
+    └ <__main__.Site object at 0x7f9f6a4cb5b0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 112, in get_html
+    r = requests.get(self.url, headers=HEADERS, verify=False).content
+        │        │   │    │            └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/...
+        │        │   │    └ 'https://www.nlv.ru/laser-correction'
+        │        │   └ <__main__.Site object at 0x7f9f6a4cb5b0>
+        │        └ <function get at 0x7f9f78a68310>
+        └ <module 'requests' from '/home/django/env/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/django/env/lib/python3.8/site-packages/requests/api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147...
+           │              │           └ None
+           │              └ 'https://www.nlv.ru/laser-correction'
+           └ <function request at 0x7f9f78a55160>
+  File "/home/django/env/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ...
+           │       │              │           └ 'https://www.nlv.ru/laser-correction'
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f9f78a67a60>
+           └ <requests.sessions.Session object at 0x7f9f6a4cb3a0>
+  File "/home/django/env/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': None, 'allow_redirects': True, 'verify': False, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f9f78a67ee0>
+           └ <requests.sessions.Session object at 0x7f9f6a4cb3a0>
+  File "/home/django/env/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': None, 'verify': False, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f9f78a673a0>
+        └ <requests.adapters.HTTPAdapter object at 0x7f9f6a4cb400>
+  File "/home/django/env/lib/python3.8/site-packages/requests/adapters.py", line 514, in send
+    raise SSLError(e, request=request)
+          │                   └ <PreparedRequest [GET]>
+          └ <class 'requests.exceptions.SSLError'>
+
+requests.exceptions.SSLError: HTTPSConnectionPool(host='www.nlv.ru', port=443): Max retries exceeded with url: /laser-correction (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)')))
+00:25:00 html сайта https://www.emcmos.ru/directions/oftalmologiyalazernaya-korrekciya-zreniya/ собран за 8.536754846572876
+00:25:02 html сайта https://yandex.ru/health/turbo/articles?id=3355 собран за 10.899624824523926
+00:25:03 Закончил собирать контент сайта yandex.ru за 5.4836273193359375e-06
+00:25:03 Объект Domain создан
+00:25:09 Закончил собирать контент сайта lazernaya-korrekciya-zreniya.ru за 16.064469814300537
+00:25:10 Объект Domain создан
+00:25:10 Закончил собирать контент сайта elitplus-clinic.ru за 15.445940017700195
+00:25:10 Объект Domain создан
+00:25:11 Закончил собирать контент сайта kiz.ru за 14.302696704864502
+00:25:11 Объект Domain создан
+00:25:11 Закончил собирать контент сайта celt.ru за 16.25214672088623
+00:25:11 Объект Domain создан
+00:25:12 Закончил собирать контент сайта ProDoctorov.ru за 17.598778009414673
+00:25:12 Объект Domain создан
+00:25:12 Закончил собирать контент сайта mail.ru за 15.125492334365845
+00:25:12 Объект Domain создан
+00:25:12 Закончил собирать контент сайта proglazki.ru за 14.48233675956726
+00:25:12 Объект Domain создан
+00:25:12 Закончил собирать контент сайта vseozrenii.ru за 17.88918709754944
+00:25:12 Объект Domain создан
+00:25:12 Закончил собирать контент сайта ochkov.net за 14.731844663619995
+00:25:12 Объект Domain создан
+00:25:12 Закончил собирать контент сайта lensmaster.ru за 14.325909852981567
+00:25:12 Объект Domain создан
+00:25:12 Закончил собирать контент сайта spid.center за 14.93005084991455
+00:25:13 Объект Domain создан
+00:25:13 Закончил собирать контент сайта mgkl.ru за 15.070379972457886
+00:25:13 Объект Domain создан
+00:25:13 Закончил собирать контент сайта 103.by за 12.897101879119873
+00:25:13 Объект Domain создан
+00:25:13 Закончил собирать контент сайта excimerclinic.ru за 12.811856985092163
+00:25:13 Объект Domain создан
+00:25:13 Закончил собирать контент сайта zoon.ru за 11.631197929382324
+00:25:13 Объект Domain создан
+00:25:13 Закончил собирать контент сайта emcmos.ru за 8.112603187561035
+00:25:13 Объект Domain создан
+00:25:13 Закончил собирать контент сайта napopravku.ru за 4.581501483917236
+00:25:13 Объект Domain создан
+00:25:13 Закончил собирать контент сайта medicina.ru за 2.327648401260376
+00:25:13 Объект Domain создан
+00:25:13 An error has been caught in function 'make_concurency_object', process 'Process-1' (5039), thread 'MainThread' (140322952783680):
+Traceback (most recent call last):
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2131, in <module>
+    main()
+    └ <function main at 0x7f9f7a635940>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2122, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 39571, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x7f9f7a634940>
+              └ <__main__.PyDB object at 0x7f9f7ac4ee80>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1431, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ '/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x7f9f7a6349d0>
+           └ <__main__.PyDB object at 0x7f9f7ac4ee80>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1438, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ '/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py'
+    │             └ <function execfile at 0x7f9f7b38e280>
+    └ <module '_pydev_bundle.pydev_imports' from '/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_bundle/...
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_imps/_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ '/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py'
+                 └ 'from conc_settings import *\nfrom multiprocessing import Process, Queue\nfrom threading import Thread\nfrom loguru import lo...
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 566, in <module>
+    Manager()
+    └ <function Manager at 0x7f9f7a697310>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 24, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f9f7817d1f0>
+    └ <__main__.Manager object at 0x7f9f7ab57ac0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f9f7a524280>
+    └ <Process name='Process-1' parent=5031 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=5031 started>
+    │    │        │    └ <staticmethod object at 0x7f9f7a69e190>
+    │    │        └ <Process name='Process-1' parent=5031 started>
+    │    └ None
+    └ <Process name='Process-1' parent=5031 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=5031 started>
+           │                └ <function DefaultContext.get_context at 0x7f9f7a538ca0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f9f7a5304f0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=5031 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=5031 started>
+    │    └ <function Popen._launch at 0x7f9f78106dc0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f9f780faf40>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f9f7a524b80>
+           └ <Process name='Process-1' parent=5031 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f9f7a5241f0>
+    └ <Process name='Process-1' parent=5031 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=5031 started>
+    │    │        │    └ (('коррекция зрения', b'<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210109T212...
+    │    │        └ <Process name='Process-1' parent=5031 started>
+    │    └ <function Yandex at 0x7f9f7817dd30>
+    └ <Process name='Process-1' parent=5031 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 148, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f9f7817e310>
+    └ <__main__.Yandex object at 0x7f9f7a69eb80>
+
+> File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 217, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['коррекция', 'зрение']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f9f7a69eb80>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f9f7811aa30>, <__main__.Site object at 0x7f9f6a4ea280>, <__main__.Site object at 0x7f9f6a3cefa0>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f9f7a69eb80>
+    │    │                   └ <function Concurency at 0x7f9f7817f790>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f9f7a69eb80>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 414, in __init__
+    self.check_site_object_type()
+    │    └ <function Concurency.check_site_object_type at 0x7f9f7817f8b0>
+    └ <__main__.Concurency object at 0x7f9f6a58d730>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 435, in check_site_object_type
+    if site_object.site_type == 'organic':
+       └ None
+
+AttributeError: 'NoneType' object has no attribute 'site_type'
+00:25:52 An error has been caught in function 'run', process 'Process-1' (5039), thread 'MainThread' (140322952783680):
+Traceback (most recent call last):
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2131, in <module>
+    main()
+    └ <function main at 0x7f9f7a635940>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2122, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 39571, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x7f9f7a634940>
+              └ <__main__.PyDB object at 0x7f9f7ac4ee80>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1431, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ '/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x7f9f7a6349d0>
+           └ <__main__.PyDB object at 0x7f9f7ac4ee80>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1438, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ '/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py'
+    │             └ <function execfile at 0x7f9f7b38e280>
+    └ <module '_pydev_bundle.pydev_imports' from '/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_bundle/...
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_imps/_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ '/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py'
+                 └ 'from conc_settings import *\nfrom multiprocessing import Process, Queue\nfrom threading import Thread\nfrom loguru import lo...
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 566, in <module>
+    Manager()
+    └ <function Manager at 0x7f9f7a697310>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 24, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f9f7817d1f0>
+    └ <__main__.Manager object at 0x7f9f7ab57ac0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f9f7a524280>
+    └ <Process name='Process-1' parent=5031 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=5031 started>
+    │    │        │    └ <staticmethod object at 0x7f9f7a69e190>
+    │    │        └ <Process name='Process-1' parent=5031 started>
+    │    └ None
+    └ <Process name='Process-1' parent=5031 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=5031 started>
+           │                └ <function DefaultContext.get_context at 0x7f9f7a538ca0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f9f7a5304f0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=5031 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=5031 started>
+    │    └ <function Popen._launch at 0x7f9f78106dc0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f9f780faf40>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f9f7a524b80>
+           └ <Process name='Process-1' parent=5031 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f9f7a5241f0>
+    └ <Process name='Process-1' parent=5031 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=5031 started>
+    │    │        │    └ (('коррекция зрения', b'<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210109T212...
+    │    │        └ <Process name='Process-1' parent=5031 started>
+    │    └ <function Yandex at 0x7f9f7817dd30>
+    └ <Process name='Process-1' parent=5031 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 149, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f9f7817e430>
+    └ <__main__.Yandex object at 0x7f9f7a69eb80>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 236, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__main__.Yandex object at 0x7f9f7a69eb80>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+00:28:02 Класс Yandex создан
+00:28:02 Запрос: коррекция зрения
+00:28:02 Стемированный запрос: ['коррекция', 'зрение']
+00:28:02 Собран список сайтов коррекция зрения
+00:28:03 html сайта https://www.celt.ru/napravlenija/oftalm/uslugi/korrekcija-zrenija/ собран за 0.26384520530700684
+00:28:03 html сайта https://elitplus-clinic.ru/stati/obzor-luchshix-klinik-po-lazernoj-korrekczii-zreniya-v-moskve.html собран за 0.7011637687683105
+00:28:03 html сайта https://proglazki.ru/operatsii/lazernaya-korrektsiya-zreniya-o/ собран за 0.415834903717041
+00:28:03 html сайта https://ProDoctorov.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 0.6384520530700684
+00:28:03 html сайта https://lazernaya-korrekciya-zreniya.ru/ собран за 0.7513127326965332
+00:28:04 html сайта https://mgkl.ru/uslugi/lazernaya собран за 1.2867133617401123
+00:28:04 html сайта https://www.vseozrenii.ru/rejtingi/rejting-klinik-po-lazernoj-korrekcii-zreniya-v-moskve-top-5/ собран за 1.1104998588562012
+00:28:04 html сайта https://www.lensmaster.ru/articles/lazernaya-kerrekciya-plusy-i-minusy.html собран за 1.5431342124938965
+00:28:03 An error has been caught in function 'make_site_object', process 'Process-1' (5370), thread 'Thread-24' (140125447120640):
+Traceback (most recent call last):
+
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7f71afe27820>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7197d6a100>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 382, in _make_request
+    self._validate_conn(conn)
+    │    │              └ <urllib3.connection.HTTPSConnection object at 0x7f7197d7a190>
+    │    └ <function HTTPSConnectionPool._validate_conn at 0x7f71afe27d30>
+    └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7197d6a100>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 1010, in _validate_conn
+    conn.connect()
+    │    └ <function HTTPSConnection.connect at 0x7f71ae588430>
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7197d7a190>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connection.py", line 411, in connect
+    self.sock = ssl_wrap_socket(
+    │    │      └ <function ssl_wrap_socket at 0x7f71ae57e160>
+    │    └ None
+    └ <urllib3.connection.HTTPSConnection object at 0x7f7197d7a190>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/ssl_.py", line 428, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(
+               └ <function _ssl_wrap_socket_impl at 0x7f71ae57e310>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/ssl_.py", line 472, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           │           │           │                     └ 'www.nlv.ru'
+           │           │           └ <socket.socket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+           │           └ <function SSLContext.wrap_socket at 0x7f71b069e670>
+           └ <ssl.SSLContext object at 0x7f7197d43240>
+  File "/usr/lib/python3.8/ssl.py", line 500, in wrap_socket
+    return self.sslsocket_class._create(
+           │    │               └ <classmethod object at 0x7f71b069bdf0>
+           │    └ <class 'ssl.SSLSocket'>
+           └ <ssl.SSLContext object at 0x7f7197d43240>
+  File "/usr/lib/python3.8/ssl.py", line 1040, in _create
+    self.do_handshake()
+    │    └ <function SSLSocket.do_handshake at 0x7f71b06a3550>
+    └ <ssl.SSLSocket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+  File "/usr/lib/python3.8/ssl.py", line 1309, in do_handshake
+    self._sslobj.do_handshake()
+    │    └ None
+    └ <ssl.SSLSocket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+
+ssl.SSLError: [SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "/home/django/env/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7f71afe27a60>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7197d6a100>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+              │       └ <function Retry.increment at 0x7f71afe1d5e0>
+              └ Retry(total=0, connect=None, read=False, redirect=None, status=None)
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/retry.py", line 573, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+          │             │      │    │        │             └ 'unknown'
+          │             │      │    │        └ <class 'urllib3.exceptions.ResponseError'>
+          │             │      │    └ SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)'))
+          │             │      └ '/laser-correction'
+          │             └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7f7197d6a100>
+          └ <class 'urllib3.exceptions.MaxRetryError'>
+
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.nlv.ru', port=443): Max retries exceeded with url: /laser-correction (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)')))
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_bundle/pydev_monkey.py", line 770, in __call__
+    ret = self.original_func(*self.args, **self.kwargs)
+          │    │              │    │       │    └ {}
+          │    │              │    │       └ <_pydev_bundle.pydev_monkey._NewThreadStartupWithTrace object at 0x7f7197de1a00>
+          │    │              │    └ ()
+          │    │              └ <_pydev_bundle.pydev_monkey._NewThreadStartupWithTrace object at 0x7f7197de1a00>
+          │    └ <bound method Thread._bootstrap of <Thread(Thread-24, started 140125447120640)>>
+          └ <_pydev_bundle.pydev_monkey._NewThreadStartupWithTrace object at 0x7f7197de1a00>
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f71b0cfca60>
+    └ <Thread(Thread-24, started 140125447120640)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f71b0cfc790>
+    └ <Thread(Thread-24, started 140125447120640)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-24, started 140125447120640)>
+    │    │        │    └ ('13', (<doc><url>https://www.nlv.ru/laser-correction</url><title>Лазерная коррекция зрения в Москве . Клиника Новый...</titl...
+    │    │        └ <Thread(Thread-24, started 140125447120640)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f71affc6e80>>
+    └ <Thread(Thread-24, started 140125447120640)>
+
+> File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 201, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://www.nlv.ru/laser-correction</url><title>Лазерная коррекция зрения в Москве . Клиника Новый...</title><pass...
+    │    │                 │      │    └ '13'
+    │    │                 │      └ <function Site at 0x7f71ad875670>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f71ad6dc430>, <__main__.Site object at 0x7f7197e0c3d0>, <__main__.Site object at 0x7f7197e0c520>...
+    └ <__main__.Yandex object at 0x7f71affc6e80>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 84, in __init__
+    self.get_html()
+    │    └ <function Site.get_html at 0x7f71ad875940>
+    └ <__main__.Site object at 0x7f7197deb940>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 112, in get_html
+    r = requests.get(self.url, headers=HEADERS, verify=False).content
+        │        │   │    │            └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/...
+        │        │   │    └ 'https://www.nlv.ru/laser-correction'
+        │        │   └ <__main__.Site object at 0x7f7197deb940>
+        │        └ <function get at 0x7f71ae38e310>
+        └ <module 'requests' from '/home/django/env/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/django/env/lib/python3.8/site-packages/requests/api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147...
+           │              │           └ None
+           │              └ 'https://www.nlv.ru/laser-correction'
+           └ <function request at 0x7f71ae37d160>
+  File "/home/django/env/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ...
+           │       │              │           └ 'https://www.nlv.ru/laser-correction'
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7f71ae38da60>
+           └ <requests.sessions.Session object at 0x7f7197deb760>
+  File "/home/django/env/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': None, 'allow_redirects': True, 'verify': False, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7f71ae38dee0>
+           └ <requests.sessions.Session object at 0x7f7197deb760>
+  File "/home/django/env/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': None, 'verify': False, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7f71ae38d3a0>
+        └ <requests.adapters.HTTPAdapter object at 0x7f7197deb790>
+  File "/home/django/env/lib/python3.8/site-packages/requests/adapters.py", line 514, in send
+    raise SSLError(e, request=request)
+          │                   └ <PreparedRequest [GET]>
+          └ <class 'requests.exceptions.SSLError'>
+
+requests.exceptions.SSLError: HTTPSConnectionPool(host='www.nlv.ru', port=443): Max retries exceeded with url: /laser-correction (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)')))
+00:28:04 html сайта https://www.kiz.ru/content/zdorove/zabolevaniya/novye-tekhnologii-korrektsii-zreniya/ собран за 1.4168262481689453
+00:28:04 html сайта https://napopravku.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 1.6720097064971924
+00:28:04 html сайта https://mag.103.by/topic/45713-bolyshe-nikakih-mifov-oftalymolog-otvechajet-na-tipichnyje-voprosy-o-lazernoj-korrekcii-zrenija/ собран за 1.8624656200408936
+00:28:04 html сайта https://www.ochkov.net/wiki/lazernaya-korrekciya-zreniya-vidy-operacij.htm собран за 2.2326319217681885
+00:28:05 html сайта https://spid.center/ru/articles/2470/ собран за 2.048321485519409
+00:28:05 html сайта https://health.mail.ru/news/ochki_linzy_ili_operatsiya_okulist_o_plyusah_i/ собран за 2.130389928817749
+00:28:05 html сайта https://www.medicina.ru/patsientam/uslugi-kliniki/lazernaja-korrekcija-zrenija/ собран за 2.1475207805633545
+00:28:05 html сайта https://msk.excimerclinic.ru/laser-correction/ собран за 2.829887628555298
+00:28:06 html сайта https://zoon.ru/msk/m/lazernaya_korrektsiya_zreniya/ собран за 3.383864164352417
+00:28:10 html сайта https://www.emcmos.ru/directions/oftalmologiyalazernaya-korrekciya-zreniya/ собран за 7.669622421264648
+00:28:14 html сайта https://yandex.ru/health/turbo/articles?id=3355 собран за 11.859791278839111
+00:28:15 Закончил собирать контент сайта yandex.ru за 5.9604644775390625e-06
+00:28:15 Объект Domain создан
+00:28:20 Закончил собирать контент сайта lazernaya-korrekciya-zreniya.ru за 15.313832521438599
+00:28:20 Объект Domain создан
+00:28:21 Закончил собирать контент сайта excimerclinic.ru за 10.174936056137085
+00:28:21 Объект Domain создан
+00:28:22 Закончил собирать контент сайта celt.ru за 18.291280031204224
+00:28:22 Объект Domain создан
+00:28:23 Закончил собирать контент сайта ProDoctorov.ru за 15.276694774627686
+00:28:23 Объект Domain создан
+00:28:23 Закончил собирать контент сайта spid.center за 15.822991132736206
+00:28:23 Объект Domain создан
+00:28:23 Закончил собирать контент сайта proglazki.ru за 17.948771953582764
+00:28:23 Объект Domain создан
+00:28:23 Закончил собирать контент сайта ochkov.net за 15.308802366256714
+00:28:23 Объект Domain создан
+00:28:23 Закончил собирать контент сайта vseozrenii.ru за 16.53668761253357
+00:28:23 Объект Domain создан
+00:28:23 Закончил собирать контент сайта mgkl.ru за 16.000365734100342
+00:28:24 Объект Domain создан
+00:28:24 Закончил собирать контент сайта mail.ru за 14.658746719360352
+00:28:24 Объект Domain создан
+00:28:24 Закончил собирать контент сайта elitplus-clinic.ru за 19.103666305541992
+00:28:24 Объект Domain создан
+00:28:24 Закончил собирать контент сайта 103.by за 13.870271444320679
+00:28:24 Объект Domain создан
+00:28:24 Закончил собирать контент сайта lensmaster.ru за 14.231756448745728
+00:28:24 Объект Domain создан
+00:28:24 Закончил собирать контент сайта kiz.ru за 13.875389814376831
+00:28:24 Объект Domain создан
+00:28:24 Закончил собирать контент сайта zoon.ru за 11.399694681167603
+00:28:24 Объект Domain создан
+00:28:24 Закончил собирать контент сайта emcmos.ru за 8.80433201789856
+00:28:24 Объект Domain создан
+00:28:25 Закончил собирать контент сайта napopravku.ru за 5.263492107391357
+00:28:25 Объект Domain создан
+00:28:25 Закончил собирать контент сайта medicina.ru за 2.209747552871704
+00:28:25 Объект Domain создан
+00:28:25 An error has been caught in function 'make_concurency_object', process 'Process-1' (5370), thread 'MainThread' (140126283073344):
+Traceback (most recent call last):
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2131, in <module>
+    main()
+    └ <function main at 0x7f71aff5b940>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2122, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 40229, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x7f71aff60940>
+              └ <__main__.PyDB object at 0x7f71b0574e80>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1431, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ '/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x7f71aff609d0>
+           └ <__main__.PyDB object at 0x7f71b0574e80>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1438, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ '/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py'
+    │             └ <function execfile at 0x7f71b0cb4280>
+    └ <module '_pydev_bundle.pydev_imports' from '/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_bundle/...
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_imps/_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ '/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py'
+                 └ 'from conc_settings import *\nfrom multiprocessing import Process, Queue\nfrom threading import Thread\nfrom loguru import lo...
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 566, in <module>
+    Manager()
+    └ <function Manager at 0x7f71affb9310>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 24, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f71ad8751f0>
+    └ <__main__.Manager object at 0x7f71b04883d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f71afe49280>
+    └ <Process name='Process-1' parent=5365 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=5365 started>
+    │    │        │    └ <staticmethod object at 0x7f71affc6100>
+    │    │        └ <Process name='Process-1' parent=5365 started>
+    │    └ None
+    └ <Process name='Process-1' parent=5365 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=5365 started>
+           │                └ <function DefaultContext.get_context at 0x7f71afe5aca0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f71afe4a4f0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=5365 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=5365 started>
+    │    └ <function Popen._launch at 0x7f71ad6c9dc0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f71ad6c5940>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f71afe49b80>
+           └ <Process name='Process-1' parent=5365 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f71afe491f0>
+    └ <Process name='Process-1' parent=5365 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=5365 started>
+    │    │        │    └ (('коррекция зрения', b'<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210109T212...
+    │    │        └ <Process name='Process-1' parent=5365 started>
+    │    └ <function Yandex at 0x7f71ad875d30>
+    └ <Process name='Process-1' parent=5365 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 148, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f71ad876310>
+    └ <__main__.Yandex object at 0x7f71affc6e80>
+
+> File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 217, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['коррекция', 'зрение']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f71affc6e80>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f71ad6dc430>, <__main__.Site object at 0x7f7197e0c3d0>, <__main__.Site object at 0x7f7197e0c520>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f71affc6e80>
+    │    │                   └ <function Concurency at 0x7f71ad878790>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f71affc6e80>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 414, in __init__
+    self.check_site_object_type()
+    │    └ <function Concurency.check_site_object_type at 0x7f71ad8788b0>
+    └ <__main__.Concurency object at 0x7f7197eb9100>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 435, in check_site_object_type
+    if site_object.site_type == 'organic':
+       └ None
+
+AttributeError: 'NoneType' object has no attribute 'site_type'
+00:29:12 Класс Yandex создан
+00:29:12 Запрос: коррекция зрения
+00:29:12 Стемированный запрос: ['коррекция', 'зрение']
+00:29:12 Собран список сайтов коррекция зрения
+00:29:12 An error has been caught in function 'make_site_object', process 'Process-1' (5518), thread 'Thread-13' (140495745439488):
+Traceback (most recent call last):
+
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+                       │    └ <function HTTPConnectionPool._make_request at 0x7fc7d100ac10>
+                       └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7fc7cfae1790>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 382, in _make_request
+    self._validate_conn(conn)
+    │    │              └ <urllib3.connection.HTTPSConnection object at 0x7fc7cfaabfd0>
+    │    └ <function HTTPSConnectionPool._validate_conn at 0x7fc7d100b160>
+    └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7fc7cfae1790>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 1010, in _validate_conn
+    conn.connect()
+    │    └ <function HTTPSConnection.connect at 0x7fc7d106eaf0>
+    └ <urllib3.connection.HTTPSConnection object at 0x7fc7cfaabfd0>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connection.py", line 411, in connect
+    self.sock = ssl_wrap_socket(
+    │    │      └ <function ssl_wrap_socket at 0x7fc7d1063820>
+    │    └ None
+    └ <urllib3.connection.HTTPSConnection object at 0x7fc7cfaabfd0>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/ssl_.py", line 428, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(
+               └ <function _ssl_wrap_socket_impl at 0x7fc7d10639d0>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/ssl_.py", line 472, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           │           │           │                     └ 'www.nlv.ru'
+           │           │           └ <socket.socket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+           │           └ <function SSLContext.wrap_socket at 0x7fc7d152e940>
+           └ <ssl.SSLContext object at 0x7fc7cf9cdbc0>
+  File "/usr/lib/python3.8/ssl.py", line 500, in wrap_socket
+    return self.sslsocket_class._create(
+           │    │               └ <classmethod object at 0x7fc7d152d430>
+           │    └ <class 'ssl.SSLSocket'>
+           └ <ssl.SSLContext object at 0x7fc7cf9cdbc0>
+  File "/usr/lib/python3.8/ssl.py", line 1040, in _create
+    self.do_handshake()
+    │    └ <function SSLSocket.do_handshake at 0x7fc7d1533820>
+    └ <ssl.SSLSocket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+  File "/usr/lib/python3.8/ssl.py", line 1309, in do_handshake
+    self._sslobj.do_handshake()
+    │    └ None
+    └ <ssl.SSLSocket [closed] fd=-1, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6>
+
+ssl.SSLError: [SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "/home/django/env/lib/python3.8/site-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+           │    └ <function HTTPConnectionPool.urlopen at 0x7fc7d100ae50>
+           └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7fc7cfae1790>
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+              │       └ <function Retry.increment at 0x7fc7d10b5ca0>
+              └ Retry(total=0, connect=None, read=False, redirect=None, status=None)
+  File "/home/django/env/lib/python3.8/site-packages/urllib3/util/retry.py", line 573, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+          │             │      │    │        │             └ 'unknown'
+          │             │      │    │        └ <class 'urllib3.exceptions.ResponseError'>
+          │             │      │    └ SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)'))
+          │             │      └ '/laser-correction'
+          │             └ <urllib3.connectionpool.HTTPSConnectionPool object at 0x7fc7cfae1790>
+          └ <class 'urllib3.exceptions.MaxRetryError'>
+
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.nlv.ru', port=443): Max retries exceeded with url: /laser-correction (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)')))
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7fc7d1a03ee0>
+    └ <Thread(Thread-13, started 140495745439488)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7fc7d1a03c10>
+    └ <Thread(Thread-13, started 140495745439488)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-13, started 140495745439488)>
+    │    │        │    └ ('13', (<doc><url>https://www.nlv.ru/laser-correction</url><title>Лазерная коррекция зрения в Москве . Клиника Новый...</titl...
+    │    │        └ <Thread(Thread-13, started 140495745439488)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7fc7d1a11a60>>
+    └ <Thread(Thread-13, started 140495745439488)>
+
+> File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 201, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://www.nlv.ru/laser-correction</url><title>Лазерная коррекция зрения в Москве . Клиника Новый...</title><pass...
+    │    │                 │      │    └ '13'
+    │    │                 │      └ <function Site at 0x7fc7d030da60>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7fc7cfb33430>, <__main__.Site object at 0x7fc7cfb33550>, <__main__.Site object at 0x7fc7cfb334c0>...
+    └ <__main__.Yandex object at 0x7fc7d1a11a60>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 84, in __init__
+    self.get_html()
+    │    └ <function Site.get_html at 0x7fc7d030dd30>
+    └ <__main__.Site object at 0x7fc7cfad6ac0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 112, in get_html
+    r = requests.get(self.url, headers=HEADERS, verify=False).content
+        │        │   │    │            └ {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/...
+        │        │   │    └ 'https://www.nlv.ru/laser-correction'
+        │        │   └ <__main__.Site object at 0x7fc7cfad6ac0>
+        │        └ <function get at 0x7fc7d0db9b80>
+        └ <module 'requests' from '/home/django/env/lib/python3.8/site-packages/requests/__init__.py'>
+
+  File "/home/django/env/lib/python3.8/site-packages/requests/api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+           │              │           │         └ {'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147...
+           │              │           └ None
+           │              └ 'https://www.nlv.ru/laser-correction'
+           └ <function request at 0x7fc7d0e219d0>
+  File "/home/django/env/lib/python3.8/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'params': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ...
+           │       │              │           └ 'https://www.nlv.ru/laser-correction'
+           │       │              └ 'get'
+           │       └ <function Session.request at 0x7fc7d0db9310>
+           └ <requests.sessions.Session object at 0x7fc7cfae1400>
+  File "/home/django/env/lib/python3.8/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+           │    │    │       └ {'timeout': None, 'allow_redirects': True, 'verify': False, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+           │    │    └ <PreparedRequest [GET]>
+           │    └ <function Session.send at 0x7fc7d0db9790>
+           └ <requests.sessions.Session object at 0x7fc7cfae1400>
+  File "/home/django/env/lib/python3.8/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+        │       │    │          └ {'timeout': None, 'verify': False, 'proxies': OrderedDict(), 'stream': False, 'cert': None}
+        │       │    └ <PreparedRequest [GET]>
+        │       └ <function HTTPAdapter.send at 0x7fc7d0e31c10>
+        └ <requests.adapters.HTTPAdapter object at 0x7fc7cfae1460>
+  File "/home/django/env/lib/python3.8/site-packages/requests/adapters.py", line 514, in send
+    raise SSLError(e, request=request)
+          │                   └ <PreparedRequest [GET]>
+          └ <class 'requests.exceptions.SSLError'>
+
+requests.exceptions.SSLError: HTTPSConnectionPool(host='www.nlv.ru', port=443): Max retries exceeded with url: /laser-correction (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1123)')))
+00:29:12 html сайта https://www.celt.ru/napravlenija/oftalm/uslugi/korrekcija-zrenija/ собран за 0.16146159172058105
+00:29:12 html сайта https://proglazki.ru/operatsii/lazernaya-korrektsiya-zreniya-o/ собран за 0.21373629570007324
+00:29:13 html сайта https://elitplus-clinic.ru/stati/obzor-luchshix-klinik-po-lazernoj-korrekczii-zreniya-v-moskve.html собран за 0.33618593215942383
+00:29:13 html сайта https://www.vseozrenii.ru/rejtingi/rejting-klinik-po-lazernoj-korrekcii-zreniya-v-moskve-top-5/ собран за 0.38393425941467285
+00:29:13 html сайта https://ProDoctorov.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 0.4321930408477783
+00:29:13 html сайта https://lazernaya-korrekciya-zreniya.ru/ собран за 0.5334408283233643
+00:29:13 html сайта https://www.lensmaster.ru/articles/lazernaya-kerrekciya-plusy-i-minusy.html собран за 0.7164483070373535
+00:29:13 html сайта https://mgkl.ru/uslugi/lazernaya собран за 0.7140438556671143
+00:29:13 html сайта https://mag.103.by/topic/45713-bolyshe-nikakih-mifov-oftalymolog-otvechajet-na-tipichnyje-voprosy-o-lazernoj-korrekcii-zrenija/ собран за 0.9550299644470215
+00:29:13 html сайта https://www.medicina.ru/patsientam/uslugi-kliniki/lazernaja-korrekcija-zrenija/ собран за 0.9529030323028564
+00:29:13 html сайта https://www.kiz.ru/content/zdorove/zabolevaniya/novye-tekhnologii-korrektsii-zreniya/ собран за 0.9746763706207275
+00:29:13 html сайта https://health.mail.ru/news/ochki_linzy_ili_operatsiya_okulist_o_plyusah_i/ собран за 1.0210421085357666
+00:29:13 html сайта https://napopravku.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/ собран за 0.9954221248626709
+00:29:13 html сайта https://spid.center/ru/articles/2470/ собран за 1.2445707321166992
+00:29:14 html сайта https://zoon.ru/msk/m/lazernaya_korrektsiya_zreniya/ собран за 1.3117685317993164
+00:29:14 html сайта https://www.ochkov.net/wiki/lazernaya-korrekciya-zreniya-vidy-operacij.htm собран за 1.556591272354126
+00:29:14 html сайта https://msk.excimerclinic.ru/laser-correction/ собран за 1.6991124153137207
+00:29:15 html сайта https://www.emcmos.ru/directions/oftalmologiyalazernaya-korrekciya-zreniya/ собран за 3.258507490158081
+00:29:18 html сайта https://yandex.ru/health/turbo/articles?id=3355 собран за 5.42450213432312
+00:29:18 Закончил собирать контент сайта yandex.ru за 4.76837158203125e-06
+00:29:18 Объект Domain создан
+00:29:18 Закончил собирать контент сайта celt.ru за 5.863322496414185
+00:29:18 Объект Domain создан
+00:29:19 Закончил собирать контент сайта elitplus-clinic.ru за 5.747871160507202
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта proglazki.ru за 5.911488056182861
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта vseozrenii.ru за 5.528793811798096
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта mail.ru за 4.684454679489136
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта ProDoctorov.ru за 5.746865272521973
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта lazernaya-korrekciya-zreniya.ru за 5.817787170410156
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта ochkov.net за 4.345761060714722
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта 103.by за 4.855344772338867
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта excimerclinic.ru за 4.064274549484253
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта spid.center за 5.348546981811523
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта mgkl.ru за 6.1370203495025635
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта lensmaster.ru за 5.407973766326904
+00:29:19 Объект Domain создан
+00:29:19 Закончил собирать контент сайта kiz.ru за 4.844924211502075
+00:29:19 Объект Domain создан
+00:29:20 Закончил собирать контент сайта zoon.ru за 4.055191993713379
+00:29:20 Объект Domain создан
+00:29:20 Закончил собирать контент сайта napopravku.ru за 3.2557263374328613
+00:29:20 Объект Domain создан
+00:29:20 Закончил собирать контент сайта emcmos.ru за 2.7358860969543457
+00:29:20 Объект Domain создан
+00:29:20 Закончил собирать контент сайта medicina.ru за 1.4951605796813965
+00:29:20 Объект Domain создан
+00:29:20 An error has been caught in function 'make_concurency_object', process 'Process-1' (5518), thread 'MainThread' (140496201086784):
+Traceback (most recent call last):
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 566, in <module>
+    Manager()
+    └ <function Manager at 0x7fc7d1b1e430>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 24, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fc7d030d5e0>
+    └ <__main__.Manager object at 0x7fc7d0cbb6a0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fc7d1a2b430>
+    └ <Process name='Process-1' parent=5515 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=5515 started>
+    │    │        │    └ <staticmethod object at 0x7fc7d1b25ee0>
+    │    │        └ <Process name='Process-1' parent=5515 started>
+    │    └ None
+    └ <Process name='Process-1' parent=5515 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=5515 started>
+           │                └ <function DefaultContext.get_context at 0x7fc7d1a7bee0>
+           └ <multiprocessing.context.DefaultContext object at 0x7fc7d1a30100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=5515 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=5515 started>
+    │    └ <function Popen._launch at 0x7fc7d0180280>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fc7d017b190>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7fc7d1a2bd30>
+           └ <Process name='Process-1' parent=5515 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fc7d1a2b3a0>
+    └ <Process name='Process-1' parent=5515 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=5515 started>
+    │    │        │    └ (('коррекция зрения', b'<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210109T212...
+    │    │        └ <Process name='Process-1' parent=5515 started>
+    │    └ <function Yandex at 0x7fc7d030e160>
+    └ <Process name='Process-1' parent=5515 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 148, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7fc7d030e700>
+    └ <__main__.Yandex object at 0x7fc7d1a11a60>
+
+> File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 217, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['коррекция', 'зрение']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7fc7d1a11a60>
+    │    │                   │          │    └ [<__main__.Site object at 0x7fc7cfb33430>, <__main__.Site object at 0x7fc7cfb33550>, <__main__.Site object at 0x7fc7cfb334c0>...
+    │    │                   │          └ <__main__.Yandex object at 0x7fc7d1a11a60>
+    │    │                   └ <function Concurency at 0x7fc7d0311b80>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7fc7d1a11a60>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 414, in __init__
+    self.check_site_object_type()
+    │    └ <function Concurency.check_site_object_type at 0x7fc7d0311ca0>
+    └ <__main__.Concurency object at 0x7fc7cfb63370>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 435, in check_site_object_type
+    if site_object.site_type == 'organic':
+       └ None
+
+AttributeError: 'NoneType' object has no attribute 'site_type'
+00:29:20 An error has been caught in function 'run', process 'Process-1' (5518), thread 'MainThread' (140496201086784):
+Traceback (most recent call last):
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 566, in <module>
+    Manager()
+    └ <function Manager at 0x7fc7d1b1e430>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 24, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fc7d030d5e0>
+    └ <__main__.Manager object at 0x7fc7d0cbb6a0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fc7d1a2b430>
+    └ <Process name='Process-1' parent=5515 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=5515 started>
+    │    │        │    └ <staticmethod object at 0x7fc7d1b25ee0>
+    │    │        └ <Process name='Process-1' parent=5515 started>
+    │    └ None
+    └ <Process name='Process-1' parent=5515 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=5515 started>
+           │                └ <function DefaultContext.get_context at 0x7fc7d1a7bee0>
+           └ <multiprocessing.context.DefaultContext object at 0x7fc7d1a30100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=5515 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=5515 started>
+    │    └ <function Popen._launch at 0x7fc7d0180280>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fc7d017b190>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7fc7d1a2bd30>
+           └ <Process name='Process-1' parent=5515 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fc7d1a2b3a0>
+    └ <Process name='Process-1' parent=5515 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=5515 started>
+    │    │        │    └ (('коррекция зрения', b'<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210109T212...
+    │    │        └ <Process name='Process-1' parent=5515 started>
+    │    └ <function Yandex at 0x7fc7d030e160>
+    └ <Process name='Process-1' parent=5515 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 149, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7fc7d030e820>
+    └ <__main__.Yandex object at 0x7fc7d1a11a60>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/new_requests_handler.py", line 236, in add_result_to_database
+    self.concurency_object.site_age_concurency,
+    │    └ None
+    └ <__main__.Yandex object at 0x7fc7d1a11a60>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+00:29:43 Класс Yandex создан
+00:29:43 Запрос: корм для собак
+00:29:43 Стемированный запрос: ['корм', 'для', 'собака']
+00:29:43 Собран список сайтов корм для собак
+00:29:43 html сайта https://PetAtHome.ru/catalog/sobaki/korm-dlya-sobak/ собран за 0.17568016052246094
+00:29:44 html сайта https://www.totozoo.ru/collection/korm-dlya-sobak собран за 0.33876633644104004
+00:29:44 html сайта https://www.WildBerries.ru/catalog/aksessuary/tovary-dlya-zhivotnyh/korm-dlya-zhivotnyh собран за 0.37485694885253906
+00:29:44 html сайта https://petfood.ru/collection/suhie-korma собран за 0.579322338104248
+00:29:44 html сайта https://www.Miska.ru/catalog/sobaki_1/korma_3/ собран за 0.806124210357666
+00:29:44 html сайта https://www.mirkorma.ru/catalog/tovary-dlya-sobak/suhie-korma/ собран за 0.9838809967041016
+00:29:45 html сайта https://msk.zapovednik96.ru/catalog/tovary_dlya_sobak/korm_dlya_sobak/ собран за 1.3581440448760986
+00:29:46 html сайта https://MagiZoo.ru/catalog/luchshij-suhoj-korm-dlja-sobak/ собран за 2.919067144393921
+00:29:46 html сайта https://ZooPassage.ru/catalog/sobaki/korma/ собран за 3.0587539672851562
+00:29:46 html сайта https://www.OZON.ru/category/suhie-korma-dlya-sobak-12303/ собран за 3.2300291061401367
+00:29:46 html сайта https://4lapy.ru/catalog/sobaki/korm-sobaki/ собран за 3.3291521072387695
+00:29:47 html сайта https://goods.ru/catalog/suhie-korma-dlya-sobak/ собран за 4.234423637390137
+00:29:48 html сайта https://www.bethowen.ru/catalogue/dogs/korma/ собран за 5.130922555923462
+00:29:49 html сайта https://www.DogEat.ru/catalog/korm/dlya-sobak/ собран за 6.11233925819397
+00:29:50 html сайта https://www.petshop.ru/catalog/dogs/syxoi/ собран за 6.851264953613281
+00:29:52 html сайта https://pokupki.market.yandex.ru/catalog/korma-dlia-sobak/71973/list собран за 9.192500114440918
+00:29:53 html сайта https://multikorm.ru/category/korma-dlya-sobak/ собран за 9.8772611618042
+00:29:55 html сайта https://unizoo.ru/catalog/dog/food/ собран за 11.71687388420105
+00:29:57 html сайта https://market.yandex.ru/catalog--korma-dlia-sobak/71973/list?clid=703 собран за 13.519752264022827
+00:29:58 html сайта https://www.auchan.ru/catalog/zootovary/dlya-sobak/suhie-korma/ собран за 15.139881610870361
+00:29:59 Закончил собирать контент сайта totozoo.ru за 14.335996389389038
+00:30:00 Объект Domain создан
+00:30:01 Закончил собирать контент сайта WildBerries.ru за 14.952461004257202
+00:30:01 Объект Domain создан
+00:30:03 Закончил собирать контент сайта yandex.ru за 6.198883056640625e-06
+00:30:03 Закончил собирать контент сайта yandex.ru за 4.76837158203125e-06
+00:30:03 Объект Domain создан
+00:30:03 Объект Domain создан
+00:30:03 Закончил собирать контент сайта PetAtHome.ru за 17.01234459877014
+00:30:03 Объект Domain создан
+00:30:03 Закончил собирать контент сайта Miska.ru за 16.398910760879517
+00:30:03 Объект Domain создан
+00:30:03 Закончил собирать контент сайта zapovednik96.ru за 15.719491004943848
+00:30:03 Объект Domain создан
+00:30:03 Закончил собирать контент сайта mirkorma.ru за 15.314819812774658
+00:30:03 Объект Domain создан
+00:30:03 Закончил собирать контент сайта OZON.ru за 15.621761798858643
+00:30:03 Объект Domain создан
+00:30:03 Закончил собирать контент сайта petfood.ru за 13.256614208221436
+00:30:03 Объект Domain создан
+00:30:03 Закончил собирать контент сайта petshop.ru за 11.276204824447632
+00:30:03 Объект Domain создан
+00:30:03 Закончил собирать контент сайта bethowen.ru за 10.234611511230469
+00:30:03 Объект Domain создан
+00:30:04 Закончил собирать контент сайта ZooPassage.ru за 9.446054458618164
+00:30:04 Объект Domain создан
+00:30:04 Закончил собирать контент сайта DogEat.ru за 8.812019348144531
+00:30:04 Объект Domain создан
+00:30:04 Закончил собирать контент сайта 4lapy.ru за 9.9189612865448
+00:30:04 Объект Domain создан
+00:30:04 Закончил собирать контент сайта MagiZoo.ru за 8.315585613250732
+00:30:04 Объект Domain создан
+00:30:04 Закончил собирать контент сайта multikorm.ru за 6.554071664810181
+00:30:04 Объект Domain создан
+00:30:04 Закончил собирать контент сайта goods.ru за 6.112645626068115
+00:30:04 Объект Domain создан
+00:30:04 Закончил собирать контент сайта unizoo.ru за 5.7738869190216064
+00:30:04 Объект Domain создан
+00:30:04 Закончил собирать контент сайта auchan.ru за 4.519101858139038
+00:30:04 Объект Domain создан
+00:30:04 Данные есть о 20 из 20 (100%)
+00:30:04 Выборки хватило
+00:30:04 Директ обнаружен на позиции 1, текущий upscale = -22.0
+00:30:04 Директ обнаружен на позиции 2, текущий upscale = -13.0
+00:30:04 Директ обнаружен на позиции 3, текущий upscale = -7.0
+00:30:04 Директ обнаружен на позиции 4, текущий upscale = -3.0
+00:30:04 Директ обнаружен на позиции 25, текущий upscale = -2.4
+00:30:04 Директ обнаружен на позиции 26, текущий upscale = -1.8
+00:30:04 Директ обнаружен на позиции 27, текущий upscale = -1.2
+00:30:04 Директ обнаружен на позиции 28, текущий upscale = -0.6
+00:30:04 Директ обнаружен на позиции 29, текущий upscale = 0.0
+00:30:04 Конкуренция от возраста: 95
+00:30:04 Конкуренция от объема: 99
+00:30:04 Конкуренция от стема: 100
+00:30:04 Конкуренция от бэклинков: 74
+00:30:04 Модификатор от директа: 0.0
+00:30:04 Итоговая конкуренция: 92.0
+00:30:05 ('корм для собак', 95, 100, 99, 74, 92.0, 0.0, 'ready')
+00:30:16 Класс Yandex создан
+00:30:16 Запрос: корм для собак
+00:30:16 Стемированный запрос: ['корм', 'для', 'собака']
+00:30:16 Собран список сайтов корм для собак
+00:30:16 html сайта https://petfood.ru/collection/suhie-korma собран за 0.18183636665344238
+00:30:16 html сайта https://www.WildBerries.ru/catalog/aksessuary/tovary-dlya-zhivotnyh/korm-dlya-zhivotnyh собран за 0.3022422790527344
+00:30:16 html сайта https://www.totozoo.ru/collection/korm-dlya-sobak собран за 0.30431127548217773
+00:30:16 html сайта https://PetAtHome.ru/catalog/sobaki/korm-dlya-sobak/ собран за 0.3982250690460205
+00:30:17 html сайта https://www.Miska.ru/catalog/sobaki_1/korma_3/ собран за 0.8429925441741943
+00:30:17 html сайта https://www.mirkorma.ru/catalog/tovary-dlya-sobak/suhie-korma/ собран за 0.9199235439300537
+00:30:17 html сайта https://www.petshop.ru/catalog/dogs/syxoi/ собран за 1.4151906967163086
+00:30:17 html сайта https://msk.zapovednik96.ru/catalog/tovary_dlya_sobak/korm_dlya_sobak/ собран за 1.483741283416748
+00:30:19 html сайта https://www.OZON.ru/category/suhie-korma-dlya-sobak-12303/ собран за 2.7772181034088135
+00:30:19 html сайта https://www.DogEat.ru/catalog/korm/dlya-sobak/ собран за 3.113379955291748
+00:30:19 html сайта https://ZooPassage.ru/catalog/sobaki/korma/ собран за 3.5014264583587646
+00:30:20 html сайта https://4lapy.ru/catalog/sobaki/korm-sobaki/ собран за 3.784247398376465
+00:30:20 html сайта https://MagiZoo.ru/catalog/luchshij-suhoj-korm-dlja-sobak/ собран за 4.031114339828491
+00:30:22 html сайта https://www.bethowen.ru/catalogue/dogs/korma/ собран за 6.074806213378906
+00:30:22 html сайта https://goods.ru/catalog/suhie-korma-dlya-sobak/ собран за 6.692796945571899
+00:30:26 html сайта https://unizoo.ru/catalog/dog/food/ собран за 10.684864521026611
+00:30:27 html сайта https://multikorm.ru/category/korma-dlya-sobak/ собран за 10.73643183708191
+00:30:27 html сайта https://pokupki.market.yandex.ru/catalog/korma-dlia-sobak/71973/list собран за 10.77540397644043
+00:30:27 html сайта https://market.yandex.ru/catalog--korma-dlia-sobak/71973/list?clid=703 собран за 11.598445177078247
+00:30:28 html сайта https://www.auchan.ru/catalog/zootovary/dlya-sobak/suhie-korma/ собран за 12.231863260269165
+00:36:19 Класс Yandex создан
+00:36:19 Запрос: корм для собак
+00:36:19 Стемированный запрос: ['корм', 'для', 'собака']
+00:36:19 Собран список сайтов корм для собак
+00:36:19 html сайта https://www.WildBerries.ru/catalog/aksessuary/tovary-dlya-zhivotnyh/korm-dlya-zhivotnyh собран за 0.36789512634277344
+00:36:20 html сайта https://o.yandex.ru/tovari-dlya-zhivotnih/korma-dlya-sobak/?utm_source=general_wizard&amp;region_id=213&amp;from=general/gallery&amp;utm_campaign=category&amp;utm_medium=desktop собран за 0.6508359909057617
+00:36:20 html сайта https://my-shop.ru/shop/catalogue/19805/sort/a/page/1.html собран за 0.6435604095458984
+00:36:20 html сайта https://www.mirkorma.ru/catalog/tovary-dlya-sobak/suhie-korma/ собран за 0.9962613582611084
+00:36:20 Закончил собирать контент сайта yandex.ru за 7.3909759521484375e-06
+00:36:20 Объект Domain создан
+00:36:20 html сайта https://zen.yandex.ru/media/id/5e9166c373a6de18d92abe22/top-10-samyh-luchshih-kormov-dlia-sobak-2020-goda-5e9c1a532517bd2ed0b3f079 собран за 1.4421918392181396
+00:36:20 html сайта https://www.dochkisinochki.ru/icatalog/categories/korma_sobaki/ собран за 1.254606008529663
+00:36:21 html сайта https://Zoozavr.detmir.ru/catalog/index/name/korm_dly_sobak/ собран за 1.5684814453125
+00:36:21 html сайта https://www.petshop.ru/catalog/dogs/syxoi/ собран за 2.0398921966552734
+00:36:21 Закончил собирать контент сайта yandex.ru за 5.9604644775390625e-06
+00:36:21 html сайта https://zoo-galereya.ru/sobaki/korma.html собран за 2.239210367202759
+00:36:22 Объект Domain создан
+00:36:22 html сайта https://www.OZON.ru/category/suhie-korma-dlya-sobak-12303/ собран за 2.919991970062256
+00:36:22 html сайта https://ZooPassage.ru/catalog/sobaki/korma/ собран за 2.7631170749664307
+00:36:23 html сайта https://4lapy.ru/catalog/sobaki/korm-sobaki/ собран за 3.7789947986602783
+00:36:24 html сайта https://MagiZoo.ru/catalog/luchshij-suhoj-korm-dlja-sobak/ собран за 5.065001726150513
+00:36:25 html сайта https://goods.ru/catalog/korma-dlya-sobak/ собран за 5.609741926193237
+00:36:25 html сайта https://www.DogEat.ru/catalog/korm/dlya-sobak/ собран за 5.994112730026245
+00:36:26 html сайта https://www.bethowen.ru/catalogue/dogs/korma/ собран за 6.992652177810669
+00:36:32 html сайта https://market.yandex.ru/catalog--korma-dlia-sobak/71973/list?clid=703 собран за 13.47711992263794
+00:36:34 html сайта https://multikorm.ru/category/korma-dlya-sobak/ собран за 14.692424535751343
+00:36:37 html сайта https://unizoo.ru/catalog/dog/food/ собран за 18.4592924118042
+00:36:43 html сайта https://www.auchan.ru/catalog/zootovary/dlya-sobak/suhie-korma/ собран за 24.142844438552856
+00:36:47 html сайта https://pokupki.market.yandex.ru/catalog/korma-dlia-sobak/71973/list собран за 27.756227016448975
+00:36:51 Закончил собирать контент сайта my-shop.ru за 31.605034351348877
+00:36:52 Объект Domain создан
+00:36:58 Закончил собирать контент сайта OZON.ru за 31.163742065429688
+00:36:58 Объект Domain создан
+00:37:02 Закончил собирать контент сайта petshop.ru за 28.769556522369385
+00:37:02 Объект Domain создан
+00:37:05 Закончил собирать контент сайта dochkisinochki.ru за 36.330002546310425
+00:37:06 Объект Domain создан
+00:37:07 Закончил собирать контент сайта WildBerries.ru за 36.94332194328308
+00:37:08 Объект Domain создан
+00:37:10 Закончил собирать контент сайта detmir.ru за 37.32244110107422
+00:37:10 Объект Domain создан
+00:37:11 Закончил собирать контент сайта mirkorma.ru за 33.64773225784302
+00:37:12 Объект Domain создан
+00:37:14 Закончил собирать контент сайта zoo-galereya.ru за 31.622949838638306
+00:37:14 Объект Domain создан
+00:37:16 Закончил собирать контент сайта bethowen.ru за 29.455423831939697
+00:37:16 Объект Domain создан
+00:37:17 Закончил собирать контент сайта 4lapy.ru за 28.916223287582397
+00:37:17 Объект Domain создан
+00:37:20 Закончил собирать контент сайта DogEat.ru за 30.97488045692444
+00:37:20 Объект Domain создан
+00:37:22 Закончил собирать контент сайта auchan.ru за 29.38234305381775
+00:37:23 Объект Domain создан
+00:37:23 Закончил собирать контент сайта yandex.ru за 7.152557373046875e-06
+00:37:23 Объект Domain создан
+00:37:24 Закончил собирать контент сайта unizoo.ru за 28.847254991531372
+00:37:24 Объект Domain создан
+00:37:25 Закончил собирать контент сайта multikorm.ru за 27.316413640975952
+00:37:25 Объект Domain создан
+00:37:26 Закончил собирать контент сайта yandex.ru за 5.9604644775390625e-06
+00:37:26 Объект Domain создан
+00:37:26 Закончил собирать контент сайта ZooPassage.ru за 27.173346281051636
+00:37:26 Объект Domain создан
+00:37:26 Закончил собирать контент сайта MagiZoo.ru за 24.173973083496094
+00:37:26 Объект Domain создан
+00:37:27 Закончил собирать контент сайта goods.ru за 20.14928913116455
+00:37:27 Объект Domain создан
+00:37:27 Данные есть о 21 из 21 (100%)
+00:37:27 Выборки хватило
+00:37:27 Директ обнаружен на позиции 1, текущий upscale = -22.0
+00:37:27 Директ обнаружен на позиции 2, текущий upscale = -13.0
+00:37:27 Директ обнаружен на позиции 3, текущий upscale = -7.0
+00:37:27 Директ обнаружен на позиции 4, текущий upscale = -3.0
+00:37:27 Директ обнаружен на позиции 26, текущий upscale = -2.4
+00:37:27 Директ обнаружен на позиции 27, текущий upscale = -1.8
+00:37:27 Директ обнаружен на позиции 28, текущий upscale = -1.2
+00:37:27 Директ обнаружен на позиции 29, текущий upscale = -0.6
+00:37:27 Директ обнаружен на позиции 30, текущий upscale = 0.0
+00:37:27 Конкуренция от возраста: 98
+00:37:27 Конкуренция от объема: 97
+00:37:27 Конкуренция от стема: 98
+00:37:27 Конкуренция от бэклинков: 87
+00:37:27 Модификатор от директа: 0.0
+00:37:27 Итоговая конкуренция: 95.0
+00:39:01 ('корм для собак', 98, 98, 97, 87, 95.0, 0.0, 'ready')
+00:44:32 Класс Yandex создан
+00:44:32 Запрос: корм для собак
+00:44:32 Стемированный запрос: ['корм', 'для', 'собака']
+00:44:32 Собран список сайтов корм для собак
+00:44:33 html сайта https://www.WildBerries.ru/catalog/aksessuary/tovary-dlya-zhivotnyh/korm-dlya-zhivotnyh собран за 0.5152542591094971
+00:44:33 html сайта https://www.Miska.ru/catalog/sobaki_1/korma_3/ собран за 0.7307648658752441
+00:44:33 html сайта https://my-shop.ru/shop/catalogue/19805/sort/a/page/1.html собран за 0.8364593982696533
+00:44:33 html сайта https://www.petshop.ru/catalog/dogs/syxoi/ собран за 1.3967065811157227
+00:44:34 html сайта https://www.mirkorma.ru/catalog/tovary-dlya-sobak/suhie-korma/ собран за 1.506500244140625
+00:44:34 html сайта https://zen.yandex.ru/media/id/5e9166c373a6de18d92abe22/top-10-samyh-luchshih-kormov-dlia-sobak-2020-goda-5e9c1a532517bd2ed0b3f079 собран за 1.3030915260314941
+00:44:34 html сайта https://msk.zapovednik96.ru/catalog/tovary_dlya_sobak/korm_dlya_sobak/ собран за 1.7465240955352783
+00:44:34 html сайта https://ZooPassage.ru/catalog/sobaki/korma/ собран за 2.154696464538574
+00:44:35 html сайта https://www.OZON.ru/category/suhie-korma-dlya-sobak-12303/ собран за 2.5381367206573486
+00:44:36 Закончил собирать контент сайта yandex.ru за 9.059906005859375e-06
+00:44:36 Объект Domain создан
+00:44:37 html сайта https://MagiZoo.ru/catalog/luchshij-suhoj-korm-dlja-sobak/ собран за 4.599029064178467
+00:44:38 html сайта https://petfood.ru/collection/suhie-korma собран за 5.202399253845215
+00:44:39 html сайта https://www.bethowen.ru/catalogue/dogs/korma/ собран за 6.686948537826538
+00:44:39 html сайта https://goods.ru/catalog/korma-dlya-sobak/ собран за 7.083535671234131
+00:44:39 html сайта https://4lapy.ru/catalog/sobaki/korm-sobaki/ собран за 7.110046625137329
+00:44:42 html сайта https://www.DogEat.ru/catalog/korm/dlya-sobak/ собран за 10.166213989257812
+00:44:48 html сайта https://multikorm.ru/category/korma-dlya-sobak/ собран за 15.934715032577515
+00:44:49 html сайта https://unizoo.ru/catalog/dog/food/ собран за 17.106600046157837
+00:44:52 html сайта https://market.yandex.ru/catalog--korma-dlia-sobak/71973/list?clid=703 собран за 20.147746562957764
+00:44:54 html сайта https://pokupki.market.yandex.ru/catalog/korma-dlia-sobak/71973/list собран за 21.616377115249634
+00:44:55 html сайта https://www.auchan.ru/catalog/zootovary/dlya-sobak/suhie-korma/ собран за 22.743310689926147
+00:45:04 Закончил собирать контент сайта my-shop.ru за 30.70860767364502
+00:45:04 Объект Domain создан
+00:45:13 Закончил собирать контент сайта OZON.ru за 34.63732051849365
+00:45:13 Объект Domain создан
+00:45:15 Закончил собирать контент сайта zapovednik96.ru за 34.41763424873352
+00:45:16 Объект Domain создан
+00:45:19 Закончил собирать контент сайта WildBerries.ru за 40.817208766937256
+00:45:19 Объект Domain создан
+00:45:21 Закончил собирать контент сайта Miska.ru за 38.01286268234253
+00:45:21 Объект Domain создан
+00:45:23 Закончил собирать контент сайта petshop.ru за 40.026885747909546
+00:45:23 Объект Domain создан
+00:45:24 Закончил собирать контент сайта mirkorma.ru за 35.788079500198364
+00:45:25 Объект Domain создан
+00:45:27 Закончил собирать контент сайта bethowen.ru за 31.583189010620117
+00:45:28 Объект Domain создан
+00:45:30 Закончил собирать контент сайта DogEat.ru за 29.290096521377563
+00:45:30 Объект Domain создан
+00:45:32 Закончил собирать контент сайта 4lapy.ru за 26.678378582000732
+00:45:32 Объект Domain создан
+00:45:34 Закончил собирать контент сайта petfood.ru за 27.006236791610718
+00:45:35 Объект Domain создан
+00:45:36 Закончил собирать контент сайта yandex.ru за 7.62939453125e-06
+00:45:36 Объект Domain создан
+00:45:37 Закончил собирать контент сайта unizoo.ru за 29.683590412139893
+00:45:37 Объект Domain создан
+00:45:38 Закончил собирать контент сайта ZooPassage.ru за 31.579015970230103
+00:45:38 Объект Domain создан
+00:45:39 Закончил собирать контент сайта auchan.ru за 28.615822792053223
+00:45:40 Объект Domain создан
+00:45:40 Закончил собирать контент сайта yandex.ru за 7.152557373046875e-06
+00:45:40 Объект Domain создан
+00:45:40 Закончил собирать контент сайта multikorm.ru за 26.847880363464355
+00:45:40 Объект Domain создан
+00:45:40 Закончил собирать контент сайта MagiZoo.ru за 24.30648946762085
+00:45:40 Объект Domain создан
+00:45:40 Закончил собирать контент сайта goods.ru за 19.96276021003723
+00:45:40 Объект Domain создан
+00:45:40 Данные есть о 20 из 20 (100%)
+00:45:40 Выборки хватило
+00:45:40 Директ обнаружен на позиции 1, текущий upscale = -22.0
+00:45:40 Директ обнаружен на позиции 2, текущий upscale = -13.0
+00:45:40 Директ обнаружен на позиции 3, текущий upscale = -7.0
+00:45:40 Директ обнаружен на позиции 4, текущий upscale = -3.0
+00:45:40 Директ обнаружен на позиции 25, текущий upscale = -2.4
+00:45:40 Директ обнаружен на позиции 26, текущий upscale = -1.8
+00:45:40 Директ обнаружен на позиции 27, текущий upscale = -1.2
+00:45:40 Директ обнаружен на позиции 28, текущий upscale = -0.6
+00:45:40 Директ обнаружен на позиции 29, текущий upscale = 0.0
+00:45:40 Конкуренция от возраста: 98
+00:45:40 Конкуренция от объема: 97
+00:45:40 Конкуренция от стема: 98
+00:45:40 Конкуренция от бэклинков: 82
+00:45:40 Модификатор от директа: 0.0
+00:45:40 Итоговая конкуренция: 94.0
+00:45:56 ('корм для собак', 98, 98, 97, 82, 94.0, 0.0, 'ready')
+00:47:44 Класс Yandex создан
+00:47:44 Запрос: корм для собак
+00:47:44 Стемированный запрос: ['корм', 'для', 'собака']
+00:47:44 Собран список сайтов корм для собак
+00:47:45 html сайта https://www.WildBerries.ru/catalog/aksessuary/tovary-dlya-zhivotnyh/korm-dlya-zhivotnyh собран за 0.1848914623260498
+00:47:45 html сайта https://petfood.ru/collection/suhie-korma собран за 0.4234645366668701
+00:47:45 html сайта https://my-shop.ru/shop/catalogue/19805/sort/a/page/1.html собран за 0.4311997890472412
+00:47:45 html сайта https://www.mirkorma.ru/catalog/tovary-dlya-sobak/suhie-korma/ собран за 0.792492151260376
+00:47:46 html сайта https://msk.zapovednik96.ru/catalog/tovary_dlya_sobak/korm_dlya_sobak/ собран за 1.0438249111175537
+00:47:46 html сайта https://zen.yandex.ru/media/id/5e9166c373a6de18d92abe22/top-10-samyh-luchshih-kormov-dlia-sobak-2020-goda-5e9c1a532517bd2ed0b3f079 собран за 1.335679292678833
+00:47:46 html сайта https://www.petshop.ru/catalog/dogs/syxoi/ собран за 1.4187769889831543
+00:47:46 Закончил собирать контент сайта yandex.ru за 5.245208740234375e-06
+00:47:46 Объект Domain создан
+00:47:47 html сайта https://ZooPassage.ru/catalog/sobaki/korma/ собран за 2.0852272510528564
+00:47:47 html сайта https://www.OZON.ru/category/suhie-korma-dlya-sobak-12303/ собран за 2.3157808780670166
+00:47:47 html сайта https://MagiZoo.ru/catalog/luchshij-suhoj-korm-dlja-sobak/ собран за 2.814288854598999
+00:47:48 html сайта https://4lapy.ru/catalog/sobaki/korm-sobaki/ собран за 3.3948559761047363
+00:47:48 html сайта https://www.DogEat.ru/catalog/korm/dlya-sobak/ собран за 3.8009071350097656
+00:47:49 html сайта https://goods.ru/catalog/korma-dlya-sobak/ собран за 4.137709140777588
+00:47:50 html сайта https://www.bethowen.ru/catalogue/dogs/korma/ собран за 5.249055862426758
+00:47:52 html сайта https://www.Miska.ru/catalog/sobaki_1/korma_3/ собран за 7.6617372035980225
+00:47:53 html сайта https://multikorm.ru/category/korma-dlya-sobak/ собран за 8.676965951919556
+00:47:55 html сайта https://unizoo.ru/catalog/dog/food/ собран за 10.398273706436157
+00:47:57 html сайта https://www.auchan.ru/catalog/zootovary/dlya-sobak/suhie-korma/ собран за 12.347039461135864
+00:47:58 html сайта https://pokupki.market.yandex.ru/catalog/korma-dlia-sobak/71973/list собран за 13.064261436462402
+00:47:58 Закончил собирать контент сайта my-shop.ru за 12.730672836303711
+00:47:58 Объект Domain создан
+00:47:58 html сайта https://market.yandex.ru/catalog--korma-dlia-sobak/71973/list?clid=703 собран за 13.762233972549438
+00:47:59 Закончил собирать контент сайта WildBerries.ru за 14.053785562515259
+00:47:59 Объект Domain создан
+00:48:01 Закончил собирать контент сайта zapovednik96.ru за 13.60911750793457
+00:48:01 Объект Domain создан
+00:48:03 Закончил собирать контент сайта yandex.ru за 4.0531158447265625e-06
+00:48:03 Объект Domain создан
+00:48:03 Закончил собирать контент сайта mirkorma.ru за 14.89261507987976
+00:48:03 Объект Domain создан
+00:48:03 Закончил собирать контент сайта yandex.ru за 4.0531158447265625e-06
+00:48:03 Объект Domain создан
+00:48:03 Закончил собирать контент сайта petfood.ru за 13.948385238647461
+00:48:03 Объект Domain создан
+00:48:03 Закончил собирать контент сайта OZON.ru за 15.079963445663452
+00:48:03 Объект Domain создан
+00:48:03 Закончил собирать контент сайта petshop.ru за 15.178712368011475
+00:48:03 Объект Domain создан
+00:48:03 Закончил собирать контент сайта DogEat.ru за 10.586323499679565
+00:48:03 Объект Domain создан
+00:48:03 Закончил собирать контент сайта Miska.ru за 9.1707923412323
+00:48:03 Объект Domain создан
+00:48:04 Закончил собирать контент сайта ZooPassage.ru за 9.866106510162354
+00:48:04 Объект Domain создан
+00:48:04 Закончил собирать контент сайта 4lapy.ru за 9.860153913497925
+00:48:04 Объект Domain создан
+00:48:04 Закончил собирать контент сайта bethowen.ru за 9.18474292755127
+00:48:04 Объект Domain создан
+00:48:04 Закончил собирать контент сайта MagiZoo.ru за 8.115051984786987
+00:48:04 Объект Domain создан
+00:48:04 Закончил собирать контент сайта multikorm.ru за 7.131040334701538
+00:48:04 Объект Domain создан
+00:48:04 Закончил собирать контент сайта unizoo.ru за 6.924042224884033
+00:48:04 Объект Domain создан
+00:48:04 Закончил собирать контент сайта goods.ru за 7.075711965560913
+00:48:04 Объект Domain создан
+00:48:04 Закончил собирать контент сайта auchan.ru за 6.721019506454468
+00:48:04 Объект Domain создан
+00:48:04 Данные есть о 20 из 20 (100%)
+00:48:04 Выборки хватило
+00:48:04 Директ обнаружен на позиции 1, текущий upscale = -22.0
+00:48:04 Директ обнаружен на позиции 2, текущий upscale = -13.0
+00:48:04 Директ обнаружен на позиции 3, текущий upscale = -7.0
+00:48:04 Директ обнаружен на позиции 4, текущий upscale = -3.0
+00:48:04 Директ обнаружен на позиции 25, текущий upscale = -2.4
+00:48:04 Директ обнаружен на позиции 26, текущий upscale = -1.8
+00:48:04 Директ обнаружен на позиции 27, текущий upscale = -1.2
+00:48:04 Директ обнаружен на позиции 28, текущий upscale = -0.6
+00:48:04 Директ обнаружен на позиции 29, текущий upscale = 0.0
+00:48:04 Конкуренция от возраста: 98
+00:48:04 Конкуренция от объема: 97
+00:48:04 Конкуренция от стема: 98
+00:48:04 Конкуренция от бэклинков: 82
+00:48:04 Модификатор от директа: 0.0
+00:48:04 Итоговая конкуренция: 94.0
+00:48:04 ('корм для собак', 98, 98, 97, 82, 94.0, 0.0, 'ready')
+00:48:15 Класс Yandex создан
+00:48:15 Запрос: корм для собак
+00:48:15 Стемированный запрос: ['корм', 'для', 'собака']
+00:48:15 Собран список сайтов корм для собак
+00:48:15 html сайта https://www.WildBerries.ru/catalog/aksessuary/tovary-dlya-zhivotnyh/korm-dlya-zhivotnyh собран за 0.18967676162719727
+00:48:15 html сайта https://petfood.ru/collection/suhie-korma собран за 0.19452738761901855
+00:48:16 html сайта https://www.Miska.ru/catalog/sobaki_1/korma_3/ собран за 0.6473898887634277
+00:48:16 html сайта https://www.mirkorma.ru/catalog/tovary-dlya-sobak/suhie-korma/ собран за 0.7838962078094482
+00:48:16 html сайта https://my-shop.ru/shop/catalogue/19805/sort/a/page/1.html собран за 0.9319097995758057
+00:48:16 html сайта https://msk.zapovednik96.ru/catalog/tovary_dlya_sobak/korm_dlya_sobak/ собран за 1.1521806716918945
+00:48:16 html сайта https://www.petshop.ru/catalog/dogs/syxoi/ собран за 1.3519010543823242
+00:48:17 html сайта https://zen.yandex.ru/media/id/5e9166c373a6de18d92abe22/top-10-samyh-luchshih-kormov-dlia-sobak-2020-goda-5e9c1a532517bd2ed0b3f079 собран за 1.7010180950164795
+00:48:17 Закончил собирать контент сайта yandex.ru за 5.4836273193359375e-06
+00:48:17 html сайта https://ZooPassage.ru/catalog/sobaki/korma/ собран за 2.242131233215332
+00:48:17 Объект Domain создан
+00:48:18 html сайта https://4lapy.ru/catalog/sobaki/korm-sobaki/ собран за 2.9464340209960938
+00:48:18 html сайта https://MagiZoo.ru/catalog/luchshij-suhoj-korm-dlja-sobak/ собран за 3.061586380004883
+00:48:18 html сайта https://www.OZON.ru/category/suhie-korma-dlya-sobak-12303/ собран за 3.5885040760040283
+00:48:19 html сайта https://goods.ru/catalog/korma-dlya-sobak/ собран за 4.191307067871094
+00:48:19 html сайта https://www.bethowen.ru/catalogue/dogs/korma/ собран за 4.524366140365601
+00:48:20 html сайта https://www.DogEat.ru/catalog/korm/dlya-sobak/ собран за 5.407254695892334
+00:48:24 html сайта https://multikorm.ru/category/korma-dlya-sobak/ собран за 8.656494855880737
+00:48:25 html сайта https://unizoo.ru/catalog/dog/food/ собран за 10.355760335922241
+00:48:25 html сайта https://market.yandex.ru/catalog--korma-dlia-sobak/71973/list?clid=703 собран за 10.525885820388794
+00:48:28 html сайта https://www.auchan.ru/catalog/zootovary/dlya-sobak/suhie-korma/ собран за 13.106820583343506
+00:48:30 Закончил собирать контент сайта my-shop.ru за 13.767960548400879
+00:48:30 Объект Domain создан
+00:48:30 html сайта https://pokupki.market.yandex.ru/catalog/korma-dlia-sobak/71973/list собран за 15.060657024383545
+00:48:31 Закончил собирать контент сайта yandex.ru за 7.152557373046875e-06
+00:48:31 Объект Domain создан
+00:48:31 Закончил собирать контент сайта WildBerries.ru за 14.15990400314331
+00:48:31 Объект Domain создан
+00:48:32 Закончил собирать контент сайта Miska.ru за 14.244752645492554
+00:48:32 Объект Domain создан
+00:48:33 Закончил собирать контент сайта yandex.ru за 4.291534423828125e-06
+00:48:33 Объект Domain создан
+00:48:33 Закончил собирать контент сайта OZON.ru за 13.548653364181519
+00:48:33 Объект Domain создан
+00:48:33 Закончил собирать контент сайта mirkorma.ru за 13.31260347366333
+00:48:33 Объект Domain создан
+00:48:33 Закончил собирать контент сайта petshop.ru за 13.143217325210571
+00:48:33 Объект Domain создан
+00:48:33 Закончил собирать контент сайта zapovednik96.ru за 13.854632139205933
+00:48:33 Объект Domain создан
+00:48:33 Закончил собирать контент сайта petfood.ru за 13.343531370162964
+00:48:33 Объект Domain создан
+00:48:33 Закончил собирать контент сайта ZooPassage.ru за 8.577813386917114
+00:48:33 Объект Domain создан
+00:48:33 Закончил собирать контент сайта 4lapy.ru за 8.553406715393066
+00:48:33 Объект Domain создан
+00:48:33 Закончил собирать контент сайта DogEat.ru за 9.37922716140747
+00:48:33 Объект Domain создан
+00:48:33 Закончил собирать контент сайта bethowen.ru за 9.707666635513306
+00:48:33 Объект Domain создан
+00:48:33 Закончил собирать контент сайта MagiZoo.ru за 8.001864910125732
+00:48:33 Объект Domain создан
+00:48:34 Закончил собирать контент сайта multikorm.ru за 5.70181131362915
+00:48:34 Объект Domain создан
+00:48:34 Закончил собирать контент сайта unizoo.ru за 5.5829455852508545
+00:48:34 Объект Domain создан
+00:48:34 Закончил собирать контент сайта goods.ru за 5.759514570236206
+00:48:34 Объект Domain создан
+00:48:34 Закончил собирать контент сайта auchan.ru за 4.923457384109497
+00:48:34 Объект Domain создан
+00:48:34 Данные есть о 20 из 20 (100%)
+00:48:34 Выборки хватило
+00:48:34 Директ обнаружен на позиции 1, текущий upscale = -22.0
+00:48:34 Директ обнаружен на позиции 2, текущий upscale = -13.0
+00:48:34 Директ обнаружен на позиции 3, текущий upscale = -7.0
+00:48:34 Директ обнаружен на позиции 4, текущий upscale = -3.0
+00:48:34 Директ обнаружен на позиции 25, текущий upscale = -2.4
+00:48:34 Директ обнаружен на позиции 26, текущий upscale = -1.8
+00:48:34 Директ обнаружен на позиции 27, текущий upscale = -1.2
+00:48:34 Директ обнаружен на позиции 28, текущий upscale = -0.6
+00:48:34 Директ обнаружен на позиции 29, текущий upscale = 0.0
+00:48:34 Конкуренция от возраста: 98
+00:48:34 Конкуренция от объема: 97
+00:48:34 Конкуренция от стема: 98
+00:48:34 Конкуренция от бэклинков: 82
+00:48:34 Модификатор от директа: 0.0
+00:48:34 Итоговая конкуренция: 94.0
+00:48:34 ('корм для собак', 98, 98, 97, 82, 94.0, 0.0, 'ready')
+00:49:17 Класс Yandex создан
+00:49:17 Запрос: корм для собак
+00:49:17 Стемированный запрос: ['корм', 'для', 'собака']
+00:49:17 Собран список сайтов корм для собак
+00:49:17 html сайта https://www.WildBerries.ru/catalog/aksessuary/tovary-dlya-zhivotnyh/korm-dlya-zhivotnyh собран за 0.18608427047729492
+00:49:18 html сайта https://petfood.ru/collection/suhie-korma собран за 0.23973751068115234
+00:49:18 html сайта https://www.Miska.ru/catalog/sobaki_1/korma_3/ собран за 0.5715868473052979
+00:49:18 html сайта https://my-shop.ru/shop/catalogue/19805/sort/a/page/1.html собран за 0.7413568496704102
+00:49:18 html сайта https://www.mirkorma.ru/catalog/tovary-dlya-sobak/suhie-korma/ собран за 0.8017318248748779
+00:49:19 html сайта https://www.petshop.ru/catalog/dogs/syxoi/ собран за 1.2693328857421875
+00:49:19 html сайта https://msk.zapovednik96.ru/catalog/tovary_dlya_sobak/korm_dlya_sobak/ собран за 1.2584922313690186
+00:49:19 html сайта https://zen.yandex.ru/media/id/5e9166c373a6de18d92abe22/top-10-samyh-luchshih-kormov-dlia-sobak-2020-goda-5e9c1a532517bd2ed0b3f079 собран за 2.0372297763824463
+00:49:20 html сайта https://www.OZON.ru/category/suhie-korma-dlya-sobak-12303/ собран за 2.399749755859375
+00:49:20 Закончил собирать контент сайта yandex.ru за 5.7220458984375e-06
+00:49:20 Объект Domain создан
+00:49:20 html сайта https://ZooPassage.ru/catalog/sobaki/korma/ собран за 2.793698310852051
+00:49:21 html сайта https://MagiZoo.ru/catalog/luchshij-suhoj-korm-dlja-sobak/ собран за 3.4783153533935547
+00:49:21 html сайта https://4lapy.ru/catalog/sobaki/korm-sobaki/ собран за 3.6845152378082275
+00:49:21 html сайта https://goods.ru/catalog/korma-dlya-sobak/ собран за 3.8100619316101074
+00:49:21 html сайта https://www.bethowen.ru/catalogue/dogs/korma/ собран за 4.165814399719238
+00:49:22 html сайта https://www.DogEat.ru/catalog/korm/dlya-sobak/ собран за 4.963776350021362
+00:49:26 html сайта https://unizoo.ru/catalog/dog/food/ собран за 9.213151931762695
+00:49:27 html сайта https://multikorm.ru/category/korma-dlya-sobak/ собран за 9.503725290298462
+00:49:27 html сайта https://pokupki.market.yandex.ru/catalog/korma-dlia-sobak/71973/list собран за 10.067589282989502
+00:49:28 html сайта https://www.auchan.ru/catalog/zootovary/dlya-sobak/suhie-korma/ собран за 10.883172512054443
+00:49:30 html сайта https://market.yandex.ru/catalog--korma-dlia-sobak/71973/list?clid=703 собран за 12.453855991363525
+00:49:34 Закончил собирать контент сайта WildBerries.ru за 15.293035984039307
+00:49:34 Объект Domain создан
+00:49:35 Закончил собирать контент сайта yandex.ru за 1.0013580322265625e-05
+00:49:35 Объект Domain создан
+00:49:36 Закончил собирать контент сайта my-shop.ru за 17.433303594589233
+00:49:36 Закончил собирать контент сайта yandex.ru за 4.0531158447265625e-06
+00:49:36 Объект Domain создан
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта OZON.ru за 14.920238494873047
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта zapovednik96.ru за 14.803085088729858
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта Miska.ru за 16.198748350143433
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта petshop.ru за 15.157631874084473
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта petfood.ru за 13.72379732131958
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта mirkorma.ru за 15.138350486755371
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта 4lapy.ru за 9.594086647033691
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта bethowen.ru за 10.408268690109253
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта DogEat.ru за 9.284128189086914
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта MagiZoo.ru за 8.40592622756958
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта ZooPassage.ru за 9.033282995223999
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта unizoo.ru за 6.695538759231567
+00:49:36 Объект Domain создан
+00:49:36 Закончил собирать контент сайта auchan.ru за 5.274573087692261
+00:49:36 Объект Domain создан
+00:49:37 Закончил собирать контент сайта multikorm.ru за 5.338583946228027
+00:49:37 Объект Domain создан
+00:49:37 Закончил собирать контент сайта goods.ru за 5.961252927780151
+00:49:37 Объект Domain создан
+00:49:37 Данные есть о 20 из 20 (100%)
+00:49:37 Выборки хватило
+00:49:37 Директ обнаружен на позиции 1, текущий upscale = -22.0
+00:49:37 Директ обнаружен на позиции 2, текущий upscale = -13.0
+00:49:37 Директ обнаружен на позиции 3, текущий upscale = -7.0
+00:49:37 Директ обнаружен на позиции 4, текущий upscale = -3.0
+00:49:37 Директ обнаружен на позиции 25, текущий upscale = -2.4
+00:49:37 Директ обнаружен на позиции 26, текущий upscale = -1.8
+00:49:37 Директ обнаружен на позиции 27, текущий upscale = -1.2
+00:49:37 Директ обнаружен на позиции 28, текущий upscale = -0.6
+00:49:37 Директ обнаружен на позиции 29, текущий upscale = 0.0
+00:49:37 Конкуренция от возраста: 98
+00:49:37 Конкуренция от объема: 97
+00:49:37 Конкуренция от стема: 98
+00:49:37 Конкуренция от бэклинков: 82
+00:49:37 Модификатор от директа: 0.0
+00:49:37 Итоговая конкуренция: 94.0
+00:49:37 ('корм для собак', 98, 98, 97, 82, 94.0, 0.0, 'ready')

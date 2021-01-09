@@ -31,16 +31,16 @@ class Manager:
         print('stop')
 
     def get_requests_from_queue(self):
-        items = get_data_from_database('db.sqlite3', 'main_requestqueue')
+        items = get_data_from_database('db.sqlite3', 'main_handledxml', 4)
         reqs = list()
         for item in items:
-            reqs.append(item[0])
+            reqs.append(item)
 
         self.requests = tuple(reqs)
 
 
     def make_processes(self):
-        self.process_list = [Process(target=Yandex, args=(request.lower(), self.q)) for request in self.requests]
+        self.process_list = [Process(target=Yandex, args=(request, self.q)) for request in self.requests]
 
     def run_processes(self):
         for process in self.process_list:
@@ -59,7 +59,11 @@ class Manager:
             update_database('db.sqlite3', 'main_payload', 'balance', balance, 'key', key)
 
     def delete_requests_from_queue(self):
-        delete_from_database('db.sqlite3', 'main_requestqueue', self.requests)
+        reqs = list()
+        for item in self.requests:
+            reqs.append(item[0])
+        reqs = tuple(reqs)
+        delete_from_database('db.sqlite3', 'main_handledxml', reqs)
 
 
 @logger.catch
@@ -123,10 +127,10 @@ class Site:
 @logger.catch
 class Yandex:
     def __init__(self, request, q):
-        self.request = request
+        self.request = request[0]
+        self.xml = request[1]
         self.q = q
         self.stemmed_request = list()
-        self.xml_request = ''
         self.page_xml = ''
         self.site_list = list()
         self.site_objects_list = list()
@@ -136,18 +140,17 @@ class Yandex:
 
         self.start_logging()
 
-        if not self.check_request_in_db():
-            self.stem_request()
-            self.get_page_xml()
-            self.get_site_list()
 
-            self.make_threads()
-            self.run_threads()
-            self.check_threads()
+        self.stem_request()
+        self.get_page_xml()
+        self.get_site_list()
 
-            self.make_concurency_object()
-            self.add_result_to_database()
-            self.check_request_in_db()
+        self.make_threads()
+        self.run_threads()
+        self.check_threads()
+
+        self.make_concurency_object()
+        self.add_result_to_database()
 
         self.q.put(self.result)
 
@@ -156,14 +159,14 @@ class Yandex:
         logger.debug('Класс Yandex создан')
         logger.info(f'Запрос: {self.request}')
 
-    def check_request_in_db(self):
-        check = check_in_database('db.sqlite3', 'main_request', 'request', self.request)
-        try:
-            if check[0][8] == 'ready':
-                self.result = check
-                return True
-        except:
-            pass
+#    def check_request_in_db(self):
+#        check = check_in_database('db.sqlite3', 'main_request', 'request', self.request)
+#        try:
+#            if check[0][8] == 'ready':
+#                self.result = check
+#                return True
+#        except:
+#            pass
 
     def stem_request(self):
         morph = pymorphy2.MorphAnalyzer()
@@ -172,7 +175,7 @@ class Yandex:
 
 
     def get_page_xml(self):
-        pass
+        self.page_xml = BeautifulSoup(self.xml, 'lxml')
 
     def get_site_list(self):
         try:
