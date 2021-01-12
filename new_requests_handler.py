@@ -165,6 +165,7 @@ class Yandex:
         self.check_threads()
 
         self.make_concurency_object()
+        self.prepare_result()
         self.add_result_to_database()
 
         self.q.put(self.result)
@@ -351,15 +352,9 @@ class Domain:
             item = soup[start:finish].split()[4]
             self.domain_age = 2020 - int(item)
         elif 'created' in soup:
-            if 'com.ua' in self.domain:
+            if '.ua' in self.domain:
                 self.valid = False
                 self.domain_age = 5
-            elif '.ua' in self.domain:
-                self.valid = False
-                start = soup.find('Creation Date') + 18
-                finish = start + 4
-                item = soup[start:finish]
-                self.domain_age = 2020 - int(item)
             elif '.lv' in self.domain or '.club' in self.domain:
                 self.valid = False
                 self.domain_age = 5

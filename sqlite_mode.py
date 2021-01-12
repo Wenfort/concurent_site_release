@@ -54,7 +54,7 @@ def get_data_from_database(database, table, limit=0):
 def update_database(database, table, row_update, value_update, where_row, value):
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
-    sql = f'UPDATE {table} SET {row_update} = {value_update} WHERE {where_row} = "{value}"'
+    sql = f'UPDATE {table} SET {row_update} = "{value_update}" WHERE {where_row} = "{value}"'
     cursor.execute(sql)
     conn.commit()
     conn.close()
