@@ -89,6 +89,14 @@ class Site:
             self.make_content_object()
             self.make_domain_object()
 
+        self.clean_garbage()
+
+    def clean_garbage(self):
+        del self.html
+        del self.start
+        del self.soup
+        del self.domain
+
     def get_url(self):
         self.url = self.soup.find('url').text
 
@@ -125,10 +133,11 @@ class Site:
     def make_content_object(self):
         self.content_object = Content(self.html, self.site_type, self.domain)
 
-
 @logger.catch
 class Yandex:
     def __init__(self, request, q):
+
+
         self.request = request[0]
         self.xml = request[1]
         self.q = q
@@ -146,6 +155,7 @@ class Yandex:
         self.stem_request()
         self.get_page_xml()
         self.get_site_list()
+        self.clean_garbage()
 
         self.make_threads()
         self.run_threads()
@@ -160,15 +170,6 @@ class Yandex:
         logger.add("critical.txt", format="{time:HH:mm:ss} {message}", level='CRITICAL', encoding="UTF-8")
         logger.debug('Класс Yandex создан')
         logger.info(f'Запрос: {self.request}')
-
-#    def check_request_in_db(self):
-#        check = check_in_database('db.sqlite3', 'main_request', 'request', self.request)
-#        try:
-#            if check[0][8] == 'ready':
-#                self.result = check
-#                return True
-#        except:
-#            pass
 
     def stem_request(self):
         morph = pymorphy2.MorphAnalyzer()
@@ -203,6 +204,10 @@ class Yandex:
 
         logger.info(f'Собран список сайтов {self.request}')
 
+    def clean_garbage(self):
+        del self.xml
+        del self.page_xml
+
     def make_site_object(self, position, site):
         self.site_objects_list.append(Site(position, site))
 
@@ -231,6 +236,7 @@ class Yandex:
             'Конкуренция по ссылочному': self.concurency_object.site_backlinks_concurency,
             'Итоговая конкуренция': self.concurency_object.site_total_concurency,
             'Модификатор директ': self.concurency_object.direct_upscale,
+            'Статус': self.concurency_object.status,
         }
 
     def add_result_to_database(self):
@@ -245,7 +251,7 @@ class Yandex:
                         self.concurency_object.site_backlinks_concurency,
                         self.concurency_object.site_total_concurency,
                         self.concurency_object.direct_upscale,
-                        'ready')
+                        self.concurency_object.status,)
         logger.debug(values_to_go)
         add_to_database_with_autoincrement('db.sqlite3', 'main_request', values_to_go)
 
@@ -261,6 +267,7 @@ class Backlinks:
         self.request_json = ''
         self.total_backlinks = ''
         self.unique_backlinks = ''
+        self.status = ''
 
         self.get_token()
         self.get_backlinks()
@@ -278,9 +285,11 @@ class Backlinks:
             logger.info(f'{self.domain} данные не получены по причине {self.request_json["message"]}')
             self.unique_backlinks = 0
             self.total_backlinks = 0
+            self.status = 'pending'
         else:
             self.unique_backlinks = int(self.request_json["summary"]["mjDin"])
             self.total_backlinks = int(self.request_json["summary"]["mjHin"])
+            self.status = 'complete'
             # logger.info(f'Данные {self.domain} получены. Всего ссылок: {self.request_json["summary"]["mjHin"]}. Уникальных ссылок: {self.request_json["summary"]["mjDin"]}')
 
 
@@ -291,38 +300,37 @@ class Domain:
         self.domain_age = ''
         self.backlinks = ''
         self.backlinks_object = ''
-        self.valid = True
 
-        try:
-            self.check_data_in_database()
-        except:
-            self.valid = False
-            logger.critical(f'Проблемы с доменом {self.domain}')
-        logger.info('Объект Domain создан')
+        if self.check_data_in_database():
+            pass
+        else:
+            try:
+                self.get_domain_age()
+                self.make_backlinks_object()
+                self.define_unique_backlinks()
+                self.add_domain_backlinks_to_database()
+            except:
+                logger.critical(f'Проблемы с доменом {self.domain}')
+                logger.info('Объект Domain создан')
 
     def check_data_in_database(self):
-        # TODO: Зарефакторить это говно
         check = check_in_database('db.sqlite3', 'main_domain', 'name', self.domain)
 
         if check:
             self.domain_age = check[0][1]
             self.backlinks = check[0][2]
+            return True
         else:
-            self.get_domain_age()
-            self.make_backlinks_object()
-            self.backlinks = self.backlinks_object.unique_backlinks
-            values_to_go = (
-                self.domain, self.domain_age, self.backlinks,
-                self.backlinks_object.total_backlinks)
-            add_to_database('db.sqlite3', 'main_domain', values_to_go)
+            return False
 
-        if self.backlinks == 0:
-            self.make_backlinks_object()
-            self.backlinks = self.backlinks_object.unique_backlinks
-            update_database('db.sqlite3', 'main_domain', 'unique_backlinks', self.backlinks_object.unique_backlinks,
-                            'name', self.domain)
-            update_database('db.sqlite3', 'main_domain', 'total_backlinks', self.backlinks_object.total_backlinks,
-                            'name', self.domain)
+    def define_unique_backlinks(self):
+        self.backlinks = self.backlinks_object.unique_backlinks
+
+    def add_domain_backlinks_to_database(self):
+        values_to_go = (
+            self.domain, self.domain_age, self.backlinks,
+            self.backlinks_object.total_backlinks, self.backlinks_object.status)
+        add_to_database('db.sqlite3', 'main_domain', values_to_go)
 
     def get_domain_age(self):
         URL = f'https://www.nic.ru/whois/?searchWord={self.domain}'
@@ -430,6 +438,7 @@ class Concurency:
         self.site_total_concurency = ''
         self.valid_backlinks_rate = 0
         self.direct_upscale = ''
+        self.status = str()
 
         self.check_site_object_type()
 
@@ -442,13 +451,16 @@ class Concurency:
         self.calculate_site_volume_concurency()
         self.calculate_site_stem_concurency()
 
-        while self.valid_backlinks_rate < 0.8:
-            self.check_valid_backlinks_sample()
-        self.calculate_site_backlinks_concurency()
-
-        logger.info(f'Выборки хватило')
+        self.check_valid_backlinks_sample()
         self.calculate_direct_upscale()
-        self.calculate_site_total_concurency()
+        if self.valid_backlinks_rate >= 0.8:
+            self.calculate_site_backlinks_concurency()
+            logger.info(f'Выборки хватило')
+            self.calculate_site_total_concurency()
+            self.status = 'ready'
+        else:
+            logger.info(f'Выборки не хватило')
+            self.status = 'backlinks'
 
     def check_site_object_type(self):
         for site_object in self.site_objects_list:
@@ -518,16 +530,7 @@ class Concurency:
         valid_backlinks_rate = valid_backlinks / domains_amount
         self.valid_backlinks_rate = valid_backlinks_rate
         logger.info(f'Данные есть о {valid_backlinks} из {domains_amount} ({int(valid_backlinks_rate * 100)}%)')
-        if valid_backlinks_rate < limit_for_validation:
-            logger.info(f'Выборки не хватило, начинаю сбор заново')
-            time.sleep(10)
-            for site_object in self.organic_site_objects_list:
-                if site_object.domain_object.backlinks == 0:
-                    site_object.domain_object.check_data_in_database()
 
-            for site_object in self.super_site_objects_list:
-                if site_object.domain_object.backlinks == 0:
-                    site_object.domain_object.check_data_in_database()
 
     def calculate_site_backlinks_concurency(self):
         max_backlinks_concurency = 0
