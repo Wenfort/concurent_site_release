@@ -115,12 +115,9 @@ class Site:
     def get_html(self):
         try:
             r = requests.get(self.url, headers=HEADERS, verify=False).content
+            self.html = BeautifulSoup(r, 'html.parser')
         except:
             logger.critical(f'Не удалось загрузить {self.url}')
-            raise
-            quit()
-        logger.info(f'html сайта {self.url} собран за {time.time() - self.start}')
-        self.html = BeautifulSoup(r, 'html.parser')
 
     def make_domain_object(self):
         self.domain_object = Domain(self.domain)
@@ -294,14 +291,17 @@ class Domain:
         self.domain_age = ''
         self.backlinks = ''
         self.backlinks_object = ''
+        self.valid = True
 
         try:
             self.check_data_in_database()
         except:
+            self.valid = False
             logger.critical(f'Проблемы с доменом {self.domain}')
         logger.info('Объект Domain создан')
 
     def check_data_in_database(self):
+        # TODO: Зарефакторить это говно
         check = check_in_database('db.sqlite3', 'main_domain', 'name', self.domain)
 
         if check:
@@ -341,13 +341,16 @@ class Domain:
             self.domain_age = 2020 - int(item)
         elif 'created' in soup:
             if 'com.ua' in self.domain:
+                self.valid = False
                 self.domain_age = 5
             elif '.ua' in self.domain:
+                self.valid = False
                 start = soup.find('Creation Date') + 18
                 finish = start + 4
                 item = soup[start:finish]
                 self.domain_age = 2020 - int(item)
             elif '.lv' in self.domain or '.club' in self.domain:
+                self.valid = False
                 self.domain_age = 5
             else:
                 start = soup.find('created') + 8
@@ -374,6 +377,7 @@ class Content:
         self.words_amount = ''
         self.title = ''
         self.stemmed_title = list()
+        self.valid = True
 
         if self.site_type == 'organic':
             logger.add("critical.txt", format="{time:HH:mm:ss} {message}", level='CRITICAL', encoding="UTF-8")
@@ -383,8 +387,8 @@ class Content:
                 self.get_title()
                 self.stem_title()
             except:
-                logger.critical(f"ЖОПА {self.domain}. ")
-                self.letters_amount = 5000
+                self.valid = False
+                logger.critical(f"Проблема с валидностью контента {self.domain}. ")
 
         logger.debug(f'Закончил собирать контент сайта {domain} за {time.time() - self.start}')
 
@@ -449,7 +453,8 @@ class Concurency:
     def check_site_object_type(self):
         for site_object in self.site_objects_list:
             if site_object.site_type == 'organic':
-                self.organic_site_objects_list.append(site_object)
+                if site_object.content_object.valid:
+                    self.organic_site_objects_list.append(site_object)
             elif site_object.site_type == 'direct':
                 self.direct_site_objects_list.append(site_object)
             else:
@@ -475,7 +480,10 @@ class Concurency:
         for site_object in self.site_objects_list:
             max_volume_concurency += 10000 * self.WEIGHTS[site_object.position]
             if site_object.site_type == 'organic':
-                real_volume_concurency += site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]
+                if site_object.content_object.valid:
+                    real_volume_concurency += site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]
+                else:
+                    real_volume_concurency += 5000 * self.WEIGHTS[site_object.position]
             else:
                 real_volume_concurency += 10000 * self.WEIGHTS[site_object.position]
 
@@ -488,7 +496,6 @@ class Concurency:
         for site_object in self.site_objects_list:
             max_stem_concurency += self.WEIGHTS[site_object.position]
             if site_object.site_type == 'organic':
-
                 matched_stem_items = len(set(self.request) & set(site_object.content_object.stemmed_title))
                 real_stem_concurency += int(matched_stem_items / len(self.request)) * self.WEIGHTS[site_object.position]
             else:
