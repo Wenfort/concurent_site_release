@@ -62,10 +62,10 @@ class XmlReport():
         for xml_answer in self.xml_answers:
             for request, answer in xml_answer.items():
                 requests_for_deletion.append(request)
-                sm.add_to_database('db.sqlite3', 'main_handledxml', (request, answer))
+                sm.add_to_database('db.sqlite3', 'main_handledxml', (request, answer, 'in work'))
 
         requests_for_deletion = tuple(requests_for_deletion)
-        sm.delete_from_database('db.sqlite3', 'main_requestqueue', requests_for_deletion)
+        sm.delete_from_database('db.sqlite3', 'main_requestqueue', 'request', requests_for_deletion)
 
 
 while True:

@@ -53,6 +53,7 @@ class RequestQueue(models.Model):
 class HandledXml(models.Model):
     request = models.CharField(max_length=100, primary_key=True)
     xml = models.TextField()
+    status = models.CharField(max_length=10)
 
     def __str__(self):
         return self.request

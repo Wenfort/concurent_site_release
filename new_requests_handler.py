@@ -31,7 +31,7 @@ class Manager:
         print('stop')
 
     def get_requests_from_queue(self):
-        items = get_data_from_database('db.sqlite3', 'main_handledxml', 4)
+        items = check_in_database('db.sqlite3', 'main_handledxml', 'status', 'in work', 4)
         reqs = list()
         for item in items:
             reqs.append(item)
@@ -60,8 +60,11 @@ class Manager:
 
     def delete_requests_from_queue(self):
         reqs = list()
-        for item in self.requests:
-            reqs.append(item[0])
+        for yandex_object in self.yandex_objects_list:
+            if yandex_object['Статус'] == 'backlinks':
+                update_database('db.sqlite3', 'main_handledxml', 'status', 'pending', 'request', yandex_object['Запрос'])
+            else:
+                reqs.append(yandex_object['Запрос'])
         reqs = tuple(reqs)
         delete_from_database('db.sqlite3', 'main_handledxml', 'request', reqs)
 

@@ -19,9 +19,15 @@ def add_to_database_with_autoincrement(database, table, values_to_go):
     conn.close()
 
 
-def check_in_database(database, table, row_check, value_check):
+def check_in_database(database, table, row_check, value_check, limit = 0):
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
+
+    if not limit:
+        limit = ''
+    else:
+        limit = f' LIMIT {str(limit)}'
+
     if type(value_check) is int:
         sql = f'SELECT * FROM {table} WHERE {row_check}>=?'
     else:
