@@ -63,7 +63,7 @@ class Manager:
         for item in self.requests:
             reqs.append(item[0])
         reqs = tuple(reqs)
-        delete_from_database('db.sqlite3', 'main_handledxml', reqs)
+        delete_from_database('db.sqlite3', 'main_handledxml', 'request', reqs)
 
 
 @logger.catch
@@ -241,7 +241,7 @@ class Yandex:
 
     def add_result_to_database(self):
 
-        delete_from_database('db.sqlite3', 'main_request', (self.request,))
+        delete_from_database('db.sqlite3', 'main_request', 'request', (self.request,))
 
 
         values_to_go = (self.request,

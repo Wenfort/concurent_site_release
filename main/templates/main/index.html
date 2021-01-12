@@ -23,7 +23,12 @@
           <tr>
           <td>{{ request.request }}</td>
           <td colspan="6" style="text-align: center">Запрос в обработке. Это может занять около минуты.</td>
-              </tr>
+          </tr>
+          {% elif request.status == 'backlinks' %}
+          <tr>
+          <td>{{ request.request }}</td>
+          <td colspan="6" style="text-align: center">Запрос в обработке. Недостаточно выборки ссылок.</td>
+          </tr>
       {% else %}
     <tr>
       <td> {{ request.request }} </td>

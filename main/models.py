@@ -6,6 +6,7 @@ class Domain(models.Model):
     age = models.IntegerField(default=0)
     unique_backlinks = models.IntegerField(default=0)
     total_backlinks = models.IntegerField(default=0)
+    status = models.CharField(max_length=10, default='pending')
 
     def __str__(self):
         return self.name

@@ -54,11 +54,11 @@ def update_database(database, table, row_update, value_update, where_row, value)
     conn.close()
 
 
-def delete_from_database(database, table, values):
+def delete_from_database(database, table, row, values):
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
     for value in values:
-        sql = f'DELETE FROM {table} WHERE request = "{value}"'
+        sql = f'DELETE FROM {table} WHERE {row} = "{value}"'
         cursor.execute(sql)
     conn.commit()
     conn.close()
