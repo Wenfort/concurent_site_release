@@ -126,7 +126,7 @@ class Site:
 
     def get_html(self):
         try:
-            r = requests.get(self.url, headers=HEADERS, verify=False).content
+            r = requests.get(self.url, headers=HEADERS, verify=False, timeout=10).content
             self.html = BeautifulSoup(r, 'html.parser')
         except:
             logger.critical(f'Не удалось загрузить {self.url}')
@@ -353,10 +353,7 @@ class Domain:
             item = soup[start:finish].split()[4]
             self.domain_age = 2020 - int(item)
         elif 'created' in soup:
-            if '.ua' in self.domain:
-                self.valid = False
-                self.domain_age = 5
-            elif '.lv' in self.domain or '.club' in self.domain:
+            if '.lv' in self.domain or '.club' in self.domain or '.to' in self.domain or '.ua' in self.domain:
                 self.valid = False
                 self.domain_age = 5
             else:
@@ -476,11 +473,15 @@ class Concurency:
         real_age_concurency = 0
 
         for site_object in self.site_objects_list:
-            max_age_concurency += 10 * self.WEIGHTS[site_object.position]
-            if site_object.site_type == 'organic':
-                real_age_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
-            else:
-                real_age_concurency += 10 * self.WEIGHTS[site_object.position]
+            try:
+                max_age_concurency += 10 * self.WEIGHTS[site_object.position]
+                if site_object.site_type == 'organic':
+                    real_age_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
+                else:
+                    real_age_concurency += 10 * self.WEIGHTS[site_object.position]
+            except:
+                logger.critical(f'В calculate_site_age_concurency срочно нужен дебаг')
+
 
         self.site_age_concurency = int(real_age_concurency / max_age_concurency * 100)
 

@@ -16,12 +16,13 @@ class Manager:
         self.get_requests_from_queue()
         self.make_threads()
         self.run_threads()
+        self.check_threads()
 
-        if len(self.threads_list) > 0:
+        if len(self.requests) > 0:
             self.delete_requests_from_queue()
 
 
-        print('stop')
+        print(f'Обработано {len(self.requests)} запросов ожидающих ссылок')
 
     def get_requests_from_queue(self):
         items = sm.check_in_database('db.sqlite3', 'main_handledxml', 'status', 'pending', 4)
@@ -48,8 +49,9 @@ class Manager:
     def delete_requests_from_queue(self):
         reqs = list()
         for yandex_object in self.yandex_objects_list:
-            if yandex_object.concurency_object.status == 'ready':
-                reqs.append(yandex_object.request)
+            if yandex_object.concurency_object:
+                if yandex_object.concurency_object.status == 'ready':
+                    reqs.append(yandex_object.request)
         reqs = tuple(reqs)
         sm.delete_from_database('db.sqlite3', 'main_handledxml', 'request', reqs)
 
@@ -96,12 +98,14 @@ class Yandex:
     def check_valid(self):
         valid_backlinks = 0
         for site in self.site_objects_list:
-            if site.domain_object.backlinks != '':
+            if site.domain_object.backlinks != 0:
                 valid_backlinks += 1
 
         if valid_backlinks >= 16:
+            print(f'Валидных ссылок: {valid_backlinks}. Все ОК')
             return True
         else:
+            print(f'Валидных ссылок: {valid_backlinks}. Все плохо')
             return False
 
     def make_concurency_object(self):
@@ -212,5 +216,6 @@ class Concurency:
 
 
 if __name__ == '__main__':
-    Manager()
-    time.sleep(20)
+    while True:
+        Manager()
+        time.sleep(20)

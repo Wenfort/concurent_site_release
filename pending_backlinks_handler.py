@@ -9,6 +9,7 @@ def get_token():
 
 def run():
     domains = sm.check_in_database('db.sqlite3', 'main_domain', 'status', 'pending')
+    total = 0
     if domains:
         token = get_token()
         for domain_data in domains:
@@ -20,10 +21,13 @@ def run():
             if not request_json['success']:
                 pass
             else:
+                total += 1
                 unique_backlinks = int(request_json["summary"]["mjDin"])
                 total_backlinks = int(request_json["summary"]["mjHin"])
                 sm.delete_from_database('db.sqlite3', 'main_domain', 'name', (domain,))
                 sm.add_to_database('db.sqlite3', 'main_domain', (domain, age, unique_backlinks, total_backlinks, 'complete'))
+
+    print(f'Добавлено {total} ссылок для доменов в БД')
 
 while True:
     run()
