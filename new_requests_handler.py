@@ -24,8 +24,9 @@ class Manager:
         self.run_processes()
         self.get_data_from_processes()
 
-        self.refresh_balance()
-        self.delete_requests_from_queue()
+        if len(self.process_list) > 0:
+            self.refresh_balance()
+            self.delete_requests_from_queue()
 
 
         print('stop')
