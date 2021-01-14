@@ -8,6 +8,7 @@ def get_token():
     return token
 
 def run():
+    #TODO мб брать инфу еще и с линкпад
     domains = sm.check_in_database('db.sqlite3', 'main_domain', 'status', 'pending')
     total = 0
     if domains:
@@ -27,7 +28,7 @@ def run():
                 sm.delete_from_database('db.sqlite3', 'main_domain', 'name', (domain,))
                 sm.add_to_database('db.sqlite3', 'main_domain', (domain, age, unique_backlinks, total_backlinks, 'complete'))
 
-    print(f'Добавлено {total} ссылок для доменов в БД')
+    print(f'Добавлено {total} ссылок для доменов в БД. В очереди {len(domains)}.')
 
 while True:
     run()

@@ -21,7 +21,7 @@ class Manager:
         if len(self.requests) > 0:
             self.delete_requests_from_queue()
 
-
+        #TODO разобраться с багом бесконечного сбора если почему-то собралось мало сайтов
         print(f'Обработано {len(self.requests)} запросов ожидающих ссылок')
 
     def get_requests_from_queue(self):

@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 import lxml
 from urllib.parse import urlparse
 from sqlite_mode import *
+import re
 
 
 @logger.catch
@@ -29,7 +30,7 @@ class Manager:
             self.delete_requests_from_queue()
 
 
-        print('stop')
+        print(f'СОбрано {len(self.process_list)} первичных запросов')
 
     def get_requests_from_queue(self):
         items = check_in_database('db.sqlite3', 'main_handledxml', 'status', 'in work', 4)
@@ -173,6 +174,7 @@ class Yandex:
 
     def start_logging(self):
         logger.add("critical.txt", format="{time:HH:mm:ss} {message}", level='CRITICAL', encoding="UTF-8")
+        logger.add("important.txt", format="{time:HH:mm:ss} {message}", level='SUCCESS', encoding="UTF-8")
         logger.debug('Класс Yandex создан')
         logger.info(f'Запрос: {self.request}')
 
@@ -389,12 +391,14 @@ class Content:
                 self.get_text()
                 self.count_letters_amount()
                 self.get_title()
+                self.delete_punctuation_from_title()
                 self.stem_title()
             except:
                 self.valid = False
                 logger.critical(f"Проблема с валидностью контента {self.domain}. ")
 
         logger.debug(f'Закончил собирать контент сайта {domain} за {time.time() - self.start}')
+        self.clean_garbage()
 
     def get_text(self):
         self.text = self.html.text.replace('\n', '')
@@ -405,17 +409,28 @@ class Content:
         if self.letters_amount > 10000:
             self.letters_amount = 10000
 
-    def count_words_amount(self):
-        pass
 
     def get_title(self):
         self.title = self.html.find('title').text
         self.title = self.title.replace('\n', '')
 
+
+
+    def delete_punctuation_from_title(self):
+        # result = re.findall(r'/[\u2000-\u206F\u2E00-\u2E7F\\!"#$%&()*+,\-.:;<=>?@\[\]^_`{|}~]/', self.title)
+        self.title = re.sub(r'[^\w\s]', '', self.title)
+
     def stem_title(self):
         morph = pymorphy2.MorphAnalyzer()
         for word in self.title.split():
             self.stemmed_title.append(morph.parse(word)[0].normal_form)
+
+    def clean_garbage(self):
+        del self.html
+        del self.text
+        del self.start
+
+
 
 
 @logger.catch
@@ -509,7 +524,11 @@ class Concurency:
             max_stem_concurency += self.WEIGHTS[site_object.position]
             if site_object.site_type == 'organic':
                 matched_stem_items = len(set(self.request) & set(site_object.content_object.stemmed_title))
+                #TODO удалить тест
+                test = matched_stem_items / len(self.request)
+                test2 = matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
                 real_stem_concurency += int(matched_stem_items / len(self.request)) * self.WEIGHTS[site_object.position]
+                logger.success(f'Запрос: {self.request}. Стемированный тайтл: {site_object.content_object.stemmed_title}. Кол-во совпадений: {matched_stem_items}. Кэф: {test}. Оценка конкуренции {test2} из максимальных {self.WEIGHTS[site_object.position]}')
             else:
                 real_stem_concurency += self.WEIGHTS[site_object.position]
 
