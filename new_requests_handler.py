@@ -492,10 +492,13 @@ class Concurency:
                 max_age_concurency += 10 * self.WEIGHTS[site_object.position]
                 if site_object.site_type == 'organic':
                     real_age_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
+                    # Тест модуль
+                    logger.success(f'Сайт: {site_object.content_object.domain}. Возраст сайта {site_object.domain_object.domain_age}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]} из {10 * self.WEIGHTS[site_object.position]}')
                 else:
                     real_age_concurency += 10 * self.WEIGHTS[site_object.position]
+
             except:
-                logger.critical(f'В calculate_site_age_concurency срочно нужен дебаг')
+                logger.critical(f'В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом {site_object.content_object.domain}')
 
 
         self.site_age_concurency = int(real_age_concurency / max_age_concurency * 100)

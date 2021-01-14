@@ -2,6 +2,7 @@ import requests
 import time
 import sqlite_mode as sm
 from threading import Thread
+import re
 
 
 class XmlReport():
@@ -38,11 +39,14 @@ class XmlReport():
     def get_xml_answer(self, request, xml_url):
         r = requests.get(xml_url)
         text = r.text
-        content_for_bs4 = r.content
-        if 'Ответ от поисковой системы не получен' not in text:
-            self.xml_answers.append({request: content_for_bs4})
-        else:
-            print(f'Ошибка XML в запросе {request}: {text}')
+        site_numbers = len(re.findall(r'<doc>', text))
+
+        if site_numbers > 15:
+            content_for_bs4 = r.content
+            if 'Ответ от поисковой системы не получен' not in text:
+                self.xml_answers.append({request: content_for_bs4})
+            else:
+                print(f'Ошибка XML в запросе {request}: {text}')
 
     def make_threads(self):
         for xml_pack in self.xml_request_packs:

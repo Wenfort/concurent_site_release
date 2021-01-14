@@ -70,12 +70,16 @@ class Yandex:
 
         self.get_page_xml()
         self.get_site_list()
-        self.clean_garbage()
+        if len(self.site_list) >= 15:
+            self.clean_garbage()
 
-        self.make_site_objects()
-        if self.check_valid():
-            self.make_concurency_object()
-            self.update_database()
+            self.make_site_objects()
+            if self.check_valid():
+                self.make_concurency_object()
+                self.update_database()
+        else:
+            print('Нужно фиксить XML')
+            pass
 
 
     def get_page_xml(self):
