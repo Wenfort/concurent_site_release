@@ -405,6 +405,7 @@ class Content:
 
     def count_letters_amount(self):
         self.letters_amount = len(self.text)
+        # logger.success(f'{self.domain} - реальное кол-во знаков {self.letters_amount}')
 
         if self.letters_amount > 10000:
             self.letters_amount = 10000
@@ -417,7 +418,6 @@ class Content:
 
 
     def delete_punctuation_from_title(self):
-        # result = re.findall(r'/[\u2000-\u206F\u2E00-\u2E7F\\!"#$%&()*+,\-.:;<=>?@\[\]^_`{|}~]/', self.title)
         self.title = re.sub(r'[^\w\s]', '', self.title)
 
     def stem_title(self):
@@ -511,6 +511,8 @@ class Concurency:
                     real_volume_concurency += site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]
                 else:
                     real_volume_concurency += 5000 * self.WEIGHTS[site_object.position]
+                # тест модуль
+                # logger.success(f'Сайт: {site_object.content_object.domain}. Объем статьи {site_object.content_object.letters_amount}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}')
             else:
                 real_volume_concurency += 10000 * self.WEIGHTS[site_object.position]
 
@@ -524,11 +526,12 @@ class Concurency:
             max_stem_concurency += self.WEIGHTS[site_object.position]
             if site_object.site_type == 'organic':
                 matched_stem_items = len(set(self.request) & set(site_object.content_object.stemmed_title))
-                #TODO удалить тест
-                test = matched_stem_items / len(self.request)
-                test2 = matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
                 real_stem_concurency += int(matched_stem_items / len(self.request)) * self.WEIGHTS[site_object.position]
-                logger.success(f'Запрос: {self.request}. Стемированный тайтл: {site_object.content_object.stemmed_title}. Кол-во совпадений: {matched_stem_items}. Кэф: {test}. Оценка конкуренции {test2} из максимальных {self.WEIGHTS[site_object.position]}')
+                # тест модуль
+                # test = matched_stem_items / len(self.request)
+                # test2 = matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
+                # logger.success(
+                #     f'Запрос: {self.request}. Стемированный тайтл: {site_object.content_object.stemmed_title}. Кол-во совпадений: {matched_stem_items}. Кэф: {test}. Оценка конкуренции {test2} из максимальных {self.WEIGHTS[site_object.position]}')
             else:
                 real_stem_concurency += self.WEIGHTS[site_object.position]
 
