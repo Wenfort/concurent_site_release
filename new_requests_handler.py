@@ -536,8 +536,8 @@ class Concurency:
                     real_volume_concurency += site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]
                 else:
                     real_volume_concurency += 5000 * self.WEIGHTS[site_object.position]
-                # тест модуль
-                # logger.success(f'Сайт: {site_object.content_object.domain}. Объем статьи {site_object.content_object.letters_amount}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}')
+                #тест модуль
+                #logger.success(f'Сайт: {site_object.content_object.domain}. Объем статьи {site_object.content_object.letters_amount}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}')
             else:
                 real_volume_concurency += 10000 * self.WEIGHTS[site_object.position]
 
@@ -552,10 +552,10 @@ class Concurency:
             if site_object.site_type == 'organic':
                 matched_stem_items = len(set(self.request) & set(site_object.content_object.stemmed_title))
                 real_stem_concurency += int(matched_stem_items / len(self.request)) * self.WEIGHTS[site_object.position]
-
-                test = matched_stem_items / len(self.request)
-                test2 = matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
-                logger.success(f'Запрос: {self.request}. Стемированный тайтл: {site_object.content_object.stemmed_title}. Кол-во совпадений: {matched_stem_items}. Кэф: {test}. Оценка конкуренции {test2} из максимальных {self.WEIGHTS[site_object.position]}')
+                #тест модуль
+                #test = matched_stem_items / len(self.request)
+                #test2 = matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
+                #logger.success(f'Запрос: {self.request}. Стемированный тайтл: {site_object.content_object.stemmed_title}. Кол-во совпадений: {matched_stem_items}. Кэф: {test}. Оценка конкуренции {test2} из максимальных {self.WEIGHTS[site_object.position]}')
             else:
                 real_stem_concurency += self.WEIGHTS[site_object.position]
 
@@ -591,7 +591,7 @@ class Concurency:
                 real_backlinks_concurency += int(site_object.domain_object.backlinks / maximum_backlinks * 100 * self.WEIGHTS[site_object.position])
                 max_backlinks_concurency += 100 * self.WEIGHTS[site_object.position]
                 #Тест модуль
-                #logger.success(f'Сайт: {site_object.content_object.domain}. Ссылок: {site_object.domain_object.backlinks}. Кэф: {site_object.domain_object.backlinks / maximum_backlinks}. Сложность: {int(site_object.domain_object.backlinks / maximum_backlinks * 100 * self.WEIGHTS[site_object.position])} из {100 * self.WEIGHTS[site_object.position]}')
+                logger.success(f'Сайт: {site_object.content_object.domain}. Ссылок: {site_object.domain_object.backlinks}. Кэф: {site_object.domain_object.backlinks / maximum_backlinks}. Сложность: {int(site_object.domain_object.backlinks / maximum_backlinks * 100 * self.WEIGHTS[site_object.position])} из {100 * self.WEIGHTS[site_object.position]}')
             except:
                 pass
         self.site_backlinks_concurency = int(real_backlinks_concurency / max_backlinks_concurency * 100)
@@ -626,7 +626,7 @@ class Concurency:
                 'Стемирование'] + self.site_volume_concurency * IMPORTANCE[
                 'Объем статей'] + self.site_backlinks_concurency * IMPORTANCE['Ссылочное'])
         total_difficulty += self.direct_upscale
-        self.site_total_concurency = total_difficulty
+        self.site_total_concurency = int(total_difficulty)
         logger.info(f'Конкуренция от возраста: {self.site_age_concurency}')
         logger.info(f'Конкуренция от объема: {self.site_volume_concurency}')
         logger.info(f'Конкуренция от стема: {self.site_stem_concurency}')
