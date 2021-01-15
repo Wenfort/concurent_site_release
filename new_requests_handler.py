@@ -464,13 +464,14 @@ class Concurency:
 
         self.check_valid_backlinks_sample()
         self.calculate_direct_upscale()
-        if self.valid_backlinks_rate >= 0.8:
+
+        if self.valid_backlinks_rate == 1:
             self.calculate_site_backlinks_concurency()
             logger.info(f'Выборки хватило')
             self.calculate_site_total_concurency()
             self.status = 'ready'
         else:
-            logger.info(f'Выборки не хватило')
+            logger.info(f'Выборки не хватило ({int(self.valid_backlinks_rate * 100)}%)')
             self.status = 'backlinks'
 
     def check_site_object_type(self):
@@ -493,7 +494,7 @@ class Concurency:
                 if site_object.site_type == 'organic':
                     real_age_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
                     # Тест модуль
-                    logger.success(f'Сайт: {site_object.content_object.domain}. Возраст сайта {site_object.domain_object.domain_age}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]} из {10 * self.WEIGHTS[site_object.position]}')
+                    # logger.success(f'Сайт: {site_object.content_object.domain}. Возраст сайта {site_object.domain_object.domain_age}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]} из {10 * self.WEIGHTS[site_object.position]}')
                 else:
                     real_age_concurency += 10 * self.WEIGHTS[site_object.position]
 
