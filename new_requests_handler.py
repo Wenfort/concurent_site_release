@@ -192,7 +192,16 @@ class Yandex:
 
     def stem_request(self):
         morph = pymorphy2.MorphAnalyzer()
-        self.stemmed_request = morph.parse(self.request)[0].normal_form.split()
+        for word in self.request.split():
+            parsed_word = morph.parse(word)[0]
+            type_of_word = str(parsed_word.tag.POS)
+            if type_of_word == 'PREP' or type_of_word == 'CONJ' or type_of_word == 'PRCL' or type_of_word == 'INTJ':
+                continue
+            else:
+                self.stemmed_request.append(parsed_word.normal_form)
+
+
+        #self.stemmed_request = morph.parse(self.request)[0].normal_form.split()
         logger.info(f'Стемированный запрос: {self.stemmed_request}')
 
 
