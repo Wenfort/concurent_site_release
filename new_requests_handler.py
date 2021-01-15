@@ -569,6 +569,8 @@ class Concurency:
                     site_object.domain_object.backlinks = maximum_backlinks
                 real_backlinks_concurency += int(site_object.domain_object.backlinks / maximum_backlinks * 100 * self.WEIGHTS[site_object.position])
                 max_backlinks_concurency += 100 * self.WEIGHTS[site_object.position]
+                #Тест модуль
+                #logger.success(f'Сайт: {site_object.content_object.domain}. Ссылок: {site_object.domain_object.backlinks}. Кэф: {site_object.domain_object.backlinks / maximum_backlinks}. Сложность: {int(site_object.domain_object.backlinks / maximum_backlinks * 100 * self.WEIGHTS[site_object.position])} из {100 * self.WEIGHTS[site_object.position]}')
             except:
                 pass
         self.site_backlinks_concurency = int(real_backlinks_concurency / max_backlinks_concurency * 100)
