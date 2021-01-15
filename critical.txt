@@ -1,44 +1,111 @@
-13:09:47 Проблема с валидностью контента MilitaryArms.ru. 
-13:09:47 Проблема с валидностью контента MilitaryArms.ru. 
-13:09:48 Проблема с валидностью контента wikichi.ru. 
-13:09:48 Проблема с валидностью контента wikichi.ru. 
-13:09:48 Проблема с валидностью контента wikichi.ru. 
-13:09:48 Проблема с валидностью контента wikichi.ru. 
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:57 Проблемы с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
-13:09:58 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом kavkaz-uzel.eu
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:46:53 Проблема с валидностью контента booksite.ru. 
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Не удалось загрузить https://russkie-poslovitsi.ru/poslovitsi-i-pogovorki/po-alfavitu/
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Проблема с валидностью контента russkie-poslovitsi.ru. 
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Не удалось загрузить https://pogovorki-poslovicy.ru/narody-rossii/samye-izvestnye-russkie-pogovorki-i-poslovicy.html
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+13:58:52 Проблема с валидностью контента pogovorki-poslovicy.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 
+14:13:35 Проблема с валидностью контента booksite.ru. 

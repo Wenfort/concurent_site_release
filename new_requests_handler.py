@@ -90,9 +90,12 @@ class Site:
         self.get_site_type()
 
         if self.estimated_site_type == 'unknown':
-            self.get_html()
-            self.make_content_object()
-            self.make_domain_object()
+            try:
+                self.get_html()
+                self.make_content_object()
+                self.make_domain_object()
+            except:
+                logger.critical(f'Критическая ошибка с доменом {self.domain}')
 
         self.clean_garbage()
 
@@ -125,10 +128,19 @@ class Site:
             first_dot = self.domain.find('.') + 1
             self.domain = self.domain[first_dot:]
 
+    def is_pdf(self):
+        if '.pdf' in self.url:
+            return True
+        else:
+            return False
+
     def get_html(self):
         try:
             r = requests.get(self.url, headers=HEADERS, verify=False, timeout=10).content
-            self.html = BeautifulSoup(r, 'html.parser')
+            if not self.is_pdf():
+                self.html = BeautifulSoup(r, 'html.parser')
+            else:
+                self.html = ''
         except:
             logger.critical(f'Не удалось загрузить {self.url}')
 
@@ -355,7 +367,7 @@ class Domain:
             item = soup[start:finish].split()[4]
             self.domain_age = 2020 - int(item)
         elif 'created' in soup:
-            if '.lv' in self.domain or '.club' in self.domain or '.to' in self.domain or '.ua' in self.domain:
+            if '.lv' in self.domain or '.club' in self.domain or '.to' in self.domain or '.ua' in self.domain or '.eu' in self.domain:
                 self.valid = False
                 self.domain_age = 5
             else:
@@ -465,7 +477,7 @@ class Concurency:
         self.check_valid_backlinks_sample()
         self.calculate_direct_upscale()
 
-        if self.valid_backlinks_rate == 1:
+        if self.valid_backlinks_rate >= 1:
             self.calculate_site_backlinks_concurency()
             logger.info(f'Выборки хватило')
             self.calculate_site_total_concurency()
@@ -531,11 +543,10 @@ class Concurency:
             if site_object.site_type == 'organic':
                 matched_stem_items = len(set(self.request) & set(site_object.content_object.stemmed_title))
                 real_stem_concurency += int(matched_stem_items / len(self.request)) * self.WEIGHTS[site_object.position]
-                # тест модуль
-                # test = matched_stem_items / len(self.request)
-                # test2 = matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
-                # logger.success(
-                #     f'Запрос: {self.request}. Стемированный тайтл: {site_object.content_object.stemmed_title}. Кол-во совпадений: {matched_stem_items}. Кэф: {test}. Оценка конкуренции {test2} из максимальных {self.WEIGHTS[site_object.position]}')
+
+                test = matched_stem_items / len(self.request)
+                test2 = matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
+                logger.success(f'Запрос: {self.request}. Стемированный тайтл: {site_object.content_object.stemmed_title}. Кол-во совпадений: {matched_stem_items}. Кэф: {test}. Оценка конкуренции {test2} из максимальных {self.WEIGHTS[site_object.position]}')
             else:
                 real_stem_concurency += self.WEIGHTS[site_object.position]
 
