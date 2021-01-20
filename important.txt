@@ -19,3 +19,596 @@
 15:17:38 Сайт: diktory.com. Ссылок: 161. Кэф: 0.322. Сложность: 64 из 200
 15:17:38 Сайт: poslovitza.ru. Ссылок: 84. Кэф: 0.168. Сложность: 33 из 200
 15:17:38 Сайт: booksite.ru. Ссылок: 500. Кэф: 1.0. Сложность: 200 из 200
+01:47:32 An error has been caught in function 'make_concurency_object', process 'Process-1' (11252), thread 'MainThread' (4112):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 788
+               │     └ 3
+               └ <function _main at 0x03DF4A48>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 788
+           │    └ <function BaseProcess._bootstrap at 0x03DE71D8>
+           └ <Process name='Process-1' parent=3516 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x03DC8CD0>
+    └ <Process name='Process-1' parent=3516 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=3516 started>
+    │    │        │    └ (('победы курск', '\\x3c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d225554462d3822203f3e0a3c79616e646578736561726...
+    │    │        └ <Process name='Process-1' parent=3516 started>
+    │    └ <function Yandex at 0x051ADCD0>
+    └ <Process name='Process-1' parent=3516 started>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 181, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x051A8028>
+    └ <__mp_main__.Yandex object at 0x03DE4130>
+
+> File "D:\Django\concurent_site_release\new_requests_handler.py", line 256, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['победа', 'курск']
+    │    │                   │          │    │                  └ <__mp_main__.Yandex object at 0x03DE4130>
+    │    │                   │          │    └ []
+    │    │                   │          └ <__mp_main__.Yandex object at 0x03DE4130>
+    │    │                   └ <function Concurency at 0x051A8B20>
+    │    └ ''
+    └ <__mp_main__.Yandex object at 0x03DE4130>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 482, in __init__
+    self.calculate_site_age_concurency()
+    │    └ <function Concurency.calculate_site_age_concurency at 0x051A8BF8>
+    └ <__mp_main__.Concurency object at 0x051F3850>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 526, in calculate_site_age_concurency
+    self.site_age_concurency = int(real_age_concurency / max_age_concurency * 100)
+    │    │                         │                     └ 0
+    │    │                         └ 0
+    │    └ ''
+    └ <__mp_main__.Concurency object at 0x051F3850>
+
+ZeroDivisionError: division by zero
+01:47:32 An error has been caught in function 'run', process 'Process-1' (11252), thread 'MainThread' (4112):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 788
+               │     └ 3
+               └ <function _main at 0x03DF4A48>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 788
+           │    └ <function BaseProcess._bootstrap at 0x03DE71D8>
+           └ <Process name='Process-1' parent=3516 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x03DC8CD0>
+    └ <Process name='Process-1' parent=3516 started>
+
+> File "D:\python\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=3516 started>
+    │    │        │    └ (('победы курск', '\\x3c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d225554462d3822203f3e0a3c79616e646578736561726...
+    │    │        └ <Process name='Process-1' parent=3516 started>
+    │    └ <function Yandex at 0x051ADCD0>
+    └ <Process name='Process-1' parent=3516 started>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 182, in __init__
+    self.prepare_result()
+    │    └ <function Yandex.prepare_result at 0x051A8070>
+    └ <__mp_main__.Yandex object at 0x03DE4130>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 261, in prepare_result
+    'Конкуренция по возрасту': self.concurency_object.site_age_concurency,
+                               │    └ None
+                               └ <__mp_main__.Yandex object at 0x03DE4130>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+01:47:55 An error has been caught in function 'make_concurency_object', process 'Process-1' (6016), thread 'MainThread' (11380):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 444
+               │     └ 3
+               └ <function _main at 0x03F33A48>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 444
+           │    └ <function BaseProcess._bootstrap at 0x03F261D8>
+           └ <Process name='Process-1' parent=2676 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x03F08CD0>
+    └ <Process name='Process-1' parent=2676 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=2676 started>
+    │    │        │    └ (('победы курск', '\\x3c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d225554462d3822203f3e0a3c79616e646578736561726...
+    │    │        └ <Process name='Process-1' parent=2676 started>
+    │    └ <function Yandex at 0x052ACCD0>
+    └ <Process name='Process-1' parent=2676 started>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 181, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x052A7028>
+    └ <__mp_main__.Yandex object at 0x03F24100>
+
+> File "D:\Django\concurent_site_release\new_requests_handler.py", line 256, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request)
+    │    │                   │          │    │                  │    └ ['победа', 'курск']
+    │    │                   │          │    │                  └ <__mp_main__.Yandex object at 0x03F24100>
+    │    │                   │          │    └ []
+    │    │                   │          └ <__mp_main__.Yandex object at 0x03F24100>
+    │    │                   └ <function Concurency at 0x052A7B20>
+    │    └ ''
+    └ <__mp_main__.Yandex object at 0x03F24100>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 482, in __init__
+    self.calculate_site_age_concurency()
+    │    └ <function Concurency.calculate_site_age_concurency at 0x052A7BF8>
+    └ <__mp_main__.Concurency object at 0x052F2850>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 526, in calculate_site_age_concurency
+    self.site_age_concurency = int(real_age_concurency / max_age_concurency * 100)
+    │    │                         │                     └ 0
+    │    │                         └ 0
+    │    └ ''
+    └ <__mp_main__.Concurency object at 0x052F2850>
+
+ZeroDivisionError: division by zero
+01:47:55 An error has been caught in function 'run', process 'Process-1' (6016), thread 'MainThread' (11380):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 444
+               │     └ 3
+               └ <function _main at 0x03F33A48>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 444
+           │    └ <function BaseProcess._bootstrap at 0x03F261D8>
+           └ <Process name='Process-1' parent=2676 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x03F08CD0>
+    └ <Process name='Process-1' parent=2676 started>
+
+> File "D:\python\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=2676 started>
+    │    │        │    └ (('победы курск', '\\x3c3f786d6c2076657273696f6e3d22312e302220656e636f64696e673d225554462d3822203f3e0a3c79616e646578736561726...
+    │    │        └ <Process name='Process-1' parent=2676 started>
+    │    └ <function Yandex at 0x052ACCD0>
+    └ <Process name='Process-1' parent=2676 started>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 182, in __init__
+    self.prepare_result()
+    │    └ <function Yandex.prepare_result at 0x052A7070>
+    └ <__mp_main__.Yandex object at 0x03F24100>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 261, in prepare_result
+    'Конкуренция по возрасту': self.concurency_object.site_age_concurency,
+                               │    └ None
+                               └ <__mp_main__.Yandex object at 0x03F24100>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+02:40:37 Проблема с валидностью контента BuhSoft.ru. 
+02:41:21 Проблема с валидностью контента BuhSoft.ru. 
+02:42:09 Проблема с валидностью контента BuhSoft.ru. 
+02:42:51 Проблема с валидностью контента BuhSoft.ru. 
+02:43:09 Проблема с валидностью контента BuhSoft.ru. 
+02:44:09 Проблема с валидностью контента BuhSoft.ru. 
+02:45:00 Проблема с валидностью контента BuhSoft.ru. 
+02:50:40 Проблема с валидностью контента BuhSoft.ru. 
+02:50:49 Не удалось загрузить http://www.pfrf.ru/strahovatelyam/for_employers/programs_for_employers~3154
+02:50:49 Проблема с валидностью контента pfrf.ru. 
+02:51:34 An error has been caught in function 'run', process 'Process-1' (11156), thread 'MainThread' (10984):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 796
+               │     └ 3
+               └ <function _main at 0x04192B20>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 796
+           │    └ <function BaseProcess._bootstrap at 0x041842B0>
+           └ <Process name='Process-1' parent=12820 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x04168DA8>
+    └ <Process name='Process-1' parent=12820 started>
+
+> File "D:\python\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=12820 started>
+    │    │        │    └ (('Тестирование новой xml', 'b\'<?xml version="1.0" encoding="UTF-8" ?>\\n<yandexsearch version="1.0">\\n  <response date="20...
+    │    │        └ <Process name='Process-1' parent=12820 started>
+    │    └ <function Yandex at 0x0554DDA8>
+    └ <Process name='Process-1' parent=12820 started>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 183, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x054E1190>
+    └ <__mp_main__.Yandex object at 0x04175FB8>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 284, in add_result_to_database
+    pm.add_to_database_with_autoincrement('main_request', values_to_go)
+    │  │                                                  └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │  └ <function add_to_database_with_autoincrement at 0x05540A48>
+    └ <module 'postgres_mode' from 'D:\\Django\\concurent_site_release\\postgres_mode.py'>
+
+  File "D:\Django\concurent_site_release\postgres_mode.py", line 46, in add_to_database_with_autoincrement
+    cursor.execute(sql, (values_to_go))
+    │      │       │     └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │      │       └ 'INSERT INTO concurent_site.main_request VALUES (DEFAULT,%s,%s,%s,%s,%s,%s,%s,%s)'
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x07073628; closed: 0>
+
+psycopg2.errors.InvalidTextRepresentation: ОШИБКА:  неверный синтаксис для типа integer: ""
+LINE 1: ...VALUES (DEFAULT,'Тестирование новой xml',94,25,82,'','', -35...
+                                                             ^
+
+02:55:59 Проблема с валидностью контента BuhSoft.ru. 
+02:56:10 Проблема с валидностью контента BuhSoft.ru. 
+02:57:06 Проблема с валидностью контента BuhSoft.ru. 
+02:57:28 An error has been caught in function 'run', process 'Process-1' (7376), thread 'MainThread' (8492):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 672
+               │     └ 3
+               └ <function _main at 0x04214B68>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 672
+           │    └ <function BaseProcess._bootstrap at 0x042042F8>
+           └ <Process name='Process-1' parent=2692 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x041E8DF0>
+    └ <Process name='Process-1' parent=2692 started>
+
+> File "D:\python\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=2692 started>
+    │    │        │    └ (('Тестирование новой xml', 'b\'<?xml version="1.0" encoding="UTF-8" ?>\\n<yandexsearch version="1.0">\\n  <response date="20...
+    │    │        └ <Process name='Process-1' parent=2692 started>
+    │    └ <function Yandex at 0x055CDDF0>
+    └ <Process name='Process-1' parent=2692 started>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 183, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x055621D8>
+    └ <__mp_main__.Yandex object at 0x041F4FB8>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 284, in add_result_to_database
+    pm.add_to_database_with_autoincrement('main_request', values_to_go)
+    │  │                                                  └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │  └ <function add_to_database_with_autoincrement at 0x055C0A90>
+    └ <module 'postgres_mode' from 'D:\\Django\\concurent_site_release\\postgres_mode.py'>
+
+  File "D:\Django\concurent_site_release\postgres_mode.py", line 46, in add_to_database_with_autoincrement
+    cursor.execute(sql, (values_to_go))
+    │      │       │     └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │      │       └ 'INSERT INTO concurent_site.main_request VALUES (DEFAULT, %s,%s,%s,%s,%s,%s,%s,%s)'
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x06DC3C28; closed: 0>
+
+psycopg2.errors.InvalidTextRepresentation: ОШИБКА:  неверный синтаксис для типа integer: ""
+LINE 1: ...ALUES (DEFAULT, 'Тестирование новой xml',94,25,82,'','', -35...
+                                                             ^
+
+02:59:46 Проблема с валидностью контента BuhSoft.ru. 
+03:22:41 Проблема с валидностью контента BuhSoft.ru. 
+03:23:02 An error has been caught in function 'run', process 'Process-1' (8604), thread 'MainThread' (3108):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 732
+               │     └ 3
+               └ <function _main at 0x03853B20>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 732
+           │    └ <function BaseProcess._bootstrap at 0x038552B0>
+           └ <Process name='Process-1' parent=12172 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x03827DA8>
+    └ <Process name='Process-1' parent=12172 started>
+
+> File "D:\python\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=12172 started>
+    │    │        │    └ (('Тестирование новой xml', 'b\'<?xml version="1.0" encoding="UTF-8" ?>\\n<yandexsearch version="1.0">\\n  <response date="20...
+    │    │        └ <Process name='Process-1' parent=12172 started>
+    │    └ <function Yandex at 0x04C0BDA8>
+    └ <Process name='Process-1' parent=12172 started>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 183, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x04ABF190>
+    └ <__mp_main__.Yandex object at 0x03834FB8>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 284, in add_result_to_database
+    pm.add_to_database_with_autoincrement('main_request', values_to_go)
+    │  │                                                  └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │  └ <function add_to_database_with_autoincrement at 0x04BFDA48>
+    └ <module 'postgres_mode' from 'D:\\Django\\concurent_site_release\\postgres_mode.py'>
+
+  File "D:\Django\concurent_site_release\postgres_mode.py", line 46, in add_to_database_with_autoincrement
+    cursor.execute(sql, (values_to_go))
+    │      │       │     └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │      │       └ 'INSERT INTO concurent_site.main_request VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x0A5DF328; closed: 0>
+
+psycopg2.errors.InvalidTextRepresentation: ОШИБКА:  неверный синтаксис для типа integer: "Тестирование новой xml"
+LINE 1: INSERT INTO concurent_site.main_request VALUES ('Тестировани...
+                                                        ^
+
+03:23:43 Проблема с валидностью контента BuhSoft.ru. 
+03:24:18 An error has been caught in function 'run', process 'Process-1' (12364), thread 'MainThread' (12700):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 724
+               │     └ 3
+               └ <function _main at 0x04693B20>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 724
+           │    └ <function BaseProcess._bootstrap at 0x046852B0>
+           └ <Process name='Process-1' parent=12108 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x04668DA8>
+    └ <Process name='Process-1' parent=12108 started>
+
+> File "D:\python\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=12108 started>
+    │    │        │    └ (('Тестирование новой xml', 'b\'<?xml version="1.0" encoding="UTF-8" ?>\\n<yandexsearch version="1.0">\\n  <response date="20...
+    │    │        └ <Process name='Process-1' parent=12108 started>
+    │    └ <function Yandex at 0x05A0BDA8>
+    └ <Process name='Process-1' parent=12108 started>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 183, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x059A0190>
+    └ <__mp_main__.Yandex object at 0x04675FB8>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 284, in add_result_to_database
+    pm.add_to_database_with_autoincrement('main_request', values_to_go)
+    │  │                                                  └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │  └ <function add_to_database_with_autoincrement at 0x059FEA48>
+    └ <module 'postgres_mode' from 'D:\\Django\\concurent_site_release\\postgres_mode.py'>
+
+  File "D:\Django\concurent_site_release\postgres_mode.py", line 46, in add_to_database_with_autoincrement
+    cursor.execute(sql, (values_to_go))
+    │      │       │     └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │      │       └ 'INSERT INTO concurent_site.main_request VALUES (DEFAULT,%s,%s,%s,%s,%s,%s,%s,%s)'
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x05CCA028; closed: 0>
+
+psycopg2.errors.InvalidTextRepresentation: ОШИБКА:  неверный синтаксис для типа integer: ""
+LINE 1: ...VALUES (DEFAULT,'Тестирование новой xml',94,25,82,'','', -35...
+                                                             ^
+
+03:26:32 Проблема с валидностью контента BuhSoft.ru. 
+03:27:17 An error has been caught in function 'run', process 'Process-1' (2608), thread 'MainThread' (13144):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 680
+               │     └ 3
+               └ <function _main at 0x04653B20>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 680
+           │    └ <function BaseProcess._bootstrap at 0x046432B0>
+           └ <Process name='Process-1' parent=4972 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x04628DA8>
+    └ <Process name='Process-1' parent=4972 started>
+
+> File "D:\python\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=4972 started>
+    │    │        │    └ (('Тестирование новой xml', 'b\'<?xml version="1.0" encoding="UTF-8" ?>\\n<yandexsearch version="1.0">\\n  <response date="20...
+    │    │        └ <Process name='Process-1' parent=4972 started>
+    │    └ <function Yandex at 0x059CDDA8>
+    └ <Process name='Process-1' parent=4972 started>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 183, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x05963190>
+    └ <__mp_main__.Yandex object at 0x04635FB8>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 284, in add_result_to_database
+    pm.add_to_database_with_autoincrement('main_request', values_to_go)
+    │  │                                                  └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │  └ <function add_to_database_with_autoincrement at 0x059C0A48>
+    └ <module 'postgres_mode' from 'D:\\Django\\concurent_site_release\\postgres_mode.py'>
+
+  File "D:\Django\concurent_site_release\postgres_mode.py", line 46, in add_to_database_with_autoincrement
+    cursor.execute(sql, (values_to_go))
+    │      │       │     └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │      │       └ 'INSERT INTO concurent_site.main_request VALUES (NULL,%s,%s,%s,%s,%s,%s,%s,%s)'
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x076BC5A8; closed: 0>
+
+psycopg2.errors.InvalidTextRepresentation: ОШИБКА:  неверный синтаксис для типа integer: ""
+LINE 1: ...st VALUES (NULL,'Тестирование новой xml',94,25,82,'','', -35...
+                                                             ^
+
+03:27:41 Проблема с валидностью контента BuhSoft.ru. 
+03:27:59 An error has been caught in function 'run', process 'Process-1' (12372), thread 'MainThread' (13032):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 732
+               │     └ 3
+               └ <function _main at 0x03B53B20>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 732
+           │    └ <function BaseProcess._bootstrap at 0x03B552B0>
+           └ <Process name='Process-1' parent=5696 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x03B27DA8>
+    └ <Process name='Process-1' parent=5696 started>
+
+> File "D:\python\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=5696 started>
+    │    │        │    └ (('Тестирование новой xml', 'b\'<?xml version="1.0" encoding="UTF-8" ?>\\n<yandexsearch version="1.0">\\n  <response date="20...
+    │    │        └ <Process name='Process-1' parent=5696 started>
+    │    └ <function Yandex at 0x04F0DDA8>
+    └ <Process name='Process-1' parent=5696 started>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 183, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x04EA2190>
+    └ <__mp_main__.Yandex object at 0x03B34FB8>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 284, in add_result_to_database
+    pm.add_to_database_with_autoincrement('main_request', values_to_go)
+    │  │                                                  └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │  └ <function add_to_database_with_autoincrement at 0x04F00A48>
+    └ <module 'postgres_mode' from 'D:\\Django\\concurent_site_release\\postgres_mode.py'>
+
+  File "D:\Django\concurent_site_release\postgres_mode.py", line 46, in add_to_database_with_autoincrement
+    cursor.execute(sql, (values_to_go))
+    │      │       │     └ ('Тестирование новой xml', 94, 25, 82, '', '', -35, 'backlinks')
+    │      │       └ 'INSERT INTO concurent_site.main_request VALUES (0,%s,%s,%s,%s,%s,%s,%s,%s)'
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x09529D28; closed: 0>
+
+psycopg2.errors.InvalidTextRepresentation: ОШИБКА:  неверный синтаксис для типа integer: ""
+LINE 1: ...quest VALUES (0,'Тестирование новой xml',94,25,82,'','', -35...
+                                                             ^
+
+03:30:13 Проблема с валидностью контента BuhSoft.ru. 
+03:31:00 Проблема с валидностью контента BuhSoft.ru. 
+03:31:09 An error has been caught in function 'run', process 'Process-1' (1956), thread 'MainThread' (5056):
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 708
+               │     └ 3
+               └ <function _main at 0x04393BB0>
+
+  File "D:\python\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 708
+           │    └ <function BaseProcess._bootstrap at 0x04385340>
+           └ <Process name='Process-1' parent=5032 started>
+
+  File "D:\python\lib\multiprocessing\process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x04368E38>
+    └ <Process name='Process-1' parent=5032 started>
+
+> File "D:\python\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=5032 started>
+    │    │        │    └ (('Тестирование новой xml', 'b\'<?xml version="1.0" encoding="UTF-8" ?>\\n<yandexsearch version="1.0">\\n  <response date="20...
+    │    │        └ <Process name='Process-1' parent=5032 started>
+    │    └ <function Yandex at 0x0570DE38>
+    └ <Process name='Process-1' parent=5032 started>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 183, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x056A2220>
+    └ <__mp_main__.Yandex object at 0x04375F88>
+
+  File "D:\Django\concurent_site_release\new_requests_handler.py", line 290, in add_result_to_database
+    pm.add_to_database_with_autoincrement('main_request', values_to_go)
+    │  │                                                  └ ('Тестирование новой xml', 94, 25, 82, 0, 0, -35, 'backlinks')
+    │  └ <function add_to_database_with_autoincrement at 0x056FFAD8>
+    └ <module 'postgres_mode' from 'D:\\Django\\concurent_site_release\\postgres_mode.py'>
+
+  File "D:\Django\concurent_site_release\postgres_mode.py", line 46, in add_to_database_with_autoincrement
+    cursor.execute(sql, (values_to_go))
+    │      │       │     └ ('Тестирование новой xml', 94, 25, 82, 0, 0, -35, 'backlinks')
+    │      │       └ 'INSERT INTO concurent_site.main_request VALUES (DEFAULT,%s,%s,%s,%s,%s,%s,%s,%s)'
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x05E5AE28; closed: 0>
+
+psycopg2.errors.UniqueViolation: ОШИБКА:  повторяющееся значение ключа нарушает ограничение уникальности "main_request_pkey"
+DETAIL:  Ключ "(id)=(5)" уже существует.
+
+03:32:24 Проблема с валидностью контента BuhSoft.ru. 

@@ -8,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 import lxml
 from urllib.parse import urlparse
-from sqlite_mode import *
+import postgres_mode as pm
 import re
 
 
@@ -33,7 +33,7 @@ class Manager:
         print(f'СОбрано {len(self.process_list)} первичных запросов')
 
     def get_requests_from_queue(self):
-        items = check_in_database('db.sqlite3', 'main_handledxml', 'status', 'in work', 4)
+        items = pm.check_in_database('main_handledxml', 'status', 'in work', 4)
         reqs = list()
         for item in items:
             reqs.append(item)
@@ -53,22 +53,22 @@ class Manager:
             self.yandex_objects_list.append(self.q.get())
 
     def refresh_balance(self):
-        keys_and_tokens = check_in_database('db.sqlite3', 'main_payload', 'balance', 35)
+        keys_and_tokens = pm.check_in_database('main_payload', 'balance', 35)
         for item in keys_and_tokens:
             key = item[0]
             r = requests.get(f'https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey={key}&host=yandex.ru&parameterList=').json()
             balance = r['hostLimitsBalance']
-            update_database('db.sqlite3', 'main_payload', 'balance', balance, 'key', key)
+            pm.update_database('main_payload', 'balance', balance, 'key', key)
 
     def delete_requests_from_queue(self):
         reqs = list()
         for yandex_object in self.yandex_objects_list:
             if yandex_object['Статус'] == 'backlinks':
-                update_database('db.sqlite3', 'main_handledxml', 'status', 'pending', 'request', yandex_object['Запрос'])
+                pm.update_database('main_handledxml', 'status', 'pending', 'request', yandex_object['Запрос'])
             else:
                 reqs.append(yandex_object['Запрос'])
         reqs = tuple(reqs)
-        delete_from_database('db.sqlite3', 'main_handledxml', 'request', reqs)
+        pm.delete_from_database('main_handledxml', 'request', reqs)
 
 
 @logger.catch
@@ -269,7 +269,13 @@ class Yandex:
 
     def add_result_to_database(self):
 
-        delete_from_database('db.sqlite3', 'main_request', 'request', (self.request,))
+        pm.delete_from_database('main_request', 'request', (self.request,))
+
+        if self.concurency_object.site_backlinks_concurency == '':
+            self.concurency_object.site_backlinks_concurency = 0
+
+        if self.concurency_object.site_total_concurency == '':
+            self.concurency_object.site_total_concurency = 0
 
 
         values_to_go = (self.request,
@@ -281,7 +287,7 @@ class Yandex:
                         self.concurency_object.direct_upscale,
                         self.concurency_object.status,)
         logger.debug(values_to_go)
-        add_to_database_with_autoincrement('db.sqlite3', 'main_request', values_to_go)
+        pm.add_to_database_with_autoincrement('main_request', values_to_go)
 
     def get_scalp(self):
         print(self.page_xml.prettify())
@@ -301,7 +307,7 @@ class Backlinks:
         self.get_backlinks()
 
     def get_token(self):
-        accounts_with_balance = check_in_database('db.sqlite3', 'main_payload', 'balance', 25)
+        accounts_with_balance = pm.check_in_database('main_payload', 'balance', 25)
         self.token = accounts_with_balance[0][0]
 
     def get_backlinks(self):
@@ -342,7 +348,7 @@ class Domain:
                 logger.info('Объект Domain создан')
 
     def check_data_in_database(self):
-        check = check_in_database('db.sqlite3', 'main_domain', 'name', self.domain)
+        check = pm.check_in_database('main_domain', 'name', self.domain)
 
         if check:
             self.domain_age = check[0][1]
@@ -358,7 +364,7 @@ class Domain:
         values_to_go = (
             self.domain, self.domain_age, self.backlinks,
             self.backlinks_object.total_backlinks, self.backlinks_object.status)
-        add_to_database('db.sqlite3', 'main_domain', values_to_go)
+        pm.add_to_database('main_domain', values_to_go)
 
     def get_domain_age(self):
         URL = f'https://www.nic.ru/whois/?searchWord={self.domain}'

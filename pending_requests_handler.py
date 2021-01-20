@@ -1,5 +1,5 @@
 import lxml
-import sqlite_mode as sm
+import postgres_mode as pm
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from threading import Thread
@@ -24,7 +24,7 @@ class Manager:
         print(f'Обработано {len(self.requests)} запросов ожидающих ссылок')
 
     def get_requests_from_queue(self):
-        items = sm.check_in_database('db.sqlite3', 'main_handledxml', 'status', 'pending', 4)
+        items = pm.check_in_database('main_handledxml', 'status', 'pending', 4)
         reqs = list()
         for item in items:
             reqs.append(item)
@@ -52,7 +52,7 @@ class Manager:
                 if yandex_object.concurency_object.status == 'ready':
                     reqs.append(yandex_object.request)
         reqs = tuple(reqs)
-        sm.delete_from_database('db.sqlite3', 'main_handledxml', 'request', reqs)
+        pm.delete_from_database('main_handledxml', 'request', reqs)
 
 
 
@@ -116,11 +116,11 @@ class Yandex:
 
 
     def update_database(self):
-        sm.update_database('db.sqlite3', 'main_request', 'site_backlinks_concurency',
+        pm.update_database('main_request', 'site_backlinks_concurency',
                            self.concurency_object.site_backlinks_concurency, 'request', self.request)
-        sm.update_database('db.sqlite3', 'main_request', 'site_total_concurency',
+        pm.update_database('main_request', 'site_total_concurency',
                            self.concurency_object.site_total_concurency, 'request', self.request)
-        sm.update_database('db.sqlite3', 'main_request', 'status',
+        pm.update_database('main_request', 'status',
                            'ready', 'request', self.request)
 
 class Site:
@@ -155,7 +155,7 @@ class Domain:
 
 
     def check_data_in_database(self):
-        check = sm.check_in_database('db.sqlite3', 'main_domain', 'name', self.domain)
+        check = pm.check_in_database('main_domain', 'name', self.domain)
 
         if check:
             self.domain_age = check[0][1]
@@ -187,7 +187,7 @@ class Concurency:
         self.status = 'ready'
 
     def get_concurency_from_database(self):
-        concurency = sm.check_in_database('db.sqlite3', 'main_request', 'request', self.request)[0]
+        concurency = pm.check_in_database('main_request', 'request', self.request)[0]
         self.site_age_concurency = int(concurency[2])
         self.site_stem_concurency = int(concurency[3])
         self.site_volume_concurency = int(concurency[4])
