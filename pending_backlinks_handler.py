@@ -29,7 +29,7 @@ def run():
                 pm.delete_from_database('main_domain', 'name', (domain,))
                 pm.add_to_database('main_domain', (domain, age, unique_backlinks, total_backlinks, 'complete'))
 
-    print(f'Добавлено {total} ссылок для доменов в БД. В очереди {len(domains)}.')
+    print(f'Добавлено {total} ссылок для доменов в БД. В очереди {len(domains)}: {domains}.')
 
 while True:
     run()

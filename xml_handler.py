@@ -43,9 +43,9 @@ class XmlReport():
         site_numbers = len(re.findall(r'<doc>', text))
 
         if site_numbers > 15:
-            content_for_bs4 = r.content
+            content_for_bs4 = text
             if 'Ответ от поисковой системы не получен' not in text:
-                self.xml_answers.append({request: content_for_bs4})
+                self.xml_answers.append({request: text})
             else:
                 print(f'Ошибка XML в запросе {request}: {text}')
 
