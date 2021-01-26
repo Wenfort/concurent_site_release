@@ -1,5 +1,5 @@
 import lxml
-import sqlite_mode as sm
+import postgres_mode as pm
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from threading import Thread
@@ -24,7 +24,7 @@ class Manager:
         print(f'Обработано {len(self.requests)} запросов ожидающих ссылок')
 
     def get_requests_from_queue(self):
-        items = sm.check_in_database('db.sqlite3', 'main_handledxml', 'status', 'pending', 4)
+        items = pm.check_in_database('main_handledxml', 'status', 'pending', 4)
         reqs = list()
         for item in items:
             reqs.append(item)
@@ -52,7 +52,7 @@ class Manager:
                 if yandex_object.concurency_object.status == 'ready':
                     reqs.append(yandex_object.request)
         reqs = tuple(reqs)
-        sm.delete_from_database('db.sqlite3', 'main_handledxml', 'request', reqs)
+        pm.delete_from_database('main_handledxml', 'request', reqs)
 
 
 
@@ -101,7 +101,7 @@ class Yandex:
     def check_valid(self):
         valid_backlinks = 0
         for site in self.site_objects_list:
-            if site.domain_object.backlinks != 0:
+            if site.domain_object.status == 'complete':
                 valid_backlinks += 1
 
         if valid_backlinks == len(self.site_list):
@@ -116,11 +116,11 @@ class Yandex:
 
 
     def update_database(self):
-        sm.update_database('db.sqlite3', 'main_request', 'site_backlinks_concurency',
+        pm.update_database('main_request', 'site_backlinks_concurency',
                            self.concurency_object.site_backlinks_concurency, 'request', self.request)
-        sm.update_database('db.sqlite3', 'main_request', 'site_total_concurency',
+        pm.update_database('main_request', 'site_total_concurency',
                            self.concurency_object.site_total_concurency, 'request', self.request)
-        sm.update_database('db.sqlite3', 'main_request', 'status',
+        pm.update_database('main_request', 'status',
                            'ready', 'request', self.request)
 
 class Site:
@@ -150,16 +150,24 @@ class Domain:
         self.domain = domain
         self.backlinks = ''
         self.backlinks_object = ''
+        self.status = ''
 
         self.check_data_in_database()
 
 
     def check_data_in_database(self):
-        check = sm.check_in_database('db.sqlite3', 'main_domain', 'name', self.domain)
+        check = pm.check_in_database('main_domain', 'name', self.domain)
 
         if check:
             self.domain_age = check[0][1]
             self.backlinks = check[0][2]
+            self.status = check[0][4]
+
+        if self.status == '':
+            test = self.domain.encode('utf-8')
+            print(f'Внезапно потерялся {self.domain.encode("utf-8")}')
+            values_to_go = (self.domain, 5, 0, 0, 'pending')
+            pm.add_to_database('main_domain', values_to_go)
 
 class Concurency:
     def __init__(self, site_objects_list, request):
@@ -185,9 +193,11 @@ class Concurency:
         self.calculate_site_backlinks_concurency()
         self.calculate_site_total_concurency()
         self.status = 'ready'
+        self.update_report()
+
 
     def get_concurency_from_database(self):
-        concurency = sm.check_in_database('db.sqlite3', 'main_request', 'request', self.request)[0]
+        concurency = pm.check_in_database('main_request', 'request', self.request)[0]
         self.site_age_concurency = int(concurency[2])
         self.site_stem_concurency = int(concurency[3])
         self.site_volume_concurency = int(concurency[4])
@@ -217,6 +227,40 @@ class Concurency:
         total_difficulty += self.direct_upscale
         self.site_total_concurency = total_difficulty
 
+    def update_report(self):
+        file = open(f'./reports/{self.request}.txt', 'a', encoding='utf-8')
+        file.write('АПДЕЙТ ОТ ПЕНДИНГА\n')
+        real_concurency = int()
+        max_concurency = int()
+        for site_object in self.site_objects_list:
+            site_object.position = str(site_object.position)
+            if site_object.domain_object.backlinks > 500:
+                site_object.domain_object.backlinks = 500
+            max_concurency += 500 * self.WEIGHTS[site_object.position]
+
+            real_concurency += site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]
+            file.write(f'Сайт: {site_object.domain}. Количество бэклинков: {site_object.domain_object.backlinks}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]} Сложность повысилась на {site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]} из {500 * self.WEIGHTS[site_object.position]}\n')
+        file.write(f'Уровень конкуренции от бэклинков: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_backlinks_concurency}\n')
+
+        file.write(f'Итоговая конкуренция:\n')
+        total_difficulty = int(
+            self.site_age_concurency * IMPORTANCE['Возраст сайта'] + self.site_stem_concurency * IMPORTANCE[
+                'Стемирование'] + self.site_volume_concurency * IMPORTANCE[
+                'Объем статей'] + self.site_backlinks_concurency * IMPORTANCE['Ссылочное'])
+
+        file.write(
+            f"От возраста: {self.site_age_concurency} * {IMPORTANCE['Возраст сайта']} = {self.site_age_concurency * IMPORTANCE['Возраст сайта']}\n")
+        file.write(
+            f"От стема: {self.site_stem_concurency} * {IMPORTANCE['Стемирование']} = {self.site_stem_concurency * IMPORTANCE['Стемирование']}\n")
+        file.write(
+            f"От объема: {self.site_volume_concurency} * {IMPORTANCE['Объем статей']} = {self.site_volume_concurency * IMPORTANCE['Объем статей']}\n")
+        file.write(
+            f"От ссылочного: {self.site_backlinks_concurency} * {IMPORTANCE['Ссылочное']} = {self.site_backlinks_concurency * IMPORTANCE['Ссылочное']}\n")
+        file.write(f'До вычета direct upscale: {total_difficulty}\n')
+
+        total_difficulty += self.direct_upscale
+        file.write(f'После вычета direct upscale ({self.direct_upscale}): {total_difficulty}\n')
+        file.close()
 
 if __name__ == '__main__':
     while True:

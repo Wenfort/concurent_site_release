@@ -1,15 +1,16 @@
 import requests
 import sqlite_mode as sm
+import postgres_mode as pm
 import time
 
 def get_token():
-    accounts_with_balance = sm.check_in_database('db.sqlite3', 'main_payload', 'balance', 25)
+    accounts_with_balance = pm.check_in_database('main_payload', 'balance', 25)
     token = accounts_with_balance[0][0]
     return token
 
 def run():
     #TODO мб брать инфу еще и с линкпад
-    domains = sm.check_in_database('db.sqlite3', 'main_domain', 'status', 'pending')
+    domains = pm.check_in_database('main_domain', 'status', 'pending')
     total = 0
     if domains:
         token = get_token()
@@ -25,10 +26,10 @@ def run():
                 total += 1
                 unique_backlinks = int(request_json["summary"]["mjDin"])
                 total_backlinks = int(request_json["summary"]["mjHin"])
-                sm.delete_from_database('db.sqlite3', 'main_domain', 'name', (domain,))
-                sm.add_to_database('db.sqlite3', 'main_domain', (domain, age, unique_backlinks, total_backlinks, 'complete'))
+                pm.delete_from_database('main_domain', 'name', (domain,))
+                pm.add_to_database('main_domain', (domain, age, unique_backlinks, total_backlinks, 'complete'))
 
-    print(f'Добавлено {total} ссылок для доменов в БД. В очереди {len(domains)}.')
+    print(f'Добавлено {total} ссылок для доменов в БД. В очереди {len(domains)}: {domains}.')
 
 while True:
     run()
