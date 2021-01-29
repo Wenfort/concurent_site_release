@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_list_or_404
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_list_or_404, redirect
 
 from .models import Request, RequestQueue
 
@@ -10,14 +10,18 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
-def results(request):
-    all_requests_list = get_list_or_404(Request)
-    context = {'all_requests_list': all_requests_list}
-    return render(request, 'main/index.html', context)
+def restricted_results(request):
+    if request.user.is_staff:
+        all_requests_list = get_list_or_404(Request)
+        context = {'all_requests_list': all_requests_list}
+        return render(request, 'main/restricted_results.html', context)
+    else:
+        all_requests_list = get_list_or_404(Request)
+        context = {'all_requests_list': all_requests_list}
+        return render(request, 'main/non_restricted_results.html', context)
 
 def add_new_requests_to_queue(request):
     if request.method == "POST":
-        form = NewRequest(request.POST)
         requests_list = request.POST['requests_list']
         requests_list = requests_list.replace('\r','')
         requests_list = requests_list.split('\n')
@@ -27,8 +31,10 @@ def add_new_requests_to_queue(request):
             else:
                 RequestQueue(request=req).save()
                 Request(request=req).save()
-        form = NewRequest()
-        return results(request)
+        return HttpResponseRedirect('/main/restricted_results')
     else:
         form = NewRequest()
         return render(request, 'main/add_to_queue.html', {'form': form})
+
+def account(request):
+    return render(request, 'main/account.html')

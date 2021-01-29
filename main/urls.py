@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('results', views.results, name='publish_request_info'),
+    path('restricted_results', views.restricted_results, name='publish_restricted_requests_info'),
     path('add', views.add_new_requests_to_queue, name='add_new_requests_to_queue'),
+    path('account', views.account, name='account')
 ]

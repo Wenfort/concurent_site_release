@@ -1,0 +1,279 @@
+/* main:51 */
+body {
+    margin: 0;
+    font-family: "Poppins",sans-serif;
+    font-size: .8125rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: left;
+    background-color: #f8f8fb;
+}
+
+/* main:51 */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -12px;
+    margin-left: -12px;
+}
+
+.col-lg-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.card {
+    margin-bottom: 24px;
+    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid #f6f6f6;
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+.card-title {
+    font-size: 15px;
+    margin: 0 0 7px;
+    font-weight: 600;
+}
+
+.mb-4, .my-4 {
+    margin-bottom: 1.5rem!important;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mb-0, .my-0 {
+    margin-bottom: 0!important;
+}
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #495057;
+}
+table {
+    border-collapse: collapse;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.table .thead-light th {
+    color: #495057;
+    background-color: #f8f9fa;
+    border-color: #eff2f7;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #eff2f7;
+}
+
+.custom-control {
+    position: relative;
+    z-index: 1;
+    display: block;
+    min-height: 1.21875rem;
+    padding-left: 1.5rem;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+}
+
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+}
+.custom-control-input {
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    width: 1rem;
+    height: 1.10938rem;
+    opacity: 0;
+}
+button, input {
+    overflow: visible;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.custom-control-label {
+    cursor: pointer;
+}
+.custom-control-label {
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: top;
+}
+label {
+    font-weight: 500;
+}
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+.text-body {
+    color: #495057!important;
+}
+.font-weight-bold {
+    font-weight: 600!important;
+}
+a, button {
+    outline: none!important;
+}
+a {
+    text-decoration: none!important;
+}
+a {
+    color: #556ee6;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.font-size-12 {
+    font-size: 12px!important;
+}
+.badge-soft-success {
+    color: #34c38f;
+    background-color: rgba(52,195,143,.18);
+}
+.badge-success {
+    color: #fff;
+    background-color: #34c38f;
+}
+.badge-pill {
+    padding-right: .6em;
+    padding-left: .6em;
+    border-radius: 10rem;
+}
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.mr-1, .mx-1 {
+    margin-right: .25rem!important;
+}
+.fab, .far {
+    font-weight: 400;
+}
+.fab {
+    font-family: "Font Awesome 5 Brands";
+}
+.fa, .fab, .fad, .fal, .far, .fas {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-feature-settings: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+.btn-rounded {
+    border-radius: 30px;
+}
+.btn-group-sm>.btn, .btn-sm {
+    padding: .25rem .5rem;
+    font-size: .71094rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #556ee6;
+    border-color: #556ee6;
+}
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #495057;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .47rem .75rem;
+    font-size: .8125rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+[type=button], [type=reset], [type=submit], button {
+    -webkit-appearance: button;
+}
+a, button {
+    outline: none!important;
+}
+button, select {
+    text-transform: none;
+}
+button, input {
+    overflow: visible;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+button {
+    border-radius: 0;
+}

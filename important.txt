@@ -8145,3 +8145,9 @@ UnicodeEncodeError: 'charmap' codec can't encode character '\xb2' in position 14
 06:46:35 Не удалось загрузить https://zubza.ru/uslugi/konsultaciya-stomatologa/
 06:46:35 Проблема с валидностью контента zubza.ru. 
 04:52:02 Проблема с валидностью контента mipt.ru. 
+05:23:36 Проблема с валидностью контента megogo.ru. 
+05:23:36 Проблема с валидностью контента wikichi.ru. 
+05:26:31 Проблема с валидностью контента twitter.com. 
+05:27:41 Проблема с валидностью контента twitter.com. 
+05:28:06 Проблемы с доменом safaga.ru
+05:31:18 Проблема с валидностью контента megogo.ru. 
