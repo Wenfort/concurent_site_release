@@ -371,28 +371,31 @@ class Domain:
         r = requests.get(URL).content
         soup = BeautifulSoup(r, 'html.parser').text
 
-        if 'Creation Date' in soup:
-            start = soup.find('Creation Date') + 15
-            finish = start + 4
-            item = soup[start:finish]
-            self.domain_age = 2020 - int(item)
-        elif 'Registered on' in soup:
-            start = soup.find('Registered on')
-            finish = soup.find('Registry fee')
-            item = soup[start:finish].split()[4]
-            self.domain_age = 2020 - int(item)
-        elif 'created' in soup:
-            if '.lv' in self.domain or '.club' in self.domain or '.to' in self.domain or '.ua' in self.domain or '.eu' in self.domain:
-                self.valid = False
-                self.domain_age = 5
-            else:
-                start = soup.find('created') + 8
+        try:
+            if 'Creation Date' in soup:
+                start = soup.find('Creation Date') + 15
                 finish = start + 4
                 item = soup[start:finish]
                 self.domain_age = 2020 - int(item)
+            elif 'Registered on' in soup:
+                start = soup.find('Registered on')
+                finish = soup.find('Registry fee')
+                item = soup[start:finish].split()[4]
+                self.domain_age = 2020 - int(item)
+            elif 'created' in soup:
+                if '.lv' in self.domain or '.club' in self.domain or '.to' in self.domain or '.ua' in self.domain or '.eu' in self.domain:
+                    self.valid = False
+                    self.domain_age = 5
+                else:
+                    start = soup.find('created') + 8
+                    finish = start + 4
+                    item = soup[start:finish]
+                    self.domain_age = 2020 - int(item)
 
-        if self.domain_age > 10:
-            self.domain_age = 10
+            if self.domain_age > 10:
+                self.domain_age = 10
+        except:
+            self.domain_age = 5
 
     def make_backlinks_object(self):
         self.backlinks_object = Backlinks(self.domain)
@@ -470,13 +473,14 @@ class Concurency:
         self.super_site_objects_list = list()
         self.direct_site_objects_list = list()
         self.WEIGHTS = dict()
-        self.site_age_concurency = ''
-        self.site_stem_concurency = ''
-        self.site_volume_concurency = ''
-        self.site_backlinks_concurency = ''
-        self.site_total_concurency = ''
+        self.importance = dict()
+        self.site_age_concurency = int()
+        self.site_stem_concurency = int()
+        self.site_volume_concurency = int()
+        self.site_backlinks_concurency = int()
+        self.site_total_concurency = int()
         self.valid_backlinks_rate = 0
-        self.direct_upscale = ''
+        self.direct_upscale = int()
         self.status = str()
 
         self.check_site_object_type()
@@ -485,10 +489,16 @@ class Concurency:
             self.WEIGHTS = WEIGHTS_DIRECT
         else:
             self.WEIGHTS = WEIGHTS_ORGANIC
-
+        
+        self.calculate_site_stem_concurency()
+        if self.check_is_absourd_request():
+            self.importance = ABSURD_STEM_IMPORTANCE
+        else:
+            self.importance = STANDART_IMPORTANCE
+            
         self.calculate_site_age_concurency()
         self.calculate_site_volume_concurency()
-        self.calculate_site_stem_concurency()
+        
 
         self.check_valid_backlinks_sample()
         self.calculate_direct_upscale()
@@ -551,7 +561,7 @@ class Concurency:
                 real_volume_concurency += 10000 * self.WEIGHTS[site_object.position]
 
         self.site_volume_concurency = int(real_volume_concurency / max_volume_concurency * 100)
-
+    
     def calculate_site_stem_concurency(self):
         max_stem_concurency = 0
         real_stem_concurency = 0
@@ -561,15 +571,17 @@ class Concurency:
             if site_object.site_type == 'organic':
                 matched_stem_items = len(set(self.request) & set(site_object.content_object.stemmed_title))
                 real_stem_concurency += int(matched_stem_items / len(self.request)) * self.WEIGHTS[site_object.position]
-                #тест модуль
-                #test = matched_stem_items / len(self.request)
-                #test2 = matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
-                #logger.success(f'Запрос: {self.request}. Стемированный тайтл: {site_object.content_object.stemmed_title}. Кол-во совпадений: {matched_stem_items}. Кэф: {test}. Оценка конкуренции {test2} из максимальных {self.WEIGHTS[site_object.position]}')
             else:
                 real_stem_concurency += self.WEIGHTS[site_object.position]
 
         self.site_stem_concurency = int(real_stem_concurency / max_stem_concurency * 100)
-
+    
+    def check_is_absourd_request(self):
+        if self.site_stem_concurency < 30:
+            print('Запрос абсурдный')
+            return True
+        
+        
     def check_valid_backlinks_sample(self):
         valid_backlinks = 0
         limit_for_validation = 0.8
@@ -585,7 +597,6 @@ class Concurency:
         valid_backlinks_rate = valid_backlinks / domains_amount
         self.valid_backlinks_rate = valid_backlinks_rate
         logger.info(f'Данные есть о {valid_backlinks} из {domains_amount} ({int(valid_backlinks_rate * 100)}%)')
-
 
     def calculate_site_backlinks_concurency(self):
         max_backlinks_concurency = 0
@@ -631,9 +642,9 @@ class Concurency:
 
     def calculate_site_total_concurency(self):
         total_difficulty = int(
-            self.site_age_concurency * IMPORTANCE['Возраст сайта'] + self.site_stem_concurency * IMPORTANCE[
-                'Стемирование'] + self.site_volume_concurency * IMPORTANCE[
-                'Объем статей'] + self.site_backlinks_concurency * IMPORTANCE['Ссылочное'])
+            self.site_age_concurency * self.importance['Возраст сайта'] + self.site_stem_concurency * self.importance[
+                'Стемирование'] + self.site_volume_concurency * self.importance[
+                'Объем статей'] + self.site_backlinks_concurency * self.importance['Ссылочное'])
         total_difficulty += self.direct_upscale
         self.site_total_concurency = int(total_difficulty)
         logger.info(f'Конкуренция от возраста: {self.site_age_concurency}')
@@ -748,14 +759,14 @@ class Concurency:
 
             file.write(f'Итоговая конкуренция:\n')
             total_difficulty = int(
-                self.site_age_concurency * IMPORTANCE['Возраст сайта'] + self.site_stem_concurency * IMPORTANCE[
-                    'Стемирование'] + self.site_volume_concurency * IMPORTANCE[
-                    'Объем статей'] + self.site_backlinks_concurency * IMPORTANCE['Ссылочное'])
+                self.site_age_concurency * self.importance['Возраст сайта'] + self.site_stem_concurency * self.importance[
+                    'Стемирование'] + self.site_volume_concurency * self.importance[
+                    'Объем статей'] + self.site_backlinks_concurency * self.importance['Ссылочное'])
 
-            file.write(f"От возраста: {self.site_age_concurency} * {IMPORTANCE['Возраст сайта']} = {self.site_age_concurency * IMPORTANCE['Возраст сайта']}\n")
-            file.write(f"От стема: {self.site_stem_concurency} * {IMPORTANCE['Стемирование']} = {self.site_stem_concurency * IMPORTANCE['Стемирование']}\n")
-            file.write(f"От объема: {self.site_volume_concurency} * {IMPORTANCE['Объем статей']} = {self.site_volume_concurency * IMPORTANCE['Объем статей']}\n")
-            file.write(f"От ссылочного: {self.site_backlinks_concurency} * {IMPORTANCE['Ссылочное']} = {self.site_backlinks_concurency * IMPORTANCE['Ссылочное']}\n")
+            file.write(f"От возраста: {self.site_age_concurency} * {self.importance['Возраст сайта']} = {self.site_age_concurency * self.importance['Возраст сайта']}\n")
+            file.write(f"От стема: {self.site_stem_concurency} * {self.importance['Стемирование']} = {self.site_stem_concurency * self.importance['Стемирование']}\n")
+            file.write(f"От объема: {self.site_volume_concurency} * {self.importance['Объем статей']} = {self.site_volume_concurency * self.importance['Объем статей']}\n")
+            file.write(f"От ссылочного: {self.site_backlinks_concurency} * {self.importance['Ссылочное']} = {self.site_backlinks_concurency * self.importance['Ссылочное']}\n")
             file.write(f'До вычета direct upscale: {total_difficulty}\n')
 
             total_difficulty += direct_upscale

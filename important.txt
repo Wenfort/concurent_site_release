@@ -8151,3 +8151,444 @@ UnicodeEncodeError: 'charmap' codec can't encode character '\xb2' in position 14
 05:27:41 Проблема с валидностью контента twitter.com. 
 05:28:06 Проблемы с доменом safaga.ru
 05:31:18 Проблема с валидностью контента megogo.ru. 
+09:18:44 Не удалось загрузить https://zub.ru/price/
+09:18:44 Проблема с валидностью контента zub.ru. 
+09:54:03 Не удалось загрузить https://www.nlv.ru/laser-correction
+09:54:03 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+09:54:03 Проблема с валидностью контента nlv.ru. 
+09:54:03 Проблема с валидностью контента nlv.ru. 
+09:58:06 Проблемы с доменом rp5.am
+09:58:06 Проблемы с доменом kuraj-bambey.ru
+09:58:10 Не удалось загрузить http://www.kurganoblduma.ru/about/press/news/news_detail.php?ELEMENT_ID=80414
+09:58:10 Проблема с валидностью контента kurganoblduma.ru. 
+09:58:14 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом rp5.am
+10:38:41 Проблемы с доменом versuri.ro
+10:38:45 Не удалось загрузить http://www.kooop39.ru/2020/04/27/podpishi-pervomajskuju-rezoljuciju-2020-goda-onlajn/
+10:38:45 Не удалось загрузить http://www.kooop39.ru/2019/12/25/itogi-raboty-molodezhnogo-soveta-kooop-za-2019-god/
+10:38:45 Не удалось загрузить http://www.kooop39.ru/
+10:38:45 Не удалось загрузить http://www.kooop39.ru/2021/01/22/sostojalas-viii-otchjotno-vybornaja-konferencija-sojuza-kaliningradskoe-oblastnoe-obedinenie-organizacij-profsojuzov/
+10:38:45 Не удалось загрузить http://www.kooop39.ru/articles/
+10:38:45 Не удалось загрузить http://www.kooop39.ru/2019/06/13/2237/
+10:38:45 Не удалось загрузить http://www.kooop39.ru/category/chlenskie-organizacii/
+10:38:45 Не удалось загрузить http://www.kooop39.ru/2018/11/19/spisok-partnerov/
+10:38:45 Не удалось загрузить http://www.kooop39.ru/2018/12/26/regionalnoe-soglashenie-o-minimalnoj-zarabotnoj-plate-v-kaliningradskoj-oblasti/
+10:38:45 Не удалось загрузить http://www.kooop39.ru/about-us/
+10:38:45 Проблема с валидностью контента kooop39.ru. 
+10:38:45 Проблема с валидностью контента kooop39.ru. 
+10:38:45 Проблема с валидностью контента kooop39.ru. 
+10:38:45 Проблема с валидностью контента kooop39.ru. 
+10:38:45 Проблема с валидностью контента kooop39.ru. 
+10:38:45 Проблема с валидностью контента kooop39.ru. 
+10:38:45 Проблема с валидностью контента kooop39.ru. 
+10:38:45 Проблема с валидностью контента kooop39.ru. 
+10:38:45 Проблема с валидностью контента kooop39.ru. 
+10:38:45 Проблема с валидностью контента kooop39.ru. 
+10:38:48 Проблемы с доменом kooop39.ru
+10:38:49 Проблемы с доменом kooop39.ru
+10:38:49 Проблемы с доменом kooop39.ru
+10:38:49 Проблемы с доменом kooop39.ru
+10:38:49 Проблемы с доменом kooop39.ru
+10:38:49 Проблемы с доменом kooop39.ru
+10:38:49 Проблемы с доменом kooop39.ru
+10:38:49 Проблемы с доменом kooop39.ru
+10:38:49 Проблемы с доменом kooop39.ru
+10:38:49 An error has been caught in function 'make_concurency_object', process 'Process-1' (15900), thread 'MainThread' (139854348187456):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 780, in <module>
+    Manager()
+    └ <function Manager at 0x7f3260303790>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f325c52b040>
+    └ <__main__.Manager object at 0x7f325f638f40>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f326036b790>
+    └ <Process name='Process-1' parent=15316 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=15316 started>
+    │    │        │    └ <staticmethod object at 0x7f32602dbfa0>
+    │    │        └ <Process name='Process-1' parent=15316 started>
+    │    └ None
+    └ <Process name='Process-1' parent=15316 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=15316 started>
+           │                └ <function DefaultContext.get_context at 0x7f32603fd310>
+           └ <multiprocessing.context.DefaultContext object at 0x7f32603721f0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=15316 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=15316 started>
+    │    └ <function Popen._launch at 0x7f325c4f0280>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f325c4e73a0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f326036d0d0>
+           └ <Process name='Process-1' parent=15316 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f326036b700>
+    └ <Process name='Process-1' parent=15316 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=15316 started>
+    │    │        │    └ (('коывер мешталу висури кооопи', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="2...
+    │    │        └ <Process name='Process-1' parent=15316 started>
+    │    └ <function Yandex at 0x7f325c52bca0>
+    └ <Process name='Process-1' parent=15316 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 184, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f325c53c310>
+    └ <__main__.Yandex object at 0x7f3260354b20>
+
+> File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 257, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request, self.request)
+    │    │                   │          │    │                  │    │                │    └ 'коывер мешталу висури кооопи'
+    │    │                   │          │    │                  │    │                └ <__main__.Yandex object at 0x7f3260354b20>
+    │    │                   │          │    │                  │    └ ['коывера', 'мештала', 'висури', 'кооопить']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f3260354b20>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f325be19790>, <__main__.Site object at 0x7f325be3d520>, <__main__.Site object at 0x7f325be46880>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f3260354b20>
+    │    │                   └ <function Concurency at 0x7f325c53e940>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f3260354b20>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 491, in __init__
+    if self.is_absourd_request():
+       └ <__main__.Concurency object at 0x7f325beb69a0>
+
+AttributeError: 'Concurency' object has no attribute 'is_absourd_request'
+10:38:49 An error has been caught in function 'run', process 'Process-1' (15900), thread 'MainThread' (139854348187456):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 780, in <module>
+    Manager()
+    └ <function Manager at 0x7f3260303790>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f325c52b040>
+    └ <__main__.Manager object at 0x7f325f638f40>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f326036b790>
+    └ <Process name='Process-1' parent=15316 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=15316 started>
+    │    │        │    └ <staticmethod object at 0x7f32602dbfa0>
+    │    │        └ <Process name='Process-1' parent=15316 started>
+    │    └ None
+    └ <Process name='Process-1' parent=15316 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=15316 started>
+           │                └ <function DefaultContext.get_context at 0x7f32603fd310>
+           └ <multiprocessing.context.DefaultContext object at 0x7f32603721f0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=15316 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=15316 started>
+    │    └ <function Popen._launch at 0x7f325c4f0280>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f325c4e73a0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f326036d0d0>
+           └ <Process name='Process-1' parent=15316 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f326036b700>
+    └ <Process name='Process-1' parent=15316 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=15316 started>
+    │    │        │    └ (('коывер мешталу висури кооопи', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="2...
+    │    │        └ <Process name='Process-1' parent=15316 started>
+    │    └ <function Yandex at 0x7f325c52bca0>
+    └ <Process name='Process-1' parent=15316 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 185, in __init__
+    self.prepare_result()
+    │    └ <function Yandex.prepare_result at 0x7f325c53c3a0>
+    └ <__main__.Yandex object at 0x7f3260354b20>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 262, in prepare_result
+    'Конкуренция по возрасту': self.concurency_object.site_age_concurency,
+                               │    └ None
+                               └ <__main__.Yandex object at 0x7f3260354b20>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+10:40:28 Проблемы с доменом versuri.ro
+10:40:34 Не удалось загрузить http://www.kooop39.ru/articles/
+10:40:34 Не удалось загрузить http://www.kooop39.ru/
+10:40:34 Не удалось загрузить http://www.kooop39.ru/about-us/
+10:40:34 Не удалось загрузить http://www.kooop39.ru/2018/12/26/regionalnoe-soglashenie-o-minimalnoj-zarabotnoj-plate-v-kaliningradskoj-oblasti/
+10:40:34 Не удалось загрузить http://www.kooop39.ru/2020/04/27/podpishi-pervomajskuju-rezoljuciju-2020-goda-onlajn/
+10:40:34 Не удалось загрузить http://www.kooop39.ru/2021/01/22/sostojalas-viii-otchjotno-vybornaja-konferencija-sojuza-kaliningradskoe-oblastnoe-obedinenie-organizacij-profsojuzov/
+10:40:34 Не удалось загрузить http://www.kooop39.ru/2018/11/19/spisok-partnerov/
+10:40:34 Не удалось загрузить http://www.kooop39.ru/2019/06/13/2237/
+10:40:34 Не удалось загрузить http://www.kooop39.ru/category/chlenskie-organizacii/
+10:40:34 Не удалось загрузить http://www.kooop39.ru/2019/12/25/itogi-raboty-molodezhnogo-soveta-kooop-za-2019-god/
+10:40:34 Проблема с валидностью контента kooop39.ru. 
+10:40:34 Проблема с валидностью контента kooop39.ru. 
+10:40:34 Проблема с валидностью контента kooop39.ru. 
+10:40:34 Проблема с валидностью контента kooop39.ru. 
+10:40:34 Проблема с валидностью контента kooop39.ru. 
+10:40:34 Проблема с валидностью контента kooop39.ru. 
+10:40:34 Проблема с валидностью контента kooop39.ru. 
+10:40:34 Проблема с валидностью контента kooop39.ru. 
+10:40:34 Проблема с валидностью контента kooop39.ru. 
+10:40:34 Проблема с валидностью контента kooop39.ru. 
+10:40:34 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом versuri.ro
+10:40:34 An error has been caught in function 'make_concurency_object', process 'Process-1' (16082), thread 'MainThread' (140441351505728):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 780, in <module>
+    Manager()
+    └ <function Manager at 0x7fbb0c500790>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fbb0878a040>
+    └ <__main__.Manager object at 0x7fbb0b810370>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fbb0c50d790>
+    └ <Process name='Process-1' parent=16076 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=16076 started>
+    │    │        │    └ <staticmethod object at 0x7fbb0c66cfd0>
+    │    │        └ <Process name='Process-1' parent=16076 started>
+    │    └ None
+    └ <Process name='Process-1' parent=16076 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=16076 started>
+           │                └ <function DefaultContext.get_context at 0x7fbb0c520310>
+           └ <multiprocessing.context.DefaultContext object at 0x7fbb0c553250>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=16076 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=16076 started>
+    │    └ <function Popen._launch at 0x7fbb0874a280>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fbb08742520>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7fbb0c54f0d0>
+           └ <Process name='Process-1' parent=16076 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fbb0c50d700>
+    └ <Process name='Process-1' parent=16076 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=16076 started>
+    │    │        │    └ (('коывер мешталу висури кооопи', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="2...
+    │    │        └ <Process name='Process-1' parent=16076 started>
+    │    └ <function Yandex at 0x7fbb0878aca0>
+    └ <Process name='Process-1' parent=16076 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 184, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7fbb08717310>
+    └ <__main__.Yandex object at 0x7fbb0c4efbb0>
+
+> File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 257, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request, self.request)
+    │    │                   │          │    │                  │    │                │    └ 'коывер мешталу висури кооопи'
+    │    │                   │          │    │                  │    │                └ <__main__.Yandex object at 0x7fbb0c4efbb0>
+    │    │                   │          │    │                  │    └ ['коывера', 'мештала', 'висури', 'кооопить']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7fbb0c4efbb0>
+    │    │                   │          │    └ [<__main__.Site object at 0x7fbb0807d580>, <__main__.Site object at 0x7fbb0801f940>, <__main__.Site object at 0x7fbb0808b280>...
+    │    │                   │          └ <__main__.Yandex object at 0x7fbb0c4efbb0>
+    │    │                   └ <function Concurency at 0x7fbb08719940>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7fbb0c4efbb0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 512, in __init__
+    self.prepare_report()
+    │    └ <function Concurency.prepare_report at 0x7fbb08719f70>
+    └ <__main__.Concurency object at 0x7fbb08042670>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 749, in prepare_report
+    real_concurency += site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]
+    │                  │           │             │           │    │       │           └ '6'
+    │                  │           │             │           │    │       └ <__main__.Site object at 0x7fbb0807dbe0>
+    │                  │           │             │           │    └ {'1': 33, '2': 22, '3': 17, '4': 12, '5': 9, '6': 6, '7': 4, '8': 3, '9': 3, '10': 2, '11': 2, '12': 2, '13': 2, '14': 2, '15...
+    │                  │           │             │           └ <__main__.Concurency object at 0x7fbb08042670>
+    │                  │           │             └ ''
+    │                  │           └ <__main__.Domain object at 0x7fbb07a7f970>
+    │                  └ <__main__.Site object at 0x7fbb0807dbe0>
+    └ 19956
+
+TypeError: unsupported operand type(s) for +=: 'int' and 'str'
+10:40:34 An error has been caught in function 'run', process 'Process-1' (16082), thread 'MainThread' (140441351505728):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 780, in <module>
+    Manager()
+    └ <function Manager at 0x7fbb0c500790>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fbb0878a040>
+    └ <__main__.Manager object at 0x7fbb0b810370>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fbb0c50d790>
+    └ <Process name='Process-1' parent=16076 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=16076 started>
+    │    │        │    └ <staticmethod object at 0x7fbb0c66cfd0>
+    │    │        └ <Process name='Process-1' parent=16076 started>
+    │    └ None
+    └ <Process name='Process-1' parent=16076 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=16076 started>
+           │                └ <function DefaultContext.get_context at 0x7fbb0c520310>
+           └ <multiprocessing.context.DefaultContext object at 0x7fbb0c553250>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=16076 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=16076 started>
+    │    └ <function Popen._launch at 0x7fbb0874a280>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fbb08742520>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7fbb0c54f0d0>
+           └ <Process name='Process-1' parent=16076 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fbb0c50d700>
+    └ <Process name='Process-1' parent=16076 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=16076 started>
+    │    │        │    └ (('коывер мешталу висури кооопи', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="2...
+    │    │        └ <Process name='Process-1' parent=16076 started>
+    │    └ <function Yandex at 0x7fbb0878aca0>
+    └ <Process name='Process-1' parent=16076 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 185, in __init__
+    self.prepare_result()
+    │    └ <function Yandex.prepare_result at 0x7fbb087173a0>
+    └ <__main__.Yandex object at 0x7fbb0c4efbb0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 262, in prepare_result
+    'Конкуренция по возрасту': self.concurency_object.site_age_concurency,
+                               │    └ None
+                               └ <__main__.Yandex object at 0x7fbb0c4efbb0>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+10:42:55 Проблемы с доменом versuri.ro
+10:42:59 Не удалось загрузить http://www.kooop39.ru/2021/01/22/sostojalas-viii-otchjotno-vybornaja-konferencija-sojuza-kaliningradskoe-oblastnoe-obedinenie-organizacij-profsojuzov/
+10:42:59 Проблема с валидностью контента kooop39.ru. 
+10:42:59 Не удалось загрузить http://www.kooop39.ru/2020/04/27/podpishi-pervomajskuju-rezoljuciju-2020-goda-onlajn/
+10:42:59 Проблема с валидностью контента kooop39.ru. 
+10:42:59 Не удалось загрузить http://www.kooop39.ru/2018/11/19/spisok-partnerov/
+10:42:59 Проблема с валидностью контента kooop39.ru. 
+10:43:00 Не удалось загрузить http://www.kooop39.ru/2019/12/25/itogi-raboty-molodezhnogo-soveta-kooop-za-2019-god/
+10:43:00 Проблема с валидностью контента kooop39.ru. 
+10:43:00 Не удалось загрузить http://www.kooop39.ru/category/chlenskie-organizacii/
+10:43:00 Проблема с валидностью контента kooop39.ru. 
+10:43:00 Не удалось загрузить http://www.kooop39.ru/2018/12/26/regionalnoe-soglashenie-o-minimalnoj-zarabotnoj-plate-v-kaliningradskoj-oblasti/
+10:43:00 Проблема с валидностью контента kooop39.ru. 
+10:43:00 Не удалось загрузить http://www.kooop39.ru/articles/
+10:43:00 Не удалось загрузить http://www.kooop39.ru/2019/06/13/2237/
+10:43:00 Проблема с валидностью контента kooop39.ru. 
+10:43:00 Проблема с валидностью контента kooop39.ru. 
+10:43:00 Не удалось загрузить http://www.kooop39.ru/
+10:43:00 Проблема с валидностью контента kooop39.ru. 
+10:43:00 Не удалось загрузить http://www.kooop39.ru/about-us/
+10:43:00 Проблема с валидностью контента kooop39.ru. 
+10:43:00 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом versuri.ro
+10:43:17 Проблемы с доменом versuri.ro
+10:43:21 Не удалось загрузить http://www.kooop39.ru/2020/04/27/podpishi-pervomajskuju-rezoljuciju-2020-goda-onlajn/
+10:43:21 Не удалось загрузить http://www.kooop39.ru/2021/01/22/sostojalas-viii-otchjotno-vybornaja-konferencija-sojuza-kaliningradskoe-oblastnoe-obedinenie-organizacij-profsojuzov/
+10:43:21 Проблема с валидностью контента kooop39.ru. 
+10:43:21 Проблема с валидностью контента kooop39.ru. 
+10:43:21 Не удалось загрузить http://www.kooop39.ru/2018/11/19/spisok-partnerov/
+10:43:21 Проблема с валидностью контента kooop39.ru. 
+10:43:21 Не удалось загрузить http://www.kooop39.ru/2018/12/26/regionalnoe-soglashenie-o-minimalnoj-zarabotnoj-plate-v-kaliningradskoj-oblasti/
+10:43:21 Не удалось загрузить http://www.kooop39.ru/2019/06/13/2237/
+10:43:21 Не удалось загрузить http://www.kooop39.ru/2019/12/25/itogi-raboty-molodezhnogo-soveta-kooop-za-2019-god/
+10:43:21 Проблема с валидностью контента kooop39.ru. 
+10:43:21 Не удалось загрузить http://www.kooop39.ru/category/chlenskie-organizacii/
+10:43:21 Не удалось загрузить http://www.kooop39.ru/articles/
+10:43:21 Не удалось загрузить http://www.kooop39.ru/
+10:43:21 Не удалось загрузить http://www.kooop39.ru/about-us/
+10:43:21 Проблема с валидностью контента kooop39.ru. 
+10:43:21 Проблема с валидностью контента kooop39.ru. 
+10:43:21 Проблема с валидностью контента kooop39.ru. 
+10:43:21 Проблема с валидностью контента kooop39.ru. 
+10:43:21 Проблема с валидностью контента kooop39.ru. 
+10:43:21 Проблема с валидностью контента kooop39.ru. 
+10:43:21 В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом versuri.ro
+10:47:43 Не удалось загрузить http://www.kooop39.ru/2021/01/22/sostojalas-viii-otchjotno-vybornaja-konferencija-sojuza-kaliningradskoe-oblastnoe-obedinenie-organizacij-profsojuzov/
+10:47:43 Проблема с валидностью контента kooop39.ru. 
+10:47:43 Не удалось загрузить http://www.kooop39.ru/2020/04/27/podpishi-pervomajskuju-rezoljuciju-2020-goda-onlajn/
+10:47:43 Не удалось загрузить http://www.kooop39.ru/2018/11/19/spisok-partnerov/
+10:47:43 Проблема с валидностью контента kooop39.ru. 
+10:47:43 Не удалось загрузить http://www.kooop39.ru/2019/12/25/itogi-raboty-molodezhnogo-soveta-kooop-za-2019-god/
+10:47:43 Не удалось загрузить http://www.kooop39.ru/2018/12/26/regionalnoe-soglashenie-o-minimalnoj-zarabotnoj-plate-v-kaliningradskoj-oblasti/
+10:47:43 Проблема с валидностью контента kooop39.ru. 
+10:47:43 Не удалось загрузить http://www.kooop39.ru/articles/
+10:47:43 Не удалось загрузить http://www.kooop39.ru/category/chlenskie-organizacii/
+10:47:43 Не удалось загрузить http://www.kooop39.ru/2019/06/13/2237/
+10:47:43 Не удалось загрузить http://www.kooop39.ru/
+10:47:43 Не удалось загрузить http://www.kooop39.ru/about-us/
+10:47:43 Проблема с валидностью контента kooop39.ru. 
+10:47:43 Проблема с валидностью контента kooop39.ru. 
+10:47:43 Проблема с валидностью контента kooop39.ru. 
+10:47:43 Проблема с валидностью контента kooop39.ru. 
+10:47:43 Проблема с валидностью контента kooop39.ru. 
+10:47:43 Проблема с валидностью контента kooop39.ru. 
+10:47:43 Проблема с валидностью контента kooop39.ru. 
+10:51:24 Не удалось загрузить http://www.kooop39.ru/2021/01/22/sostojalas-viii-otchjotno-vybornaja-konferencija-sojuza-kaliningradskoe-oblastnoe-obedinenie-organizacij-profsojuzov/
+10:51:24 Не удалось загрузить http://www.kooop39.ru/
+10:51:24 Проблема с валидностью контента kooop39.ru. 
+10:51:24 Проблема с валидностью контента kooop39.ru. 
+10:55:38 Не удалось загрузить http://www.kooop39.ru/
+10:55:38 Не удалось загрузить http://www.kooop39.ru/2021/01/22/sostojalas-viii-otchjotno-vybornaja-konferencija-sojuza-kaliningradskoe-oblastnoe-obedinenie-organizacij-profsojuzov/
+10:55:38 Проблема с валидностью контента kooop39.ru. 
+10:55:38 Проблема с валидностью контента kooop39.ru. 
+11:12:21 Не удалось загрузить http://www.kooop39.ru/2021/01/22/sostojalas-viii-otchjotno-vybornaja-konferencija-sojuza-kaliningradskoe-oblastnoe-obedinenie-organizacij-profsojuzov/
+11:12:21 Не удалось загрузить http://www.kooop39.ru/
+11:12:21 Проблема с валидностью контента kooop39.ru. 
+11:12:21 Проблема с валидностью контента kooop39.ru. 

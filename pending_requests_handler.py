@@ -174,6 +174,7 @@ class Concurency:
         self.site_objects_list = site_objects_list
         self.request = request
         self.WEIGHTS = dict()
+        self.importance = dict()
         self.site_age_concurency = int()
         self.site_stem_concurency = int()
         self.site_volume_concurency = int()
@@ -184,11 +185,18 @@ class Concurency:
         self.site_total_concurency = int()
 
         self.get_concurency_from_database()
+        if self.check_is_absourd_request():
+            self.importance = ABSURD_STEM_IMPORTANCE
+        else:
+            self.importance = STANDART_IMPORTANCE
+
 
         if self.direct_upscale > 0:
             self.WEIGHTS = WEIGHTS_DIRECT
         else:
             self.WEIGHTS = WEIGHTS_ORGANIC
+
+
 
         self.calculate_site_backlinks_concurency()
         self.calculate_site_total_concurency()
@@ -203,6 +211,9 @@ class Concurency:
         self.site_volume_concurency = int(concurency[4])
         self.direct_upscale = int(concurency[7])
 
+    def check_is_absourd_request(self):
+        if self.site_stem_concurency < 30:
+            return True
 
     def calculate_site_backlinks_concurency(self):
         max_backlinks_concurency = 0
@@ -221,9 +232,9 @@ class Concurency:
 
     def calculate_site_total_concurency(self):
         total_difficulty = int(
-            self.site_age_concurency * IMPORTANCE['Возраст сайта'] + self.site_stem_concurency * IMPORTANCE[
-                'Стемирование'] + self.site_volume_concurency * IMPORTANCE[
-                'Объем статей'] + self.site_backlinks_concurency * IMPORTANCE['Ссылочное'])
+            self.site_age_concurency * self.importance['Возраст сайта'] + self.site_stem_concurency * self.importance[
+                'Стемирование'] + self.site_volume_concurency * self.importance[
+                'Объем статей'] + self.site_backlinks_concurency * self.importance['Ссылочное'])
         total_difficulty += self.direct_upscale
         self.site_total_concurency = total_difficulty
 
@@ -244,18 +255,18 @@ class Concurency:
 
         file.write(f'Итоговая конкуренция:\n')
         total_difficulty = int(
-            self.site_age_concurency * IMPORTANCE['Возраст сайта'] + self.site_stem_concurency * IMPORTANCE[
-                'Стемирование'] + self.site_volume_concurency * IMPORTANCE[
-                'Объем статей'] + self.site_backlinks_concurency * IMPORTANCE['Ссылочное'])
+            self.site_age_concurency * self.importance['Возраст сайта'] + self.site_stem_concurency * self.importance[
+                'Стемирование'] + self.site_volume_concurency * self.importance[
+                'Объем статей'] + self.site_backlinks_concurency * self.importance['Ссылочное'])
 
         file.write(
-            f"От возраста: {self.site_age_concurency} * {IMPORTANCE['Возраст сайта']} = {self.site_age_concurency * IMPORTANCE['Возраст сайта']}\n")
+            f"От возраста: {self.site_age_concurency} * {self.importance['Возраст сайта']} = {self.site_age_concurency * self.importance['Возраст сайта']}\n")
         file.write(
-            f"От стема: {self.site_stem_concurency} * {IMPORTANCE['Стемирование']} = {self.site_stem_concurency * IMPORTANCE['Стемирование']}\n")
+            f"От стема: {self.site_stem_concurency} * {self.importance['Стемирование']} = {self.site_stem_concurency * self.importance['Стемирование']}\n")
         file.write(
-            f"От объема: {self.site_volume_concurency} * {IMPORTANCE['Объем статей']} = {self.site_volume_concurency * IMPORTANCE['Объем статей']}\n")
+            f"От объема: {self.site_volume_concurency} * {self.importance['Объем статей']} = {self.site_volume_concurency * self.importance['Объем статей']}\n")
         file.write(
-            f"От ссылочного: {self.site_backlinks_concurency} * {IMPORTANCE['Ссылочное']} = {self.site_backlinks_concurency * IMPORTANCE['Ссылочное']}\n")
+            f"От ссылочного: {self.site_backlinks_concurency} * {self.importance['Ссылочное']} = {self.site_backlinks_concurency * self.importance['Ссылочное']}\n")
         file.write(f'До вычета direct upscale: {total_difficulty}\n')
 
         total_difficulty += self.direct_upscale
