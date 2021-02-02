@@ -118,6 +118,8 @@ class Yandex:
     def update_database(self):
         pm.update_database('main_request', 'site_backlinks_concurency',
                            self.concurency_object.site_backlinks_concurency, 'request', self.request)
+        pm.update_database('main_request', 'site_seo_concurency',
+                           self.concurency_object.site_seo_concurency, 'request', self.request)
         pm.update_database('main_request', 'site_total_concurency',
                            self.concurency_object.site_total_concurency, 'request', self.request)
         pm.update_database('main_request', 'status',
@@ -178,6 +180,8 @@ class Concurency:
         self.site_age_concurency = int()
         self.site_stem_concurency = int()
         self.site_volume_concurency = int()
+        self.site_seo_concurency = int()
+        self.site_direct_concurency = int()
         self.direct_upscale = int()
         self.status = ''
 
@@ -235,6 +239,7 @@ class Concurency:
             self.site_age_concurency * self.importance['Возраст сайта'] + self.site_stem_concurency * self.importance[
                 'Стемирование'] + self.site_volume_concurency * self.importance[
                 'Объем статей'] + self.site_backlinks_concurency * self.importance['Ссылочное'])
+        self.site_seo_concurency = total_difficulty
         total_difficulty += self.direct_upscale
         self.site_total_concurency = total_difficulty
 
@@ -269,7 +274,7 @@ class Concurency:
             f"От ссылочного: {self.site_backlinks_concurency} * {self.importance['Ссылочное']} = {self.site_backlinks_concurency * self.importance['Ссылочное']}\n")
         file.write(f'До вычета direct upscale: {total_difficulty}\n')
 
-        total_difficulty += self.direct_upscale
+        total_difficulty -= self.direct_upscale
         file.write(f'После вычета direct upscale ({self.direct_upscale}): {total_difficulty}\n')
         file.close()
 

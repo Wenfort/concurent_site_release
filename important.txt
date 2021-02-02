@@ -8592,3 +8592,41 @@ AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
 11:12:21 Не удалось загрузить http://www.kooop39.ru/
 11:12:21 Проблема с валидностью контента kooop39.ru. 
 11:12:21 Проблема с валидностью контента kooop39.ru. 
+13:36:37 Не удалось загрузить https://zub.ru/uslugi/lechenie-zubov/price/
+13:36:37 Проблема с валидностью контента zub.ru. 
+13:36:37 Не удалось загрузить https://zub.ru/uslugi/lechenie-zubov/price/
+13:36:37 Проблема с валидностью контента zub.ru. 
+13:36:38 Не удалось загрузить https://zub.ru/uslugi/lechenie-zubov/price/
+13:36:38 Проблема с валидностью контента zub.ru. 
+13:36:38 Не удалось загрузить https://zub.ru/uslugi/lechenie-zubov/price/
+13:36:39 Проблема с валидностью контента zub.ru. 
+13:43:28 Не удалось загрузить https://zub.ru/price/
+13:43:28 Проблема с валидностью контента zub.ru. 
+13:44:00 Не удалось загрузить https://zub.ru/uslugi/lechenie-zubov/price/
+13:44:00 Проблема с валидностью контента zub.ru. 
+13:44:00 Не удалось загрузить https://zub.ru/uslugi/lechenie-zubov/price/
+13:44:01 Проблема с валидностью контента zub.ru. 
+13:44:01 Не удалось загрузить https://zub.ru/uslugi/lechenie-zubov/price/
+13:44:01 Проблема с валидностью контента zub.ru. 
+13:44:02 Не удалось загрузить https://zub.ru/uslugi/lechenie-zubov/price/
+13:44:02 Проблема с валидностью контента zub.ru. 
+07:35:35 Не удалось загрузить https://napopravku.ru/moskva/uslugi/lazernaya-korrekciya-zreniya/
+07:35:35 Проблема с валидностью контента napopravku.ru. 
+08:41:41 Не удалось загрузить https://napopravku.ru/moskva/stomatologia/udalenie-zuba/
+08:41:41 Проблема с валидностью контента napopravku.ru. 
+08:41:42 Не удалось загрузить https://www.mos.ru/otvet-zdorovie/kak-poluchit-stomatologicheskuyu-pomosch/
+08:41:42 Проблема с валидностью контента mos.ru. 
+08:44:25 Не удалось загрузить https://napopravku.ru/moskva/stomatologia/lechenie-zubov-terapiya/
+08:44:25 Проблема с валидностью контента napopravku.ru. 
+08:44:59 Не удалось загрузить https://vaodent.ru/srednie-ceny-na-uslugi-stomatologa/
+08:44:59 Проблема с валидностью контента vaodent.ru. 
+08:45:28 Не удалось загрузить https://napopravku.ru/moskva/stomatologia/plombirovanie-zubov/
+08:45:28 Проблема с валидностью контента napopravku.ru. 
+08:46:00 Не удалось загрузить https://napopravku.ru/moskva/doctors/stomatolog-terapevt/
+08:46:00 Проблема с валидностью контента napopravku.ru. 
+08:48:40 Не удалось загрузить https://napopravku.ru/moskva/stomatologia/udalenie-kornya-zuba/
+08:48:41 Проблема с валидностью контента napopravku.ru. 
+08:48:42 Не удалось загрузить https://napopravku.ru/moskva/stomatologia/
+08:48:42 Проблема с валидностью контента napopravku.ru. 
+11:59:49 Не удалось загрузить https://zub.ru/uslugi/lechenie-zubov/price/
+11:59:49 Проблема с валидностью контента zub.ru. 

@@ -9,7 +9,6 @@ def get_token():
     return token
 
 def run():
-    #TODO мб брать инфу еще и с линкпад
     domains = pm.check_in_database('main_domain', 'status', 'pending')
     total = 0
     if domains:

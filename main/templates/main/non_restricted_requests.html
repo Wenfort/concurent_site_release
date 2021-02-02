@@ -54,8 +54,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-8">
-                                    <h4>Всего запросов:</h4>
-                                    <h4>55305</h4>
+                                    <h4>Баланс>:</h4>
+                                    <h4>555</h4>
                                 </div>
                                 <div class="col-4">
                                     <img src="https://tourjournal.ru/wp-content/uploads/reka-enisej.jpg" style="width: 100%">
@@ -97,8 +97,8 @@
                                                 {% else %}
                                                     <tr>
                                                         <td> {{ request.request }} </td>
-                                                        <td> {{ request.site_total_concurency|sub:request.direct_upscale }}% </td>
-                                                        <td> {{ 35|add:request.direct_upscale|div:35|mul:100 }}%</td>
+                                                        <td> {{ request.site_seo_concurency }}% </td>
+                                                        <td> {{ request.site_direct_concurency }}%</td>
                                                     </tr>
                                                 {% endif %}
                                             {% endfor %}

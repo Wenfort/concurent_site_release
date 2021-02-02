@@ -286,7 +286,10 @@ class Yandex:
                         self.concurency_object.site_backlinks_concurency,
                         self.concurency_object.site_total_concurency,
                         self.concurency_object.direct_upscale,
-                        self.concurency_object.status,)
+                        self.concurency_object.status,
+                        self.concurency_object.site_direct_concurency,
+                        self.concurency_object.site_seo_concurency,
+                        )
         logger.debug(values_to_go)
         pm.add_to_database_with_autoincrement('main_request', values_to_go)
 
@@ -479,6 +482,8 @@ class Concurency:
         self.site_volume_concurency = int()
         self.site_backlinks_concurency = int()
         self.site_total_concurency = int()
+        self.site_seo_concurency = int()
+        self.site_direct_concurency = int()
         self.valid_backlinks_rate = 0
         self.direct_upscale = int()
         self.status = str()
@@ -502,6 +507,7 @@ class Concurency:
 
         self.check_valid_backlinks_sample()
         self.calculate_direct_upscale()
+        self.calculate_direct_concurency()
 
         if self.valid_backlinks_rate >= 1:
             self.calculate_site_backlinks_concurency()
@@ -570,7 +576,7 @@ class Concurency:
             max_stem_concurency += self.WEIGHTS[site_object.position]
             if site_object.site_type == 'organic':
                 matched_stem_items = len(set(self.request) & set(site_object.content_object.stemmed_title))
-                real_stem_concurency += int(matched_stem_items / len(self.request)) * self.WEIGHTS[site_object.position]
+                real_stem_concurency += matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
             else:
                 real_stem_concurency += self.WEIGHTS[site_object.position]
 
@@ -580,8 +586,7 @@ class Concurency:
         if self.site_stem_concurency < 30:
             print('Запрос абсурдный')
             return True
-        
-        
+
     def check_valid_backlinks_sample(self):
         valid_backlinks = 0
         limit_for_validation = 0.8
@@ -617,7 +622,7 @@ class Concurency:
         self.site_backlinks_concurency = int(real_backlinks_concurency / max_backlinks_concurency * 100)
 
     def calculate_direct_upscale(self):
-        direct_upscale = -35
+        direct_upscale = 0
 
         for site_object in self.site_objects_list:
             if site_object.site_type == 'direct':
@@ -645,6 +650,7 @@ class Concurency:
             self.site_age_concurency * self.importance['Возраст сайта'] + self.site_stem_concurency * self.importance[
                 'Стемирование'] + self.site_volume_concurency * self.importance[
                 'Объем статей'] + self.site_backlinks_concurency * self.importance['Ссылочное'])
+        self.site_seo_concurency = total_difficulty
         total_difficulty += self.direct_upscale
         self.site_total_concurency = int(total_difficulty)
         logger.info(f'Конкуренция от возраста: {self.site_age_concurency}')
@@ -653,6 +659,11 @@ class Concurency:
         logger.info(f'Конкуренция от бэклинков: {self.site_backlinks_concurency}')
         logger.info(f'Модификатор от директа: {self.direct_upscale}')
         logger.info(f'Итоговая конкуренция: {total_difficulty}')
+
+    def calculate_direct_concurency(self):
+        self.site_direct_concurency = int(self.direct_upscale / 35 * 100)
+
+
 
     def prepare_report(self):
         file = open(f'./reports/{self.report_file_name}.txt', 'a', encoding='utf-8')
@@ -718,7 +729,7 @@ class Concurency:
         file.write('----------------------------------------\n')
         file.write('Апскейл от директа:\n')
 
-        direct_upscale = -35
+        direct_upscale = 0
         for site_object in self.site_objects_list:
             if site_object.site_type == 'direct':
                 if site_object.position == '1':
