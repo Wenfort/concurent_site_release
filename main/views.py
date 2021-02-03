@@ -85,6 +85,11 @@ def add_new_requests_to_queue(request):
 
 
 def get_orders_page(request):
-    context = {'orders': unique_user_order_rows, 'ordered_keywords': ordered_keywords_amount, 'user': user_data,
-               'orders_amount': orders_amount}
+    user_data = get_user_data(request)
+
+
+    context = {'all_orders_list': all_orders_list,
+               'orders': user_data['Количество заказов'],
+               'keywords_ordered': user_data['Количество заказанных ключей'],
+               'balance': user_data['Баланс']}
     return render(request, 'main/orders.html', context)

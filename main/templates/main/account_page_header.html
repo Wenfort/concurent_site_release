@@ -1,0 +1,56 @@
+{% load static %}
+<nav class="navbar navbar-light bg-light static-top" style="margin-bottom: 20px;">
+    <div class="container">
+          <a class="navbar-brand" href="#">SEOnior.ru - Эффективная оценка конкуренции</a>
+          <a class="btn btn-primary" href="#">Авторизация</a>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h4>Всего заказов:</h4>
+                            <h4>{{ orders }}</h4>
+                        </div>
+                        <div class="col-4">
+                            <img src="{% static 'main/img/cart.png' %}" style="width: 85%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h4>Всего запросов:</h4>
+                            <h4>{{ keywords_ordered }}</h4>
+                        </div>
+                        <div class="col-4">
+                            <img src="{% static 'main/img/list.png' %}" style="width: 85%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h4>Баланс:</h4>
+                            <h4>{{ balance }} рублей</h4>
+                        </div>
+                        <div class="col-4">
+                            <img src="{% static 'main/img/balance.png' %}" style="width: 85%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
