@@ -105,11 +105,13 @@ def add_new_requests_to_queue(request):
 def get_orders_page(request):
     user_data = User(request.user.username)
 
-
+    form = NewRequest()
     context = {'all_orders_list': user_data.unique_order_rows,
                'orders': user_data.orders_amount,
                'keywords_ordered': user_data.ordered_keywords_amount,
-               'balance': user_data.balance}
+               'balance': user_data.balance,
+               'form': form}
+
     return render(request, 'main/orders.html', context)
 
 

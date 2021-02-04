@@ -1,6 +1,12 @@
-<form action="" method="post">
-{% csrf_token %}
-    <p>Введите каждый запрос с новой строки, либо через запятую.</p>
-    <textarea cols="40" rows="20" name="requests_list"></textarea>
-<input type="submit" value="Vote">
-</form>
+<div class="container" style="margin-bottom: 20px">
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <form action="" method="post">
+                {% csrf_token %}
+                <p>Введите каждый запрос с новой строки, либо через запятую.</p>
+                <textarea rows="5" name="requests_list" style="width: 100%"></textarea>
+                <input type="submit" value="Анализировать конкуренцию" class="btn btn-primary" style="width: 100%">
+            </form>
+        </div>
+    </div>
+</div>
