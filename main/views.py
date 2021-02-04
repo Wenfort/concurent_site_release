@@ -10,36 +10,54 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
-def get_user_data(request):
-    user_name = request.user.username
-    user = UserData.objects.get(name=user_name)
-    user_id = user.id
-    user_balance = user.balance
+class User:
+    def __init__(self, name):
+        self.name = name
+        self.user = object
+        self.id = int
+        self.balance = int
+        self.all_order_rows = object
+        self.unique_order_rows = object
+        self.ordered_keywords_amount = int
+        self.orders_amount = int
 
-    all_user_order_rows = Order.objects.filter(user_id=user_id)
-    unique_user_order_rows = all_user_order_rows.distinct('order_id')
 
-    ordered_keywords_amount = len(all_user_order_rows)
-    orders_amount = len(unique_user_order_rows)
+        self.get_user_data()
+        self.get_user_id()
+        self.get_user_balance()
+        self.get_all_user_order_rows()
+        self.get_unique_user_order_rows()
+        self.calculate_user_statistic()
 
-    output = {'Объект пользователя': user,
-              'Баланс': user_balance,
-              'Количество заказов': orders_amount,
-              'Количество заказанных ключей': ordered_keywords_amount}
+    def get_user_data(self):
+        self.user = UserData.objects.get(name=self.name)
 
-    return output
+    def get_user_id(self):
+        self.id = self.user.id
+
+    def get_user_balance(self):
+        self.balance = self.user.balance
+
+    def get_all_user_order_rows(self):
+        self.all_order_rows = Order.objects.filter(user_id=self.id)
+
+    def get_unique_user_order_rows(self):
+        self.unique_order_rows = self.all_order_rows.distinct('order_id')
+
+    def calculate_user_statistic(self):
+        self.ordered_keywords_amount = len(self.all_order_rows)
+        self.orders_amount = len(self.unique_order_rows)
 
 
 def results(request):
     all_requests_list = get_list_or_404(Request.objects.order_by('site_seo_concurency'))
-
-    user_data = get_user_data(request)
+    user_data = User(request.user.username)
 
     try:
         context = {'all_requests_list': all_requests_list,
-                   'orders': user_data['Количество заказов'],
-                   'keywords_ordered': user_data['Количество заказанных ключей'],
-                   'balance': user_data['Баланс']}
+                   'orders': user_data.orders_amount,
+                   'keywords_ordered': user_data.ordered_keywords_amount,
+                   'balance': user_data.balance}
     except:
         context = {'all_requests_list': all_requests_list}
     if request.user.is_staff:
@@ -51,7 +69,7 @@ def results(request):
 def add_new_requests_to_queue(request):
     if request.method == "POST":
 
-        user_data = get_user_data(request)
+        user_data = User(request.user.username)
 
         requests_list = request.POST['requests_list']
         requests_list = requests_list.replace('\r', '')
@@ -69,13 +87,13 @@ def add_new_requests_to_queue(request):
         new_requests_amount = len(new_requests)
         for new_request in new_requests:
             Order(request_id=new_request.id,
-                  user_id=user_data['Объект пользователя'].id,
+                  user_id=user_data.id,
                   order_id=order_id
                   ).save()
 
-        UserData(id=user_data['Объект пользователя'].id,
-                 balance=user_data['Объект пользователя'].balance - new_requests_amount,
-                 name=user_data['Объект пользователя'].name,
+        UserData(id=user_data.id,
+                 balance=user_data.balance - new_requests_amount,
+                 name=user_data.name,
                  ).save()
 
         return HttpResponseRedirect('/main/results')
@@ -85,11 +103,19 @@ def add_new_requests_to_queue(request):
 
 
 def get_orders_page(request):
-    user_data = get_user_data(request)
+    user_data = User(request.user.username)
 
 
-    context = {'all_orders_list': all_orders_list,
-               'orders': user_data['Количество заказов'],
-               'keywords_ordered': user_data['Количество заказанных ключей'],
-               'balance': user_data['Баланс']}
+    context = {'all_orders_list': user_data.unique_order_rows,
+               'orders': user_data.orders_amount,
+               'keywords_ordered': user_data.ordered_keywords_amount,
+               'balance': user_data.balance}
     return render(request, 'main/orders.html', context)
+
+
+def balance(request):
+    pass
+
+
+def ordered_requests(request):
+    pass
