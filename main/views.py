@@ -16,14 +16,14 @@ class User:
         self.user = object
         self.id = int
         self.balance = int
-        self.ordered_keywords_amount = int
-        self.orders_amount = int
+        self.user_orders = int
+        self.user_ordered_keywords = int
 
         self.get_user_data()
         self.get_user_id()
         self.get_user_balance()
-
-
+        self.get_user_orders()
+        self.get_user_ordered_requests()
 
     def get_user_data(self):
         self.user = UserData.objects.get(name=self.name)
@@ -34,30 +34,26 @@ class User:
     def get_user_balance(self):
         self.balance = self.user.balance
 
+    def get_user_orders(self):
+        self.user_orders = self.user.orders_amount
 
+    def get_user_ordered_requests(self):
+        self.user_ordered_keywords = self.user.ordered_keywords
 
 class Orders:
     def __init__(self, user_id):
         self.user_id = user_id
         self.all_order_rows = object
         self.unique_order_rows = object
-        self.ordered_keywords_amount = int()
-        self.orders_amount = int()
 
         self.get_all_user_order_rows()
         self.get_unique_user_order_rows()
-        self.calculate_user_statistic()
 
     def get_all_user_order_rows(self):
         self.all_order_rows = Order.objects.filter(user_id=self.user_id)
 
     def get_unique_user_order_rows(self):
         self.unique_order_rows = OrderStatus.objects.filter(user_id=self.user_id)
-
-    def calculate_user_statistic(self):
-        self.ordered_keywords_amount = len(self.all_order_rows)
-        self.orders_amount = len(self.unique_order_rows)
-
 
 class NewRequestHandler:
     def __init__(self, request):
@@ -123,6 +119,8 @@ class NewRequestHandler:
         UserData(id=self.user_data.id,
                  balance=self.user_data.balance - self.new_requests_amount,
                  name=self.user_data.name,
+                 orders_amount=self.user_data.user_orders + 1,
+                 ordered_keywords=self.user_data.user_ordered_keywords + self.new_requests_amount,
                  ).save()
 
 
@@ -135,8 +133,8 @@ def results(request):
         all_requests_list = get_list_or_404(Request.objects.order_by('site_seo_concurency'))
         try:
             context = {'all_requests_list': all_requests_list,
-                       'orders': user_data.orders_amount,
-                       'keywords_ordered': user_data.ordered_keywords_amount,
+                       'orders': user_data.user_orders,
+                       'keywords_ordered': user_data.user_ordered_keywords,
                        'balance': user_data.balance}
         except:
             context = {'all_requests_list': all_requests_list}
@@ -156,8 +154,8 @@ def get_orders_page(request):
         form = NewRequest()
 
         context = {'all_orders_list': orders_data.unique_order_rows,
-                   'orders': orders_data.orders_amount,
-                   'keywords_ordered': orders_data.ordered_keywords_amount,
+                   'orders': user_data.user_orders,
+                   'keywords_ordered': user_data.user_ordered_keywords,
                    'balance': user_data.balance,
                    'form': form}
 
@@ -172,10 +170,9 @@ def requests_from_order(request, order_id):
     all_requests_list = Request.objects.filter(id__in=requests_ids)
 
 
-
     context = {'all_requests_list': all_requests_list,
-               'orders': user_data.orders_amount,
-               'keywords_ordered': user_data.ordered_keywords_amount,
+               'orders': user_data.user_orders,
+               'keywords_ordered': user_data.user_ordered_keywords,
                'balance': user_data.balance}
 
     if request.user.is_staff:
