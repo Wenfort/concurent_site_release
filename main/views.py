@@ -9,25 +9,21 @@ from .forms import NewRequest
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
+
 class User:
     def __init__(self, name):
         self.name = name
         self.user = object
         self.id = int
         self.balance = int
-        self.all_order_rows = object
-        self.unique_order_rows = object
         self.ordered_keywords_amount = int
         self.orders_amount = int
-        self.super_orders = list
 
         self.get_user_data()
         self.get_user_id()
         self.get_user_balance()
-        self.get_all_user_order_rows()
-        self.get_unique_user_order_rows()
-        self.check_order_status()
-        self.calculate_user_statistic()
+
+
 
     def get_user_data(self):
         self.user = UserData.objects.get(name=self.name)
@@ -38,22 +34,30 @@ class User:
     def get_user_balance(self):
         self.balance = self.user.balance
 
+
+
+class Orders:
+    def __init__(self, user_id):
+        self.user_id = user_id
+        self.all_order_rows = object
+        self.unique_order_rows = object
+        self.ordered_keywords_amount = int()
+        self.orders_amount = int()
+
+        self.get_all_user_order_rows()
+        self.get_unique_user_order_rows()
+        self.calculate_user_statistic()
+
     def get_all_user_order_rows(self):
-        self.all_order_rows = Order.objects.filter(user_id=self.id)
+        self.all_order_rows = Order.objects.filter(user_id=self.user_id)
 
     def get_unique_user_order_rows(self):
-        self.unique_order_rows = self.all_order_rows.distinct('order_id')
+        self.unique_order_rows = OrderStatus.objects.filter(user_id=self.user_id)
 
     def calculate_user_statistic(self):
         self.ordered_keywords_amount = len(self.all_order_rows)
         self.orders_amount = len(self.unique_order_rows)
 
-    def check_order_status(self):
-        orders_to_check = list()
-        for unique_order_row in self.unique_order_rows:
-            orders_to_check.append(str(unique_order_row.order_id))
-
-        self.super_orders = OrderStatus.objects.filter(order_id__in=orders_to_check)
 
 class NewRequestHandler:
     def __init__(self, request):
@@ -112,7 +116,8 @@ class NewRequestHandler:
                   ).save()
 
     def update_user_order_status(self):
-        OrderStatus(order_id=self.order_id, user_id=self.user_data.id, ordered_keywords_amount=self.new_requests_amount).save()
+        OrderStatus(order_id=self.order_id, user_id=self.user_data.id,
+                    ordered_keywords_amount=self.new_requests_amount).save()
 
     def update_user_balance(self):
         UserData(id=self.user_data.id,
@@ -120,8 +125,8 @@ class NewRequestHandler:
                  name=self.user_data.name,
                  ).save()
 
-def results(request):
 
+def results(request):
     if request.method == "POST":
         NewRequestHandler(request)
         return HttpResponseRedirect('/main/results')
@@ -147,19 +152,37 @@ def get_orders_page(request):
         return HttpResponseRedirect('/main/orders')
     else:
         user_data = User(request.user.username)
+        orders_data = Orders(user_data.id)
         form = NewRequest()
 
-        context = {'all_orders_list': user_data.super_orders,
-                   'orders': user_data.orders_amount,
-                   'keywords_ordered': user_data.ordered_keywords_amount,
+        context = {'all_orders_list': orders_data.unique_order_rows,
+                   'orders': orders_data.orders_amount,
+                   'keywords_ordered': orders_data.ordered_keywords_amount,
                    'balance': user_data.balance,
                    'form': form}
 
         return render(request, 'main/orders.html', context)
 
+
 def requests_from_order(request, order_id):
-    a = 'b'
-    return HttpResponseRedirect('/main/orders')
+    user_data = User(request.user.username)
+    order_data = Order.objects.filter(order_id=order_id)
+
+    requests_ids = [od.request_id for od in order_data]
+    all_requests_list = Request.objects.filter(id__in=requests_ids)
+
+
+
+    context = {'all_requests_list': all_requests_list,
+               'orders': user_data.orders_amount,
+               'keywords_ordered': user_data.ordered_keywords_amount,
+               'balance': user_data.balance}
+
+    if request.user.is_staff:
+        return render(request, 'main/restricted_requests.html', context)
+    else:
+        return render(request, 'main/non_restricted_requests.html', context)
+
 
 def balance(request):
     pass
