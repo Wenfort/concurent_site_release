@@ -8630,3 +8630,1108 @@ AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
 08:48:42 Проблема с валидностью контента napopravku.ru. 
 11:59:49 Не удалось загрузить https://zub.ru/uslugi/lechenie-zubov/price/
 11:59:49 Проблема с валидностью контента zub.ru. 
+11:04:31 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+11:04:31 Не удалось загрузить https://www.nlv.ru/laser-correction
+11:04:31 Проблема с валидностью контента nlv.ru. 
+11:04:31 Проблема с валидностью контента nlv.ru. 
+11:10:50 Проблема с валидностью контента tpu.ru. 
+11:56:11 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+11:56:11 Проблема с валидностью контента nlv.ru. 
+12:02:38 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:02:38 Проблема с валидностью контента nlv.ru. 
+12:02:46 An error has been caught in function 'run', process 'Process-2' (14618), thread 'MainThread' (140224253437760):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7f88804269d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f887c6b11f0>
+    └ <__main__.Manager object at 0x7f887f739250>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f88804329d0>
+    └ <Process name='Process-2' parent=14568 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=14568 started>
+    │    │        │    └ <staticmethod object at 0x7f88805b10a0>
+    │    │        └ <Process name='Process-2' parent=14568 started>
+    │    └ None
+    └ <Process name='Process-2' parent=14568 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=14568 started>
+           │                └ <function DefaultContext.get_context at 0x7f8880446430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f88804792b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=14568 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=14568 started>
+    │    └ <function Popen._launch at 0x7f887c6724c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f887c669400>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f8880474310>
+           └ <Process name='Process-2' parent=14568 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f8880432940>
+    └ <Process name='Process-2' parent=14568 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=14568 started>
+    │    │        │    └ (('коррекция зрения', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T0902...
+    │    │        └ <Process name='Process-2' parent=14568 started>
+    │    └ <function Yandex at 0x7f887c6b1e50>
+    └ <Process name='Process-2' parent=14568 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f887c63e5e0>
+    └ <__main__.Yandex object at 0x7f888040c640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f887c63af70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ 'UPDATE concurent_site.main_orderstatus SET site_age_concurency = 94site_stem_concurency = 100site_volume_concurency = 99site...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f8879d1e9a0; closed: 0>
+
+psycopg2.errors.SyntaxError: syntax error at or near "site_stem_concurency"
+LINE 1: ...site.main_orderstatus SET site_age_concurency = 94site_stem_...
+                                                             ^
+
+12:02:47 An error has been caught in function 'run', process 'Process-1' (14617), thread 'MainThread' (140224253437760):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7f88804269d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f887c6b11f0>
+    └ <__main__.Manager object at 0x7f887f739250>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f88804329d0>
+    └ <Process name='Process-1' parent=14568 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=14568 started>
+    │    │        │    └ <staticmethod object at 0x7f88805b10a0>
+    │    │        └ <Process name='Process-1' parent=14568 started>
+    │    └ None
+    └ <Process name='Process-1' parent=14568 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=14568 started>
+           │                └ <function DefaultContext.get_context at 0x7f8880446430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f88804792b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=14568 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=14568 started>
+    │    └ <function Popen._launch at 0x7f887c6724c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f887c669490>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f8880474310>
+           └ <Process name='Process-1' parent=14568 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f8880432940>
+    └ <Process name='Process-1' parent=14568 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=14568 started>
+    │    │        │    └ (('lasik', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T090222"><found ...
+    │    │        └ <Process name='Process-1' parent=14568 started>
+    │    └ <function Yandex at 0x7f887c6b1e50>
+    └ <Process name='Process-1' parent=14568 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f887c63e5e0>
+    └ <__main__.Yandex object at 0x7f888040c640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f887c63af70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ 'UPDATE concurent_site.main_orderstatus SET site_age_concurency = 96site_stem_concurency = 91site_volume_concurency = 97site_...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f887a771310; closed: 0>
+
+psycopg2.errors.SyntaxError: syntax error at or near "site_stem_concurency"
+LINE 1: ...site.main_orderstatus SET site_age_concurency = 96site_stem_...
+                                                             ^
+
+12:03:55 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:03:55 Проблема с валидностью контента nlv.ru. 
+12:03:59 An error has been caught in function 'run', process 'Process-1' (14791), thread 'MainThread' (139801914660672):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7f262ae819d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f26270991f0>
+    └ <__main__.Manager object at 0x7f262a194fa0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f262ae8d9d0>
+    └ <Process name='Process-1' parent=14784 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=14784 started>
+    │    │        │    └ <staticmethod object at 0x7f262b00c0a0>
+    │    │        └ <Process name='Process-1' parent=14784 started>
+    │    └ None
+    └ <Process name='Process-1' parent=14784 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=14784 started>
+           │                └ <function DefaultContext.get_context at 0x7f262aea1430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f262aed42b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=14784 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=14784 started>
+    │    └ <function Popen._launch at 0x7f26270cc4c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f26270c4460>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f262aecf310>
+           └ <Process name='Process-1' parent=14784 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f262ae8d940>
+    └ <Process name='Process-1' parent=14784 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=14784 started>
+    │    │        │    └ (('lasik', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T090222"><found ...
+    │    │        └ <Process name='Process-1' parent=14784 started>
+    │    └ <function Yandex at 0x7f2627099e50>
+    └ <Process name='Process-1' parent=14784 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f262709a5e0>
+    └ <__main__.Yandex object at 0x7f262ae67640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f2627095f70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ 'UPDATE concurent_site.main_orderstatus SET site_age_concurency = 96 site_stem_concurency = 91 site_volume_concurency = 97 si...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f25f044b8b0; closed: 0>
+
+psycopg2.errors.SyntaxError: syntax error at or near "site_stem_concurency"
+LINE 1: ...ite.main_orderstatus SET site_age_concurency = 96 site_stem_...
+                                                             ^
+
+12:04:00 An error has been caught in function 'run', process 'Process-2' (14792), thread 'MainThread' (139801914660672):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7f262ae819d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f26270991f0>
+    └ <__main__.Manager object at 0x7f262a194fa0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f262ae8d9d0>
+    └ <Process name='Process-2' parent=14784 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=14784 started>
+    │    │        │    └ <staticmethod object at 0x7f262b00c0a0>
+    │    │        └ <Process name='Process-2' parent=14784 started>
+    │    └ None
+    └ <Process name='Process-2' parent=14784 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=14784 started>
+           │                └ <function DefaultContext.get_context at 0x7f262aea1430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f262aed42b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=14784 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=14784 started>
+    │    └ <function Popen._launch at 0x7f26270cc4c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f26270c43d0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f262aecf310>
+           └ <Process name='Process-2' parent=14784 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f262ae8d940>
+    └ <Process name='Process-2' parent=14784 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=14784 started>
+    │    │        │    └ (('коррекция зрения', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T0902...
+    │    │        └ <Process name='Process-2' parent=14784 started>
+    │    └ <function Yandex at 0x7f2627099e50>
+    └ <Process name='Process-2' parent=14784 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f262709a5e0>
+    └ <__main__.Yandex object at 0x7f262ae67640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f2627095f70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ 'UPDATE concurent_site.main_orderstatus SET site_age_concurency = 94 site_stem_concurency = 100 site_volume_concurency = 99 s...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f2625627d60; closed: 0>
+
+psycopg2.errors.SyntaxError: syntax error at or near "site_stem_concurency"
+LINE 1: ...ite.main_orderstatus SET site_age_concurency = 94 site_stem_...
+                                                             ^
+
+12:04:29 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:04:30 Проблема с валидностью контента nlv.ru. 
+12:04:36 An error has been caught in function 'run', process 'Process-2' (14922), thread 'MainThread' (140500587378496):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7fc8d70bb9d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fc8d33461f0>
+    └ <__main__.Manager object at 0x7fc8d63cef70>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fc8d70c79d0>
+    └ <Process name='Process-2' parent=14916 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=14916 started>
+    │    │        │    └ <staticmethod object at 0x7fc8d72460a0>
+    │    │        └ <Process name='Process-2' parent=14916 started>
+    │    └ None
+    └ <Process name='Process-2' parent=14916 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=14916 started>
+           │                └ <function DefaultContext.get_context at 0x7fc8d70db430>
+           └ <multiprocessing.context.DefaultContext object at 0x7fc8d710e2b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=14916 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=14916 started>
+    │    └ <function Popen._launch at 0x7fc8d33064c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fc8d32fe370>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7fc8d7109310>
+           └ <Process name='Process-2' parent=14916 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fc8d70c7940>
+    └ <Process name='Process-2' parent=14916 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=14916 started>
+    │    │        │    └ (('коррекция зрения', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T0902...
+    │    │        └ <Process name='Process-2' parent=14916 started>
+    │    └ <function Yandex at 0x7fc8d3346e50>
+    └ <Process name='Process-2' parent=14916 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7fc8d32d35e0>
+    └ <__main__.Yandex object at 0x7fc8d70a1640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7fc8d32cff70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ 'UPDATE concurent_site.main_orderstatus SET site_age_concurency = 94, site_stem_concurency = 100, site_volume_concurency = 99...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7fc8d1214220; closed: 0>
+
+psycopg2.errors.UndefinedColumn: column "ready" does not exist
+LINE 1: ...concurency = 129, direct_upscale = 35.0, status = ready, sit...
+                                                             ^
+
+12:04:36 An error has been caught in function 'run', process 'Process-1' (14921), thread 'MainThread' (140500587378496):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7fc8d70bb9d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fc8d33461f0>
+    └ <__main__.Manager object at 0x7fc8d63cef70>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fc8d70c79d0>
+    └ <Process name='Process-1' parent=14916 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=14916 started>
+    │    │        │    └ <staticmethod object at 0x7fc8d72460a0>
+    │    │        └ <Process name='Process-1' parent=14916 started>
+    │    └ None
+    └ <Process name='Process-1' parent=14916 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=14916 started>
+           │                └ <function DefaultContext.get_context at 0x7fc8d70db430>
+           └ <multiprocessing.context.DefaultContext object at 0x7fc8d710e2b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=14916 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=14916 started>
+    │    └ <function Popen._launch at 0x7fc8d33064c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fc8d32fe400>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7fc8d7109310>
+           └ <Process name='Process-1' parent=14916 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fc8d70c7940>
+    └ <Process name='Process-1' parent=14916 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=14916 started>
+    │    │        │    └ (('lasik', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T090222"><found ...
+    │    │        └ <Process name='Process-1' parent=14916 started>
+    │    └ <function Yandex at 0x7fc8d3346e50>
+    └ <Process name='Process-1' parent=14916 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7fc8d32d35e0>
+    └ <__main__.Yandex object at 0x7fc8d70a1640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7fc8d32cff70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ 'UPDATE concurent_site.main_orderstatus SET site_age_concurency = 96, site_stem_concurency = 91, site_volume_concurency = 97,...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7fc8d0fb27c0; closed: 0>
+
+psycopg2.errors.UndefinedColumn: column "ready" does not exist
+LINE 1: ...concurency = 128, direct_upscale = 35.0, status = ready, sit...
+                                                             ^
+
+12:05:17 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:05:17 Проблема с валидностью контента nlv.ru. 
+12:05:21 An error has been caught in function 'run', process 'Process-1' (15069), thread 'MainThread' (140246324045632):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7f8da3c529d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f8d9fedd1f0>
+    └ <__main__.Manager object at 0x7f8da2f65fd0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f8da3c5e9d0>
+    └ <Process name='Process-1' parent=15065 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=15065 started>
+    │    │        │    └ <staticmethod object at 0x7f8da3ddd0a0>
+    │    │        └ <Process name='Process-1' parent=15065 started>
+    │    └ None
+    └ <Process name='Process-1' parent=15065 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=15065 started>
+           │                └ <function DefaultContext.get_context at 0x7f8da3c72430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f8da3ca52b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=15065 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=15065 started>
+    │    └ <function Popen._launch at 0x7f8d9fe9d4c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f8d9fe953d0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f8da3ca0310>
+           └ <Process name='Process-1' parent=15065 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f8da3c5e940>
+    └ <Process name='Process-1' parent=15065 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=15065 started>
+    │    │        │    └ (('lasik', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T090222"><found ...
+    │    │        └ <Process name='Process-1' parent=15065 started>
+    │    └ <function Yandex at 0x7f8d9fedde50>
+    └ <Process name='Process-1' parent=15065 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f8d9fe6a5e0>
+    └ <__main__.Yandex object at 0x7f8da3c38640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f8d9fe66f70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ 'UPDATE concurent_site.main_orderstatus SET site_age_concurency = 96, site_stem_concurency = 91, site_volume_concurency = 97,...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f8d842106d0; closed: 0>
+
+psycopg2.errors.UndefinedColumn: column "ready" does not exist
+LINE 1: ...concurency = 128, direct_upscale = 35.0, status = "ready", s...
+                                                             ^
+
+12:05:22 An error has been caught in function 'run', process 'Process-2' (15070), thread 'MainThread' (140246324045632):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7f8da3c529d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f8d9fedd1f0>
+    └ <__main__.Manager object at 0x7f8da2f65fd0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f8da3c5e9d0>
+    └ <Process name='Process-2' parent=15065 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=15065 started>
+    │    │        │    └ <staticmethod object at 0x7f8da3ddd0a0>
+    │    │        └ <Process name='Process-2' parent=15065 started>
+    │    └ None
+    └ <Process name='Process-2' parent=15065 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=15065 started>
+           │                └ <function DefaultContext.get_context at 0x7f8da3c72430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f8da3ca52b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=15065 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=15065 started>
+    │    └ <function Popen._launch at 0x7f8d9fe9d4c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f8d9fe95340>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f8da3ca0310>
+           └ <Process name='Process-2' parent=15065 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f8da3c5e940>
+    └ <Process name='Process-2' parent=15065 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=15065 started>
+    │    │        │    └ (('коррекция зрения', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T0902...
+    │    │        └ <Process name='Process-2' parent=15065 started>
+    │    └ <function Yandex at 0x7f8d9fedde50>
+    └ <Process name='Process-2' parent=15065 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f8d9fe6a5e0>
+    └ <__main__.Yandex object at 0x7f8da3c38640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f8d9fe66f70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ 'UPDATE concurent_site.main_orderstatus SET site_age_concurency = 94, site_stem_concurency = 100, site_volume_concurency = 99...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f8d9dc06220; closed: 0>
+
+psycopg2.errors.UndefinedColumn: column "ready" does not exist
+LINE 1: ...concurency = 129, direct_upscale = 35.0, status = "ready", s...
+                                                             ^
+
+12:05:51 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:05:51 Проблема с валидностью контента nlv.ru. 
+12:05:56 An error has been caught in function 'run', process 'Process-1' (15195), thread 'MainThread' (140561848682304):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7fd71a8109d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fd716a9b1f0>
+    └ <__main__.Manager object at 0x7fd719b23a90>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fd71a81c9d0>
+    └ <Process name='Process-1' parent=15190 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=15190 started>
+    │    │        │    └ <staticmethod object at 0x7fd71a99b0a0>
+    │    │        └ <Process name='Process-1' parent=15190 started>
+    │    └ None
+    └ <Process name='Process-1' parent=15190 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=15190 started>
+           │                └ <function DefaultContext.get_context at 0x7fd71a830430>
+           └ <multiprocessing.context.DefaultContext object at 0x7fd71a8632b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=15190 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=15190 started>
+    │    └ <function Popen._launch at 0x7fd716a5b4c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fd716a533a0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7fd71a85e310>
+           └ <Process name='Process-1' parent=15190 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fd71a81c940>
+    └ <Process name='Process-1' parent=15190 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=15190 started>
+    │    │        │    └ (('lasik', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T090222"><found ...
+    │    │        └ <Process name='Process-1' parent=15190 started>
+    │    └ <function Yandex at 0x7fd716a9be50>
+    └ <Process name='Process-1' parent=15190 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7fd716a285e0>
+    └ <__main__.Yandex object at 0x7fd71a7f6640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7fd716a24f70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ "UPDATE concurent_site.main_orderstatus SET site_age_concurency = 96, site_stem_concurency = 91, site_volume_concurency = 97,...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7fd71617d7c0; closed: 0>
+
+psycopg2.errors.UndefinedColumn: column "site_age_concurency" of relation "main_orderstatus" does not exist
+LINE 1: UPDATE concurent_site.main_orderstatus SET site_age_concuren...
+                                                   ^
+
+12:05:57 An error has been caught in function 'run', process 'Process-2' (15196), thread 'MainThread' (140561848682304):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7fd71a8109d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fd716a9b1f0>
+    └ <__main__.Manager object at 0x7fd719b23a90>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fd71a81c9d0>
+    └ <Process name='Process-2' parent=15190 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=15190 started>
+    │    │        │    └ <staticmethod object at 0x7fd71a99b0a0>
+    │    │        └ <Process name='Process-2' parent=15190 started>
+    │    └ None
+    └ <Process name='Process-2' parent=15190 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=15190 started>
+           │                └ <function DefaultContext.get_context at 0x7fd71a830430>
+           └ <multiprocessing.context.DefaultContext object at 0x7fd71a8632b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=15190 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=15190 started>
+    │    └ <function Popen._launch at 0x7fd716a5b4c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fd716a53310>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7fd71a85e310>
+           └ <Process name='Process-2' parent=15190 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fd71a81c940>
+    └ <Process name='Process-2' parent=15190 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=15190 started>
+    │    │        │    └ (('коррекция зрения', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T0902...
+    │    │        └ <Process name='Process-2' parent=15190 started>
+    │    └ <function Yandex at 0x7fd716a9be50>
+    └ <Process name='Process-2' parent=15190 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7fd716a285e0>
+    └ <__main__.Yandex object at 0x7fd71a7f6640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7fd716a24f70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ "UPDATE concurent_site.main_orderstatus SET site_age_concurency = 94, site_stem_concurency = 100, site_volume_concurency = 99...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7fd71581aa90; closed: 0>
+
+psycopg2.errors.UndefinedColumn: column "site_age_concurency" of relation "main_orderstatus" does not exist
+LINE 1: UPDATE concurent_site.main_orderstatus SET site_age_concuren...
+                                                   ^
+
+12:08:41 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:08:41 Проблема с валидностью контента nlv.ru. 
+12:08:46 An error has been caught in function 'run', process 'Process-1' (15402), thread 'MainThread' (139782990378816):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7f21c2ee79d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f21bf1721f0>
+    └ <__main__.Manager object at 0x7f21c21fce20>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f21c2ef39d0>
+    └ <Process name='Process-1' parent=15396 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=15396 started>
+    │    │        │    └ <staticmethod object at 0x7f21c30720a0>
+    │    │        └ <Process name='Process-1' parent=15396 started>
+    │    └ None
+    └ <Process name='Process-1' parent=15396 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=15396 started>
+           │                └ <function DefaultContext.get_context at 0x7f21c2f07430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f21c2f3a2b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=15396 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=15396 started>
+    │    └ <function Popen._launch at 0x7f21bf1324c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f21bf12c2b0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f21c2f35310>
+           └ <Process name='Process-1' parent=15396 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f21c2ef3940>
+    └ <Process name='Process-1' parent=15396 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=15396 started>
+    │    │        │    └ (('lasik', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T090222"><found ...
+    │    │        └ <Process name='Process-1' parent=15396 started>
+    │    └ <function Yandex at 0x7f21bf172e50>
+    └ <Process name='Process-1' parent=15396 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f21bf0ff5e0>
+    └ <__main__.Yandex object at 0x7f21c2ecd640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f21bf0fbf70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ "UPDATE concurent_site.main_orderstatus SET site_age_concurency = 96, site_stem_concurency = 91, site_volume_concurency = 97,...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f21885265e0; closed: 0>
+
+psycopg2.errors.UndefinedColumn: column "site_age_concurency" of relation "main_orderstatus" does not exist
+LINE 1: UPDATE concurent_site.main_orderstatus SET site_age_concuren...
+                                                   ^
+
+12:08:47 An error has been caught in function 'run', process 'Process-2' (15403), thread 'MainThread' (139782990378816):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 804, in <module>
+    Manager()
+    └ <function Manager at 0x7f21c2ee79d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f21bf1721f0>
+    └ <__main__.Manager object at 0x7f21c21fce20>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f21c2ef39d0>
+    └ <Process name='Process-2' parent=15396 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=15396 started>
+    │    │        │    └ <staticmethod object at 0x7f21c30720a0>
+    │    │        └ <Process name='Process-2' parent=15396 started>
+    │    └ None
+    └ <Process name='Process-2' parent=15396 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=15396 started>
+           │                └ <function DefaultContext.get_context at 0x7f21c2f07430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f21c2f3a2b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=15396 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=15396 started>
+    │    └ <function Popen._launch at 0x7f21bf1324c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f21bf12c220>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f21c2f35310>
+           └ <Process name='Process-2' parent=15396 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f21c2ef3940>
+    └ <Process name='Process-2' parent=15396 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=15396 started>
+    │    │        │    └ (('коррекция зрения', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T0902...
+    │    │        └ <Process name='Process-2' parent=15396 started>
+    │    └ <function Yandex at 0x7f21bf172e50>
+    └ <Process name='Process-2' parent=15396 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f21bf0ff5e0>
+    └ <__main__.Yandex object at 0x7f21c2ecd640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f21bf0fbf70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ "UPDATE concurent_site.main_orderstatus SET site_age_concurency = 94, site_stem_concurency = 100, site_volume_concurency = 99...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f21bc6fe6d0; closed: 0>
+
+psycopg2.errors.UndefinedColumn: column "site_age_concurency" of relation "main_orderstatus" does not exist
+LINE 1: UPDATE concurent_site.main_orderstatus SET site_age_concuren...
+                                                   ^
+
+12:09:38 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:09:38 Проблема с валидностью контента nlv.ru. 
+12:11:45 Не удалось загрузить https://www.nlv.ru/laser-correction
+12:11:45 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:11:45 Проблема с валидностью контента nlv.ru. 
+12:11:45 Проблема с валидностью контента nlv.ru. 
+12:12:31 Проблема с валидностью контента megogo.ru. 
+12:12:40 Проблемы с доменом chinagramota.ru
+12:33:11 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:33:11 Не удалось загрузить https://www.nlv.ru/laser-correction
+12:33:11 Проблема с валидностью контента nlv.ru. 
+12:33:11 Проблема с валидностью контента nlv.ru. 
+12:37:43 Проблема с валидностью контента wikichi.ru. 
+12:37:43 Проблема с валидностью контента wikichi.ru. 
+12:37:52 An error has been caught in function 'run', process 'Process-1' (19221), thread 'MainThread' (139683553576768):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 805, in <module>
+    Manager()
+    └ <function Manager at 0x7f0a9c0949d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f0a9831f1f0>
+    └ <__main__.Manager object at 0x7f0a9b3a9f10>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f0a9c0a0940>
+    └ <Process name='Process-1' parent=19169 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=19169 started>
+    │    │        │    └ <staticmethod object at 0x7f0a9c21f0a0>
+    │    │        └ <Process name='Process-1' parent=19169 started>
+    │    └ None
+    └ <Process name='Process-1' parent=19169 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=19169 started>
+           │                └ <function DefaultContext.get_context at 0x7f0a9c0b4430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f0a9c0e72b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=19169 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=19169 started>
+    │    └ <function Popen._launch at 0x7f0a982e04c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f0a982de040>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f0a9c0e3280>
+           └ <Process name='Process-1' parent=19169 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f0a9c0a08b0>
+    └ <Process name='Process-1' parent=19169 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=19169 started>
+    │    │        │    └ (('кубрик', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T093729"><found...
+    │    │        └ <Process name='Process-1' parent=19169 started>
+    │    └ <function Yandex at 0x7f0a9831fe50>
+    └ <Process name='Process-1' parent=19169 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f0a982ad5e0>
+    └ <__main__.Yandex object at 0x7f0a9c07a640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f0a982a8f70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ "UPDATE concurent_site.main_request SET site_age_concurency = 95, site_stem_concurency = 81, site_volume_concurency = 81, sit...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f0a7c105e50; closed: 0>
+
+psycopg2.errors.UndefinedColumn: column "кубрик" does not exist
+LINE 1: ...curency = 0, site_seo_concurency = 88 WHERE request = кубрик
+                                                                 ^
+
+12:37:54 Проблемы с доменом kinorium.com
+12:37:54 An error has been caught in function 'run', process 'Process-2' (19222), thread 'MainThread' (139683553576768):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 805, in <module>
+    Manager()
+    └ <function Manager at 0x7f0a9c0949d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f0a9831f1f0>
+    └ <__main__.Manager object at 0x7f0a9b3a9f10>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 49, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f0a9c0a0940>
+    └ <Process name='Process-2' parent=19169 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=19169 started>
+    │    │        │    └ <staticmethod object at 0x7f0a9c21f0a0>
+    │    │        └ <Process name='Process-2' parent=19169 started>
+    │    └ None
+    └ <Process name='Process-2' parent=19169 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=19169 started>
+           │                └ <function DefaultContext.get_context at 0x7f0a9c0b4430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f0a9c0e72b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=19169 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=19169 started>
+    │    └ <function Popen._launch at 0x7f0a982e04c0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f0a982de130>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f0a9c0e3280>
+           └ <Process name='Process-2' parent=19169 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f0a9c0a08b0>
+    └ <Process name='Process-2' parent=19169 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=19169 started>
+    │    │        │    └ (('кустурица', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210205T093729"><fo...
+    │    │        └ <Process name='Process-2' parent=19169 started>
+    │    └ <function Yandex at 0x7f0a9831fe50>
+    └ <Process name='Process-2' parent=19169 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 186, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f0a982ad5e0>
+    └ <__main__.Yandex object at 0x7f0a9c07a640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 279, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f0a982a8f70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ "UPDATE concurent_site.main_request SET site_age_concurency = 97, site_stem_concurency = 80, site_volume_concurency = 79, sit...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f0a9660d4f0; closed: 0>
+
+psycopg2.errors.UndefinedColumn: column "кустурица" does not exist
+LINE 1: ...ency = 0, site_seo_concurency = 90 WHERE request = кустурица
+                                                              ^
+
+12:38:06 Проблема с валидностью контента wikichi.ru. 
+12:38:07 Проблема с валидностью контента wikichi.ru. 
+12:39:57 Не удалось загрузить https://hearthstone-like.ru/samaja-stabilnaja-koloda-fejs-hanta-legenda-oktjabr-2015
+12:39:58 Проблема с валидностью контента hearthstone-like.ru. 
+12:44:32 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:44:32 Проблема с валидностью контента nlv.ru. 
+12:44:33 Проблема с валидностью контента glaz-center.com. 

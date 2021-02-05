@@ -6,6 +6,9 @@ USER = 'postgres'
 PASSWORD = 'fn3kMls1'
 HOST = '127.0.0.1'
 
+def establish_connection():
+    connection = psycopg2.connect(dbname=DATABASE, user=USER, password=PASSWORD, host=HOST)
+    return connection
 
 def check_in_database(table, row_check, value_check, limit=0):
     conn = psycopg2.connect(dbname=DATABASE, user=USER, password=PASSWORD, host=HOST)
@@ -82,5 +85,12 @@ def delete_from_database(table, row, values):
     for value in values:
         sql = f"DELETE FROM {SCHEMA}.{table} WHERE {row} = '{value}'"
         cursor.execute(sql)
+    conn.commit()
+    conn.close()
+
+def custom_request_to_database_without_return(sql):
+    conn = psycopg2.connect(dbname=DATABASE, user=USER, password=PASSWORD, host=HOST)
+    cursor = conn.cursor()
+    cursor.execute(sql)
     conn.commit()
     conn.close()

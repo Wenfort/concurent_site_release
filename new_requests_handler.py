@@ -270,28 +270,38 @@ class Yandex:
 
     def add_result_to_database(self):
 
-        pm.delete_from_database('main_request', 'request', (self.request,))
-
         if self.concurency_object.site_backlinks_concurency == '':
             self.concurency_object.site_backlinks_concurency = 0
 
         if self.concurency_object.site_total_concurency == '':
             self.concurency_object.site_total_concurency = 0
 
+        pm.custom_request_to_database_without_return(
+            f"UPDATE concurent_site.main_request SET "
+            f"site_age_concurency = {self.concurency_object.site_age_concurency}, "
+            f"site_stem_concurency = {self.concurency_object.site_stem_concurency}, "
+            f"site_volume_concurency = {self.concurency_object.site_volume_concurency}, "
+            f"site_backlinks_concurency = {self.concurency_object.site_backlinks_concurency}, "
+            f"site_total_concurency = {self.concurency_object.site_total_concurency}, "
+            f"direct_upscale = {self.concurency_object.direct_upscale}, "
+            f"status = '{self.concurency_object.status}', "
+            f"site_direct_concurency = {self.concurency_object.site_direct_concurency}, "
+            f"site_seo_concurency = {self.concurency_object.site_seo_concurency} "
+            f"WHERE request = '{self.request}'"
+        )
 
-        values_to_go = (self.request,
-                        self.concurency_object.site_age_concurency,
-                        self.concurency_object.site_stem_concurency,
-                        self.concurency_object.site_volume_concurency,
-                        self.concurency_object.site_backlinks_concurency,
-                        self.concurency_object.site_total_concurency,
-                        self.concurency_object.direct_upscale,
-                        self.concurency_object.status,
-                        self.concurency_object.site_direct_concurency,
-                        self.concurency_object.site_seo_concurency,
-                        )
-        logger.debug(values_to_go)
-        pm.add_to_database_with_autoincrement('main_request', values_to_go)
+        #values_to_go = (self.request,
+        #                self.concurency_object.site_age_concurency,
+        #                self.concurency_object.site_stem_concurency,
+        #                self.concurency_object.site_volume_concurency,
+        #                self.concurency_object.site_backlinks_concurency,
+        #                self.concurency_object.site_total_concurency,
+        #                self.concurency_object.direct_upscale,
+        #                self.concurency_object.status,
+        #                self.concurency_object.site_direct_concurency,
+        #                self.concurency_object.site_seo_concurency,
+        #               )
+        #logger.debug(values_to_go)
 
     def get_scalp(self):
         print(self.page_xml.prettify())

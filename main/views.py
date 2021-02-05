@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_list_or_404, redirect
 
-from .models import Request, RequestQueue, UserData, Order
+from .models import Request, RequestQueue, UserData, Order, OrderStatus
 
 from .forms import NewRequest
 
@@ -19,12 +19,14 @@ class User:
         self.unique_order_rows = object
         self.ordered_keywords_amount = int
         self.orders_amount = int
+        self.super_orders = list
 
         self.get_user_data()
         self.get_user_id()
         self.get_user_balance()
         self.get_all_user_order_rows()
         self.get_unique_user_order_rows()
+        self.check_order_status()
         self.calculate_user_statistic()
 
     def get_user_data(self):
@@ -46,6 +48,13 @@ class User:
         self.ordered_keywords_amount = len(self.all_order_rows)
         self.orders_amount = len(self.unique_order_rows)
 
+    def check_order_status(self):
+        orders_to_check = list()
+        for unique_order_row in self.unique_order_rows:
+            orders_to_check.append(str(unique_order_row.order_id))
+
+        self.super_orders = OrderStatus.objects.filter(order_id__in=orders_to_check)
+
 class NewRequestHandler:
     def __init__(self, request):
         self.request = request.POST
@@ -63,6 +72,7 @@ class NewRequestHandler:
         self.get_new_requests_id()
         self.calculate_new_requests_amount()
         self.update_user_orders()
+        self.update_user_order_status()
         self.update_user_balance()
 
     def get_user_data(self):
@@ -83,7 +93,10 @@ class NewRequestHandler:
                 Request(request=request).save()
 
     def get_order_id(self):
-        self.order_id = Order.objects.latest('pk').id + 1
+        try:
+            self.order_id = Order.objects.latest('pk').id + 1
+        except:
+            self.order_id = 1
 
     def get_new_requests_id(self):
         self.new_requests = Request.objects.filter(request__in=self.requests_list)
@@ -97,6 +110,9 @@ class NewRequestHandler:
                   user_id=self.user_data.id,
                   order_id=self.order_id
                   ).save()
+
+    def update_user_order_status(self):
+        OrderStatus(order_id=self.order_id, user_id=self.user_data.id).save()
 
     def update_user_balance(self):
         UserData(id=self.user_data.id,
@@ -133,7 +149,7 @@ def get_orders_page(request):
         user_data = User(request.user.username)
         form = NewRequest()
 
-        context = {'all_orders_list': user_data.unique_order_rows,
+        context = {'all_orders_list': user_data.super_orders,
                    'orders': user_data.orders_amount,
                    'keywords_ordered': user_data.ordered_keywords_amount,
                    'balance': user_data.balance,
@@ -141,6 +157,9 @@ def get_orders_page(request):
 
         return render(request, 'main/orders.html', context)
 
+def requests_from_order(request, order_id):
+    a = 'b'
+    return HttpResponseRedirect('/main/orders')
 
 def balance(request):
     pass

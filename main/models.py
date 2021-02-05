@@ -60,6 +60,7 @@ class HandledXml(models.Model):
     def __str__(self):
         return self.request
 
+
 class UserData(models.Model):
     balance = models.IntegerField(default=0)
     name = models.CharField(max_length=30)
@@ -67,7 +68,15 @@ class UserData(models.Model):
     def __str__(self):
         return self.name
 
+
 class Order(models.Model):
     order_id = models.IntegerField(default=0)
     request_id = models.IntegerField(default=0)
     user_id = models.IntegerField(default=0)
+
+
+class OrderStatus(models.Model):
+    order_id = models.IntegerField(primary_key=True, default=0)
+    user_id = models.IntegerField(default=0)
+    status = models.SmallIntegerField(default=0)
+    progress = models.SmallIntegerField(default=0)

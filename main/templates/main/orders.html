@@ -21,11 +21,15 @@
                             <tbody>
                                 {% if all_orders_list %}
                                     {% for order in all_orders_list %}
-                                            <tr>
-                                                <td> #{{ order.order_id }} </td>
-                                                <td> NIY </td>
-                                                <td> NIY </td>
-                                            </tr>
+                                        <tr>
+                                            <td> <a href="orders/{{ order.order_id }}"> #{{ order.order_id }} </a></td>
+                                            <td> NIY </td>
+                                            {% if order.status == 0 %}
+                                                <td> {{ order.progress }}% </td>
+                                            {% else %}
+                                                <td> Готов </td>
+                                            {% endif %}
+                                        </tr>
                                     {% endfor %}
                                 {% endif %}
                             </tbody>
