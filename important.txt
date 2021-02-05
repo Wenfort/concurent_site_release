@@ -9735,3 +9735,4 @@ LINE 1: ...ency = 0, site_seo_concurency = 90 WHERE request = кустурица
 12:44:32 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
 12:44:32 Проблема с валидностью контента nlv.ru. 
 12:44:33 Проблема с валидностью контента glaz-center.com. 
+13:43:25 Проблема с валидностью контента rbook.me. 

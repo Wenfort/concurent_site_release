@@ -112,7 +112,7 @@ class NewRequestHandler:
                   ).save()
 
     def update_user_order_status(self):
-        OrderStatus(order_id=self.order_id, user_id=self.user_data.id).save()
+        OrderStatus(order_id=self.order_id, user_id=self.user_data.id, ordered_keywords_amount=self.new_requests_amount).save()
 
     def update_user_balance(self):
         UserData(id=self.user_data.id,

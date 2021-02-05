@@ -80,3 +80,4 @@ class OrderStatus(models.Model):
     user_id = models.IntegerField(default=0)
     status = models.SmallIntegerField(default=0)
     progress = models.SmallIntegerField(default=0)
+    ordered_keywords_amount = models.SmallIntegerField(default=0)
