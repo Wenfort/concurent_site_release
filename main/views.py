@@ -2,15 +2,16 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_list_or_404, redirect
 
 from .models import Request, RequestQueue, UserData, Order, OrderStatus
+from django.contrib.auth.models import User
 
-from .forms import NewRequest
+from .forms import NewRequest, NewUser
 
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
-class User:
+class SiteUser:
     def __init__(self, name):
         self.name = name
         self.user = object
@@ -40,6 +41,7 @@ class User:
     def get_ordered_requests(self):
         self.ordered_keywords = self.user.ordered_keywords
 
+
 class Orders:
     def __init__(self, user_id):
         self.user_id = user_id
@@ -54,6 +56,7 @@ class Orders:
 
     def get_unique_user_order_rows(self):
         self.unique_order_rows = OrderStatus.objects.filter(user_id=self.user_id)
+
 
 class NewRequestHandler:
     def __init__(self, request):
@@ -76,7 +79,7 @@ class NewRequestHandler:
         self.update_user_balance()
 
     def get_user_data(self):
-        self.user_data = User(self.user_name)
+        self.user_data = SiteUser(self.user_name)
 
     def make_requests_list(self):
         requests_list = self.request['requests_list']
@@ -123,13 +126,38 @@ class NewRequestHandler:
                  ordered_keywords=self.user_data.user_ordered_keywords + self.new_requests_amount,
                  ).save()
 
+class NewUserHandler:
+    def __init__(self, request):
+        self.request = request.POST
+        self.user_name = str
+        self.password = str
+        self.email = str
+
+        self.get_user_name()
+        self.get_user_password()
+        self.get_user_email()
+
+        self.create_user()
+
+    def get_user_name(self):
+        self.user_name = self.request['username']
+
+    def get_user_password(self):
+        self.password = self.request['password']
+
+    def get_user_email(self):
+        self.email = self.request['email']
+
+    def create_user(self):
+        User.objects.create_user(self.user_name, self.email, self.password)
+        UserData(name=self.user_name, balance=50).save()
 
 def results(request):
     if request.method == "POST":
         NewRequestHandler(request)
         return HttpResponseRedirect('/main/results')
     else:
-        user_data = User(request.user.username)
+        user_data = SiteUser(request.user.username)
         all_requests_list = get_list_or_404(Request.objects.order_by('site_seo_concurency'))
         try:
             context = {'all_requests_list': all_requests_list,
@@ -149,7 +177,7 @@ def get_orders_page(request):
         NewRequestHandler(request)
         return HttpResponseRedirect('/main/orders')
     else:
-        user_data = User(request.user.username)
+        user_data = SiteUser(request.user.username)
         orders_data = Orders(user_data.id)
         form = NewRequest()
 
@@ -163,12 +191,11 @@ def get_orders_page(request):
 
 
 def requests_from_order(request, order_id):
-    user_data = User(request.user.username)
+    user_data = SiteUser(request.user.username)
     order_data = Order.objects.filter(order_id=order_id)
 
     requests_ids = [od.request_id for od in order_data]
     all_requests_list = Request.objects.filter(id__in=requests_ids)
-
 
     context = {'all_requests_list': all_requests_list,
                'orders': user_data.orders,
@@ -183,3 +210,13 @@ def requests_from_order(request, order_id):
 
 def balance(request):
     pass
+
+def registration(request):
+    if request.method == "POST":
+        NewUserHandler(request)
+    else:
+        form = NewUser()
+        context = {
+            'form': form,
+                   }
+        return render(request, 'main/registration.html', context)
