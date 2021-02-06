@@ -16,29 +16,29 @@ class User:
         self.user = object
         self.id = int
         self.balance = int
-        self.user_orders = int
-        self.user_ordered_keywords = int
+        self.orders = int
+        self.ordered_keywords = int
 
-        self.get_user_data()
-        self.get_user_id()
-        self.get_user_balance()
-        self.get_user_orders()
-        self.get_user_ordered_requests()
+        self.get_data()
+        self.get_id()
+        self.get_balance()
+        self.get_orders()
+        self.get_ordered_requests()
 
-    def get_user_data(self):
+    def get_data(self):
         self.user = UserData.objects.get(name=self.name)
 
-    def get_user_id(self):
+    def get_id(self):
         self.id = self.user.id
 
-    def get_user_balance(self):
+    def get_balance(self):
         self.balance = self.user.balance
 
-    def get_user_orders(self):
-        self.user_orders = self.user.orders_amount
+    def get_orders(self):
+        self.orders = self.user.orders_amount
 
-    def get_user_ordered_requests(self):
-        self.user_ordered_keywords = self.user.ordered_keywords
+    def get_ordered_requests(self):
+        self.ordered_keywords = self.user.ordered_keywords
 
 class Orders:
     def __init__(self, user_id):
@@ -133,8 +133,8 @@ def results(request):
         all_requests_list = get_list_or_404(Request.objects.order_by('site_seo_concurency'))
         try:
             context = {'all_requests_list': all_requests_list,
-                       'orders': user_data.user_orders,
-                       'keywords_ordered': user_data.user_ordered_keywords,
+                       'orders': user_data.orders,
+                       'keywords_ordered': user_data.ordered_keywords,
                        'balance': user_data.balance}
         except:
             context = {'all_requests_list': all_requests_list}
@@ -154,8 +154,8 @@ def get_orders_page(request):
         form = NewRequest()
 
         context = {'all_orders_list': orders_data.unique_order_rows,
-                   'orders': user_data.user_orders,
-                   'keywords_ordered': user_data.user_ordered_keywords,
+                   'orders': user_data.orders,
+                   'keywords_ordered': user_data.ordered_keywords,
                    'balance': user_data.balance,
                    'form': form}
 
@@ -171,8 +171,8 @@ def requests_from_order(request, order_id):
 
 
     context = {'all_requests_list': all_requests_list,
-               'orders': user_data.user_orders,
-               'keywords_ordered': user_data.user_ordered_keywords,
+               'orders': user_data.orders,
+               'keywords_ordered': user_data.ordered_keywords,
                'balance': user_data.balance}
 
     if request.user.is_staff:
