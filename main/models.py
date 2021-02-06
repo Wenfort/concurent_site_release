@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 
 class Domain(models.Model):
     name = models.CharField(max_length=100, primary_key=True)
@@ -83,3 +83,19 @@ class OrderStatus(models.Model):
     status = models.SmallIntegerField(default=0)
     progress = models.SmallIntegerField(default=0)
     ordered_keywords_amount = models.SmallIntegerField(default=0)
+
+
+class Ticket(models.Model):
+    author = models.CharField(max_length=25)
+    status = models.CharField(max_length=15, default='pending')
+    opened = models.DateTimeField(default=timezone.now)
+    closed = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.author
+
+class TicketPost(models.Model):
+    ticked_id = models.IntegerField(default=0)
+    ticket_post_author = models.SmallIntegerField(default=0)
+    ticket_post_text = models.TextField(default='')
+    ticket_post_order = models.SmallIntegerField(default=0)

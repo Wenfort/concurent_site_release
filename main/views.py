@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_list_or_404, redirect
 from django.contrib.auth import authenticate, login
 
-from .models import Request, RequestQueue, UserData, Order, OrderStatus
+from .models import Request, RequestQueue, UserData, Order, OrderStatus, TicketPost, Ticket
 from django.contrib.auth.models import User
 
 from .forms import NewRequest, NewUser, AuthUser
@@ -237,3 +237,12 @@ def authorization(request):
         }
 
         return render(request, 'main/authorization.html', context)
+
+def tickets(request):
+    return render(request, 'main/ticket.html')
+
+def add_new_ticket(request):
+    if request.method == "POST":
+        a = Ticket(author=request.user.username, status='pending')
+        a.save()
+    return render(request, 'main/add_new_ticket.html')

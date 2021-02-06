@@ -1,0 +1,32 @@
+{% extends './ticket_page_body.html' %}
+
+{% block content %}
+<div class="container chat-window">
+        <div class="row chat-container">
+            <div class="col-sm-8 chat-message client-chat-message">
+                <p class="chat-nickname client-chat-nickname">Пользователь</p>
+                <p>Permissions can be set not only per type of object, but also per specific object instance. By using the has_view_permission(), has_add_permission(), has_change_permission() and has_delete_permission() methods provided by the ModelAdmin class, it is possible to customize permissions for different object instances of the same type. Permissions can be set not only per type of object, but also per specific object instance. By using the has_view_permission(), has_add_permission(), has_change_permission() and has_delete_permission() methods provided by the ModelAdmin class, it is possible to customize permissions for different object instances of the same type.</p>
+            </div>
+        </div>
+
+        <div class="row chat-container">
+            <div class="col-sm-8 offset-sm-4 chat-message admin-chat-message">
+                <p class="chat-nickname admin-chat-nickname">Админ</p>
+                <p>Permissions can be set not only per type of object, but also per specific object instance. By using the has_view_permission(), has_add_permission(), has_change_permission() and has_delete_permission() methods provided by the ModelAdmin class, it is possible to customize permissions for different object instances of the same type. Permissions can be set not only per type of object, but also per specific object instance. By using the has_view_permission(), has_add_permission(), has_change_permission() and has_delete_permission() methods provided by the ModelAdmin class, it is possible to customize permissions for different object instances of the same type.</p>
+            </div>
+        </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 offset-sm-1">
+            <form action="" method="post">
+                {% csrf_token %}
+                <textarea rows="2" name="ticket_post" style="width: 100%"></textarea>
+            </form>
+        </div>
+        <div class="col-sm-2">
+            <input type="submit" value="Отправить" class="btn btn-primary btn-rounded" style="width: 100%">
+        </div>
+    </div>
+</div>
+{% endblock %}

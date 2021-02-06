@@ -1,0 +1,39 @@
+.chat-window {
+    max-height: 600px;
+    overflow: auto;
+    margin-bottom: 15px;
+}
+
+.chat-container {
+    margin-bottom: 24px;
+}
+
+.chat-message {
+    padding: 12px 24px;
+}
+
+.admin-chat-message {
+    background-color: rgba(123,18,66,.1);
+}
+
+.client-chat-message {
+    background-color: rgba(85,110,230,.1);
+}
+
+.chat-nickname {
+    font-weight: 600;
+}
+
+.admin-chat-nickname {
+    color: #ec2392;
+}
+
+.client-chat-nickname {
+    color: #556ee6;
+}
+
+.ticket-in-list {
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
