@@ -1,10 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_list_or_404, redirect
+from django.contrib.auth import authenticate, login
 
 from .models import Request, RequestQueue, UserData, Order, OrderStatus
 from django.contrib.auth.models import User
 
-from .forms import NewRequest, NewUser
+from .forms import NewRequest, NewUser, AuthUser
 
 
 def index(request):
@@ -152,6 +153,7 @@ class NewUserHandler:
         User.objects.create_user(self.user_name, self.email, self.password)
         UserData(name=self.user_name, balance=50).save()
 
+
 def results(request):
     if request.method == "POST":
         NewRequestHandler(request)
@@ -211,6 +213,7 @@ def requests_from_order(request, order_id):
 def balance(request):
     pass
 
+
 def registration(request):
     if request.method == "POST":
         NewUserHandler(request)
@@ -220,3 +223,17 @@ def registration(request):
             'form': form,
                    }
         return render(request, 'main/registration.html', context)
+
+
+def authorization(request):
+    if request.method == "POST":
+        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        login(request, user)
+        return HttpResponseRedirect('/main/results')
+    else:
+        form = AuthUser()
+        context = {
+            'form': form,
+        }
+
+        return render(request, 'main/authorization.html', context)

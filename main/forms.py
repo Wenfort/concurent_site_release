@@ -13,3 +13,9 @@ class NewUser(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password', 'email',)
+
+
+class AuthUser(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'password',)
