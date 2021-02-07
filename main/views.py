@@ -127,6 +127,7 @@ class NewRequestHandler:
                  ordered_keywords=self.user_data.user_ordered_keywords + self.new_requests_amount,
                  ).save()
 
+
 class NewUserHandler:
     def __init__(self, request):
         self.request = request.POST
@@ -221,7 +222,7 @@ def registration(request):
         form = NewUser()
         context = {
             'form': form,
-                   }
+        }
         return render(request, 'main/registration.html', context)
 
 
@@ -238,11 +239,30 @@ def authorization(request):
 
         return render(request, 'main/authorization.html', context)
 
+
 def tickets(request):
-    return render(request, 'main/ticket.html')
+    all_tickets = Ticket.objects.filter(author=request.user.username).order_by('-id')
+    latest_ticket = all_tickets[0]
+
+    latest_ticket_posts = TicketPost.objects.filter(ticked_id=latest_ticket.id)
+
+    context = {
+        'all_tickets': all_tickets,
+        'latest_ticket': latest_ticket,
+        'latest_ticket_posts': latest_ticket_posts,
+    }
+
+    return render(request, 'main/ticket.html', context)
+
 
 def add_new_ticket(request):
     if request.method == "POST":
-        a = Ticket(author=request.user.username, status='pending')
-        a.save()
+        post_request = request.POST
+        ticket = Ticket(author=request.user.username,
+                        status='pending', )
+        ticket.save()
+        TicketPost(ticked_id=ticket.id,
+                   ticket_post_author=request.user.username,
+                   ticket_post_text=post_request['ticket_post_text'],
+                   ticket_post_order=0).save()
     return render(request, 'main/add_new_ticket.html')

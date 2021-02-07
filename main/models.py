@@ -96,6 +96,6 @@ class Ticket(models.Model):
 
 class TicketPost(models.Model):
     ticked_id = models.IntegerField(default=0)
-    ticket_post_author = models.SmallIntegerField(default=0)
+    ticket_post_author = models.CharField(max_length=25, default='')
     ticket_post_text = models.TextField(default='')
     ticket_post_order = models.SmallIntegerField(default=0)
