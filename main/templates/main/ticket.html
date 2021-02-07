@@ -2,8 +2,9 @@
 
 {% block content %}
     {% if latest_ticket %}
+        <div class="container chat-window">
         {% for ticket_post in latest_ticket_posts %}
-            <div class="container chat-window">
+
             {% if ticket_post.ticket_post_author != 'airlove' %}
                 <div class="row chat-container">
                     <div class="col-sm-8 chat-message client-chat-message">
@@ -37,18 +38,19 @@
             </div>
         </div>
     {% endif %}
-
+</div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-8 offset-sm-1">
+        <div class="col-md-10">
             <form action="" method="post">
                 {% csrf_token %}
-                <textarea rows="2" name="ticket_post" style="width: 100%"></textarea>
-            </form>
+                <textarea rows="2" name="ticket_post_text" style="width: 100%"></textarea>
         </div>
-        <div class="col-sm-2">
-            <input type="submit" value="Отправить" class="btn btn-primary btn-rounded" style="width: 100%">
+        <div class="col-md-2">
+            <input type="submit" value="Отправить" class="btn btn-primary" style="width: 100%">
+            </form>
         </div>
     </div>
 </div>
+
 {% endblock %}

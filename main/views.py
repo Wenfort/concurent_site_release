@@ -241,15 +241,26 @@ def authorization(request):
 
 
 def tickets(request):
+    user_data = SiteUser(request.user.username)
     all_tickets = Ticket.objects.filter(author=request.user.username).order_by('-id')
     latest_ticket = all_tickets[0]
 
-    latest_ticket_posts = TicketPost.objects.filter(ticked_id=latest_ticket.id)
+    if request.method == "POST":
+        post_request = request.POST
+        TicketPost(ticked_id=latest_ticket.id,
+                   ticket_post_author=request.user.username,
+                   ticket_post_text=post_request['ticket_post_text'],
+                   ticket_post_order=0).save()
+
+    latest_ticket_posts = TicketPost.objects.filter(ticked_id=latest_ticket.id).order_by('-id')
 
     context = {
         'all_tickets': all_tickets,
         'latest_ticket': latest_ticket,
         'latest_ticket_posts': latest_ticket_posts,
+        'orders': user_data.orders,
+        'keywords_ordered': user_data.ordered_keywords,
+        'balance': user_data.balance,
     }
 
     return render(request, 'main/ticket.html', context)
