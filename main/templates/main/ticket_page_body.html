@@ -16,10 +16,10 @@
             <h3 style="text-align: center">Тикеты</h3>
             {% if all_tickets %}
                 {% for ticket in all_tickets %}
-                    <p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">Тикет #{{ ticket.id }}</p>
+                    <a href="/main/tickets/{{ ticket.id }}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">Тикет #{{ ticket.id }}</p></a>
                 {% endfor %}
             {% endif %}
-            <h6 style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">+ Создать новый тикет</h6>
+            <a href="{% url 'add_new_ticket' %}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">+ Создать новый тикет</h6></a>
         </div>
         <div class="col-sm-9">
             {% block content %}

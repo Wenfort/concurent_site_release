@@ -1,5 +1,5 @@
 .chat-window {
-    max-height: 600px;
+    max-height: 450px;
     overflow: auto;
     margin-bottom: 15px;
 }

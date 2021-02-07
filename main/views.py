@@ -240,33 +240,8 @@ def authorization(request):
         return render(request, 'main/authorization.html', context)
 
 
-def tickets(request):
-    user_data = SiteUser(request.user.username)
-    all_tickets = Ticket.objects.filter(author=request.user.username).order_by('-id')
-    latest_ticket = all_tickets[0]
-
-    if request.method == "POST":
-        post_request = request.POST
-        TicketPost(ticked_id=latest_ticket.id,
-                   ticket_post_author=request.user.username,
-                   ticket_post_text=post_request['ticket_post_text'],
-                   ticket_post_order=0).save()
-
-    latest_ticket_posts = TicketPost.objects.filter(ticked_id=latest_ticket.id).order_by('-id')
-
-    context = {
-        'all_tickets': all_tickets,
-        'latest_ticket': latest_ticket,
-        'latest_ticket_posts': latest_ticket_posts,
-        'orders': user_data.orders,
-        'keywords_ordered': user_data.ordered_keywords,
-        'balance': user_data.balance,
-    }
-
-    return render(request, 'main/ticket.html', context)
-
-
 def add_new_ticket(request):
+    user_data = SiteUser(request.user.username)
     if request.method == "POST":
         post_request = request.POST
         ticket = Ticket(author=request.user.username,
@@ -275,5 +250,45 @@ def add_new_ticket(request):
         TicketPost(ticked_id=ticket.id,
                    ticket_post_author=request.user.username,
                    ticket_post_text=post_request['ticket_post_text'],
+                   ticket_post_order=0,
+                   ).save()
+
+        return HttpResponseRedirect('/main/tickets')
+
+    context = {
+        'orders': user_data.orders,
+        'keywords_ordered': user_data.ordered_keywords,
+        'balance': user_data.balance,
+    }
+
+    return render(request, 'main/add_new_ticket.html', context)
+
+
+def get_ticket_posts_from_ticket(request, ticket_id=None):
+    user_data = SiteUser(request.user.username)
+    all_tickets = Ticket.objects.filter(author=request.user.username).order_by('-id')
+    if ticket_id:
+        ticket = Ticket.objects.get(id=ticket_id)
+    else:
+        ticket = all_tickets[0]
+
+    if request.method == "POST":
+        post_request = request.POST
+        TicketPost(ticked_id=ticket.id,
+                   ticket_post_author=request.user.username,
+                   ticket_post_text=post_request['ticket_post_text'],
                    ticket_post_order=0).save()
-    return render(request, 'main/add_new_ticket.html')
+        return HttpResponseRedirect(request.path)
+
+    latest_ticket_posts = TicketPost.objects.filter(ticked_id=ticket.id).order_by('-id')
+
+    context = {
+        'all_tickets': all_tickets,
+        'latest_ticket': ticket,
+        'latest_ticket_posts': latest_ticket_posts,
+        'orders': user_data.orders,
+        'keywords_ordered': user_data.ordered_keywords,
+        'balance': user_data.balance,
+    }
+
+    return render(request, 'main/ticket.html', context)
