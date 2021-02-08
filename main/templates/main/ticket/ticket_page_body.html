@@ -16,7 +16,12 @@
             <h3 style="text-align: center">Тикеты</h3>
             {% if all_tickets %}
                 {% for ticket in all_tickets %}
-                    <a href="/main/tickets/{{ ticket.id }}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">Тикет #{{ ticket.id }}</p></a>
+                    <a href="/main/tickets/{{ ticket.id }}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">Тикет #{{ ticket.id }}
+                        {% if ticket.status == 'pending' %}
+                        (Открыт)</p></a>
+                        {% else %}
+                        (Закрыт)</p></a>
+                        {% endif %}
                 {% endfor %}
             {% endif %}
             <a href="{% url 'add_new_ticket' %}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">+ Создать новый тикет</h6></a>

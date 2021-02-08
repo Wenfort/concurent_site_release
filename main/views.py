@@ -186,7 +186,7 @@ class Tickets:
         return self.all_tickets
 
     def get_all_admin_tickets(self):
-        self.all_tickets = Ticket.objects.all().order_by('-id')
+        self.all_tickets = Ticket.objects.filter(status='pending').order_by('-id')
         return self.all_tickets
 
     def create_ticket_post(self, ticked_id, ticket_post_text):
@@ -222,6 +222,12 @@ class Tickets:
         else:
             return False
 
+    def close_ticket(self, ticket_id):
+        if self.user_role == 'admin':
+            Ticket.objects.filter(id=ticket_id).update(status='closed', closed=timezone.now())
+            return HttpResponseRedirect('/main/tickets')
+        else:
+            return HttpResponse('У вас нет права закрывать тикеты')
 
 def results(request):
     if request.method == "POST":
@@ -287,34 +293,40 @@ def balance(request):
 
 
 def registration(request):
-    if request.method == "POST":
-        user = NewUserHandler(request)
-        if user.valid:
-            user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
-            login(request, user)
-            return HttpResponseRedirect('/main/orders')
-        else:
-            return render(request, 'main/user_auth/registration.html', {'error':'пароли не совпадают'})
+    if request.user.is_authenticated:
+        return HttpResponse('Вы уже зарегистрированы')
     else:
-        form = NewUser()
-        context = {
-            'form': form,
-        }
-        return render(request, 'main/user_auth/registration.html', context)
+        if request.method == "POST":
+            user = NewUserHandler(request)
+            if user.valid:
+                user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+                login(request, user)
+                return HttpResponseRedirect('/main/orders')
+            else:
+                return render(request, 'main/user_auth/registration.html', {'error':'пароли не совпадают'})
+        else:
+            form = NewUser()
+            context = {
+                'form': form,
+            }
+            return render(request, 'main/user_auth/registration.html', context)
 
 
 def authorization(request):
-    if request.method == "POST":
-        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
-        login(request, user)
-        return HttpResponseRedirect('/main/results')
+    if request.user.is_authenticated:
+        return HttpResponse('Вы уже авторизировались')
     else:
-        form = AuthUser()
-        context = {
-            'form': form,
-        }
+        if request.method == "POST":
+            user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+            login(request, user)
+            return HttpResponseRedirect('/main/results')
+        else:
+            form = AuthUser()
+            context = {
+                'form': form,
+            }
 
-        return render(request, 'main/user_auth/authorization.html', context)
+            return render(request, 'main/user_auth/authorization.html', context)
 
 
 def add_new_ticket(request):
@@ -352,6 +364,10 @@ def get_ticket_posts_from_ticket(request, ticket_id=None):
         if choosen_ticket or request.user.is_staff:
             if request.method == "POST":
                 post_request = request.POST
+
+                if ticket_id == None:
+                    ticket_id = choosen_ticket.id
+
                 tickets_data.create_ticket_post(ticket_id, post_request['ticket_post_text'])
                 return HttpResponseRedirect(request.path)
 
@@ -380,8 +396,8 @@ def logout(request):
 
 
 def close_ticket(request, ticket_id):
-    if request.user.is_staff:
-        ticket = Ticket.objects.filter(id=ticket_id).update(status='closed', closed=timezone.now())
-        return HttpResponseRedirect('/main/tickets')
-    else:
-        return HttpResponse('У вас нет права закрывать тикеты')
+    username = request.user.username
+    user_data = SiteUser(username)
+    ticket_data = Tickets(user_data)
+
+    return ticket_data.close_ticket(ticket_id)
