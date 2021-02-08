@@ -10,6 +10,7 @@ urlpatterns = [
     path('balance', views.balance, name='balance'),
     path('registration', views.registration, name='registration'),
     path('authorization', views.authorization, name='authorization'),
+    path('logout', views.logout, name='logout'),
     path('tickets/<int:ticket_id>', views.get_ticket_posts_from_ticket, name='posts_from_ticket'),
     path('tickets', views.get_ticket_posts_from_ticket, name='posts_from_latest_ticket'),
     path('add_new_ticket', views.add_new_ticket, name='add_new_ticket'),

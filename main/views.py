@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_list_or_404, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout as django_logout
 
 from .models import Request, RequestQueue, UserData, Order, OrderStatus, TicketPost, Ticket
 from django.contrib.auth.models import User
@@ -223,7 +223,7 @@ def registration(request):
         context = {
             'form': form,
         }
-        return render(request, 'main/registration.html', context)
+        return render(request, 'main/user_auth/registration.html', context)
 
 
 def authorization(request):
@@ -237,11 +237,13 @@ def authorization(request):
             'form': form,
         }
 
-        return render(request, 'main/authorization.html', context)
+        return render(request, 'main/user_auth/authorization.html', context)
 
 
 def add_new_ticket(request):
     user_data = SiteUser(request.user.username)
+    all_tickets = Ticket.objects.filter(author=request.user.username).order_by('-id')
+
     if request.method == "POST":
         post_request = request.POST
         ticket = Ticket(author=request.user.username,
@@ -253,20 +255,24 @@ def add_new_ticket(request):
                    ticket_post_order=0,
                    ).save()
 
-        return HttpResponseRedirect('/main/tickets')
+        return HttpResponseRedirect('/main/ticket/ticket.html')
 
     context = {
+        'all_tickets': all_tickets,
         'orders': user_data.orders,
         'keywords_ordered': user_data.ordered_keywords,
         'balance': user_data.balance,
     }
 
-    return render(request, 'main/add_new_ticket.html', context)
+    return render(request, 'main/ticket/add_new_ticket.html', context)
 
 
 def get_ticket_posts_from_ticket(request, ticket_id=None):
     user_data = SiteUser(request.user.username)
-    all_tickets = Ticket.objects.filter(author=request.user.username).order_by('-id')
+    if request.user.is_staff:
+        all_tickets = Ticket.objects.all().order_by('-id')
+    else:
+        all_tickets = Ticket.objects.filter(author=request.user.username).order_by('-id')
     if ticket_id:
         ticket = Ticket.objects.get(id=ticket_id)
     else:
@@ -291,4 +297,10 @@ def get_ticket_posts_from_ticket(request, ticket_id=None):
         'balance': user_data.balance,
     }
 
-    return render(request, 'main/ticket.html', context)
+    return render(request, 'main/ticket/ticket.html', context)
+
+
+def logout(request):
+    django_logout(request)
+    return HttpResponseRedirect('/main/user_auth/authorization.html')
+
