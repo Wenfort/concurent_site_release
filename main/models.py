@@ -89,7 +89,7 @@ class Ticket(models.Model):
     author = models.CharField(max_length=25)
     status = models.CharField(max_length=15, default='pending')
     opened = models.DateTimeField(default=timezone.now)
-    closed = models.DateTimeField(default=timezone.now)
+    closed = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.author

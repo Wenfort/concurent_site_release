@@ -27,19 +27,26 @@
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <label for="useremail">Электронная почта</label>
-                                        <input type="email" name="email" class="form-control" id="email" placeholder="Введите e-mail">
+                                        <input type="email" required name="email" class="form-control" id="email" placeholder="Введите e-mail">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="username">Имя пользователя</label>
-                                        <input type="text" name="username" class="form-control" id="username" placeholder="Введите имя пользователя">
+                                        <input type="text" required name="username" class="form-control" id="username" placeholder="Введите имя пользователя">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="userpassword">Пароль</label>
-                                        <input type="password" name="password" class="form-control" id="password" placeholder="Введите пароль">
+                                        <input type="password" required name="password" class="form-control" id="password" placeholder="Введите пароль">
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="userpassword">Повторите пароль</label>
+                                        <input type="password" required name="password_again" class="form-control" id="password" placeholder="Введите пароль">
+                                    </div>
+                                    {% if error %}
+                                    <p style="color: red">{{ error }}</p>
+                                    {% endif %}
                                     <div class="mt-4">
                                         <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Регистрация</button>
                                     </div>
