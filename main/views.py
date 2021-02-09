@@ -5,7 +5,7 @@ from django.utils import timezone
 from .models import Request, RequestQueue, UserData, Order, OrderStatus, TicketPost, Ticket
 from django.contrib.auth.models import User
 
-from .forms import NewRequest, NewUser, AuthUser
+from .forms import NewRequest, NewUser, AuthUser, ChangePassword
 
 
 def index(request):
@@ -410,3 +410,31 @@ def close_ticket(request, ticket_id):
     ticket_data = Tickets(user_data)
 
     return ticket_data.close_ticket(ticket_id)
+
+
+def change_password(request):
+
+    if request.method == "POST":
+        post_request = request.POST
+        if post_request['first_password'] == post_request['second_password']:
+            password = post_request['first_password']
+            username = request.user.username
+            user = User.objects.get(username=username)
+            user.set_password(password)
+            user.save()
+
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+
+            message = 'Пароль успешно изменен'
+        else:
+            message = 'Пароли не совпадают'
+
+        context = {
+            'message': message
+        }
+        return render(request, 'main/user_auth/change_password.html', context)
+
+    else:
+        return render(request, 'main/user_auth/change_password.html')
+

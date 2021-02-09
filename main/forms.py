@@ -25,3 +25,9 @@ class NewTicketPost(forms.ModelForm):
     class Meta:
         model = TicketPost
         fields = ('ticket_post_text',)
+
+
+class ChangePassword(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('password',)

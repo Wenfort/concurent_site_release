@@ -15,4 +15,5 @@ urlpatterns = [
     path('tickets', views.get_ticket_posts_from_ticket, name='posts_from_latest_ticket'),
     path('add_new_ticket', views.add_new_ticket, name='add_new_ticket'),
     path('close_ticket/<int:ticket_id>', views.close_ticket, name='close_ticket'),
+    path('change_password', views.change_password, name='change_password'),
 ]

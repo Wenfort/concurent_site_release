@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row" style="background-color: #eff2f7!important; margin-bottom: 15px;">
             <div class="col-sm-10">
-                <a class="navbar-brand" href="#" style="color: black">SEOnior.ru - Эффективная оценка конкуренции</a>
+                <a class="navbar-brand" href="{% url 'get_orders_page' %}" style="color: black">SEOnior.ru - Эффективная оценка конкуренции</a>
             </div>
-            {% if balance %}
+            {% if user.is_authenticated %}
             <div class="col-sm-1">
                 <a class="btn btn-primary" href="{% url 'posts_from_latest_ticket' %}">Поддержка</a>
             </div>
