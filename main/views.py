@@ -318,8 +318,17 @@ def authorization(request):
     else:
         if request.method == "POST":
             user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
-            login(request, user)
-            return HttpResponseRedirect('/main/results')
+            if user:
+                login(request, user)
+                return HttpResponseRedirect('/main/results')
+            else:
+                form = AuthUser()
+                context = {
+                    'form': form,
+                    'error': 'Логин и пароль не совпадают'
+                }
+
+                return render(request, 'main/user_auth/authorization.html', context)
         else:
             form = AuthUser()
             context = {

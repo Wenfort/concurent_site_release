@@ -38,6 +38,11 @@
                                     <div class="mt-4">
                                         <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Войти</button>
                                     </div>
+                                    {% if error %}
+                                        <div>
+                                            <p style="color: red; text-align: center; margin-top: 10px;"> {{ error }} </p>
+                                        </div>
+                                    {% endif %}
                                 </form>
                             </div>
                         </div>
