@@ -16,4 +16,5 @@ urlpatterns = [
     path('add_new_ticket', views.add_new_ticket, name='add_new_ticket'),
     path('close_ticket/<int:ticket_id>', views.close_ticket, name='close_ticket'),
     path('change_password', views.change_password, name='change_password'),
+    path('password_reset', views.password_reset, name='password_reset')
 ]

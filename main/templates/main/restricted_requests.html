@@ -22,8 +22,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% if all_requests_list %}
-                                    {% for request in all_requests_list %}
+                                {% if all_requests %}
+                                    {% for request in all_requests %}
                                         {% if request.status == 'progress'  %}
                                             <tr>
                                                 <td>{{ request.request }}</td>

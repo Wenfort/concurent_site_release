@@ -1,9 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.mail import send_mail
 from django.shortcuts import render, get_list_or_404, redirect
 from django.contrib.auth import authenticate, login, logout as django_logout
 from django.utils import timezone
 from .models import Request, RequestQueue, UserData, Order, OrderStatus, TicketPost, Ticket
 from django.contrib.auth.models import User
+from .password_generator import generate_password
 
 from .forms import NewRequest, NewUser, AuthUser, ChangePassword
 
@@ -54,17 +56,26 @@ class SiteUser:
 class Orders:
     def __init__(self, user_id):
         self.user_id = user_id
-        self.all_order_rows = object
-        self.unique_order_rows = object
+        self.all_order_rows = list
+        self.unique_order_rows = list
 
         self.get_all_user_order_rows()
         self.get_unique_user_order_rows()
+
 
     def get_all_user_order_rows(self):
         self.all_order_rows = Order.objects.filter(user_id=self.user_id)
 
     def get_unique_user_order_rows(self):
         self.unique_order_rows = OrderStatus.objects.filter(user_id=self.user_id)
+
+    def all_ordered_requests(self):
+        ordered_requests_ids = [order.request_id for order in self.all_order_rows]
+        return Request.objects.filter(id__in=ordered_requests_ids)
+
+    def all_requests_from_order(self, order_id):
+        ordered_requests_ids = [order.request_id for order in self.all_order_rows.filter(order_id=order_id)]
+        return Request.objects.filter(id__in=ordered_requests_ids)
 
 
 class NewRequestHandler:
@@ -163,7 +174,7 @@ class NewUserHandler:
         self.password_again = self.request['password_again']
 
     def get_user_email(self):
-        self.email = self.request['email']
+        self.email = self.request['email'].lower()
 
     def create_user(self):
         User.objects.create_user(self.user_name, self.email, self.password)
@@ -229,24 +240,36 @@ class Tickets:
         else:
             return HttpResponse('У вас нет права закрывать тикеты')
 
+
 def results(request):
     if request.method == "POST":
         NewRequestHandler(request)
         return HttpResponseRedirect('/main/results')
     else:
         user_data = SiteUser(request.user.username)
-        all_requests_list = get_list_or_404(Request.objects.order_by('site_seo_concurency'))
-        try:
-            context = {'all_requests_list': all_requests_list,
-                       'orders': user_data.orders,
-                       'keywords_ordered': user_data.ordered_keywords,
-                       'balance': user_data.balance}
-        except:
-            context = {'all_requests_list': all_requests_list}
         if request.user.is_staff:
+            all_requests = Request.objects.all().order_by('-site_seo_concurency')
+
+            context = {
+                'all_requests': all_requests,
+                'orders': user_data.orders,
+                'keywords_ordered': user_data.ordered_keywords,
+                'balance': user_data.balance,
+            }
+
             return render(request, 'main/restricted_requests.html', context)
         else:
-            return render(request, 'main/non_restricted_requests.html', context)
+            order_data = Orders(user_data.id)
+            all_user_requests = order_data.all_ordered_requests()
+
+            context = {
+                'all_requests': all_user_requests,
+                'orders': user_data.orders,
+                'keywords_ordered': user_data.ordered_keywords,
+                'balance': user_data.balance,
+            }
+
+        return render(request, 'main/non_restricted_requests.html', context)
 
 
 def get_orders_page(request):
@@ -269,13 +292,11 @@ def get_orders_page(request):
 
 def requests_from_order(request, order_id):
     user_data = SiteUser(request.user.username)
-    order_data = Order.objects.filter(order_id=order_id)
+    order_data = Orders(user_data.id)
 
-    if order_data[0].user_id == user_data.id:
-        requests_ids = [od.request_id for od in order_data]
-        all_requests_list = Request.objects.filter(id__in=requests_ids)
-
-        context = {'all_requests_list': all_requests_list,
+    all_requests = order_data.all_requests_from_order(order_id)
+    if all_requests:
+        context = {'all_requests': all_requests,
                    'orders': user_data.orders,
                    'keywords_ordered': user_data.ordered_keywords,
                    'balance': user_data.balance}
@@ -285,8 +306,7 @@ def requests_from_order(request, order_id):
         else:
             return render(request, 'main/non_restricted_requests.html', context)
     else:
-        return HttpResponse('У вас нет доступа к этому заказу')
-
+        return HttpResponse('У вас нет доступа к этой странице')
 
 def balance(request):
     pass
@@ -438,3 +458,35 @@ def change_password(request):
     else:
         return render(request, 'main/user_auth/change_password.html')
 
+def password_reset(request):
+    if request.user.is_authenticated:
+        return HttpResponse('Вы уже авторизировались')
+    if request.method == "POST":
+        recipients = list()
+        post_request = request.POST
+        recipients.append(post_request['email'].lower())
+
+        try:
+            user = User.objects.get(email=recipients[0])
+            password = generate_password()
+            user.set_password(password)
+            user.save()
+
+            send_mail('Письмо с паролем',
+                      f'Ваш временный пароль: {password}. Пожалуйста, смените его сразу после авторизации.',
+                      'admin@seonior.ru', recipients)
+            message = 'Новый пароль отправлен на указанный e-mail. Пожалуйста, проверьте папку "Спам"'
+        except:
+            message = 'Пользователь с таким e-mail не найден'
+
+        context = {
+            'message': message
+        }
+
+        return render(request, 'main/user_auth/password_reset.html', context)
+    else:
+        return render(request, 'main/user_auth/password_reset.html')
+
+    #RECIPIENTS_EMAIL = ['misteriska@Ya.ru']
+    #DEFAULT_FROM_EMAIL = 'admin@seonior.ru'
+    #

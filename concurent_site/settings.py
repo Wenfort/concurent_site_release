@@ -130,3 +130,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = "/home/wenfort/concurent_site_release/main/static"
+
+RECIPIENTS_EMAIL = ['misteriska@Ya.ru']
+DEFAULT_FROM_EMAIL = 'admin@seonior.ru'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
