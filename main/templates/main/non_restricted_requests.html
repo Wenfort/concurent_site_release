@@ -22,17 +22,17 @@
                                     {% for request in all_requests %}
                                         {% if request.status == 'progress'  %}
                                             <tr>
-                                                <td>{{ request.request }}</td>
+                                                <td>{{ request.request_text }}</td>
                                                 <td colspan="6" style="text-align: center">Запрос в обработке. Это может занять около минуты.</td>
                                             </tr>
                                         {% elif request.status == 'backlinks' %}
                                             <tr>
-                                                <td>{{ request.request }}</td>
+                                                <td>{{ request.request_text }}</td>
                                                 <td colspan="6" style="text-align: center">Запрос в обработке. Недостаточно выборки ссылок.</td>
                                             </tr>
                                         {% else %}
                                             <tr>
-                                                <td> {{ request.request }} </td>
+                                                <td> {{ request.request_text }} </td>
                                                 <td> {{ request.site_seo_concurency }}% </td>
                                                 <td> {{ request.site_direct_concurency }}%</td>
                                             </tr>

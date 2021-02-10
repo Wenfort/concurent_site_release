@@ -5,21 +5,20 @@
         <div class="container chat-window">
         {% for ticket_post in latest_ticket_posts %}
 
-            {% if ticket_post.ticket_post_author != 'airlove' %}
-                <div class="row chat-container">
-                    <div class="col-sm-8 chat-message client-chat-message">
-                        <p class="chat-nickname client-chat-nickname">{{ ticket_post.ticket_post_author }}</p>
-                        <p>{{ ticket_post.ticket_post_text }}</p>
-                    </div>
-                 </div>
-            {% else %}
+            {% if ticket_post.ticket_post_author.username == 'airlove' %}
                 <div class="row chat-container">
                     <div class="col-sm-8 offset-sm-4 chat-message admin-chat-message">
                         <p class="chat-nickname admin-chat-nickname">Админ</p>
                         <p>{{ ticket_post.ticket_post_text }}</p>
                     </div>
                 </div>
-
+            {% else %}
+                <div class="row chat-container">
+                    <div class="col-sm-8 chat-message client-chat-message">
+                        <p class="chat-nickname client-chat-nickname">{{ ticket_post.ticket_post_author }}</p>
+                        <p>{{ ticket_post.ticket_post_text }}</p>
+                    </div>
+                 </div>
     {% endif %}
     {% endfor %}
         </div>
@@ -39,7 +38,7 @@
         {% if user_role == 'admin' %}
             <div class="row">
                 <div class="col-md-12">
-                    <a href="/main/close_ticket/{{ latest_ticket.id }}" class="btn btn-primary" style="width: 100%;">Закрыть тикет</a>
+                    <a href="/main/close_ticket/{{ latest_ticket.ticket_id }}" class="btn btn-primary" style="width: 100%;">Закрыть тикет</a>
                 </div>
             </div>
         {% endif %}

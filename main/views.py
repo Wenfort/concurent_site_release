@@ -13,35 +13,31 @@ from .forms import NewRequest, NewUser, AuthUser, ChangePassword
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-
+#Works
 class SiteUser:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, user_id):
+        self.id = user_id
         self.user = object
         self.user_role = str
-        self.id = int
         self.balance = int
         self.orders = int
         self.ordered_keywords = int
 
         self.get_data()
         self.get_user_role()
-        self.get_id()
         self.get_balance()
         self.get_orders()
         self.get_ordered_requests()
 
+
     def get_data(self):
-        self.user = UserData.objects.get(name=self.name)
+        self.user = UserData.objects.get(user_id=self.id)
 
     def get_user_role(self):
-        if self.name == 'airlove':
+        if self.id == 17:
             self.user_role = 'admin'
         else:
             self.user_role = 'user'
-
-    def get_id(self):
-        self.id = self.user.id
 
     def get_balance(self):
         self.balance = self.user.balance
@@ -52,7 +48,7 @@ class SiteUser:
     def get_ordered_requests(self):
         self.ordered_keywords = self.user.ordered_keywords
 
-
+#Works
 class Orders:
     def __init__(self, user_id):
         self.user_id = user_id
@@ -71,17 +67,17 @@ class Orders:
 
     def all_ordered_requests(self):
         ordered_requests_ids = [order.request_id for order in self.all_order_rows]
-        return Request.objects.filter(id__in=ordered_requests_ids)
+        return Request.objects.filter(request_id__in=ordered_requests_ids)
 
     def all_requests_from_order(self, order_id):
         ordered_requests_ids = [order.request_id for order in self.all_order_rows.filter(order_id=order_id)]
-        return Request.objects.filter(id__in=ordered_requests_ids)
+        return Request.objects.filter(request_id__in=ordered_requests_ids)
 
-
+#Works
 class NewRequestHandler:
     def __init__(self, request):
         self.request = request.POST
-        self.user_name = request.user.username
+        self.user_id = request.user.id
         self.user_data = object
         self.requests_list = list()
         self.order_id = int()
@@ -94,12 +90,13 @@ class NewRequestHandler:
         self.get_order_id()
         self.get_new_requests_id()
         self.calculate_new_requests_amount()
-        self.update_user_orders()
         self.update_user_order_status()
+        self.update_user_orders()
+
         self.update_user_balance()
 
     def get_user_data(self):
-        self.user_data = SiteUser(self.user_name)
+        self.user_data = SiteUser(self.user_id)
 
     def make_requests_list(self):
         requests_list = self.request['requests_list']
@@ -109,11 +106,11 @@ class NewRequestHandler:
 
     def add_new_requests_to_database(self):
         for request in self.requests_list:
-            if Request.objects.filter(request=request):
+            if Request.objects.filter(request_text=request):
                 pass
             else:
-                RequestQueue(request=request).save()
-                Request(request=request).save()
+                RequestQueue(request_text=request).save()
+                Request(request_text=request).save()
 
     def get_order_id(self):
         try:
@@ -122,32 +119,32 @@ class NewRequestHandler:
             self.order_id = 1
 
     def get_new_requests_id(self):
-        self.new_requests = Request.objects.filter(request__in=self.requests_list)
+        self.new_requests = Request.objects.filter(request_text__in=self.requests_list)
 
     def calculate_new_requests_amount(self):
         self.new_requests_amount = len(self.new_requests)
 
     def update_user_orders(self):
         for new_request in self.new_requests:
-            Order(request_id=new_request.id,
-                  user_id=self.user_data.id,
+            Order(request_id=new_request.request_id,
+                  user_id=self.user_id,
                   order_id=self.order_id
                   ).save()
 
     def update_user_order_status(self):
         OrderStatus(order_id=self.order_id,
-                    user_id=self.user_data.id,
+                    user_id=self.user_id,
                     ordered_keywords_amount=self.new_requests_amount).save()
 
     def update_user_balance(self):
-        UserData(id=self.user_data.id,
-                 balance=self.user_data.balance - self.new_requests_amount,
-                 name=self.user_data.name,
-                 orders_amount=self.user_data.orders + 1,
-                 ordered_keywords=self.user_data.ordered_keywords + self.new_requests_amount,
-                 ).save()
+        user = UserData.objects.filter(user_id=self.user_id)
+        user.update(balance=self.user_data.balance - self.new_requests_amount,
+                    orders_amount=self.user_data.orders + 1,
+                    ordered_keywords=self.user_data.ordered_keywords + self.new_requests_amount,
+                    )
 
 
+#Works
 class NewUserHandler:
     def __init__(self, request):
         self.request = request.POST
@@ -177,8 +174,8 @@ class NewUserHandler:
         self.email = self.request['email'].lower()
 
     def create_user(self):
-        User.objects.create_user(self.user_name, self.email, self.password)
-        UserData(name=self.user_name, balance=50).save()
+        new_user = User.objects.create_user(self.user_name, self.email, self.password)
+        UserData(user_id=new_user.id, balance=50).save()
 
     def compare_passwords(self):
         return self.password == self.password_again
@@ -186,39 +183,41 @@ class NewUserHandler:
 
 class Tickets:
 
-    def __init__(self, user):
-        self.user_name = user.name
-        self.user_role = user.user_role
+    def __init__(self, user_data):
+        self.user_id = user_data.id
+        self.user_role = user_data.user_role
         self.all_tickets = object
 
 
     def get_all_user_tickets(self):
-        self.all_tickets = Ticket.objects.filter(author=self.user_name).order_by('-id')
+        self.all_tickets = Ticket.objects.filter(author_id=self.user_id).order_by('-ticket_id')
         return self.all_tickets
 
     def get_all_admin_tickets(self):
-        self.all_tickets = Ticket.objects.filter(status='pending').order_by('-id')
+        self.all_tickets = Ticket.objects.filter(status='pending').order_by('-ticket_id')
         return self.all_tickets
 
-    def create_ticket_post(self, ticked_id, ticket_post_text):
-        TicketPost(ticked_id=ticked_id,
-                   ticket_post_author=self.user_name,
+    def create_ticket_post(self, ticket_id, ticket_post_text):
+
+        TicketPost(ticket_id=ticket_id,
+                   ticket_post_author_id=self.user_id,
                    ticket_post_text=ticket_post_text,
                    ticket_post_order=0,
                    ).save()
 
     def create_ticket(self, request):
         post_request = request.POST
-        ticket = Ticket(author=self.user_name,
+
+        ticket = Ticket(author_id=self.user_id,
                         status='pending', )
         ticket.save()
-        self.create_ticket_post(ticket.id, post_request['ticket_post_text'])
+        self.create_ticket_post(ticket.ticket_id, post_request['ticket_post_text'])
 
         return HttpResponseRedirect('/main/tickets')
 
     def choose_ticket(self, ticket_id=None):
         if ticket_id:
-            ticket = Ticket.objects.get(id=ticket_id)
+            ticket = Ticket.objects.get(ticket_id=ticket_id)
             if self.check_user_access_to_ticket(ticket):
                 return ticket
             else:
@@ -228,25 +227,26 @@ class Tickets:
             return ticket
 
     def check_user_access_to_ticket(self, ticket):
-        if ticket.author == self.user_name or self.user_name == 'airlove':
+        if ticket.author_id == self.user_id or self.user_role == 'admin':
             return True
         else:
             return False
 
     def close_ticket(self, ticket_id):
         if self.user_role == 'admin':
-            Ticket.objects.filter(id=ticket_id).update(status='closed', closed=timezone.now())
+            Ticket.objects.filter(ticket_id=ticket_id).update(status='closed', closed=timezone.now())
             return HttpResponseRedirect('/main/tickets')
         else:
             return HttpResponse('У вас нет права закрывать тикеты')
 
 
+#Works
 def results(request):
     if request.method == "POST":
         NewRequestHandler(request)
         return HttpResponseRedirect('/main/results')
     else:
-        user_data = SiteUser(request.user.username)
+        user_data = SiteUser(request.user.id)
         if request.user.is_staff:
             all_requests = Request.objects.all().order_by('-site_seo_concurency')
 
@@ -272,12 +272,13 @@ def results(request):
         return render(request, 'main/non_restricted_requests.html', context)
 
 
+#Works
 def get_orders_page(request):
     if request.method == "POST":
         NewRequestHandler(request)
         return HttpResponseRedirect('/main/orders')
     else:
-        user_data = SiteUser(request.user.username)
+        user_data = SiteUser(request.user.id)
         orders_data = Orders(user_data.id)
         form = NewRequest()
 
@@ -290,8 +291,9 @@ def get_orders_page(request):
         return render(request, 'main/orders.html', context)
 
 
+#Works
 def requests_from_order(request, order_id):
-    user_data = SiteUser(request.user.username)
+    user_data = SiteUser(request.user.id)
     order_data = Orders(user_data.id)
 
     all_requests = order_data.all_requests_from_order(order_id)
@@ -308,10 +310,11 @@ def requests_from_order(request, order_id):
     else:
         return HttpResponse('У вас нет доступа к этой странице')
 
+#Works
 def balance(request):
     pass
 
-
+#Works
 def registration(request):
     if request.user.is_authenticated:
         return HttpResponse('Вы уже зарегистрированы')
@@ -332,6 +335,7 @@ def registration(request):
             return render(request, 'main/user_auth/registration.html', context)
 
 
+#Works
 def authorization(request):
     if request.user.is_authenticated:
         return HttpResponse('Вы уже авторизировались')
@@ -359,10 +363,14 @@ def authorization(request):
 
 
 def add_new_ticket(request):
-    username = request.user.username
-    user_data = SiteUser(username)
+    user_data = SiteUser(request.user.id)
     tickets_data = Tickets(user_data)
-    all_tickets = tickets_data.get_all_user_tickets()
+
+    if request.user.is_staff:
+        all_tickets = tickets_data.get_all_admin_tickets()
+    else:
+        all_tickets = tickets_data.get_all_user_tickets()
+
 
     if request.method == "POST":
         tickets_data.create_ticket(request)
@@ -379,8 +387,7 @@ def add_new_ticket(request):
 
 
 def get_ticket_posts_from_ticket(request, ticket_id=None):
-    username = request.user.username
-    user_data = SiteUser(username)
+    user_data = SiteUser(request.user.id)
     tickets_data = Tickets(user_data)
 
     if request.user.is_staff:
@@ -395,12 +402,12 @@ def get_ticket_posts_from_ticket(request, ticket_id=None):
                 post_request = request.POST
 
                 if ticket_id == None:
-                    ticket_id = choosen_ticket.id
+                    ticket_id = choosen_ticket.ticket_id
 
                 tickets_data.create_ticket_post(ticket_id, post_request['ticket_post_text'])
                 return HttpResponseRedirect(request.path)
 
-            latest_ticket_posts = TicketPost.objects.filter(ticked_id=choosen_ticket.id).order_by('-id')
+            latest_ticket_posts = TicketPost.objects.filter(ticket_id=choosen_ticket.ticket_id).order_by('-ticket_post_id')
 
             context = {
                 'all_tickets': all_tickets,
@@ -418,15 +425,14 @@ def get_ticket_posts_from_ticket(request, ticket_id=None):
     else:
         return add_new_ticket(request)
 
-
+#Works
 def logout(request):
     django_logout(request)
     return HttpResponseRedirect('/main/authorization')
 
 
 def close_ticket(request, ticket_id):
-    username = request.user.username
-    user_data = SiteUser(username)
+    user_data = SiteUser(request.user.id)
     ticket_data = Tickets(user_data)
 
     return ticket_data.close_ticket(ticket_id)
