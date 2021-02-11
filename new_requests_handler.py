@@ -33,7 +33,7 @@ class Manager:
         print(f'СОбрано {len(self.process_list)} первичных запросов')
 
     def get_requests_from_queue(self):
-        items = pm.check_in_database('main_handledxml', 'status', 'in work', 4)
+        items = pm.check_in_database('main_handledxml', 'status', 'in work', core_number)
         reqs = list()
         for item in items:
             reqs.append(item)

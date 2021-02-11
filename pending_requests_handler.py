@@ -24,7 +24,7 @@ class Manager:
         print(f'Обработано {len(self.requests)} запросов ожидающих ссылок')
 
     def get_requests_from_queue(self):
-        items = pm.check_in_database('main_handledxml', 'status', 'pending', 4)
+        items = pm.check_in_database('main_handledxml', 'status', 'pending', core_number)
         reqs = list()
         for item in items:
             reqs.append(item)
