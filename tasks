@@ -11,10 +11,15 @@
 6) Смена пароля +
 7) Foreign Keys и нормализация +
 10) Переименовать ticked_id +
-11) Разобраться с form.is_valid
+11) Разобраться с form.is_valid +
 12) Setting unique=True on a ForeignKey has the same effect as using a OneToOneField.
 	HINT: ForeignKey(unique=True) is usually better served by a OneToOneField.
-13) C таким логином или мылом уже существует
+13) C таким логином или мылом уже существует +
+14) Разобраться: https://foxminded.com.ua/python-test/
+15) Составить всех страницы
+16) ПРоверить все страницы
+
+
 -Вопросы к логике-
 1) Натяжные потолки в задрыщенске
 

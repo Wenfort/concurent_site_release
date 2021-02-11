@@ -56,7 +56,7 @@ class HandledXml(models.Model):
 
 
 class UserData(models.Model):
-    user = models.ForeignKey(User, primary_key=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     balance = models.IntegerField(default=0)
     orders_amount = models.IntegerField(default=0)
     ordered_keywords = models.IntegerField(default=0)

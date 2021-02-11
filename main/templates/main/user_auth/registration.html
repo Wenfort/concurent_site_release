@@ -44,8 +44,10 @@
                                         <label for="userpassword">Повторите пароль</label>
                                         <input type="password" required name="password_again" class="form-control" id="password" placeholder="Введите пароль">
                                     </div>
-                                    {% if error %}
-                                    <p style="color: red">{{ error }}</p>
+                                    {% if errors_list %}
+                                        {% for error in errors_list %}
+                                            <p style="color: red">{{ error }}</p>
+                                        {% endfor %}
                                     {% endif %}
                                     <div class="mt-4">
                                         <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Регистрация</button>

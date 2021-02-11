@@ -13,7 +13,7 @@ from .forms import NewRequest, NewUser, AuthUser, ChangePassword
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-#Works
+
 class SiteUser:
     def __init__(self, user_id):
         self.id = user_id
@@ -48,7 +48,7 @@ class SiteUser:
     def get_ordered_requests(self):
         self.ordered_keywords = self.user.ordered_keywords
 
-#Works
+
 class Orders:
     def __init__(self, user_id):
         self.user_id = user_id
@@ -73,7 +73,7 @@ class Orders:
         ordered_requests_ids = [order.request_id for order in self.all_order_rows.filter(order_id=order_id)]
         return Request.objects.filter(request_id__in=ordered_requests_ids)
 
-#Works
+
 class NewRequestHandler:
     def __init__(self, request):
         self.request = request.POST
@@ -144,7 +144,7 @@ class NewRequestHandler:
                     )
 
 
-#Works
+
 class NewUserHandler:
     def __init__(self, request):
         self.request = request.POST
@@ -152,15 +152,20 @@ class NewUserHandler:
         self.password = str
         self.password_again = str
         self.email = str
-        self.valid = False
-
+        self.valid = True
+        self.status_messages = list()
 
         self.get_user_name()
+
         self.get_user_password()
         self.get_user_email()
+        self.check_username_and_password()
 
-        if self.compare_passwords():
-            self.valid = True
+        if not self.compare_passwords():
+            self.valid = False
+            self.status_messages.append('Пароли не совпадают')
+
+        if self.valid:
             self.create_user()
 
     def get_user_name(self):
@@ -172,6 +177,22 @@ class NewUserHandler:
 
     def get_user_email(self):
         self.email = self.request['email'].lower()
+
+    def check_username_and_password(self):
+        all_users = User.objects.all()
+
+        login_is_busy = all_users.filter(username=self.user_name)
+        email_is_busy = all_users.filter(email=self.email)
+
+        if login_is_busy:
+            self.valid = False
+            self.status_messages.append('Логин уже занят')
+
+        if email_is_busy:
+            self.valid = False
+            self.status_messages.append('Email уже занят')
+
+
 
     def create_user(self):
         new_user = User.objects.create_user(self.user_name, self.email, self.password)
@@ -240,7 +261,7 @@ class Tickets:
             return HttpResponse('У вас нет права закрывать тикеты')
 
 
-#Works
+
 def results(request):
     if request.method == "POST":
         NewRequestHandler(request)
@@ -272,7 +293,7 @@ def results(request):
         return render(request, 'main/non_restricted_requests.html', context)
 
 
-#Works
+
 def get_orders_page(request):
     if request.method == "POST":
         NewRequestHandler(request)
@@ -291,7 +312,7 @@ def get_orders_page(request):
         return render(request, 'main/orders.html', context)
 
 
-#Works
+
 def requests_from_order(request, order_id):
     user_data = SiteUser(request.user.id)
     order_data = Orders(user_data.id)
@@ -310,11 +331,11 @@ def requests_from_order(request, order_id):
     else:
         return HttpResponse('У вас нет доступа к этой странице')
 
-#Works
+
 def balance(request):
     pass
 
-#Works
+
 def registration(request):
     if request.user.is_authenticated:
         return HttpResponse('Вы уже зарегистрированы')
@@ -326,7 +347,7 @@ def registration(request):
                 login(request, user)
                 return HttpResponseRedirect('/main/orders')
             else:
-                return render(request, 'main/user_auth/registration.html', {'error':'пароли не совпадают'})
+                return render(request, 'main/user_auth/registration.html', {'errors_list':user.status_messages})
         else:
             form = NewUser()
             context = {
@@ -335,7 +356,7 @@ def registration(request):
             return render(request, 'main/user_auth/registration.html', context)
 
 
-#Works
+
 def authorization(request):
     if request.user.is_authenticated:
         return HttpResponse('Вы уже авторизировались')
@@ -425,7 +446,7 @@ def get_ticket_posts_from_ticket(request, ticket_id=None):
     else:
         return add_new_ticket(request)
 
-#Works
+
 def logout(request):
     django_logout(request)
     return HttpResponseRedirect('/main/authorization')
@@ -492,7 +513,3 @@ def password_reset(request):
         return render(request, 'main/user_auth/password_reset.html', context)
     else:
         return render(request, 'main/user_auth/password_reset.html')
-
-    #RECIPIENTS_EMAIL = ['misteriska@Ya.ru']
-    #DEFAULT_FROM_EMAIL = 'admin@seonior.ru'
-    #
