@@ -129,7 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = "/home/concurent_site_release/static"
+STATIC_ROOT = "/home/django/concurent_site_release/static"
 
 RECIPIENTS_EMAIL = ['misteriska@Ya.ru']
 DEFAULT_FROM_EMAIL = 'admin@seonior.ru'
