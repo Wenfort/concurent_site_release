@@ -234,7 +234,7 @@ class Tickets:
         ticket.save()
         self.create_ticket_post(ticket.ticket_id, post_request['ticket_post_text'])
 
-        return HttpResponseRedirect('/main/tickets')
+        return HttpResponseRedirect('/tickets')
 
     def choose_ticket(self, ticket_id=None):
         if ticket_id:
@@ -256,7 +256,7 @@ class Tickets:
     def close_ticket(self, ticket_id):
         if self.user_role == 'admin':
             Ticket.objects.filter(ticket_id=ticket_id).update(status='closed', closed=timezone.now())
-            return HttpResponseRedirect('/main/tickets')
+            return HttpResponseRedirect('/tickets')
         else:
             return HttpResponse('У вас нет права закрывать тикеты')
 
@@ -265,7 +265,7 @@ class Tickets:
 def results(request):
     if request.method == "POST":
         NewRequestHandler(request)
-        return HttpResponseRedirect('/main/results')
+        return HttpResponseRedirect('/results')
     else:
         user_data = SiteUser(request.user.id)
         if request.user.is_staff:
@@ -297,7 +297,7 @@ def results(request):
 def get_orders_page(request):
     if request.method == "POST":
         NewRequestHandler(request)
-        return HttpResponseRedirect('/main/orders')
+        return HttpResponseRedirect('/orders')
     else:
         user_data = SiteUser(request.user.id)
         orders_data = Orders(user_data.id)
@@ -345,7 +345,7 @@ def registration(request):
             if user.valid:
                 user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
                 login(request, user)
-                return HttpResponseRedirect('/main/orders')
+                return HttpResponseRedirect('/orders')
             else:
                 return render(request, 'main/user_auth/registration.html', {'errors_list':user.status_messages})
         else:
@@ -365,7 +365,7 @@ def authorization(request):
             user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
             if user:
                 login(request, user)
-                return HttpResponseRedirect('/main/results')
+                return HttpResponseRedirect('/results')
             else:
                 form = AuthUser()
                 context = {
@@ -395,7 +395,7 @@ def add_new_ticket(request):
 
     if request.method == "POST":
         tickets_data.create_ticket(request)
-        return HttpResponseRedirect('/main/tickets')
+        return HttpResponseRedirect('/tickets')
 
     context = {
         'all_tickets': all_tickets,
@@ -449,7 +449,7 @@ def get_ticket_posts_from_ticket(request, ticket_id=None):
 
 def logout(request):
     django_logout(request)
-    return HttpResponseRedirect('/main/authorization')
+    return HttpResponseRedirect('/authorization')
 
 
 def close_ticket(request, ticket_id):

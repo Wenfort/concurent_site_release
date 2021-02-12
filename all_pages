@@ -1,0 +1,9 @@
+http://127.0.0.1:8000/registration
+http://127.0.0.1:8000/authorization
+http://127.0.0.1:8000/orders
+http://127.0.0.1:8000/orders/150
+http://127.0.0.1:8000/results
+http://127.0.0.1:8000/tickets
+http://127.0.0.1:8000/add_new_ticket
+
+http://127.0.0.1:8000/balance
