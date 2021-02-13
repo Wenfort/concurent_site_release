@@ -75,19 +75,25 @@ class Orders:
 
 
 class NewRequestHandler:
-    def __init__(self, request):
+    def __init__(self, request, order_id=0):
         self.request = request.POST
         self.user_id = request.user.id
+        self.order_id = order_id
         self.user_data = object
         self.requests_list = list()
-        self.order_id = int()
+
         self.new_requests = list()
+        self.new_order = False
         self.new_requests_amount = int()
 
         self.get_user_data()
         self.make_requests_list()
         self.add_new_requests_to_database()
-        self.get_order_id()
+
+        if not order_id:
+            self.get_order_id()
+            self.new_order = True
+
         self.get_new_requests_id()
         self.calculate_new_requests_amount()
         self.update_user_order_status()
@@ -132,16 +138,28 @@ class NewRequestHandler:
                   ).save()
 
     def update_user_order_status(self):
-        OrderStatus(order_id=self.order_id,
-                    user_id=self.user_id,
-                    ordered_keywords_amount=self.new_requests_amount).save()
+        order = OrderStatus.objects.filter(order_id=self.order_id)
+        if order:
+            ordered_requests_amount = order[0].ordered_keywords_amount
+            order.update(ordered_keywords_amount=ordered_requests_amount + self.new_requests_amount)
+        else:
+            OrderStatus(order_id=self.order_id,
+                        user_id=self.user_id,
+                        ordered_keywords_amount=self.new_requests_amount).save()
+
+
 
     def update_user_balance(self):
         user = UserData.objects.filter(user_id=self.user_id)
-        user.update(balance=self.user_data.balance - self.new_requests_amount,
-                    orders_amount=self.user_data.orders + 1,
-                    ordered_keywords=self.user_data.ordered_keywords + self.new_requests_amount,
-                    )
+        if self.new_order:
+            user.update(balance=self.user_data.balance - self.new_requests_amount,
+                        orders_amount=self.user_data.orders + 1,
+                        ordered_keywords=self.user_data.ordered_keywords + self.new_requests_amount,
+                        )
+        else:
+            user.update(balance=self.user_data.balance - self.new_requests_amount,
+                        ordered_keywords=self.user_data.ordered_keywords + self.new_requests_amount,
+                        )
 
 
 
@@ -316,6 +334,11 @@ def get_orders_page(request):
 def requests_from_order(request, order_id):
     user_data = SiteUser(request.user.id)
     order_data = Orders(user_data.id)
+
+    if request.method == "POST":
+        NewRequestHandler(request, order_id)
+        return HttpResponseRedirect('/orders')
+
 
     all_requests = order_data.all_requests_from_order(order_id)
     if all_requests:
