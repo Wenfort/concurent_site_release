@@ -15,14 +15,25 @@
         <div class="col-sm-3">
             <h3 style="text-align: center">Тикеты</h3>
             {% if all_tickets %}
-                {% for ticket in all_tickets %}
-                    <a href="/tickets/{{ ticket.user_ticket_id }}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">Тикет #{{ ticket.user_ticket_id }}
-                        {% if ticket.status == 'pending' %}
-                        (Открыт)</p></a>
-                        {% else %}
-                        (Закрыт)</p></a>
-                        {% endif %}
-                {% endfor %}
+                {% if user.is_staff %}
+                    {% for ticket in all_tickets %}
+                        <a href="/tickets/{{ ticket.ticket_id }}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">Тикет #{{ ticket.ticket_id }}
+                            {% if ticket.status == 'pending' %}
+                            (Открыт)</p></a>
+                            {% else %}
+                            (Закрыт)</p></a>
+                            {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {% for ticket in all_tickets %}
+                        <a href="/tickets/{{ ticket.user_ticket_id }}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">Тикет #{{ ticket.user_ticket_id }}
+                            {% if ticket.status == 'pending' %}
+                            (Открыт)</p></a>
+                            {% else %}
+                            (Закрыт)</p></a>
+                            {% endif %}
+                    {% endfor %}
+                {% endif %}
             {% endif %}
             <a href="{% url 'add_new_ticket' %}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">+ Создать новый тикет</p></a>
         </div>
