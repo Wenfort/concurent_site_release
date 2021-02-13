@@ -69,10 +69,10 @@ class Orders:
         ordered_requests_ids = [order.request_id for order in self.all_order_rows]
         return Request.objects.filter(request_id__in=ordered_requests_ids)
 
-    def all_requests_from_order(self, order_id):
+    def all_requests_from_order(self, user_order_id):
+        order_id = self.unique_order_rows.get(user_order_id=user_order_id).order_id
         ordered_requests_ids = [order.request_id for order in self.all_order_rows.filter(order_id=order_id)]
         return Request.objects.filter(request_id__in=ordered_requests_ids)
-
 
 class NewRequestHandler:
     def __init__(self, request, order_id=0):
@@ -138,15 +138,21 @@ class NewRequestHandler:
                   ).save()
 
     def update_user_order_status(self):
-        order = OrderStatus.objects.filter(order_id=self.order_id)
+        all_user_orders = OrderStatus.objects.filter(user_id=self.user_id)
+        order = all_user_orders.filter(order_id=self.order_id)
         if order:
             ordered_requests_amount = order[0].ordered_keywords_amount
             order.update(ordered_keywords_amount=ordered_requests_amount + self.new_requests_amount)
         else:
+            try:
+                latest_user_order_id = all_user_orders.latest('user_order_id').user_order_id
+            except:
+                latest_user_order_id = 0
+
             OrderStatus(order_id=self.order_id,
                         user_id=self.user_id,
+                        user_order_id=latest_user_order_id + 1,
                         ordered_keywords_amount=self.new_requests_amount).save()
-
 
 
     def update_user_balance(self):

@@ -68,7 +68,7 @@ class OrderStatus(models.Model):
     status = models.SmallIntegerField(default=0)
     progress = models.SmallIntegerField(default=0)
     ordered_keywords_amount = models.SmallIntegerField(default=0)
-
+    user_order_id = models.IntegerField(default=1)
 
 class Order(models.Model):
     order = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING)

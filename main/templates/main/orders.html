@@ -22,7 +22,7 @@
                                 {% if all_orders_list %}
                                     {% for order in all_orders_list %}
                                         <tr>
-                                            <td> <a href="orders/{{ order.order_id }}"> #{{ order.order_id }} </a></td>
+                                            <td> <a href="orders/{{ order.user_order_id }}"> #{{ order.user_order_id }} </a></td>
                                             <td> {{ order.ordered_keywords_amount }} </td>
                                             {% if order.status == 0 %}
                                                 <td> {{ order.progress }}% </td>
