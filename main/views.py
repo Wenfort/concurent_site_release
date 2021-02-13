@@ -74,11 +74,13 @@ class Orders:
         ordered_requests_ids = [order.request_id for order in self.all_order_rows.filter(order_id=order_id)]
         return Request.objects.filter(request_id__in=ordered_requests_ids)
 
+
 class NewRequestHandler:
-    def __init__(self, request, order_id=0):
+    def __init__(self, request, user_order_id=0):
         self.request = request.POST
         self.user_id = request.user.id
-        self.order_id = order_id
+        self.user_order_id = user_order_id
+        self.order_id = int()
         self.user_data = object
         self.requests_list = list()
 
@@ -90,8 +92,7 @@ class NewRequestHandler:
         self.make_requests_list()
         self.add_new_requests_to_database()
 
-        if not order_id:
-            self.get_order_id()
+        if not user_order_id:
             self.new_order = True
 
         self.get_new_requests_id()
@@ -118,11 +119,6 @@ class NewRequestHandler:
                 RequestQueue(request_text=request).save()
                 Request(request_text=request).save()
 
-    def get_order_id(self):
-        try:
-            self.order_id = Order.objects.latest('pk').id + 1
-        except:
-            self.order_id = 1
 
     def get_new_requests_id(self):
         self.new_requests = Request.objects.filter(request_text__in=self.requests_list)
@@ -139,20 +135,22 @@ class NewRequestHandler:
 
     def update_user_order_status(self):
         all_user_orders = OrderStatus.objects.filter(user_id=self.user_id)
-        order = all_user_orders.filter(order_id=self.order_id)
+        order = all_user_orders.filter(user_order_id=self.user_order_id)
         if order:
             ordered_requests_amount = order[0].ordered_keywords_amount
             order.update(ordered_keywords_amount=ordered_requests_amount + self.new_requests_amount)
+            self.order_id = order[0].order_id
         else:
             try:
                 latest_user_order_id = all_user_orders.latest('user_order_id').user_order_id
             except:
                 latest_user_order_id = 0
 
-            OrderStatus(order_id=self.order_id,
-                        user_id=self.user_id,
+            order = OrderStatus(user_id=self.user_id,
                         user_order_id=latest_user_order_id + 1,
-                        ordered_keywords_amount=self.new_requests_amount).save()
+                        ordered_keywords_amount=self.new_requests_amount)
+            order.save()
+            self.order_id = order.order_id
 
 
     def update_user_balance(self):
@@ -166,7 +164,6 @@ class NewRequestHandler:
             user.update(balance=self.user_data.balance - self.new_requests_amount,
                         ordered_keywords=self.user_data.ordered_keywords + self.new_requests_amount,
                         )
-
 
 
 class NewUserHandler:
@@ -242,8 +239,8 @@ class Tickets:
         self.all_tickets = Ticket.objects.filter(status='pending').order_by('-ticket_id')
         return self.all_tickets
 
-    def create_ticket_post(self, ticket_id, ticket_post_text):
-
+    def create_ticket_post(self, user_ticket_id, ticket_post_text):
+        ticket_id = self.choose_ticket(user_ticket_id).ticket_id
         TicketPost(ticket_id=ticket_id,
                    ticket_post_author_id=self.user_id,
                    ticket_post_text=ticket_post_text,
@@ -253,16 +250,24 @@ class Tickets:
     def create_ticket(self, request):
         post_request = request.POST
 
+        all_user_tickets = self.get_all_user_tickets()
+        try:
+            latest_user_ticket_id = all_user_tickets.latest('user_ticket_id').user_ticket_id
+        except:
+            latest_user_ticket_id = 0
+
+
         ticket = Ticket(author_id=self.user_id,
+                        user_ticket_id=latest_user_ticket_id +1,
                         status='pending', )
         ticket.save()
-        self.create_ticket_post(ticket.ticket_id, post_request['ticket_post_text'])
+        self.create_ticket_post(ticket.user_ticket_id, post_request['ticket_post_text'])
 
         return HttpResponseRedirect('/tickets')
 
-    def choose_ticket(self, ticket_id=None):
-        if ticket_id:
-            ticket = Ticket.objects.get(ticket_id=ticket_id)
+    def choose_ticket(self, user_ticket_id=None):
+        if user_ticket_id:
+            ticket = self.all_tickets.get(user_ticket_id=user_ticket_id)
             if self.check_user_access_to_ticket(ticket):
                 return ticket
             else:
@@ -362,7 +367,12 @@ def requests_from_order(request, order_id):
 
 
 def balance(request):
-    pass
+    user_data = SiteUser(request.user.id)
+    context = {'orders': user_data.orders,
+               'keywords_ordered': user_data.ordered_keywords,
+               'balance': user_data.balance
+               }
+    return render(request, 'main/balance.html', context)
 
 
 def registration(request):
@@ -452,7 +462,7 @@ def get_ticket_posts_from_ticket(request, ticket_id=None):
                 post_request = request.POST
 
                 if ticket_id == None:
-                    ticket_id = choosen_ticket.ticket_id
+                    ticket_id = choosen_ticket.user_ticket_id
 
                 tickets_data.create_ticket_post(ticket_id, post_request['ticket_post_text'])
                 return HttpResponseRedirect(request.path)
