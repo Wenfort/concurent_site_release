@@ -410,7 +410,13 @@ def registration(request):
                 login(request, user)
                 return HttpResponseRedirect('/orders')
             else:
-                return render(request, 'main/user_auth/registration.html', {'errors_list':user.status_messages})
+                context = {
+                    'errors_list': user.status_messages,
+                    'status': 'retry',
+                    'username': request.POST['username'],
+                    'email': request.POST['email']
+                }
+                return render(request, 'main/user_auth/registration.html', context)
         else:
             form = NewUser()
             context = {

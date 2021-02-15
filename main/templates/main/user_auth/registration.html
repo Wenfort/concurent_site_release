@@ -21,7 +21,43 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body pt-0">
+                        {% if status %}
+                            <div class="card-body pt-0">
+                            <div class="p-2">
+                                <form class="form-horizontal" method="post" action="">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="useremail">Электронная почта</label>
+                                        <input type="email" value="{{ email }}" required name="email" class="form-control" id="email" placeholder="Введите e-mail">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="username">Имя пользователя</label>
+                                        <input type="text" value="{{ username }}" required name="username" class="form-control" id="username" placeholder="Введите имя пользователя">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="userpassword">Пароль</label>
+                                        <input type="password" required name="password" class="form-control" id="password" placeholder="Введите пароль">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="userpassword">Повторите пароль</label>
+                                        <input type="password" required name="password_again" class="form-control" id="password" placeholder="Введите пароль">
+                                    </div>
+                                    {% if errors_list %}
+                                        {% for error in errors_list %}
+                                            <p style="color: red">{{ error }}</p>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="mt-4">
+                                        <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Регистрация</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        {% else %}
+                            <div class="card-body pt-0">
                             <div class="p-2">
                                 <form class="form-horizontal" method="post" action="">
                                     {% csrf_token %}
@@ -55,6 +91,7 @@
                                 </form>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="mt-5 text-center">
                         <div>
