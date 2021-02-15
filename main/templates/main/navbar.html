@@ -1,9 +1,10 @@
 <div class="container">
     <div class="row" style="background-color: #eff2f7!important; margin-bottom: 15px;">
+
+            {% if user.is_authenticated %}
             <div class="col-lg-8 col-xs-8">
                 <a class="navbar-brand" href="{% url 'get_orders_page' %}" style="color: black">SEOnior.ru - Эффективная оценка конкуренции</a>
             </div>
-            {% if user.is_authenticated %}
                 <div class="col-lg-4 col-xs-4">
                     <a class="btn btn-primary" href="{% url 'change_password' %}">Сменить пароль</a>
                     <a class="btn btn-primary" href="{% url 'posts_from_latest_ticket' %}">Поддержка</a>
@@ -11,7 +12,10 @@
                 </div>
 
             {% else %}
-                <div class="col-lg-2 col-xs-2">
+            <div class="col-lg-9 col-xs-9">
+                <a class="navbar-brand" href="{% url 'get_orders_page' %}" style="color: black">SEOnior.ru - Эффективная оценка конкуренции</a>
+            </div>
+                <div class="col-lg-3 col-xs-3">
                     <a class="btn btn-primary" href="{% url 'registration' %}">Регистрация</a>
                     <a class="btn btn-primary" href="{% url 'authorization' %}">Авторизация</a>
                 </div>
