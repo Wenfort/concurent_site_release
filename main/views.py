@@ -91,12 +91,12 @@ class NewRequestHandler:
         self.get_user_data()
         self.make_requests_list()
         self.add_new_requests_to_database()
-
-        if not user_order_id:
-            self.new_order = True
-
         self.get_new_requests_id()
         self.calculate_new_requests_amount()
+
+        if not user_order_id and self.new_requests_amount > 0:
+            self.new_order = True
+
         self.update_user_order_status()
         self.update_user_orders()
 
@@ -109,7 +109,7 @@ class NewRequestHandler:
         requests_list = self.request['requests_list']
         requests_list = requests_list.replace('\r', '')
         requests_list = requests_list.split('\n')
-        self.requests_list = requests_list
+        self.requests_list = [request for request in requests_list if request]
 
     def add_new_requests_to_database(self):
         for request in self.requests_list:
