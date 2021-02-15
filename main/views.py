@@ -600,7 +600,7 @@ def password_reset(request):
             user.save()
 
             send_mail('Письмо с паролем',
-                      f'Ваш временный пароль: {password}. Пожалуйста, смените его сразу после авторизации.',
+                      f'Ваш временный пароль: {password}. Пожалуйста, смените его сразу после авторизации. Ссылка для авторизации: https://seonior.ru/authorization',
                       'admin@seonior.ru', recipients)
             message = 'Новый пароль отправлен на указанный e-mail. Пожалуйста, проверьте папку "Спам"'
         except:
