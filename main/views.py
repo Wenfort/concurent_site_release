@@ -370,7 +370,7 @@ def requests_from_order(request, order_id):
     if request.method == "POST":
         request_handler = NewRequestHandler(request, order_id)
         if request_handler.is_money_enough():
-            return HttpResponseRedirect('/orders')
+            return HttpResponseRedirect(request.path)
         else:
             return HttpResponse(f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на {request_handler.new_requests_amount - request_handler.user_data.balance} рублей')
 
