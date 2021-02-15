@@ -36,7 +36,7 @@ class SiteUser:
         self.user = UserData.objects.get(user_id=self.id)
 
     def get_user_role(self):
-        if self.user.is_staff:
+        if self.user.user.is_staff:
             self.user_role = 'admin'
         else:
             self.user_role = 'user'
