@@ -1,23 +1,20 @@
 <div class="container">
     <div class="row" style="background-color: #eff2f7!important; margin-bottom: 15px;">
-            <div class="col-sm-10">
+            <div class="col-lg-8 col-xs-8">
                 <a class="navbar-brand" href="{% url 'get_orders_page' %}" style="color: black">SEOnior.ru - Эффективная оценка конкуренции</a>
             </div>
             {% if user.is_authenticated %}
-            <div class="col-sm-1">
-                <a class="btn btn-primary" href="{% url 'posts_from_latest_ticket' %}">Поддержка</a>
-            </div>
-            <div class="col-sm-1">
+                <div class="col-lg-4 col-xs-4">
+                    <a class="btn btn-primary" href="{% url 'change_password' %}">Сменить пароль</a>
+                    <a class="btn btn-primary" href="{% url 'posts_from_latest_ticket' %}">Поддержка</a>
                     <a class="btn btn-primary" href="{% url 'logout' %}">Выйти</a>
-            </div>
-            {% else %}
-            <div class="col-sm-1">
-                <a class="btn btn-primary" href="{% url 'registration' %}">Регистрация</a>
-            </div>
-            <div class="col-sm-1">
-                <a class="btn btn-primary" href="{% url 'authorization' %}">Авторизация</a>
-            </div>
+                </div>
 
+            {% else %}
+                <div class="col-lg-2 col-xs-2">
+                    <a class="btn btn-primary" href="{% url 'registration' %}">Регистрация</a>
+                    <a class="btn btn-primary" href="{% url 'authorization' %}">Авторизация</a>
+                </div>
             {% endif %}
 
     </div>

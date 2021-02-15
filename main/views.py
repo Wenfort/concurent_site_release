@@ -11,8 +11,10 @@ from .forms import NewRequest, NewUser, AuthUser, ChangePassword
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
+    if request.user.is_authenticated:
+        return redirect('/orders')
+    else:
+        return redirect('/authorization')
 
 class SiteUser:
     def __init__(self, user_id):
