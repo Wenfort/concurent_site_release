@@ -265,9 +265,12 @@ class Tickets:
 
         return HttpResponseRedirect('/tickets')
 
-    def choose_ticket(self, user_ticket_id=None):
-        if user_ticket_id:
-            ticket = self.all_tickets.get(user_ticket_id=user_ticket_id)
+    def choose_ticket(self, ticket_id=None):
+        if ticket_id:
+            if self.user_role == 'admin':
+                ticket = self.all_tickets.get(ticket_id=ticket_id)
+            else:
+                ticket = self.all_tickets.get(user_ticket_id=ticket_id)
             if self.check_user_access_to_ticket(ticket):
                 return ticket
             else:
@@ -445,19 +448,50 @@ def add_new_ticket(request):
 
     return render(request, 'main/ticket/add_new_ticket.html', context)
 
-
-def get_ticket_posts_from_ticket(request, ticket_id=None):
+def tickets_admin_view(request, ticket_id=None):
     user_data = SiteUser(request.user.id)
     tickets_data = Tickets(user_data)
-
-    if request.user.is_staff:
-        all_tickets = tickets_data.get_all_admin_tickets()
-    else:
-        all_tickets = tickets_data.get_all_user_tickets()
+    all_tickets = tickets_data.get_all_admin_tickets()
 
     if all_tickets:
         choosen_ticket = tickets_data.choose_ticket(ticket_id)
-        if choosen_ticket or request.user.is_staff:
+        if request.method == "POST":
+            post_request = request.POST
+
+            if ticket_id == None:
+                ticket_id = choosen_ticket.user_ticket_id
+
+            tickets_data.create_ticket_post(ticket_id, post_request['ticket_post_text'])
+            return HttpResponseRedirect(request.path)
+
+        latest_ticket_posts = TicketPost.objects.filter(ticket_id=choosen_ticket.ticket_id).order_by('-ticket_post_id')
+
+        context = {
+            'all_tickets': all_tickets,
+            'latest_ticket': choosen_ticket,
+            'latest_ticket_posts': latest_ticket_posts,
+            'orders': user_data.orders,
+            'user_role': user_data.user_role,
+            'keywords_ordered': user_data.ordered_keywords,
+            'balance': user_data.balance,
+        }
+
+        return render(request, 'main/ticket/ticket.html', context)
+    else:
+        return add_new_ticket(request)
+
+def get_ticket_posts_from_ticket(request, ticket_id=None):
+    if request.user.is_staff:
+        return HttpResponseRedirect('/tickets/admin')
+
+    user_data = SiteUser(request.user.id)
+    tickets_data = Tickets(user_data)
+
+    all_tickets = tickets_data.get_all_user_tickets()
+
+    if all_tickets:
+        choosen_ticket = tickets_data.choose_ticket(ticket_id)
+        if choosen_ticket:
             if request.method == "POST":
                 post_request = request.POST
 

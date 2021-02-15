@@ -17,7 +17,7 @@
             {% if all_tickets %}
                 {% if user.is_staff %}
                     {% for ticket in all_tickets %}
-                        <a href="/tickets/{{ ticket.ticket_id }}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">Тикет #{{ ticket.ticket_id }}
+                        <a href="/tickets/admin/{{ ticket.ticket_id }}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">Тикет #{{ ticket.ticket_id }}
                             {% if ticket.status == 'pending' %}
                             (Открыт)</p></a>
                             {% else %}
