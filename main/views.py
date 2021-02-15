@@ -86,21 +86,26 @@ class NewRequestHandler:
 
         self.new_requests = list()
         self.new_order = False
+        self.money_is_enough = True
         self.new_requests_amount = int()
 
         self.get_user_data()
         self.make_requests_list()
         self.add_new_requests_to_database()
         self.get_new_requests_id()
+
         self.calculate_new_requests_amount()
 
-        if not user_order_id and self.new_requests_amount > 0:
-            self.new_order = True
+        if self.is_money_enough():
+            if not user_order_id and self.new_requests_amount > 0:
+                self.new_order = True
 
-        self.update_user_order_status()
-        self.update_user_orders()
+            self.update_user_order_status()
+            self.update_user_orders()
 
-        self.update_user_balance()
+            self.update_user_balance()
+        else:
+            self.money_is_enough = False
 
     def get_user_data(self):
         self.user_data = SiteUser(self.user_id)
@@ -165,6 +170,9 @@ class NewRequestHandler:
                         ordered_keywords=self.user_data.ordered_keywords + self.new_requests_amount,
                         )
 
+    def is_money_enough(self):
+        if self.new_requests_amount <= self.user_data.balance:
+            return True
 
 class NewUserHandler:
     def __init__(self, request):
@@ -296,8 +304,13 @@ class Tickets:
 
 def results(request):
     if request.method == "POST":
-        NewRequestHandler(request)
-        return HttpResponseRedirect('/results')
+        request_handler = NewRequestHandler(request)
+        if request_handler.is_money_enough():
+            return HttpResponseRedirect('/orders')
+        else:
+            return HttpResponse(
+                f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на {request_handler.new_requests_amount - request_handler.user_data.balance} рублей')
+
     else:
         user_data = SiteUser(request.user.id)
         if request.user.is_staff:
@@ -328,8 +341,11 @@ def results(request):
 
 def get_orders_page(request):
     if request.method == "POST":
-        NewRequestHandler(request)
-        return HttpResponseRedirect('/orders')
+        request_handler = NewRequestHandler(request)
+        if request_handler.is_money_enough():
+            return HttpResponseRedirect('/orders')
+        else:
+            return HttpResponse(f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на {request_handler.new_requests_amount - request_handler.user_data.balance} рублей')
     else:
         user_data = SiteUser(request.user.id)
         orders_data = Orders(user_data.id)
@@ -350,8 +366,11 @@ def requests_from_order(request, order_id):
     order_data = Orders(user_data.id)
 
     if request.method == "POST":
-        NewRequestHandler(request, order_id)
-        return HttpResponseRedirect('/orders')
+        request_handler = NewRequestHandler(request, order_id)
+        if request_handler.is_money_enough():
+            return HttpResponseRedirect('/orders')
+        else:
+            return HttpResponse(f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на {request_handler.new_requests_amount - request_handler.user_data.balance} рублей')
 
 
     all_requests = order_data.all_requests_from_order(order_id)
