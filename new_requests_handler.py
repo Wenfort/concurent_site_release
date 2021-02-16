@@ -287,7 +287,7 @@ class Yandex:
             f"status = '{self.concurency_object.status}', "
             f"site_direct_concurency = {self.concurency_object.site_direct_concurency}, "
             f"site_seo_concurency = {self.concurency_object.site_seo_concurency} "
-            f"WHERE request = '{self.request}'"
+            f"WHERE request_text = '{self.request}'"
         )
 
         #values_to_go = (self.request,

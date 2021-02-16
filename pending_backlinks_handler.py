@@ -1,5 +1,4 @@
 import requests
-import sqlite_mode as sm
 import postgres_mode as pm
 import time
 

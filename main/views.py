@@ -146,7 +146,10 @@ class NewRequestHandler:
         order = all_user_orders.filter(user_order_id=self.user_order_id)
         if order:
             ordered_requests_amount = order[0].ordered_keywords_amount
-            order.update(ordered_keywords_amount=ordered_requests_amount + self.new_requests_amount)
+            if self.new_order:
+                order.update(ordered_keywords_amount=ordered_requests_amount + self.new_requests_amount)
+            else:
+                order.update(ordered_keywords_amount=ordered_requests_amount + self.new_requests_amount, status=0)
             self.order_id = order[0].order_id
         else:
             try:

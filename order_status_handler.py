@@ -16,7 +16,7 @@ while True:
         order_requests = [str(item[0]) for item in cursor.fetchall()]
         order_requests = ','.join(order_requests)
 
-        sql_request = f'SELECT status FROM concurent_site.main_request WHERE id IN ({order_requests})'
+        sql_request = f'SELECT status FROM concurent_site.main_request WHERE request_id IN ({order_requests})'
         cursor.execute(sql_request)
         order_requests = [str(item[0]) for item in cursor.fetchall()]
 
@@ -38,4 +38,4 @@ while True:
 
     connection.commit()
     connection.close()
-    time.sleep(5)
+    time.sleep(15)

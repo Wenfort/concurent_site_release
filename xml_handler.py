@@ -1,6 +1,5 @@
 import requests
 import time
-import sqlite_mode as sm
 import postgres_mode as pm
 from threading import Thread
 import re
@@ -67,12 +66,11 @@ class XmlReport():
         for xml_answer in self.xml_answers:
             for request, answer in xml_answer.items():
                 answer = str(answer)
-                # answer = answer.replace('"', '\"')
                 requests_for_deletion.append(request)
                 pm.add_to_database('main_handledxml', (request, answer, 'in work'))
 
         requests_for_deletion = tuple(requests_for_deletion)
-        pm.delete_from_database('main_requestqueue', 'request', requests_for_deletion)
+        pm.delete_from_database('main_requestqueue', 'request_text', requests_for_deletion)
 
 
 while True:

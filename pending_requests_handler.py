@@ -117,13 +117,13 @@ class Yandex:
 
     def update_database(self):
         pm.update_database('main_request', 'site_backlinks_concurency',
-                           self.concurency_object.site_backlinks_concurency, 'request', self.request)
+                           self.concurency_object.site_backlinks_concurency, 'request_text', self.request)
         pm.update_database('main_request', 'site_seo_concurency',
-                           self.concurency_object.site_seo_concurency, 'request', self.request)
+                           self.concurency_object.site_seo_concurency, 'request_text', self.request)
         pm.update_database('main_request', 'site_total_concurency',
-                           self.concurency_object.site_total_concurency, 'request', self.request)
+                           self.concurency_object.site_total_concurency, 'request_text', self.request)
         pm.update_database('main_request', 'status',
-                           'ready', 'request', self.request)
+                           'ready', 'request_text', self.request)
 
 class Site:
     def __init__(self, position, url):
@@ -209,7 +209,7 @@ class Concurency:
 
 
     def get_concurency_from_database(self):
-        concurency = pm.check_in_database('main_request', 'request', self.request)[0]
+        concurency = pm.check_in_database('main_request', 'request_text', self.request)[0]
         self.site_age_concurency = int(concurency[2])
         self.site_stem_concurency = int(concurency[3])
         self.site_volume_concurency = int(concurency[4])
