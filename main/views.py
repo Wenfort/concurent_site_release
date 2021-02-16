@@ -99,13 +99,14 @@ class NewRequestHandler:
         self.calculate_new_requests_amount()
 
         if self.is_money_enough():
-            if not user_order_id and self.new_requests_amount > 0:
-                self.new_order = True
+            if self.new_requests_amount > 0:
+                if not user_order_id:
+                    self.new_order = True
 
-            self.update_user_order_status()
-            self.update_user_orders()
+                self.update_user_order_status()
+                self.update_user_orders()
 
-            self.update_user_balance()
+                self.update_user_balance()
         else:
             self.money_is_enough = False
 
