@@ -29,7 +29,6 @@ class Manager:
             self.refresh_balance()
             self.delete_requests_from_queue()
 
-
         print(f'СОбрано {len(self.process_list)} первичных запросов')
 
     def get_requests_from_queue(self):
@@ -39,7 +38,6 @@ class Manager:
             reqs.append(item)
 
         self.requests = tuple(reqs)
-
 
     def make_processes(self):
         self.process_list = [Process(target=Yandex, args=(request, self.q)) for request in self.requests]
@@ -56,7 +54,8 @@ class Manager:
         keys_and_tokens = pm.check_in_database('main_payload', 'balance', 0)
         for item in keys_and_tokens:
             key = item[0]
-            r = requests.get(f'https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey={key}&host=yandex.ru&parameterList=').json()
+            r = requests.get(
+                f'https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey={key}&host=yandex.ru&parameterList=').json()
             balance = r['hostLimitsBalance']
             if balance == 0:
                 pm.delete_from_database('main_payload', 'balance', '0')
@@ -153,10 +152,10 @@ class Site:
     def make_content_object(self):
         self.content_object = Content(self.html, self.site_type, self.domain)
 
+
 @logger.catch
 class Yandex:
     def __init__(self, request, q):
-
 
         self.request = request[0]
         self.xml = request[1]
@@ -170,7 +169,6 @@ class Yandex:
         self.result = dict()
 
         self.start_logging()
-
 
         self.stem_request()
         self.get_page_xml()
@@ -203,8 +201,7 @@ class Yandex:
             else:
                 self.stemmed_request.append(parsed_word.normal_form)
 
-
-        #self.stemmed_request = morph.parse(self.request)[0].normal_form.split()
+        # self.stemmed_request = morph.parse(self.request)[0].normal_form.split()
         logger.info(f'Стемированный запрос: {self.stemmed_request}')
 
     def get_page_xml(self):
@@ -290,7 +287,7 @@ class Yandex:
             f"WHERE request_text = '{self.request}'"
         )
 
-        #values_to_go = (self.request,
+        # values_to_go = (self.request,
         #                self.concurency_object.site_age_concurency,
         #                self.concurency_object.site_stem_concurency,
         #                self.concurency_object.site_volume_concurency,
@@ -301,7 +298,7 @@ class Yandex:
         #                self.concurency_object.site_direct_concurency,
         #                self.concurency_object.site_seo_concurency,
         #               )
-        #logger.debug(values_to_go)
+        # logger.debug(values_to_go)
 
     def get_scalp(self):
         print(self.page_xml.prettify())
@@ -453,12 +450,9 @@ class Content:
         if self.letters_amount > 10000:
             self.letters_amount = 10000
 
-
     def get_title(self):
         self.title = self.html.find('title').text
         self.title = self.title.replace('\n', '')
-
-
 
     def delete_punctuation_from_title(self):
         self.title = re.sub(r'[^\w\s]', '', self.title)
@@ -472,8 +466,6 @@ class Content:
         del self.html
         del self.text
         del self.start
-
-
 
 
 @logger.catch
@@ -504,16 +496,15 @@ class Concurency:
             self.WEIGHTS = WEIGHTS_DIRECT
         else:
             self.WEIGHTS = WEIGHTS_ORGANIC
-        
+
         self.calculate_site_stem_concurency()
         if self.check_is_absourd_request():
             self.importance = ABSURD_STEM_IMPORTANCE
         else:
             self.importance = STANDART_IMPORTANCE
-            
+
         self.calculate_site_age_concurency()
         self.calculate_site_volume_concurency()
-        
 
         self.check_valid_backlinks_sample()
         self.calculate_direct_upscale()
@@ -555,8 +546,8 @@ class Concurency:
                     real_age_concurency += 10 * self.WEIGHTS[site_object.position]
 
             except:
-                logger.critical(f'В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом {site_object.content_object.domain}')
-
+                logger.critical(
+                    f'В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом {site_object.content_object.domain}')
 
         self.site_age_concurency = int(real_age_concurency / max_age_concurency * 100)
 
@@ -568,16 +559,17 @@ class Concurency:
             max_volume_concurency += 10000 * self.WEIGHTS[site_object.position]
             if site_object.site_type == 'organic':
                 if site_object.content_object.valid:
-                    real_volume_concurency += site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]
+                    real_volume_concurency += site_object.content_object.letters_amount * self.WEIGHTS[
+                        site_object.position]
                 else:
                     real_volume_concurency += 5000 * self.WEIGHTS[site_object.position]
-                #тест модуль
-                #logger.success(f'Сайт: {site_object.content_object.domain}. Объем статьи {site_object.content_object.letters_amount}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}')
+                # тест модуль
+                # logger.success(f'Сайт: {site_object.content_object.domain}. Объем статьи {site_object.content_object.letters_amount}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}')
             else:
                 real_volume_concurency += 10000 * self.WEIGHTS[site_object.position]
 
         self.site_volume_concurency = int(real_volume_concurency / max_volume_concurency * 100)
-    
+
     def calculate_site_stem_concurency(self):
         max_stem_concurency = 0
         real_stem_concurency = 0
@@ -591,7 +583,7 @@ class Concurency:
                 real_stem_concurency += self.WEIGHTS[site_object.position]
 
         self.site_stem_concurency = int(real_stem_concurency / max_stem_concurency * 100)
-    
+
     def check_is_absourd_request(self):
         if self.site_stem_concurency < 30:
             print('Запрос абсурдный')
@@ -624,7 +616,7 @@ class Concurency:
                     site_object.domain_object.backlinks = maximum_backlinks
                 real_backlinks_concurency += site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]
                 max_backlinks_concurency += 500 * self.WEIGHTS[site_object.position]
-                #Тест модуль
+                # Тест модуль
                 # logger.success(f'Сайт: {site_object.content_object.domain}. Ссылок: {site_object.domain_object.backlinks}. Кэф: {site_object.domain_object.backlinks / maximum_backlinks}. Сложность: {int(site_object.domain_object.backlinks / maximum_backlinks * 100 * self.WEIGHTS[site_object.position])} из {100 * self.WEIGHTS[site_object.position]}')
             except:
                 real_backlinks_concurency += 500 * self.WEIGHTS[site_object.position]
@@ -673,8 +665,6 @@ class Concurency:
     def calculate_direct_concurency(self):
         self.site_direct_concurency = int(self.direct_upscale / 35 * 100)
 
-
-
     def prepare_report(self):
         file = open(f'./reports/{self.report_file_name}.txt', 'a', encoding='utf-8')
 
@@ -686,14 +676,17 @@ class Concurency:
 
         for site_object in self.site_objects_list:
             try:
-                file.write(f'Сайт: {site_object.content_object.domain}. Возраст сайта {site_object.domain_object.domain_age}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]} из {10 * self.WEIGHTS[site_object.position]}\n')
+                file.write(
+                    f'Сайт: {site_object.content_object.domain}. Возраст сайта {site_object.domain_object.domain_age}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]} из {10 * self.WEIGHTS[site_object.position]}\n')
                 real_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
                 max_concurency += 10 * self.WEIGHTS[site_object.position]
             except:
-                file.write(f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {10 * self.WEIGHTS[site_object.position]} из {10 * self.WEIGHTS[site_object.position]}\n')
+                file.write(
+                    f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {10 * self.WEIGHTS[site_object.position]} из {10 * self.WEIGHTS[site_object.position]}\n')
                 real_concurency += 10 * self.WEIGHTS[site_object.position]
                 max_concurency += 10 * self.WEIGHTS[site_object.position]
-        file.write(f'Уровень конкуренции от возраста: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_age_concurency}\n')
+        file.write(
+            f'Уровень конкуренции от возраста: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_age_concurency}\n')
         file.write('----------------------------------------\n')
         file.write(f'Конкуренция от объема контента:\n')
         real_concurency = int()
@@ -703,22 +696,28 @@ class Concurency:
 
                 if site_object.content_object.valid:
                     if site_object.site_type == 'super':
-                        file.write(f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {10000 * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
+                        file.write(
+                            f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {10000 * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
                         real_concurency += 10000 * self.WEIGHTS[site_object.position]
                         max_concurency += 10000 * self.WEIGHTS[site_object.position]
                     else:
-                        file.write(f'Сайт: {site_object.content_object.domain}. Объем статьи {site_object.content_object.letters_amount}. Находится на {site_object.position}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
-                        real_concurency += site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]
+                        file.write(
+                            f'Сайт: {site_object.content_object.domain}. Объем статьи {site_object.content_object.letters_amount}. Находится на {site_object.position}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
+                        real_concurency += site_object.content_object.letters_amount * self.WEIGHTS[
+                            site_object.position]
                         max_concurency += 10000 * self.WEIGHTS[site_object.position]
                 else:
-                    file.write(f'Сайт: {site_object.content_object.domain}. Контент не валиден (5000 знаков по умолчанию). Находится на {site_object.position}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {5000 * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
+                    file.write(
+                        f'Сайт: {site_object.content_object.domain}. Контент не валиден (5000 знаков по умолчанию). Находится на {site_object.position}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {5000 * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
                     real_concurency += 5000 * self.WEIGHTS[site_object.position]
                     max_concurency += 10000 * self.WEIGHTS[site_object.position]
             except:
-                file.write(f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {10000 * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
+                file.write(
+                    f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {10000 * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
                 real_concurency += 10000 * self.WEIGHTS[site_object.position]
                 max_concurency += 10000 * self.WEIGHTS[site_object.position]
-        file.write(f'Уровень конкуренции от объема контента: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_volume_concurency}\n')
+        file.write(
+            f'Уровень конкуренции от объема контента: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_volume_concurency}\n')
         file.write('----------------------------------------\n')
         file.write(f'Конкуренция от стема:\n')
         real_concurency = int()
@@ -731,11 +730,14 @@ class Concurency:
                 real_concurency += int(matched_stem_items / len(self.request)) * self.WEIGHTS[site_object.position]
                 test = matched_stem_items / len(self.request)
                 test2 = matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
-                file.write(f'Сайт: {site_object.content_object.domain}. Запрос: {self.request}. Стемированный тайтл: {site_object.content_object.stemmed_title}. Кол-во совпадений: {matched_stem_items}.Находится на {site_object.position} месте. Процент совпадений: {round(test, 2)}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {test2} из максимальных {self.WEIGHTS[site_object.position]}.\n')
+                file.write(
+                    f'Сайт: {site_object.content_object.domain}. Запрос: {self.request}. Стемированный тайтл: {site_object.content_object.stemmed_title}. Кол-во совпадений: {matched_stem_items}.Находится на {site_object.position} месте. Процент совпадений: {round(test, 2)}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {test2} из максимальных {self.WEIGHTS[site_object.position]}.\n')
             else:
-                file.write(f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {self.WEIGHTS[site_object.position]} из {self.WEIGHTS[site_object.position]}\n')
+                file.write(
+                    f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {self.WEIGHTS[site_object.position]} из {self.WEIGHTS[site_object.position]}\n')
                 real_concurency += self.WEIGHTS[site_object.position]
-        file.write(f'Уровень конкуренции от стема: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_stem_concurency}\n')
+        file.write(
+            f'Уровень конкуренции от стема: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_stem_concurency}\n')
         file.write('----------------------------------------\n')
         file.write('Апскейл от директа:\n')
 
@@ -772,22 +774,30 @@ class Concurency:
                 max_concurency += 500 * self.WEIGHTS[site_object.position]
                 if site_object.site_type == 'organic':
                     real_concurency += site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]
-                    file.write(f'Сайт: {site_object.content_object.domain}. Количество бэклинков: {site_object.domain_object.backlinks}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]} Сложность повысилась на {site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]} из {500 * self.WEIGHTS[site_object.position]}\n')
+                    file.write(
+                        f'Сайт: {site_object.content_object.domain}. Количество бэклинков: {site_object.domain_object.backlinks}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]} Сложность повысилась на {site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]} из {500 * self.WEIGHTS[site_object.position]}\n')
                 else:
                     real_concurency += 500 * self.WEIGHTS[site_object.position]
-                    file.write(f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {500 * self.WEIGHTS[site_object.position]} из {500 * self.WEIGHTS[site_object.position]}\n')
-            file.write(f'Уровень конкуренции от бэклинков: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_backlinks_concurency}\n')
+                    file.write(
+                        f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {500 * self.WEIGHTS[site_object.position]} из {500 * self.WEIGHTS[site_object.position]}\n')
+            file.write(
+                f'Уровень конкуренции от бэклинков: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_backlinks_concurency}\n')
 
             file.write(f'Итоговая конкуренция:\n')
             total_difficulty = int(
-                self.site_age_concurency * self.importance['Возраст сайта'] + self.site_stem_concurency * self.importance[
+                self.site_age_concurency * self.importance['Возраст сайта'] + self.site_stem_concurency *
+                self.importance[
                     'Стемирование'] + self.site_volume_concurency * self.importance[
                     'Объем статей'] + self.site_backlinks_concurency * self.importance['Ссылочное'])
 
-            file.write(f"От возраста: {self.site_age_concurency} * {self.importance['Возраст сайта']} = {self.site_age_concurency * self.importance['Возраст сайта']}\n")
-            file.write(f"От стема: {self.site_stem_concurency} * {self.importance['Стемирование']} = {self.site_stem_concurency * self.importance['Стемирование']}\n")
-            file.write(f"От объема: {self.site_volume_concurency} * {self.importance['Объем статей']} = {self.site_volume_concurency * self.importance['Объем статей']}\n")
-            file.write(f"От ссылочного: {self.site_backlinks_concurency} * {self.importance['Ссылочное']} = {self.site_backlinks_concurency * self.importance['Ссылочное']}\n")
+            file.write(
+                f"От возраста: {self.site_age_concurency} * {self.importance['Возраст сайта']} = {self.site_age_concurency * self.importance['Возраст сайта']}\n")
+            file.write(
+                f"От стема: {self.site_stem_concurency} * {self.importance['Стемирование']} = {self.site_stem_concurency * self.importance['Стемирование']}\n")
+            file.write(
+                f"От объема: {self.site_volume_concurency} * {self.importance['Объем статей']} = {self.site_volume_concurency * self.importance['Объем статей']}\n")
+            file.write(
+                f"От ссылочного: {self.site_backlinks_concurency} * {self.importance['Ссылочное']} = {self.site_backlinks_concurency * self.importance['Ссылочное']}\n")
             file.write(f'До вычета direct upscale: {total_difficulty}\n')
 
             total_difficulty += direct_upscale
@@ -799,6 +809,7 @@ class Concurency:
             file.write('Бэклинков недостаточно\n')
         file.close()
         print('ya')
+
 
 if __name__ == "__main__":
     while True:

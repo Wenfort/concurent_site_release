@@ -22,11 +22,7 @@ class Payload(models.Model):
         return f'{self.key} ({self.balance})'
 
 
-class RequestQueue(models.Model):
-    request_text = models.CharField(max_length=100, primary_key=True)
 
-    def __str__(self):
-        return self.request_text
 
 
 class Request(models.Model):
@@ -41,6 +37,7 @@ class Request(models.Model):
     site_seo_concurency = models.IntegerField(default=0)
     site_direct_concurency = models.IntegerField(default=0)
     status = models.CharField(max_length=100, default='progress')
+    geo = models.IntegerField(default=255)
 
     def __str__(self):
         return self.request_text
@@ -104,3 +101,8 @@ class TicketPost(models.Model):
     ticket_post_author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     ticket_post_text = models.TextField(default='')
     ticket_post_order = models.SmallIntegerField(default=0)
+
+
+class RequestQueue(models.Model):
+    request_text = models.CharField(max_length=100)
+    geo = models.IntegerField(default=255)

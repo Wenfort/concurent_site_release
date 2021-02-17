@@ -1,14 +1,9 @@
 -Мажор
-0) Новые запросы корректно добавляются +
-1) xml_handler +
-2) new_requests_hander +
-3) pending_backlinks_handler +
-4) pending_requests_handler +
-5) order_status_handler +
-6) Поправить title +
+1) Если два одинаковых запроса, new_requests_handler перезаписывает первый. Нужно сохранять по ID или текст+гео
 7) Вывод Site Seo Concurency
 8) ^^^ пофиксить округление
 9) Странная сортировка заказов
+10) Если в handledxml попадает 2 одинаковых запроса, они крашатся
 
 
 -Вопросы к логике-

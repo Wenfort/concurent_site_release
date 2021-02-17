@@ -15,6 +15,7 @@
                                     <th>Запрос</th>
                                     <th>Конкуренция SEO</th>
                                     <th>Конкуренция Direct</th>
+                                    <th>Гео</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,6 +36,7 @@
                                                 <td> {{ request.request_text }} </td>
                                                 <td> {{ request.site_seo_concurency }}% </td>
                                                 <td> {{ request.site_direct_concurency }}%</td>
+                                                <td> {{ request.geo }}</td>
                                             </tr>
                                         {% endif %}
                                     {% endfor %}

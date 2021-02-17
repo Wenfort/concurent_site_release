@@ -30,10 +30,12 @@ class XmlReport():
 
     def make_xml_request_packs(self):
         for request in self.requests:
-            request = request[0]
+            request_text = request[1]
+            request_region = request[2]
             self.xml_request_packs.append({
-                                              request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request}'})
+                                              request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}&lr={request_region}'})
 
+            print(f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}&lr={request_region}')
         self.xml_request_packs = tuple(self.xml_request_packs)
 
     def get_xml_answer(self, request, xml_url):
@@ -66,8 +68,8 @@ class XmlReport():
         for xml_answer in self.xml_answers:
             for request, answer in xml_answer.items():
                 answer = str(answer)
-                requests_for_deletion.append(request)
-                pm.add_to_database('main_handledxml', (request, answer, 'in work'))
+                requests_for_deletion.append(request[1])
+                pm.add_to_database('main_handledxml', (request[1], answer, 'in work'))
 
         requests_for_deletion = tuple(requests_for_deletion)
         pm.delete_from_database('main_requestqueue', 'request_text', requests_for_deletion)

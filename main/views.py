@@ -24,6 +24,7 @@ class SiteUser:
         self.balance = int
         self.orders = int
         self.ordered_keywords = int
+        self.region_id = int
         self.region = str
 
         self.get_data()
@@ -53,8 +54,8 @@ class SiteUser:
         self.ordered_keywords = self.user.ordered_keywords
 
     def get_region(self):
-        region_id = self.user.region_id
-        self.region = Region.objects.get(region_id=region_id).name
+        self.region_id = self.user.region_id
+        self.region = Region.objects.get(region_id=self.region_id).name
 
 class Orders:
     def __init__(self, user_id):
@@ -126,11 +127,8 @@ class NewRequestHandler:
 
     def add_new_requests_to_database(self):
         for request in self.requests_list:
-            if Request.objects.filter(request_text=request):
-                pass
-            else:
-                RequestQueue(request_text=request).save()
-                Request(request_text=request).save()
+            RequestQueue(request_text=request, geo=self.user_data.region_id).save()
+            Request(request_text=request, geo=self.user_data.region_id).save()
 
 
     def get_new_requests_id(self):

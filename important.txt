@@ -9739,3 +9739,5 @@ LINE 1: ...ency = 0, site_seo_concurency = 90 WHERE request = кустурица
 15:08:55 Не удалось загрузить https://www.nlv.ru/laser-correction
 15:08:55 Проблема с валидностью контента nlv.ru. 
 15:30:08 Проблема с валидностью контента wikichi.ru. 
+18:55:08 Не удалось загрузить https://www.ecookna.ru/
+18:55:08 Проблема с валидностью контента ecookna.ru. 
