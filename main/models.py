@@ -55,11 +55,20 @@ class HandledXml(models.Model):
         return self.request
 
 
+class Region(models.Model):
+    region_id = models.IntegerField(primary_key=True, default=0)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class UserData(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     balance = models.IntegerField(default=0)
     orders_amount = models.IntegerField(default=0)
     ordered_keywords = models.IntegerField(default=0)
+    region = models.ForeignKey(Region, on_delete=models.DO_NOTHING, default=255)
 
 
 class OrderStatus(models.Model):
@@ -69,6 +78,7 @@ class OrderStatus(models.Model):
     progress = models.SmallIntegerField(default=0)
     ordered_keywords_amount = models.SmallIntegerField(default=0)
     user_order_id = models.IntegerField(default=1)
+
 
 class Order(models.Model):
     order = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING)

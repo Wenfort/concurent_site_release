@@ -3,7 +3,7 @@ from django.core.mail import send_mail
 from django.shortcuts import render, get_list_or_404, redirect
 from django.contrib.auth import authenticate, login, logout as django_logout
 from django.utils import timezone
-from .models import Request, RequestQueue, UserData, Order, OrderStatus, TicketPost, Ticket
+from .models import Request, RequestQueue, UserData, Order, OrderStatus, TicketPost, Ticket, Region
 from django.contrib.auth.models import User
 from .password_generator import generate_password
 
@@ -24,12 +24,14 @@ class SiteUser:
         self.balance = int
         self.orders = int
         self.ordered_keywords = int
+        self.region = str
 
         self.get_data()
         self.get_user_role()
         self.get_balance()
         self.get_orders()
         self.get_ordered_requests()
+        self.get_region()
 
 
     def get_data(self):
@@ -50,6 +52,9 @@ class SiteUser:
     def get_ordered_requests(self):
         self.ordered_keywords = self.user.ordered_keywords
 
+    def get_region(self):
+        region_id = self.user.region_id
+        self.region = Region.objects.get(region_id=region_id).name
 
 class Orders:
     def __init__(self, user_id):
@@ -307,84 +312,97 @@ class Tickets:
             return HttpResponse('У вас нет права закрывать тикеты')
 
 
-
-def results(request):
+def handle_new_request(request):
     if request.method == "POST":
-        request_handler = NewRequestHandler(request)
+        try:
+            order_id = int(request.POST['order_id'])
+        except:
+            order_id = None
+
+        request_handler = NewRequestHandler(request, order_id)
         if request_handler.is_money_enough():
-            return HttpResponseRedirect('/orders')
+            previous_page = request.POST['previous_page']
+            return HttpResponseRedirect(previous_page)
         else:
             return HttpResponse(
                 f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на {request_handler.new_requests_amount - request_handler.user_data.balance} рублей')
 
+
+def results(request):
+    user_data = SiteUser(request.user.id)
+    all_regions = Region.objects.all()
+    if request.user.is_staff:
+        all_requests = Request.objects.all().order_by('-site_seo_concurency')
+
+        context = {
+            'all_requests': all_requests,
+            'orders': user_data.orders,
+            'keywords_ordered': user_data.ordered_keywords,
+            'balance': user_data.balance,
+            'region': user_data.region,
+            'regions': all_regions,
+        }
+
+        return render(request, 'main/restricted_requests.html', context)
     else:
-        user_data = SiteUser(request.user.id)
-        if request.user.is_staff:
-            all_requests = Request.objects.all().order_by('-site_seo_concurency')
+        order_data = Orders(user_data.id)
+        all_user_requests = order_data.all_ordered_requests()
 
-            context = {
-                'all_requests': all_requests,
-                'orders': user_data.orders,
-                'keywords_ordered': user_data.ordered_keywords,
-                'balance': user_data.balance,
-            }
+        context = {
+            'all_requests': all_user_requests,
+            'orders': user_data.orders,
+            'keywords_ordered': user_data.ordered_keywords,
+            'balance': user_data.balance,
+            'region': user_data.region,
+            'regions': all_regions,
+        }
 
-            return render(request, 'main/restricted_requests.html', context)
-        else:
-            order_data = Orders(user_data.id)
-            all_user_requests = order_data.all_ordered_requests()
+    return render(request, 'main/non_restricted_requests.html', context)
 
-            context = {
-                'all_requests': all_user_requests,
-                'orders': user_data.orders,
-                'keywords_ordered': user_data.ordered_keywords,
-                'balance': user_data.balance,
-            }
 
-        return render(request, 'main/non_restricted_requests.html', context)
-
+def change_region(request):
+    user_id = request.user.id
+    new_region = request.POST['region']
+    previous_url = request.POST['previous_url']
+    new_region_id = Region.objects.get(name=new_region).region_id
+    user = UserData.objects.filter(user_id=user_id)
+    user.update(region_id=new_region_id)
+    return HttpResponseRedirect(previous_url)
 
 
 def get_orders_page(request):
-    if request.method == "POST":
-        request_handler = NewRequestHandler(request)
-        if request_handler.is_money_enough():
-            return HttpResponseRedirect('/orders')
-        else:
-            return HttpResponse(f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на {request_handler.new_requests_amount - request_handler.user_data.balance} рублей')
-    else:
-        user_data = SiteUser(request.user.id)
-        orders_data = Orders(user_data.id)
-        form = NewRequest()
+    user_data = SiteUser(request.user.id)
+    orders_data = Orders(user_data.id)
+    all_regions = Region.objects.all
+    form = NewRequest()
 
-        context = {'all_orders_list': orders_data.unique_order_rows,
-                   'orders': user_data.orders,
-                   'keywords_ordered': user_data.ordered_keywords,
-                   'balance': user_data.balance,
-                   'form': form}
+    context = {'all_orders_list': orders_data.unique_order_rows,
+               'orders': user_data.orders,
+               'keywords_ordered': user_data.ordered_keywords,
+               'balance': user_data.balance,
+               'form': form,
+               'regions': all_regions,
+               'region': user_data.region
+               }
 
-        return render(request, 'main/orders.html', context)
-
+    return render(request, 'main/orders.html', context)
 
 
 def requests_from_order(request, order_id):
     user_data = SiteUser(request.user.id)
     order_data = Orders(user_data.id)
-
-    if request.method == "POST":
-        request_handler = NewRequestHandler(request, order_id)
-        if request_handler.is_money_enough():
-            return HttpResponseRedirect(request.path)
-        else:
-            return HttpResponse(f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на {request_handler.new_requests_amount - request_handler.user_data.balance} рублей')
-
-
+    all_regions = Region.objects.all
     all_requests = order_data.all_requests_from_order(order_id)
+
     if all_requests:
         context = {'all_requests': all_requests,
                    'orders': user_data.orders,
                    'keywords_ordered': user_data.ordered_keywords,
-                   'balance': user_data.balance}
+                   'balance': user_data.balance,
+                   'order_id': order_id,
+                   'regions': all_regions,
+                   'region': user_data.region,
+                   }
 
         if request.user.is_staff:
             return render(request, 'main/restricted_requests.html', context)
@@ -427,7 +445,6 @@ def registration(request):
                 'form': form,
             }
             return render(request, 'main/user_auth/registration.html', context)
-
 
 
 def authorization(request):
@@ -479,6 +496,7 @@ def add_new_ticket(request):
 
     return render(request, 'main/ticket/add_new_ticket.html', context)
 
+
 def tickets_admin_view(request, ticket_id=None):
     user_data = SiteUser(request.user.id)
     tickets_data = Tickets(user_data)
@@ -510,6 +528,7 @@ def tickets_admin_view(request, ticket_id=None):
         return render(request, 'main/ticket/ticket.html', context)
     else:
         return add_new_ticket(request)
+
 
 def get_ticket_posts_from_ticket(request, ticket_id=None):
     if request.user.is_staff:
@@ -589,6 +608,7 @@ def change_password(request):
     else:
         return render(request, 'main/user_auth/change_password.html')
 
+
 def password_reset(request):
     if request.user.is_authenticated:
         return HttpResponse('Вы уже авторизировались')
@@ -617,3 +637,8 @@ def password_reset(request):
         return render(request, 'main/user_auth/password_reset.html', context)
     else:
         return render(request, 'main/user_auth/password_reset.html')
+
+
+def regions_list(request):
+    results = Region.objects.all
+    return render(request, "main/region.html", {"regions": results})

@@ -1,0 +1,7 @@
+    <p>Введите название региона или города:</p>
+    <input type="text" list="citylist" Placeholder="Search City.." class="form-control" style="width:300px;">
+    <datalist id="citylist">
+ {% for region in regions %}
+        <option value="{{ region.name}}">
+ {% endfor %}
+    </datalist>

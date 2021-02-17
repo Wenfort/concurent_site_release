@@ -1,11 +1,31 @@
 <div class="container" style="margin-bottom: 20px">
     <div class="row">
-        <div class="col-lg-10 offset-lg-1">
-            <form action="" method="post">
+        <div class="col-lg-9">
+            <form action="{% url 'handle_new_requests' %}" method="post">
                 {% csrf_token %}
-                <p>Введите каждый запрос с новой строки</p>
+                <p style="text-align: center; font-size: 20px;">Введите каждый запрос с новой строки</p>
                 <textarea rows="5" name="requests_list" style="width: 100%"></textarea>
+                <input type="hidden" name="previous_page" value="{{ request.path }}">
+            {% if order_id %}
+                <input type="hidden" name="order_id" value="{{ order_id }}">
+            {% endif %}
                 <input type="submit" value="Анализировать конкуренцию" class="btn btn-primary" style="width: 100%">
+            </form>
+        </div>
+        <div class="col-lg-3">
+        <p style="text-align: center; font-size: 20px;">Выбранный регион:</p>
+            <p style="text-align: center; font-size: 16px;">{{ region }}</p>
+
+            <form action="{% url 'change_region' %}" method="post">
+            {% csrf_token %}
+                <input type="hidden" name="previous_url" value="{{ request.path }}">
+              <input list="browsers" style="width: 100%" name="region">
+                <datalist id="browsers">
+                    {% for region in regions %}
+                        <option value="{{ region.name}}">
+                    {% endfor %}
+                </datalist>
+                <input type="submit" class="btn btn-primary" style="width: 100%" value="Сменить регион">
             </form>
         </div>
     </div>

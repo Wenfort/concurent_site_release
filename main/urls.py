@@ -19,4 +19,7 @@ urlpatterns = [
     path('close_ticket/<int:ticket_id>', views.close_ticket, name='close_ticket'),
     path('change_password', views.change_password, name='change_password'),
     path('password_reset', views.password_reset, name='password_reset'),
+    path('regions_list', views.regions_list, name='regions_list'),
+    path('handle_new_requests', views.handle_new_request, name='handle_new_requests'),
+    path('change_region', views.change_region, name='change_region')
 ]
