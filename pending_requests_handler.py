@@ -60,8 +60,9 @@ class Yandex:
     def __init__(self, request):
 
 
-        self.request = request[0]
-        self.xml = request[1]
+        self.request = request[1]
+        self.xml = request[2]
+        self.geo = request[4]
         self.page_xml = ''
         self.site_list = list()
         self.site_objects_list = list()
@@ -116,14 +117,15 @@ class Yandex:
 
 
     def update_database(self):
-        pm.update_database('main_request', 'site_backlinks_concurency',
-                           self.concurency_object.site_backlinks_concurency, 'request_text', self.request)
-        pm.update_database('main_request', 'site_seo_concurency',
-                           self.concurency_object.site_seo_concurency, 'request_text', self.request)
-        pm.update_database('main_request', 'site_total_concurency',
-                           self.concurency_object.site_total_concurency, 'request_text', self.request)
-        pm.update_database('main_request', 'status',
-                           'ready', 'request_text', self.request)
+
+        pm.custom_request_to_database_without_return(
+            f"UPDATE concurent_site.main_request SET "
+            f"site_backlinks_concurency = {self.concurency_object.site_backlinks_concurency}, "
+            f"site_seo_concurency = {self.concurency_object.site_seo_concurency}, "
+            f"site_total_concurency = {self.concurency_object.site_total_concurency}, "
+            f"status = 'ready' "
+            f"WHERE request_text = '{self.request}' AND geo = '{self.geo}'"
+        )
 
 class Site:
     def __init__(self, position, url):

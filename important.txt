@@ -9741,3 +9741,78 @@ LINE 1: ...ency = 0, site_seo_concurency = 90 WHERE request = кустурица
 15:30:08 Проблема с валидностью контента wikichi.ru. 
 18:55:08 Не удалось загрузить https://www.ecookna.ru/
 18:55:08 Проблема с валидностью контента ecookna.ru. 
+14:16:41 An error has been caught in function 'run', process 'Process-1' (3932), thread 'MainThread' (140522383275840):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 817, in <module>
+    Manager()
+    └ <function Manager at 0x7fcdea2ec790>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fcde65020d0>
+    └ <__main__.Manager object at 0x7fcde95ffa00>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fcdea2f7790>
+    └ <Process name='Process-1' parent=3929 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=3929 started>
+    │    │        │    └ <staticmethod object at 0x7fcdea472070>
+    │    │        └ <Process name='Process-1' parent=3929 started>
+    │    └ None
+    └ <Process name='Process-1' parent=3929 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=3929 started>
+           │                └ <function DefaultContext.get_context at 0x7fcdea30b310>
+           └ <multiprocessing.context.DefaultContext object at 0x7fcdea340280>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=3929 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=3929 started>
+    │    └ <function Popen._launch at 0x7fcde65363a0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fcde652f340>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7fcdea33c0d0>
+           └ <Process name='Process-1' parent=3929 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fcdea2f7700>
+    └ <Process name='Process-1' parent=3929 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=3929 started>
+    │    │        │    └ ((1, 'коррекция зрения', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210218T1...
+    │    │        └ <Process name='Process-1' parent=3929 started>
+    │    └ <function Yandex at 0x7fcde6502d30>
+    └ <Process name='Process-1' parent=3929 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 174, in __init__
+    self.stem_request()
+    │    └ <function Yandex.stem_request at 0x7fcde6502ee0>
+    └ <__main__.Yandex object at 0x7fcdea2d8be0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 197, in stem_request
+    for word in self.request.split():
+                │    └ 1
+                └ <__main__.Yandex object at 0x7fcdea2d8be0>
+
+AttributeError: 'int' object has no attribute 'split'
+14:17:30 Не удалось загрузить https://www.nlv.ru/laser-correction
+14:17:30 Проблема с валидностью контента nlv.ru. 
+14:32:01 Проблема с валидностью контента m-strana.ru. 
+14:32:01 Проблема с валидностью контента 1prookna.ru. 
+14:41:47 Проблема с валидностью контента m-strana.ru. 
+15:19:36 Проблема с валидностью контента supl.biz. 
+15:48:17 Проблема с валидностью контента zarplata.ru. 
+15:48:41 Проблема с валидностью контента job-opros.ru. 

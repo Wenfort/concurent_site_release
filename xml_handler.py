@@ -69,7 +69,7 @@ class XmlReport():
             for request, answer in xml_answer.items():
                 answer = str(answer)
                 requests_for_deletion.append(request[1])
-                pm.add_to_database('main_handledxml', (request[1], answer, 'in work'))
+                pm.add_to_database_with_autoincrement('main_handledxml', (request[1], answer, 'in work', request[2]))
 
         requests_for_deletion = tuple(requests_for_deletion)
         pm.delete_from_database('main_requestqueue', 'request_text', requests_for_deletion)

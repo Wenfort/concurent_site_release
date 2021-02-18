@@ -157,15 +157,16 @@ class Site:
 class Yandex:
     def __init__(self, request, q):
 
-        self.request = request[0]
-        self.xml = request[1]
+        self.request = request[1]
+        self.xml = request[2]
+        self.geo = request[4]
         self.q = q
         self.stemmed_request = list()
-        self.page_xml = ''
+        self.page_xml = str()
         self.site_list = list()
         self.site_objects_list = list()
-        self.thread_list = ''
-        self.concurency_object = ''
+        self.thread_list = str()
+        self.concurency_object = str()
         self.result = dict()
 
         self.start_logging()
@@ -284,7 +285,7 @@ class Yandex:
             f"status = '{self.concurency_object.status}', "
             f"site_direct_concurency = {self.concurency_object.site_direct_concurency}, "
             f"site_seo_concurency = {self.concurency_object.site_seo_concurency} "
-            f"WHERE request_text = '{self.request}'"
+            f"WHERE request_text = '{self.request}' AND geo = '{self.geo}'"
         )
 
         # values_to_go = (self.request,

@@ -2,6 +2,14 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+class HandledXml(models.Model):
+    request = models.CharField(max_length=100)
+    xml = models.TextField()
+    status = models.CharField(max_length=10)
+    geo = models.IntegerField(default=225)
+
+    def __str__(self):
+        return self.request
 
 class Domain(models.Model):
     name = models.CharField(max_length=100, primary_key=True)
@@ -41,15 +49,6 @@ class Request(models.Model):
 
     def __str__(self):
         return self.request_text
-
-
-class HandledXml(models.Model):
-    request = models.CharField(max_length=100, primary_key=True)
-    xml = models.TextField()
-    status = models.CharField(max_length=10)
-
-    def __str__(self):
-        return self.request
 
 
 class Region(models.Model):
