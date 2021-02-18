@@ -1,5 +1,5 @@
 {% extends './account_page_body.html' %}
-
+{% load mathfilters %}
 {% block content %}
 {% include './add_to_queue.html' %}
 <div class="container-fluid">
@@ -15,6 +15,7 @@
                                     <th>Запрос</th>
                                     <th>Конкуренция SEO</th>
                                     <th>Конкуренция Direct</th>
+                                    <th>Конкуренция Total</th>
                                     <th>Гео</th>
                                 </tr>
                             </thead>
@@ -36,6 +37,7 @@
                                                 <td> {{ request.request_text }} </td>
                                                 <td> {{ request.site_seo_concurency }}% </td>
                                                 <td> {{ request.site_direct_concurency }}%</td>
+                                                <td>{{ request.site_total_concurency|div:135|mul:100|floatformat:"0" }}</td>
                                                 <td> {{ request.geo }}</td>
                                             </tr>
                                         {% endif %}

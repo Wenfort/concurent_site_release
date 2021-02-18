@@ -9816,3 +9816,7 @@ AttributeError: 'int' object has no attribute 'split'
 15:19:36 Проблема с валидностью контента supl.biz. 
 15:48:17 Проблема с валидностью контента zarplata.ru. 
 15:48:41 Проблема с валидностью контента job-opros.ru. 
+16:35:15 Не удалось загрузить https://www.nlv.ru/laser-correction
+16:35:15 Проблема с валидностью контента nlv.ru. 
+16:35:15 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+16:35:15 Проблема с валидностью контента nlv.ru. 
