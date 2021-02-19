@@ -30,7 +30,12 @@ class Payload(models.Model):
         return f'{self.key} ({self.balance})'
 
 
+class Region(models.Model):
+    region_id = models.IntegerField(primary_key=True, default=0)
+    name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
 
 
 class Request(models.Model):
@@ -45,18 +50,11 @@ class Request(models.Model):
     site_seo_concurency = models.IntegerField(default=0)
     site_direct_concurency = models.IntegerField(default=0)
     status = models.CharField(max_length=100, default='progress')
-    geo = models.IntegerField(default=255)
+    region = models.ForeignKey(Region, default=255, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.request_text
 
-
-class Region(models.Model):
-    region_id = models.IntegerField(primary_key=True, default=0)
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
 
 
 class UserData(models.Model):

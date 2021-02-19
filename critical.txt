@@ -14552,3 +14552,12 @@ mogramma-zubov/
 16:35:15 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
 16:35:15 Проблема с валидностью контента nlv.ru. 
 16:35:15 Проблема с валидностью контента nlv.ru. 
+19:32:45 Не удалось загрузить https://zdr.ru/articles/uluchshit-zrenie-vam-eto-pod-silu
+19:32:45 Проблема с валидностью контента zdr.ru. 
+19:32:45 Проблема с валидностью контента zdr.ru. 
+19:32:45 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+19:32:45 Проблема с валидностью контента nlv.ru. 
+19:32:45 Проблема с валидностью контента nlv.ru. 
+12:48:13 Не удалось загрузить https://blagoveshensk.adresa-telefony.ru/где/монтаж натяжных потолков/в-Благовещенске
+12:48:13 Проблема с валидностью контента adresa-telefony.ru. 
+12:48:13 Проблема с валидностью контента adresa-telefony.ru. 

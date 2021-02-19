@@ -63,14 +63,13 @@ class Manager:
                 pm.update_database('main_payload', 'balance', balance, 'key', key)
 
     def delete_requests_from_queue(self):
-        reqs = list()
         for yandex_object in self.yandex_objects_list:
             if yandex_object['Статус'] == 'backlinks':
                 pm.update_database('main_handledxml', 'status', 'pending', 'request', yandex_object['Запрос'])
             else:
-                reqs.append(yandex_object['Запрос'])
-        reqs = tuple(reqs)
-        pm.delete_from_database('main_handledxml', 'request', reqs)
+                pm.custom_request_to_database_without_return(
+                    f"DELETE FROM concurent_site.main_handledxml WHERE request='{yandex_object['Запрос']}' AND geo='{yandex_object['Гео']}';"
+                )
 
 
 @logger.catch
@@ -264,6 +263,7 @@ class Yandex:
             'Итоговая конкуренция': self.concurency_object.site_total_concurency,
             'Модификатор директ': self.concurency_object.direct_upscale,
             'Статус': self.concurency_object.status,
+            'Гео': self.geo,
         }
 
     def add_result_to_database(self):
@@ -285,7 +285,7 @@ class Yandex:
             f"status = '{self.concurency_object.status}', "
             f"site_direct_concurency = {self.concurency_object.site_direct_concurency}, "
             f"site_seo_concurency = {self.concurency_object.site_seo_concurency} "
-            f"WHERE request_text = '{self.request}' AND geo = '{self.geo}'"
+            f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
         )
 
         # values_to_go = (self.request,

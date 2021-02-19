@@ -75,7 +75,7 @@ class Orders:
 
     def all_ordered_requests(self):
         ordered_requests_ids = [order.request_id for order in self.all_order_rows]
-        return Request.objects.filter(request_id__in=ordered_requests_ids)
+        return Request.objects.filter(request_id__in=ordered_requests_ids).order_by('-site_seo_concurency')
 
     def all_requests_from_order(self, user_order_id):
         order_id = self.unique_order_rows.get(user_order_id=user_order_id).order_id
@@ -128,7 +128,7 @@ class NewRequestHandler:
     def add_new_requests_to_database(self):
         for request in self.requests_list:
             RequestQueue(request_text=request, geo=self.user_data.region_id).save()
-            Request(request_text=request, geo=self.user_data.region_id).save()
+            Request(request_text=request, region_id=self.user_data.region_id).save()
 
 
     def get_new_requests_id(self):
@@ -390,7 +390,9 @@ def requests_from_order(request, order_id):
     user_data = SiteUser(request.user.id)
     order_data = Orders(user_data.id)
     all_regions = Region.objects.all
-    all_requests = order_data.all_requests_from_order(order_id)
+    all_requests = order_data.all_requests_from_order(order_id).select_related('region')
+    for r in all_requests:
+        print(r)
 
     if all_requests:
         context = {'all_requests': all_requests,

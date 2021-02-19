@@ -46,13 +46,12 @@ class Manager:
             thread.join()
 
     def delete_requests_from_queue(self):
-        reqs = list()
         for yandex_object in self.yandex_objects_list:
             if yandex_object.concurency_object:
                 if yandex_object.concurency_object.status == 'ready':
-                    reqs.append(yandex_object.request)
-        reqs = tuple(reqs)
-        pm.delete_from_database('main_handledxml', 'request', reqs)
+                    pm.custom_request_to_database_without_return(
+                        f"DELETE FROM concurent_site.main_handledxml WHERE request='{yandex_object.request}' AND geo='{yandex_object.geo}';"
+                    )
 
 
 
@@ -124,7 +123,7 @@ class Yandex:
             f"site_seo_concurency = {self.concurency_object.site_seo_concurency}, "
             f"site_total_concurency = {self.concurency_object.site_total_concurency}, "
             f"status = 'ready' "
-            f"WHERE request_text = '{self.request}' AND geo = '{self.geo}'"
+            f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
         )
 
 class Site:
@@ -186,6 +185,7 @@ class Concurency:
         self.site_direct_concurency = int()
         self.direct_upscale = int()
         self.status = ''
+        self.geo = ''
 
         self.site_backlinks_concurency = int()
         self.site_total_concurency = int()
@@ -216,6 +216,7 @@ class Concurency:
         self.site_stem_concurency = int(concurency[3])
         self.site_volume_concurency = int(concurency[4])
         self.direct_upscale = int(concurency[7])
+        self.geo = int(concurency[11])
 
     def check_is_absourd_request(self):
         if self.site_stem_concurency < 30:

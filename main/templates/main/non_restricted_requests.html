@@ -38,7 +38,7 @@
                                                 <td> {{ request.site_seo_concurency }}% </td>
                                                 <td> {{ request.site_direct_concurency }}%</td>
                                                 <td>{{ request.site_total_concurency|div:135|mul:100|floatformat:"0" }}</td>
-                                                <td> {{ request.geo }}</td>
+                                                <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% endif %}
                                     {% endfor %}
