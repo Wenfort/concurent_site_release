@@ -390,9 +390,7 @@ def requests_from_order(request, order_id):
     user_data = SiteUser(request.user.id)
     order_data = Orders(user_data.id)
     all_regions = Region.objects.all
-    all_requests = order_data.all_requests_from_order(order_id).select_related('region')
-    for r in all_requests:
-        print(r)
+    all_requests = order_data.all_requests_from_order(order_id).select_related('region').order_by('-site_seo_concurency')
 
     if all_requests:
         context = {'all_requests': all_requests,
