@@ -27,15 +27,15 @@ while True:
             if order_request == 'ready':
                 complete_requests += 1
 
-        complete_requests_percent = complete_requests / total_requests * 100
+        complete_requests_percent = int(complete_requests / total_requests * 100)
 
         if complete_requests_percent == 100:
-            sql_request = f"UPDATE concurent_site.main_orderstatus SET status = 1, progress = {complete_requests_percent};"
+            sql_request = f"UPDATE concurent_site.main_orderstatus SET status = 1, progress = {complete_requests_percent} WHERE order_id = {pending_order};"
         else:
-            sql_request = f'UPDATE concurent_site.main_orderstatus SET progress = {complete_requests_percent}'
+            sql_request = f'UPDATE concurent_site.main_orderstatus SET progress = {complete_requests_percent} WHERE order_id = {pending_order};'
 
         cursor.execute(sql_request)
-
     connection.commit()
+
     connection.close()
     time.sleep(15)
