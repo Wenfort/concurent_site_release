@@ -12,11 +12,11 @@
                         <table class="table table-centered mb-0">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Запрос</th>
-                                    <th>Конкуренция SEO</th>
-                                    <th>Конкуренция Direct</th>
-                                    <th>Конкуренция Total</th>
-                                    <th>Гео</th>
+                                    <th>{% if sort_type == 'request' %} <a href="?sort=-request"> {% else %} <a href="?sort=request">{% endif %}Запрос</a></th>
+                                    <th>{% if sort_type == '-seo' %} <a href="?sort=seo"> {% else %} <a href="?sort=-seo">{% endif %}Конкуренция SEO</a></th>
+                                    <th>{% if sort_type == '-direct' %} <a href="?sort=direct"> {% else %} <a href="?sort=-direct">{% endif %}Эффект директа</a></th>
+                                    <th>{% if sort_type == '-total' %} <a href="?sort=total"> {% else %} <a href="?sort=-total">{% endif %}Итоговая сложность</a></th>
+                                    <th>{% if sort_type == 'region' %} <a href="?sort=-region"> {% else %} <a href="?sort=region">{% endif %}Гео</a></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -25,13 +25,13 @@
                                         {% if request.status == 'progress'  %}
                                             <tr>
                                                 <td>{{ request.request_text }}</td>
-                                                <td colspan="6" style="text-align: center">Запрос в обработке. Это может занять около минуты.</td>
+                                                <td colspan="3" style="text-align: center">Запрос в обработке. Это может занять около минуты.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% elif request.status == 'backlinks' %}
                                             <tr>
                                                 <td>{{ request.request_text }}</td>
-                                                <td colspan="6" style="text-align: center">Запрос в обработке. Недостаточно выборки ссылок.</td>
+                                                <td colspan="3" style="text-align: center">Запрос в обработке. Недостаточно выборки ссылок.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% else %}

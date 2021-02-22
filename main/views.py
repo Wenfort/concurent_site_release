@@ -331,33 +331,39 @@ def handle_new_request(request):
 def results(request):
     user_data = SiteUser(request.user.id)
     all_regions = Region.objects.all().order_by('name')
+
     if request.user.is_staff:
-        all_requests = Request.objects.all().order_by('-site_seo_concurency')
-
-        context = {
-            'all_requests': all_requests,
-            'orders': user_data.orders,
-            'keywords_ordered': user_data.ordered_keywords,
-            'balance': user_data.balance,
-            'region': user_data.region,
-            'regions': all_regions,
-        }
-
-        return render(request, 'main/restricted_requests.html', context)
+        all_requests = Request.objects.all()
     else:
-        order_data = Orders(user_data.id)
-        all_user_requests = order_data.all_ordered_requests()
+        orders_data = Orders(user_data.id)
+        all_requests = orders_data.all_ordered_requests().select_related('region')
 
-        context = {
-            'all_requests': all_user_requests,
-            'orders': user_data.orders,
-            'keywords_ordered': user_data.ordered_keywords,
-            'balance': user_data.balance,
-            'region': user_data.region,
-            'regions': all_regions,
-        }
 
-    return render(request, 'main/non_restricted_requests.html', context)
+    try:
+        sort_type = request.GET['sort']
+        unmasked_sort_type = unmask_sort_type(sort_type)
+        all_requests = all_requests.order_by(unmasked_sort_type)
+    except:
+        sort_type = None
+        all_requests = all_requests.order_by('-site_seo_concurency')
+
+    if all_requests:
+        context = {'all_requests': all_requests,
+                   'orders': user_data.orders,
+                   'keywords_ordered': user_data.ordered_keywords,
+                   'balance': user_data.balance,
+                   'regions': all_regions,
+                   'region': user_data.region,
+                   'sort_type': sort_type,
+                   }
+
+        if request.user.is_staff:
+            return render(request, 'main/restricted_requests.html', context)
+        else:
+            return render(request, 'main/non_restricted_requests.html', context)
+    else:
+        return HttpResponse('У вас нет доступа к этой странице')
+
 
 
 def change_region(request):
@@ -392,11 +398,42 @@ def get_orders_page(request):
     return render(request, 'main/orders.html', context)
 
 
+def unmask_sort_type(masked_sort_type):
+    """Прячет от пользователя реальное название row в таблице БД"""
+    unmasked_sort_type = str
+    if 'request' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('request', 'request_text')
+    elif 'age' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('age', 'site_age_concurency')
+    elif 'stem' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('stem', 'site_stem_concurency')
+    elif 'volume' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('volume', 'site_volume_concurency')
+    elif 'backlinks' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('backlinks', 'site_backlinks_concurency')
+    elif 'seo' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('seo', 'site_seo_concurency')
+    elif 'direct' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('direct','direct_upscale')
+    elif 'total' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('total', 'site_total_concurency')
+    elif 'region' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('region', 'region_id')
+
+    return unmasked_sort_type
+
 def requests_from_order(request, order_id):
     user_data = SiteUser(request.user.id)
     order_data = Orders(user_data.id)
     all_regions = Region.objects.all().order_by('name')
-    all_requests = order_data.all_requests_from_order(order_id).select_related('region').order_by('-site_seo_concurency')
+    try:
+        sort_type = request.GET['sort']
+        unmasked_sort_type = unmask_sort_type(sort_type)
+        all_requests = order_data.all_requests_from_order(order_id).select_related('region').order_by(unmasked_sort_type)
+    except:
+        sort_type = None
+        all_requests = order_data.all_requests_from_order(order_id).select_related('region').order_by('-site_seo_concurency')
+
 
     if all_requests:
         context = {'all_requests': all_requests,
@@ -406,6 +443,7 @@ def requests_from_order(request, order_id):
                    'order_id': order_id,
                    'regions': all_regions,
                    'region': user_data.region,
+                   'sort_type': sort_type,
                    }
 
         if request.user.is_staff:
