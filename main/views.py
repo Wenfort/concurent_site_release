@@ -330,7 +330,7 @@ def handle_new_request(request):
 
 def results(request):
     user_data = SiteUser(request.user.id)
-    all_regions = Region.objects.all()
+    all_regions = Region.objects.all().order_by('name')
     if request.user.is_staff:
         all_requests = Request.objects.all().order_by('-site_seo_concurency')
 
@@ -377,7 +377,7 @@ def change_region(request):
 def get_orders_page(request):
     user_data = SiteUser(request.user.id)
     orders_data = Orders(user_data.id)
-    all_regions = Region.objects.all
+    all_regions = Region.objects.all().order_by('name')
     form = NewRequest()
 
     context = {'all_orders_list': orders_data.unique_order_rows,
@@ -395,7 +395,7 @@ def get_orders_page(request):
 def requests_from_order(request, order_id):
     user_data = SiteUser(request.user.id)
     order_data = Orders(user_data.id)
-    all_regions = Region.objects.all
+    all_regions = Region.objects.all().order_by('name')
     all_requests = order_data.all_requests_from_order(order_id).select_related('region').order_by('-site_seo_concurency')
 
     if all_requests:
