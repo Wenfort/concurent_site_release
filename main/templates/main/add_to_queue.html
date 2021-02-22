@@ -27,6 +27,15 @@
                 </datalist>
                 <input type="submit" class="btn btn-primary" style="width: 100%" value="Сменить регион">
             </form>
+        {% if messages %}
+          {% for message in messages %}
+              {% if message.tags == 'error' %}
+                  <p style="color: red; text-align: center">
+              {% else %}
+                  <p style="color: green; text-align: center">
+              {% endif %}{{ message }}</p>
+          {% endfor %}
+        {% endif %}
         </div>
     </div>
 </div>

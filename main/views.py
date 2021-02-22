@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from .password_generator import generate_password
 
 from .forms import NewRequest, NewUser, AuthUser, ChangePassword
+from django.contrib import messages
+
 
 
 def index(request):
@@ -362,11 +364,15 @@ def change_region(request):
     user_id = request.user.id
     new_region = request.POST['region']
     previous_url = request.POST['previous_url']
-    new_region_id = Region.objects.get(name=new_region).region_id
-    user = UserData.objects.filter(user_id=user_id)
-    user.update(region_id=new_region_id)
-    return HttpResponseRedirect(previous_url)
+    if new_region:
+        new_region_id = Region.objects.get(name=new_region).region_id
+        user = UserData.objects.filter(user_id=user_id)
+        user.update(region_id=new_region_id)
+        messages.success(request, 'Регион успешно изменен')
+    else:
+        messages.error(request, 'Поле "регион" не может быть пустым')
 
+    return HttpResponseRedirect(previous_url)
 
 def get_orders_page(request):
     user_data = SiteUser(request.user.id)
