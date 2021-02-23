@@ -73,18 +73,19 @@ class XmlReport():
         for thread in self.thread_list:
             thread.join()
 
+    def delete_xml_answer_from_database(self, xml_answer):
+        request_text = xml_answer[0]
+        geo = xml_answer[3]
+        sql = ('DELETE FROM '
+               'concurent_site.main_requestqueue '
+               'WHERE '
+               f"request_text='{request_text}' AND geo='{geo}';")
+        pm.custom_request_to_database_without_return(sql)
+
     def add_xml_answers_to_database(self):
-        requests_for_deletion = list()
         for xml_answer in self.xml_answers:
-            requests_for_deletion.append(xml_answer[0])
             pm.add_to_database_with_autoincrement('main_handledxml', xml_answer)
-
-
-
-        requests_for_deletion = tuple(requests_for_deletion)
-        pm.delete_from_database('main_requestqueue', 'request_text', requests_for_deletion)
-
-
+            self.delete_xml_answer_from_database(xml_answer)
 
 
 while True:
