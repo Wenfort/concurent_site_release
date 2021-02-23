@@ -288,18 +288,6 @@ class Yandex:
             f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
         )
 
-        # values_to_go = (self.request,
-        #                self.concurency_object.site_age_concurency,
-        #                self.concurency_object.site_stem_concurency,
-        #                self.concurency_object.site_volume_concurency,
-        #                self.concurency_object.site_backlinks_concurency,
-        #                self.concurency_object.site_total_concurency,
-        #                self.concurency_object.direct_upscale,
-        #                self.concurency_object.status,
-        #                self.concurency_object.site_direct_concurency,
-        #                self.concurency_object.site_seo_concurency,
-        #               )
-        # logger.debug(values_to_go)
 
     def get_scalp(self):
         print(self.page_xml.prettify())

@@ -32,28 +32,38 @@ class XmlReport():
         for request in self.requests:
             request_text = request[1]
             request_region = request[2]
-            self.xml_request_packs.append({
-                                              request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}&lr={request_region}'})
+            self.xml_request_packs.append(
+                {
+                    request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}&lr={request_region}',
+                }
+            )
 
             print(f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}&lr={request_region}')
         self.xml_request_packs = tuple(self.xml_request_packs)
 
-    def get_xml_answer(self, request, xml_url):
+    def get_xml_answer(self, request, xml_url, geo):
         r = requests.get(xml_url)
         text = r.text
         site_numbers = len(re.findall(r'<doc>', text))
 
+        file = open(f'./reports/{request}-{geo}.txt', 'a', encoding='utf-8')
+        file.write('----------------------------------------\n')
+        file.write(f'XML URL: {xml_url}\n')
+        file.write('----------------------------------------\n')
+
         if site_numbers > 15:
             content_for_bs4 = text
             if 'Ответ от поисковой системы не получен' not in text:
-                self.xml_answers.append({request: text})
+                self.xml_answers.append((request, text, 'in work', geo))
             else:
                 print(f'Ошибка XML в запросе {request}: {text}')
 
     def make_threads(self):
         for xml_pack in self.xml_request_packs:
-            for request, xml_url in xml_pack.items():
-                self.thread_list.append(Thread(target=self.get_xml_answer, args=(request, xml_url)))
+            for request_pack, xml_url in xml_pack.items():
+                request_text = request_pack[1]
+                geo = request_pack[2]
+                self.thread_list.append(Thread(target=self.get_xml_answer, args=(request_text, xml_url, geo)))
 
     def run_threads(self):
         for thread in self.thread_list:
@@ -66,13 +76,15 @@ class XmlReport():
     def add_xml_answers_to_database(self):
         requests_for_deletion = list()
         for xml_answer in self.xml_answers:
-            for request, answer in xml_answer.items():
-                answer = str(answer)
-                requests_for_deletion.append(request[1])
-                pm.add_to_database_with_autoincrement('main_handledxml', (request[1], answer, 'in work', request[2]))
+            requests_for_deletion.append(xml_answer[0])
+            pm.add_to_database_with_autoincrement('main_handledxml', xml_answer)
+
+
 
         requests_for_deletion = tuple(requests_for_deletion)
         pm.delete_from_database('main_requestqueue', 'request_text', requests_for_deletion)
+
+
 
 
 while True:
