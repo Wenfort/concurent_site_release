@@ -94,3 +94,12 @@ def custom_request_to_database_without_return(sql):
     cursor.execute(sql)
     conn.commit()
     conn.close()
+
+def custom_request_to_database_with_return(sql):
+    conn = psycopg2.connect(dbname=DATABASE, user=USER, password=PASSWORD, host=HOST)
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    data = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    return data

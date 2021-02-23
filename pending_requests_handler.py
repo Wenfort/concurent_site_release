@@ -112,7 +112,7 @@ class Yandex:
             return False
 
     def make_concurency_object(self):
-        self.concurency_object = Concurency(self.site_objects_list, self.request)
+        self.concurency_object = Concurency(self.site_objects_list, self.request, self.geo)
 
 
     def update_database(self):
@@ -173,9 +173,10 @@ class Domain:
             pm.add_to_database('main_domain', values_to_go)
 
 class Concurency:
-    def __init__(self, site_objects_list, request):
+    def __init__(self, site_objects_list, request, geo):
         self.site_objects_list = site_objects_list
         self.request = request
+        self.geo = geo
         self.WEIGHTS = dict()
         self.importance = dict()
         self.site_age_concurency = int()
@@ -185,7 +186,7 @@ class Concurency:
         self.site_direct_concurency = int()
         self.direct_upscale = int()
         self.status = ''
-        self.geo = ''
+
 
         self.site_backlinks_concurency = int()
         self.site_total_concurency = int()
@@ -211,12 +212,18 @@ class Concurency:
 
 
     def get_concurency_from_database(self):
-        concurency = pm.check_in_database('main_request', 'request_text', self.request)[0]
-        self.site_age_concurency = int(concurency[2])
-        self.site_stem_concurency = int(concurency[3])
-        self.site_volume_concurency = int(concurency[4])
-        self.direct_upscale = int(concurency[7])
-        self.geo = int(concurency[11])
+        sql = ('SELECT '
+               'site_age_concurency, site_stem_concurency, site_volume_concurency, direct_upscale '
+               'FROM '
+               'concurent_site.main_request '
+               'WHERE '
+               f"request_text='{self.request}' AND region_id='{self.geo}';")
+        concurency =pm.custom_request_to_database_with_return(sql)[0]
+
+        self.site_age_concurency = int(concurency[0])
+        self.site_stem_concurency = int(concurency[1])
+        self.site_volume_concurency = int(concurency[2])
+        self.direct_upscale = int(concurency[3])
 
     def check_is_absourd_request(self):
         if self.site_stem_concurency < 30:
