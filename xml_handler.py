@@ -48,8 +48,9 @@ class XmlReport():
 
         file = open(f'./reports/{request}-{geo}.txt', 'a', encoding='utf-8')
         file.write('----------------------------------------\n')
-        file.write(f'XML URL: {xml_url}\n')
+        file.write(f'{xml_url}\n')
         file.write('----------------------------------------\n')
+        file.write(f'{text}\n')
 
         if site_numbers > 15:
             content_for_bs4 = text
