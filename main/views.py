@@ -102,7 +102,6 @@ class NewRequestHandler:
         self.get_user_data()
         self.make_requests_list()
         self.add_new_requests_to_database()
-        self.get_new_requests_id()
 
         self.calculate_new_requests_amount()
 
@@ -124,24 +123,28 @@ class NewRequestHandler:
     def make_requests_list(self):
         requests_list = self.request['requests_list']
         requests_list = requests_list.replace('\r', '')
+        requests_list = requests_list.replace('\t', '')
         requests_list = requests_list.split('\n')
         self.requests_list = [request for request in requests_list if request]
 
     def add_new_requests_to_database(self):
         for request in self.requests_list:
-            RequestQueue(request_text=request, geo=self.user_data.region_id).save()
-            Request(request_text=request, region_id=self.user_data.region_id).save()
+            try:
+                new_request = Request.objects.get(request_text=request, region_id=self.user_data.region_id)
+            except:
+                new_request = Request(request_text=request, region_id=self.user_data.region_id)
+                RequestQueue(request_text=request, geo=self.user_data.region_id).save()
+                new_request.save()
+                new_request_id = new_request.pk
 
-
-    def get_new_requests_id(self):
-        self.new_requests = Request.objects.filter(request_text__in=self.requests_list)
+                self.new_requests.append(new_request_id)
 
     def calculate_new_requests_amount(self):
         self.new_requests_amount = len(self.new_requests)
 
     def update_user_orders(self):
         for new_request in self.new_requests:
-            Order(request_id=new_request.request_id,
+            Order(request_id=new_request,
                   user_id=self.user_id,
                   order_id=self.order_id
                   ).save()

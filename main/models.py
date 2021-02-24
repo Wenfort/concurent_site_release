@@ -75,8 +75,8 @@ class OrderStatus(models.Model):
 
 
 class Order(models.Model):
-    order = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING)
-    request = models.ForeignKey(Request, on_delete=models.DO_NOTHING)
+    order = models.ForeignKey(OrderStatus, on_delete=models.CASCADE)
+    request = models.ForeignKey(Request, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
 

@@ -204,7 +204,6 @@ class Concurency:
             self.WEIGHTS = WEIGHTS_ORGANIC
 
 
-
         self.calculate_site_backlinks_concurency()
         self.calculate_site_total_concurency()
         self.status = 'ready'
@@ -224,6 +223,9 @@ class Concurency:
         self.site_stem_concurency = int(concurency[1])
         self.site_volume_concurency = int(concurency[2])
         self.direct_upscale = int(concurency[3])
+
+        if self.site_age_concurency == 0:
+            print('ПОПАЛСЯ!')
 
     def check_is_absourd_request(self):
         if self.site_stem_concurency < 30:

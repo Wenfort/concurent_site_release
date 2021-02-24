@@ -65,7 +65,8 @@ class Manager:
     def delete_requests_from_queue(self):
         for yandex_object in self.yandex_objects_list:
             if yandex_object['Статус'] == 'backlinks':
-                pm.update_database('main_handledxml', 'status', 'pending', 'request', yandex_object['Запрос'])
+                sql = f"UPDATE concurent_site.main_handledxml SET status = 'pending' WHERE request = '{yandex_object['Запрос']}' AND geo='{yandex_object['Гео']}';"
+                pm.custom_request_to_database_without_return(sql)
             else:
                 pm.custom_request_to_database_without_return(
                     f"DELETE FROM concurent_site.main_handledxml WHERE request='{yandex_object['Запрос']}' AND geo='{yandex_object['Гео']}';"
@@ -509,6 +510,8 @@ class Concurency:
             self.status = 'backlinks'
 
         self.prepare_report()
+        if self.site_age_concurency == 0:
+            print('Попался!')
 
     def check_site_object_type(self):
         for site_object in self.site_objects_list:
