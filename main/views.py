@@ -125,7 +125,7 @@ class NewRequestHandler:
         requests_list = requests_list.replace('\r', '')
         requests_list = requests_list.replace('\t', '')
         requests_list = requests_list.split('\n')
-        self.requests_list = [request for request in requests_list if request]
+        self.requests_list = [request.lower() for request in requests_list if request]
 
     def add_new_requests_to_database(self):
         for request in self.requests_list:
