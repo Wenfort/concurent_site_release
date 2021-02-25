@@ -1,5 +1,5 @@
 {% extends "./account_page_body.html" %}
-
+{% load mathfilters %}
 {% block content %}
 {% include './add_to_queue.html' %}
 <div class="container-fluid">
@@ -21,7 +21,7 @@
                                     <th>{% if sort_type == '-direct' %} <a href="?sort=direct"> {% else %} <a href="?sort=-direct">{% endif %}Эффект директа</a></th>
                                     <th>{% if sort_type == '-total' %} <a href="?sort=total"> {% else %} <a href="?sort=-total">{% endif %}Итоговая сложность</a></th>
                                     <th>{% if sort_type == 'region' %} <a href="?sort=-region"> {% else %} <a href="?sort=region">{% endif %}Гео</a></th>
-                                    <th>Количество запросов в месяц</th>
+                                    <th>{% if sort_type == '-amount' %} <a href="?sort=amount"> {% else %} <a href="?sort=-amount">{% endif %}Количество запросов в месяц</a></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,7 +50,13 @@
                                                 <td>{{ request.direct_upscale }}</td>
                                                 <td>{{ request.site_total_concurency }}</td>
                                                 <td>{{ request.region.name }}</td>
-                                                <td>{{ request.request_views }}</td>
+                                                 <td>{% if request.request_views >= 1000000 %}
+                                                    Более {{ request.request_views|div:1000000 }} млн
+                                                {% elif request.request_views >= 10000 %}
+                                                    ~{{ request.request_views }}
+                                                {% else %}
+                                                    {{ request.request_views }}
+                                                 {% endif %}</td>
                                             </tr>
                                         {% endif %}
                                     {% endfor %}

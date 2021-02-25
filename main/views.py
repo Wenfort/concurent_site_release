@@ -184,6 +184,33 @@ class NewRequestHandler:
             return True
 
 
+def unmask_sort_type(masked_sort_type):
+    """Прячет от пользователя реальное название row в таблице БД"""
+    unmasked_sort_type = str
+    if 'request' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('request', 'request_text')
+    elif 'age' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('age', 'site_age_concurency')
+    elif 'stem' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('stem', 'site_stem_concurency')
+    elif 'volume' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('volume', 'site_volume_concurency')
+    elif 'backlinks' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('backlinks', 'site_backlinks_concurency')
+    elif 'seo' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('seo', 'site_seo_concurency')
+    elif 'direct' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('direct','direct_upscale')
+    elif 'total' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('total', 'site_total_concurency')
+    elif 'region' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('region', 'region_id')
+    elif 'amount' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('amount', 'request_views')
+
+    return unmasked_sort_type
+
+
 def handle_new_request(request):
     if request.method == "POST":
         try:
@@ -198,6 +225,24 @@ def handle_new_request(request):
         else:
             return HttpResponse(
                 f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на {request_handler.new_requests_amount - request_handler.user_data.balance} рублей')
+
+
+def get_orders_page(request):
+    user_data = SiteUser(request.user.id)
+    orders_data = Orders(user_data.id)
+    all_regions = Region.objects.all().order_by('name')
+    form = NewRequest()
+
+    context = {'all_orders_list': orders_data.unique_order_rows,
+               'orders': user_data.orders,
+               'keywords_ordered': user_data.ordered_keywords,
+               'balance': user_data.balance,
+               'form': form,
+               'regions': all_regions,
+               'region': user_data.region
+               }
+
+    return render(request, 'main/orders.html', context)
 
 
 def results(request):
@@ -235,49 +280,6 @@ def results(request):
             return render(request, 'main/non_restricted_requests.html', context)
     else:
         return HttpResponse('У вас нет доступа к этой странице')
-
-
-def get_orders_page(request):
-    user_data = SiteUser(request.user.id)
-    orders_data = Orders(user_data.id)
-    all_regions = Region.objects.all().order_by('name')
-    form = NewRequest()
-
-    context = {'all_orders_list': orders_data.unique_order_rows,
-               'orders': user_data.orders,
-               'keywords_ordered': user_data.ordered_keywords,
-               'balance': user_data.balance,
-               'form': form,
-               'regions': all_regions,
-               'region': user_data.region
-               }
-
-    return render(request, 'main/orders.html', context)
-
-
-def unmask_sort_type(masked_sort_type):
-    """Прячет от пользователя реальное название row в таблице БД"""
-    unmasked_sort_type = str
-    if 'request' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('request', 'request_text')
-    elif 'age' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('age', 'site_age_concurency')
-    elif 'stem' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('stem', 'site_stem_concurency')
-    elif 'volume' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('volume', 'site_volume_concurency')
-    elif 'backlinks' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('backlinks', 'site_backlinks_concurency')
-    elif 'seo' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('seo', 'site_seo_concurency')
-    elif 'direct' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('direct','direct_upscale')
-    elif 'total' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('total', 'site_total_concurency')
-    elif 'region' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('region', 'region_id')
-
-    return unmasked_sort_type
 
 
 def requests_from_order(request, order_id):

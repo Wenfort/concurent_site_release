@@ -194,7 +194,7 @@ class Yandex:
         try:
             self.request_views = int(self.page_xml.find('displayed').text)
         except:
-            self.request_views = 100500100500
+            self.request_views = 'Данные недоступны'
 
     def start_logging(self):
         logger.add("critical.txt", format="{time:HH:mm:ss} {message}", level='CRITICAL', encoding="UTF-8")

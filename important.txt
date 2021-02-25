@@ -829,3 +829,79 @@ IndexError: list index out of range
 22:15:08 Проблема с валидностью контента wikichi.ru. 
 22:15:12 Проблема с валидностью контента trsk.info. 
 22:15:46 Проблема с валидностью контента wikichi.ru. 
+19:08:27 An error has been caught in function 'run', process 'Process-1' (8527), thread 'MainThread' (139918343821120):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 824, in <module>
+    Manager()
+    └ <function Manager at 0x7f4146a079d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f4142c1a310>
+    └ <__main__.Manager object at 0x7f4145d25370>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f4146a0c9d0>
+    └ <Process name='Process-1' parent=8467 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=8467 started>
+    │    │        │    └ <staticmethod object at 0x7f4146b8b070>
+    │    │        └ <Process name='Process-1' parent=8467 started>
+    │    └ None
+    └ <Process name='Process-1' parent=8467 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=8467 started>
+           │                └ <function DefaultContext.get_context at 0x7f4146a214c0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f4146a56280>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=8467 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=8467 started>
+    │    └ <function Popen._launch at 0x7f4142c47700>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f4142c43430>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f4146a50310>
+           └ <Process name='Process-1' parent=8467 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f4146a0c940>
+    └ <Process name='Process-1' parent=8467 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=8467 started>
+    │    │        │    └ ((724, 'как сделать йогурт', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="202102...
+    │    │        └ <Process name='Process-1' parent=8467 started>
+    │    └ <function Yandex at 0x7f4142c1af70>
+    └ <Process name='Process-1' parent=8467 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 189, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f4142c1b790>
+    └ <__main__.Yandex object at 0x7f41469eec10>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 293, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f4142c15f70>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ "UPDATE concurent_site.main_request SET site_age_concurency = 90, site_stem_concurency = 69, site_volume_concurency = 93, sit...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f41103499a0; closed: 0>
+
+psycopg2.errors.SyntaxError: syntax error at or near "тыс"
+LINE 1: ... 6, site_seo_concurency = 0, request_views = ~1.1 тыс WHERE ...
+                                                             ^
+
