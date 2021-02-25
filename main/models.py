@@ -51,6 +51,7 @@ class Request(models.Model):
     site_direct_concurency = models.IntegerField(default=0)
     status = models.CharField(max_length=100, default='progress')
     region = models.ForeignKey(Region, default=255, on_delete=models.DO_NOTHING)
+    request_views = models.IntegerField(default=0)
 
     def __str__(self):
         return self.request_text

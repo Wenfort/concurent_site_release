@@ -168,12 +168,16 @@ class Yandex:
         self.thread_list = str()
         self.concurency_object = str()
         self.result = dict()
+        self.request_views = int()
 
         self.start_logging()
 
         self.stem_request()
+
         self.get_page_xml()
+        self.get_request_views()
         self.get_site_list()
+
         self.clean_garbage()
 
         self.make_threads()
@@ -185,6 +189,12 @@ class Yandex:
         self.add_result_to_database()
 
         self.q.put(self.result)
+
+    def get_request_views(self):
+        try:
+            self.request_views = int(self.page_xml.find('displayed').text)
+        except:
+            self.request_views = 100500100500
 
     def start_logging(self):
         logger.add("critical.txt", format="{time:HH:mm:ss} {message}", level='CRITICAL', encoding="UTF-8")
@@ -265,6 +275,7 @@ class Yandex:
             'Модификатор директ': self.concurency_object.direct_upscale,
             'Статус': self.concurency_object.status,
             'Гео': self.geo,
+            'Показов запроса': self.request_views,
         }
 
     def add_result_to_database(self):
@@ -285,7 +296,8 @@ class Yandex:
             f"direct_upscale = {self.concurency_object.direct_upscale}, "
             f"status = '{self.concurency_object.status}', "
             f"site_direct_concurency = {self.concurency_object.site_direct_concurency}, "
-            f"site_seo_concurency = {self.concurency_object.site_seo_concurency} "
+            f"site_seo_concurency = {self.concurency_object.site_seo_concurency}, "
+            f"request_views = {self.request_views} "
             f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
         )
 

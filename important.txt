@@ -133,3 +133,699 @@
 17:21:48 Проблема с валидностью контента flagma.ru. 
 19:31:09 Не удалось загрузить https://www.decorwall.ru/shtory/poelementam/serkerom/
 19:31:10 Проблема с валидностью контента decorwall.ru. 
+22:05:33 Не удалось загрузить https://lenta.com/catalog/bakaleya/konservaciya/rybnye-konservy/f/producerscountry=latviya/
+22:05:34 Проблема с валидностью контента lenta.com. 
+22:05:41 An error has been caught in function 'run', process 'Process-1' (6999), thread 'MainThread' (139883138144064):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 820, in <module>
+    Manager()
+    └ <function Manager at 0x7f3914345940>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f391055a280>
+    └ <__main__.Manager object at 0x7f3913665160>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f391434c940>
+    └ <Process name='Process-1' parent=6996 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=6996 started>
+    │    │        │    └ <staticmethod object at 0x7f39144cb0a0>
+    │    │        └ <Process name='Process-1' parent=6996 started>
+    │    └ None
+    └ <Process name='Process-1' parent=6996 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=6996 started>
+           │                └ <function DefaultContext.get_context at 0x7f3914361430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f39143962b0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=6996 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=6996 started>
+    │    └ <function Popen._launch at 0x7f391058b5e0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f3910586220>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f391434e280>
+           └ <Process name='Process-1' parent=6996 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f391434c8b0>
+    └ <Process name='Process-1' parent=6996 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=6996 started>
+    │    │        │    └ ((719, 'рижские шпроты', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210224T1...
+    │    │        └ <Process name='Process-1' parent=6996 started>
+    │    └ <function Yandex at 0x7f391055aee0>
+    └ <Process name='Process-1' parent=6996 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 189, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f391055b700>
+    └ <__main__.Yandex object at 0x7f3914330640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 289, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f39105ccee0>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ "UPDATE concurent_site.main_request SET site_age_concurency = 98, site_stem_concurency = 83, site_volume_concurency = 86, sit...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f390eb7e130; closed: 0>
+
+psycopg2.errors.SyntaxError: syntax error at or near "WHERE"
+LINE 1: ...6, site_seo_concurency = 91, request_views = 772, WHERE requ...
+                                                             ^
+
+22:06:41 Не удалось загрузить https://lenta.com/catalog/bakaleya/konservaciya/rybnye-konservy/f/producerscountry=latviya/
+22:06:41 Проблема с валидностью контента lenta.com. 
+22:07:31 An error has been caught in function 'make_backlinks_object', process 'Process-2' (7195), thread 'Thread-22' (139875584034560):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f379881c430>
+    └ <Thread(Thread-22, started 139875584034560)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f379881c160>
+    └ <Thread(Thread-22, started 139875584034560)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-22, started 139875584034560)>
+    │    │        │    └ ('22', (<doc><url>https://msk.laoshi.ru/</url><title>Курсы китайского языка Лаоши в Москве</title><passages><passage>Изучайте...
+    │    │        └ <Thread(Thread-22, started 139875584034560)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f3798827640>>
+    └ <Thread(Thread-22, started 139875584034560)>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 250, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://msk.laoshi.ru/</url><title>Курсы китайского языка Лаоши в Москве</title><passages><passage>Изучайте китайс...
+    │    │                 │      │    └ '22'
+    │    │                 │      └ <function Site at 0x7f3794a51700>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f379434e9a0>, <__main__.Site object at 0x7f379434eac0>, <__main__.Site object at 0x7f379434ea30>...
+    └ <__main__.Yandex object at 0x7f3798827640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 98, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f3794a51b80>
+    └ <__main__.Site object at 0x7f37942c5c70>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 150, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'laoshi.ru'
+    │    │               │      └ <__main__.Site object at 0x7f37942c5c70>
+    │    │               └ <function Domain at 0x7f3794a52ee0>
+    │    └ ''
+    └ <__main__.Site object at 0x7f37942c5c70>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 356, in __init__
+    self.make_backlinks_object()
+    │    └ <function Domain.make_backlinks_object at 0x7f3794a54280>
+    └ <__main__.Domain object at 0x7f379434e970>
+
+> File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 413, in make_backlinks_object
+    self.backlinks_object = Backlinks(self.domain)
+    │    │                  │         │    └ 'laoshi.ru'
+    │    │                  │         └ <__main__.Domain object at 0x7f379434e970>
+    │    │                  └ <function Backlinks at 0x7f3794a52a60>
+    │    └ ''
+    └ <__main__.Domain object at 0x7f379434e970>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 319, in __init__
+    self.get_token()
+    │    └ <function Backlinks.get_token at 0x7f3794a52b80>
+    └ <__main__.Backlinks object at 0x7f377025bf40>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 324, in get_token
+    self.token = accounts_with_balance[0][0]
+    │    │       └ []
+    │    └ ''
+    └ <__main__.Backlinks object at 0x7f377025bf40>
+
+IndexError: list index out of range
+22:07:31 Проблемы с доменом laoshi.ru
+22:07:31 An error has been caught in function 'make_backlinks_object', process 'Process-2' (7195), thread 'Thread-12' (139876146083584):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f379881c430>
+    └ <Thread(Thread-12, started 139876146083584)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f379881c160>
+    └ <Thread(Thread-12, started 139876146083584)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-12, started 139876146083584)>
+    │    │        │    └ ('12', (<doc><url>https://Zaochnik.ru/blog/kak-vyuchit-kitajskij-yazyk-samostoyatelno-doma-s-nulya-3-metoda-sovety-specialist...
+    │    │        └ <Thread(Thread-12, started 139876146083584)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f3798827640>>
+    └ <Thread(Thread-12, started 139876146083584)>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 250, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://Zaochnik.ru/blog/kak-vyuchit-kitajskij-yazyk-samostoyatelno-doma-s-nulya-3-metoda-sovety-specialistov/</ur...
+    │    │                 │      │    └ '12'
+    │    │                 │      └ <function Site at 0x7f3794a51700>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f379434e9a0>, <__main__.Site object at 0x7f379434eac0>, <__main__.Site object at 0x7f379434ea30>...
+    └ <__main__.Yandex object at 0x7f3798827640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 98, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f3794a51b80>
+    └ <__main__.Site object at 0x7f37943005b0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 150, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'Zaochnik.ru'
+    │    │               │      └ <__main__.Site object at 0x7f37943005b0>
+    │    │               └ <function Domain at 0x7f3794a52ee0>
+    │    └ ''
+    └ <__main__.Site object at 0x7f37943005b0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 356, in __init__
+    self.make_backlinks_object()
+    │    └ <function Domain.make_backlinks_object at 0x7f3794a54280>
+    └ <__main__.Domain object at 0x7f37335d0700>
+
+> File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 413, in make_backlinks_object
+    self.backlinks_object = Backlinks(self.domain)
+    │    │                  │         │    └ 'Zaochnik.ru'
+    │    │                  │         └ <__main__.Domain object at 0x7f37335d0700>
+    │    │                  └ <function Backlinks at 0x7f3794a52a60>
+    │    └ ''
+    └ <__main__.Domain object at 0x7f37335d0700>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 319, in __init__
+    self.get_token()
+    │    └ <function Backlinks.get_token at 0x7f3794a52b80>
+    └ <__main__.Backlinks object at 0x7f37942dadc0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 324, in get_token
+    self.token = accounts_with_balance[0][0]
+    │    │       └ []
+    │    └ ''
+    └ <__main__.Backlinks object at 0x7f37942dadc0>
+
+IndexError: list index out of range
+22:07:31 Проблемы с доменом Zaochnik.ru
+22:07:31 An error has been caught in function 'make_backlinks_object', process 'Process-2' (7195), thread 'Thread-16' (139876112512768):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f379881c430>
+    └ <Thread(Thread-16, started 139876112512768)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f379881c160>
+    └ <Thread(Thread-16, started 139876112512768)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-16, started 139876112512768)>
+    │    │        │    └ ('16', (<doc><url>https://info-profi.net/kitajskij-yazyk/</url><title>Как выучить китайский язык самостоятельно дома с нуля</...
+    │    │        └ <Thread(Thread-16, started 139876112512768)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f3798827640>>
+    └ <Thread(Thread-16, started 139876112512768)>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 250, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://info-profi.net/kitajskij-yazyk/</url><title>Как выучить китайский язык самостоятельно дома с нуля</title><...
+    │    │                 │      │    └ '16'
+    │    │                 │      └ <function Site at 0x7f3794a51700>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f379434e9a0>, <__main__.Site object at 0x7f379434eac0>, <__main__.Site object at 0x7f379434ea30>...
+    └ <__main__.Yandex object at 0x7f3798827640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 98, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f3794a51b80>
+    └ <__main__.Site object at 0x7f3794317ee0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 150, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'info-profi.net'
+    │    │               │      └ <__main__.Site object at 0x7f3794317ee0>
+    │    │               └ <function Domain at 0x7f3794a52ee0>
+    │    └ ''
+    └ <__main__.Site object at 0x7f3794317ee0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 356, in __init__
+    self.make_backlinks_object()
+    │    └ <function Domain.make_backlinks_object at 0x7f3794a54280>
+    └ <__main__.Domain object at 0x7f37501dbd30>
+
+> File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 413, in make_backlinks_object
+    self.backlinks_object = Backlinks(self.domain)
+    │    │                  │         │    └ 'info-profi.net'
+    │    │                  │         └ <__main__.Domain object at 0x7f37501dbd30>
+    │    │                  └ <function Backlinks at 0x7f3794a52a60>
+    │    └ ''
+    └ <__main__.Domain object at 0x7f37501dbd30>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 319, in __init__
+    self.get_token()
+    │    └ <function Backlinks.get_token at 0x7f3794a52b80>
+    └ <__main__.Backlinks object at 0x7f3793d34070>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 324, in get_token
+    self.token = accounts_with_balance[0][0]
+    │    │       └ []
+    │    └ ''
+    └ <__main__.Backlinks object at 0x7f3793d34070>
+
+IndexError: list index out of range
+22:07:31 Проблемы с доменом info-profi.net
+22:07:31 An error has been caught in function 'make_backlinks_object', process 'Process-2' (7195), thread 'Thread-21' (139875592427264):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f379881c430>
+    └ <Thread(Thread-21, started 139875592427264)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f379881c160>
+    └ <Thread(Thread-21, started 139875592427264)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-21, started 139875592427264)>
+    │    │        │    └ ('21', (<doc><url>https://ichinese8.ru/chinese-free/</url><title>Учить китайский бесплатно: 40+ способов</title><passages><pa...
+    │    │        └ <Thread(Thread-21, started 139875592427264)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f3798827640>>
+    └ <Thread(Thread-21, started 139875592427264)>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 250, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://ichinese8.ru/chinese-free/</url><title>Учить китайский бесплатно: 40+ способов</title><passages><passage>В...
+    │    │                 │      │    └ '21'
+    │    │                 │      └ <function Site at 0x7f3794a51700>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f379434e9a0>, <__main__.Site object at 0x7f379434eac0>, <__main__.Site object at 0x7f379434ea30>...
+    └ <__main__.Yandex object at 0x7f3798827640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 98, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f3794a51b80>
+    └ <__main__.Site object at 0x7f37942c5220>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 150, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'ichinese8.ru'
+    │    │               │      └ <__main__.Site object at 0x7f37942c5220>
+    │    │               └ <function Domain at 0x7f3794a52ee0>
+    │    └ ''
+    └ <__main__.Site object at 0x7f37942c5220>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 356, in __init__
+    self.make_backlinks_object()
+    │    └ <function Domain.make_backlinks_object at 0x7f3794a54280>
+    └ <__main__.Domain object at 0x7f3770263280>
+
+> File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 413, in make_backlinks_object
+    self.backlinks_object = Backlinks(self.domain)
+    │    │                  │         │    └ 'ichinese8.ru'
+    │    │                  │         └ <__main__.Domain object at 0x7f3770263280>
+    │    │                  └ <function Backlinks at 0x7f3794a52a60>
+    │    └ ''
+    └ <__main__.Domain object at 0x7f3770263280>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 319, in __init__
+    self.get_token()
+    │    └ <function Backlinks.get_token at 0x7f3794a52b80>
+    └ <__main__.Backlinks object at 0x7f37335d00a0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 324, in get_token
+    self.token = accounts_with_balance[0][0]
+    │    │       └ []
+    │    └ ''
+    └ <__main__.Backlinks object at 0x7f37335d00a0>
+
+IndexError: list index out of range
+22:07:31 Проблемы с доменом ichinese8.ru
+22:07:32 An error has been caught in function 'make_backlinks_object', process 'Process-2' (7195), thread 'Thread-5' (139876668348160):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f379881c430>
+    └ <Thread(Thread-5, started 139876668348160)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f379881c160>
+    └ <Thread(Thread-5, started 139876668348160)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-5, started 139876668348160)>
+    │    │        │    └ ('5', (<doc><url>https://lingust.ru/chinese/chinese-lessons</url><title>Уроки китайского языка для начинающих</title><passage...
+    │    │        └ <Thread(Thread-5, started 139876668348160)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f3798827640>>
+    └ <Thread(Thread-5, started 139876668348160)>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 250, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://lingust.ru/chinese/chinese-lessons</url><title>Уроки китайского языка для начинающих</title><passages><pas...
+    │    │                 │      │    └ '5'
+    │    │                 │      └ <function Site at 0x7f3794a51700>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f379434e9a0>, <__main__.Site object at 0x7f379434eac0>, <__main__.Site object at 0x7f379434ea30>...
+    └ <__main__.Yandex object at 0x7f3798827640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 98, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f3794a51b80>
+    └ <__main__.Site object at 0x7f379434e9d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 150, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'lingust.ru'
+    │    │               │      └ <__main__.Site object at 0x7f379434e9d0>
+    │    │               └ <function Domain at 0x7f3794a52ee0>
+    │    └ ''
+    └ <__main__.Site object at 0x7f379434e9d0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 356, in __init__
+    self.make_backlinks_object()
+    │    └ <function Domain.make_backlinks_object at 0x7f3794a54280>
+    └ <__main__.Domain object at 0x7f37335d0df0>
+
+> File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 413, in make_backlinks_object
+    self.backlinks_object = Backlinks(self.domain)
+    │    │                  │         │    └ 'lingust.ru'
+    │    │                  │         └ <__main__.Domain object at 0x7f37335d0df0>
+    │    │                  └ <function Backlinks at 0x7f3794a52a60>
+    │    └ ''
+    └ <__main__.Domain object at 0x7f37335d0df0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 319, in __init__
+    self.get_token()
+    │    └ <function Backlinks.get_token at 0x7f3794a52b80>
+    └ <__main__.Backlinks object at 0x7f37702631f0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 324, in get_token
+    self.token = accounts_with_balance[0][0]
+    │    │       └ []
+    │    └ ''
+    └ <__main__.Backlinks object at 0x7f37702631f0>
+
+IndexError: list index out of range
+22:07:32 Проблемы с доменом lingust.ru
+22:07:32 An error has been caught in function 'make_backlinks_object', process 'Process-2' (7195), thread 'Thread-11' (139876626384640):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f379881c430>
+    └ <Thread(Thread-11, started 139876626384640)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f379881c160>
+    └ <Thread(Thread-11, started 139876626384640)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-11, started 139876626384640)>
+    │    │        │    └ ('11', (<doc><url>https://kursy-kitajskogo-yazyka.ru/</url><title>ТОП 5 лучших курсов китайского языка в Москве ...</title><p...
+    │    │        └ <Thread(Thread-11, started 139876626384640)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f3798827640>>
+    └ <Thread(Thread-11, started 139876626384640)>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 250, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://kursy-kitajskogo-yazyka.ru/</url><title>ТОП 5 лучших курсов китайского языка в Москве ...</title><passages...
+    │    │                 │      │    └ '11'
+    │    │                 │      └ <function Site at 0x7f3794a51700>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f379434e9a0>, <__main__.Site object at 0x7f379434eac0>, <__main__.Site object at 0x7f379434ea30>...
+    └ <__main__.Yandex object at 0x7f3798827640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 98, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f3794a51b80>
+    └ <__main__.Site object at 0x7f3794376b80>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 150, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'kursy-kitajskogo-yazyka.ru'
+    │    │               │      └ <__main__.Site object at 0x7f3794376b80>
+    │    │               └ <function Domain at 0x7f3794a52ee0>
+    │    └ ''
+    └ <__main__.Site object at 0x7f3794376b80>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 356, in __init__
+    self.make_backlinks_object()
+    │    └ <function Domain.make_backlinks_object at 0x7f3794a54280>
+    └ <__main__.Domain object at 0x7f37339f3c10>
+
+> File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 413, in make_backlinks_object
+    self.backlinks_object = Backlinks(self.domain)
+    │    │                  │         │    └ 'kursy-kitajskogo-yazyka.ru'
+    │    │                  │         └ <__main__.Domain object at 0x7f37339f3c10>
+    │    │                  └ <function Backlinks at 0x7f3794a52a60>
+    │    └ ''
+    └ <__main__.Domain object at 0x7f37339f3c10>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 319, in __init__
+    self.get_token()
+    │    └ <function Backlinks.get_token at 0x7f3794a52b80>
+    └ <__main__.Backlinks object at 0x7f379423ebe0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 324, in get_token
+    self.token = accounts_with_balance[0][0]
+    │    │       └ []
+    │    └ ''
+    └ <__main__.Backlinks object at 0x7f379423ebe0>
+
+IndexError: list index out of range
+22:07:32 Проблемы с доменом kursy-kitajskogo-yazyka.ru
+22:07:32 An error has been caught in function 'make_backlinks_object', process 'Process-2' (7195), thread 'Thread-10' (139876634777344):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f379881c430>
+    └ <Thread(Thread-10, started 139876634777344)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f379881c160>
+    └ <Thread(Thread-10, started 139876634777344)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-10, started 139876634777344)>
+    │    │        │    └ ('10', (<doc><url>https://mymandarin.ru/kursy-kitajskogo-jazyka/</url><title>Школа изучения китайского языка в Москве | Языко...
+    │    │        └ <Thread(Thread-10, started 139876634777344)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f3798827640>>
+    └ <Thread(Thread-10, started 139876634777344)>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 250, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://mymandarin.ru/kursy-kitajskogo-jazyka/</url><title>Школа изучения китайского языка в Москве | Языковой...<...
+    │    │                 │      │    └ '10'
+    │    │                 │      └ <function Site at 0x7f3794a51700>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f379434e9a0>, <__main__.Site object at 0x7f379434eac0>, <__main__.Site object at 0x7f379434ea30>...
+    └ <__main__.Yandex object at 0x7f3798827640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 98, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f3794a51b80>
+    └ <__main__.Site object at 0x7f379436bd60>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 150, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'mymandarin.ru'
+    │    │               │      └ <__main__.Site object at 0x7f379436bd60>
+    │    │               └ <function Domain at 0x7f3794a52ee0>
+    │    └ ''
+    └ <__main__.Site object at 0x7f379436bd60>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 356, in __init__
+    self.make_backlinks_object()
+    │    └ <function Domain.make_backlinks_object at 0x7f3794a54280>
+    └ <__main__.Domain object at 0x7f377254cd30>
+
+> File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 413, in make_backlinks_object
+    self.backlinks_object = Backlinks(self.domain)
+    │    │                  │         │    └ 'mymandarin.ru'
+    │    │                  │         └ <__main__.Domain object at 0x7f377254cd30>
+    │    │                  └ <function Backlinks at 0x7f3794a52a60>
+    │    └ ''
+    └ <__main__.Domain object at 0x7f377254cd30>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 319, in __init__
+    self.get_token()
+    │    └ <function Backlinks.get_token at 0x7f3794a52b80>
+    └ <__main__.Backlinks object at 0x7f3794356190>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 324, in get_token
+    self.token = accounts_with_balance[0][0]
+    │    │       └ []
+    │    └ ''
+    └ <__main__.Backlinks object at 0x7f3794356190>
+
+IndexError: list index out of range
+22:07:32 Проблемы с доменом mymandarin.ru
+22:07:32 An error has been caught in function 'make_backlinks_object', process 'Process-2' (7195), thread 'Thread-23' (139875575641856):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f379881c430>
+    └ <Thread(Thread-23, started 139875575641856)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f379881c160>
+    └ <Thread(Thread-23, started 139875575641856)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-23, started 139875575641856)>
+    │    │        │    └ ('23', (<doc><url>https://vse-kursy.com/read/12-saity-dlya-izucheniya-kitaiskogo-yazyka.html</url><title>17 бесплатных онлайн...
+    │    │        └ <Thread(Thread-23, started 139875575641856)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f3798827640>>
+    └ <Thread(Thread-23, started 139875575641856)>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 250, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://vse-kursy.com/read/12-saity-dlya-izucheniya-kitaiskogo-yazyka.html</url><title>17 бесплатных онлайн-курсов...
+    │    │                 │      │    └ '23'
+    │    │                 │      └ <function Site at 0x7f3794a51700>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f379434e9a0>, <__main__.Site object at 0x7f379434eac0>, <__main__.Site object at 0x7f379434ea30>...
+    └ <__main__.Yandex object at 0x7f3798827640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 98, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f3794a51b80>
+    └ <__main__.Site object at 0x7f37942ce6a0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 150, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'vse-kursy.com'
+    │    │               │      └ <__main__.Site object at 0x7f37942ce6a0>
+    │    │               └ <function Domain at 0x7f3794a52ee0>
+    │    └ ''
+    └ <__main__.Site object at 0x7f37942ce6a0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 356, in __init__
+    self.make_backlinks_object()
+    │    └ <function Domain.make_backlinks_object at 0x7f3794a54280>
+    └ <__main__.Domain object at 0x7f3733df6f10>
+
+> File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 413, in make_backlinks_object
+    self.backlinks_object = Backlinks(self.domain)
+    │    │                  │         │    └ 'vse-kursy.com'
+    │    │                  │         └ <__main__.Domain object at 0x7f3733df6f10>
+    │    │                  └ <function Backlinks at 0x7f3794a52a60>
+    │    └ ''
+    └ <__main__.Domain object at 0x7f3733df6f10>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 319, in __init__
+    self.get_token()
+    │    └ <function Backlinks.get_token at 0x7f3794a52b80>
+    └ <__main__.Backlinks object at 0x7f3794300fa0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 324, in get_token
+    self.token = accounts_with_balance[0][0]
+    │    │       └ []
+    │    └ ''
+    └ <__main__.Backlinks object at 0x7f3794300fa0>
+
+IndexError: list index out of range
+22:07:32 Проблемы с доменом vse-kursy.com
+22:07:32 An error has been caught in function 'make_backlinks_object', process 'Process-2' (7195), thread 'Thread-17' (139876104120064):
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x7f379881c430>
+    └ <Thread(Thread-17, started 139876104120064)>
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x7f379881c160>
+    └ <Thread(Thread-17, started 139876104120064)>
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-17, started 139876104120064)>
+    │    │        │    └ ('17', (<doc><url>https://bubolab.ru/articles/kitajskij-yazyk-dlya-nachinayuschih-s-nulya-samouchitel/</url><title>Китайский ...
+    │    │        └ <Thread(Thread-17, started 139876104120064)>
+    │    └ <bound method Yandex.make_site_object of <__main__.Yandex object at 0x7f3798827640>>
+    └ <Thread(Thread-17, started 139876104120064)>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 250, in make_site_object
+    self.site_objects_list.append(Site(position, site))
+    │    │                 │      │    │         └ (<doc><url>https://bubolab.ru/articles/kitajskij-yazyk-dlya-nachinayuschih-s-nulya-samouchitel/</url><title>Китайский язык с ...
+    │    │                 │      │    └ '17'
+    │    │                 │      └ <function Site at 0x7f3794a51700>
+    │    │                 └ <method 'append' of 'list' objects>
+    │    └ [<__main__.Site object at 0x7f379434e9a0>, <__main__.Site object at 0x7f379434eac0>, <__main__.Site object at 0x7f379434ea30>...
+    └ <__main__.Yandex object at 0x7f3798827640>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 98, in __init__
+    self.make_domain_object()
+    │    └ <function Site.make_domain_object at 0x7f3794a51b80>
+    └ <__main__.Site object at 0x7f3794323910>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 150, in make_domain_object
+    self.domain_object = Domain(self.domain)
+    │    │               │      │    └ 'bubolab.ru'
+    │    │               │      └ <__main__.Site object at 0x7f3794323910>
+    │    │               └ <function Domain at 0x7f3794a52ee0>
+    │    └ ''
+    └ <__main__.Site object at 0x7f3794323910>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 356, in __init__
+    self.make_backlinks_object()
+    │    └ <function Domain.make_backlinks_object at 0x7f3794a54280>
+    └ <__main__.Domain object at 0x7f37941ee7c0>
+
+> File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 413, in make_backlinks_object
+    self.backlinks_object = Backlinks(self.domain)
+    │    │                  │         │    └ 'bubolab.ru'
+    │    │                  │         └ <__main__.Domain object at 0x7f37941ee7c0>
+    │    │                  └ <function Backlinks at 0x7f3794a52a60>
+    │    └ ''
+    └ <__main__.Domain object at 0x7f37941ee7c0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 319, in __init__
+    self.get_token()
+    │    └ <function Backlinks.get_token at 0x7f3794a52b80>
+    └ <__main__.Backlinks object at 0x7f37941ee160>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 324, in get_token
+    self.token = accounts_with_balance[0][0]
+    │    │       └ []
+    │    └ ''
+    └ <__main__.Backlinks object at 0x7f37941ee160>
+
+IndexError: list index out of range
+22:07:32 Проблемы с доменом bubolab.ru
+22:15:08 Проблема с валидностью контента wikichi.ru. 
+22:15:08 Проблема с валидностью контента wikichi.ru. 
+22:15:12 Проблема с валидностью контента trsk.info. 
+22:15:46 Проблема с валидностью контента wikichi.ru. 

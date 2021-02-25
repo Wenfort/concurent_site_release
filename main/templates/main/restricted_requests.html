@@ -21,6 +21,7 @@
                                     <th>{% if sort_type == '-direct' %} <a href="?sort=direct"> {% else %} <a href="?sort=-direct">{% endif %}Эффект директа</a></th>
                                     <th>{% if sort_type == '-total' %} <a href="?sort=total"> {% else %} <a href="?sort=-total">{% endif %}Итоговая сложность</a></th>
                                     <th>{% if sort_type == 'region' %} <a href="?sort=-region"> {% else %} <a href="?sort=region">{% endif %}Гео</a></th>
+                                    <th>Количество запросов в месяц</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,6 +50,7 @@
                                                 <td>{{ request.direct_upscale }}</td>
                                                 <td>{{ request.site_total_concurency }}</td>
                                                 <td>{{ request.region.name }}</td>
+                                                <td>{{ request.request_views }}</td>
                                             </tr>
                                         {% endif %}
                                     {% endfor %}

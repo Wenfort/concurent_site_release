@@ -1,15 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.mail import send_mail
-from django.shortcuts import render, get_list_or_404, redirect
-from django.contrib.auth import authenticate, login, logout as django_logout
-from django.utils import timezone
-from .models import Request, RequestQueue, UserData, Order, OrderStatus, TicketPost, Ticket, Region
-from django.contrib.auth.models import User
-from .password_generator import generate_password
+from django.shortcuts import render, redirect
+from .models import Request, RequestQueue, UserData, Order, OrderStatus, Region
 
-from .forms import NewRequest, NewUser, AuthUser, ChangePassword
-from django.contrib import messages
-
+from .forms import NewRequest
 
 
 def index(request):
@@ -17,6 +10,7 @@ def index(request):
         return redirect('/orders')
     else:
         return redirect('/authorization')
+
 
 class SiteUser:
     def __init__(self, user_id):
@@ -58,6 +52,7 @@ class SiteUser:
     def get_region(self):
         self.region_id = self.user.region_id
         self.region = Region.objects.get(region_id=self.region_id).name
+
 
 class Orders:
     def __init__(self, user_id):
@@ -188,132 +183,6 @@ class NewRequestHandler:
         if self.new_requests_amount <= self.user_data.balance:
             return True
 
-class NewUserHandler:
-    def __init__(self, request):
-        self.request = request.POST
-        self.user_name = str
-        self.password = str
-        self.password_again = str
-        self.email = str
-        self.valid = True
-        self.status_messages = list()
-
-        self.get_user_name()
-
-        self.get_user_password()
-        self.get_user_email()
-        self.check_username_and_password()
-
-        if not self.compare_passwords():
-            self.valid = False
-            self.status_messages.append('Пароли не совпадают')
-
-        if self.valid:
-            self.create_user()
-
-    def get_user_name(self):
-        self.user_name = self.request['username']
-
-    def get_user_password(self):
-        self.password = self.request['password']
-        self.password_again = self.request['password_again']
-
-    def get_user_email(self):
-        self.email = self.request['email'].lower()
-
-    def check_username_and_password(self):
-        all_users = User.objects.all()
-
-        login_is_busy = all_users.filter(username=self.user_name)
-        email_is_busy = all_users.filter(email=self.email)
-
-        if login_is_busy:
-            self.valid = False
-            self.status_messages.append('Логин уже занят')
-
-        if email_is_busy:
-            self.valid = False
-            self.status_messages.append('Email уже занят')
-
-
-
-    def create_user(self):
-        new_user = User.objects.create_user(self.user_name, self.email, self.password)
-        UserData(user_id=new_user.id, balance=50).save()
-
-    def compare_passwords(self):
-        return self.password == self.password_again
-
-
-class Tickets:
-
-    def __init__(self, user_data):
-        self.user_id = user_data.id
-        self.user_role = user_data.user_role
-        self.all_tickets = object
-
-
-    def get_all_user_tickets(self):
-        self.all_tickets = Ticket.objects.filter(author_id=self.user_id).order_by('-ticket_id')
-        return self.all_tickets
-
-    def get_all_admin_tickets(self):
-        self.all_tickets = Ticket.objects.filter(status='pending').order_by('-ticket_id')
-        return self.all_tickets
-
-    def create_ticket_post(self, user_ticket_id, ticket_post_text):
-        ticket_id = self.choose_ticket(user_ticket_id).ticket_id
-        TicketPost(ticket_id=ticket_id,
-                   ticket_post_author_id=self.user_id,
-                   ticket_post_text=ticket_post_text,
-                   ticket_post_order=0,
-                   ).save()
-
-    def create_ticket(self, request):
-        post_request = request.POST
-
-        all_user_tickets = self.get_all_user_tickets()
-        try:
-            latest_user_ticket_id = all_user_tickets.latest('user_ticket_id').user_ticket_id
-        except:
-            latest_user_ticket_id = 0
-
-
-        ticket = Ticket(author_id=self.user_id,
-                        user_ticket_id=latest_user_ticket_id +1,
-                        status='pending', )
-        ticket.save()
-        self.create_ticket_post(ticket.user_ticket_id, post_request['ticket_post_text'])
-
-        return HttpResponseRedirect('/tickets')
-
-    def choose_ticket(self, ticket_id=None):
-        if ticket_id:
-            if self.user_role == 'admin':
-                ticket = self.all_tickets.get(ticket_id=ticket_id)
-            else:
-                ticket = self.all_tickets.get(user_ticket_id=ticket_id)
-            if self.check_user_access_to_ticket(ticket):
-                return ticket
-            else:
-                return False
-        else:
-            ticket = self.all_tickets[0]
-            return ticket
-
-    def check_user_access_to_ticket(self, ticket):
-        if ticket.author_id == self.user_id or self.user_role == 'admin':
-            return True
-        else:
-            return False
-
-    def close_ticket(self, ticket_id):
-        if self.user_role == 'admin':
-            Ticket.objects.filter(ticket_id=ticket_id).update(status='closed', closed=timezone.now())
-            return HttpResponseRedirect('/tickets')
-        else:
-            return HttpResponse('У вас нет права закрывать тикеты')
-
 
 def handle_new_request(request):
     if request.method == "POST":
@@ -368,21 +237,6 @@ def results(request):
         return HttpResponse('У вас нет доступа к этой странице')
 
 
-
-def change_region(request):
-    user_id = request.user.id
-    new_region = request.POST['region']
-    previous_url = request.POST['previous_url']
-    if new_region:
-        new_region_id = Region.objects.get(name=new_region).region_id
-        user = UserData.objects.filter(user_id=user_id)
-        user.update(region_id=new_region_id)
-        messages.success(request, 'Регион успешно изменен')
-    else:
-        messages.error(request, 'Поле "регион" не может быть пустым')
-
-    return HttpResponseRedirect(previous_url)
-
 def get_orders_page(request):
     user_data = SiteUser(request.user.id)
     orders_data = Orders(user_data.id)
@@ -425,6 +279,7 @@ def unmask_sort_type(masked_sort_type):
 
     return unmasked_sort_type
 
+
 def requests_from_order(request, order_id):
     user_data = SiteUser(request.user.id)
     order_data = Orders(user_data.id)
@@ -455,235 +310,3 @@ def requests_from_order(request, order_id):
             return render(request, 'main/non_restricted_requests.html', context)
     else:
         return HttpResponse('У вас нет доступа к этой странице')
-
-
-def balance(request):
-    user_data = SiteUser(request.user.id)
-    context = {'orders': user_data.orders,
-               'keywords_ordered': user_data.ordered_keywords,
-               'balance': user_data.balance
-               }
-    return render(request, 'main/balance.html', context)
-
-
-def registration(request):
-    if request.user.is_authenticated:
-        return HttpResponse('Вы уже зарегистрированы')
-    else:
-        if request.method == "POST":
-            user = NewUserHandler(request)
-            if user.valid:
-                user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
-                login(request, user)
-                return HttpResponseRedirect('/orders')
-            else:
-                context = {
-                    'errors_list': user.status_messages,
-                    'status': 'retry',
-                    'username': request.POST['username'],
-                    'email': request.POST['email']
-                }
-                return render(request, 'main/user_auth/registration.html', context)
-        else:
-            form = NewUser()
-            context = {
-                'form': form,
-            }
-            return render(request, 'main/user_auth/registration.html', context)
-
-
-def authorization(request):
-    if request.user.is_authenticated:
-        return HttpResponse('Вы уже авторизировались')
-    else:
-        if request.method == "POST":
-            user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
-            if user:
-                login(request, user)
-                return HttpResponseRedirect('/results')
-            else:
-                form = AuthUser()
-                context = {
-                    'form': form,
-                    'error': 'Логин и пароль не совпадают'
-                }
-
-                return render(request, 'main/user_auth/authorization.html', context)
-        else:
-            form = AuthUser()
-            context = {
-                'form': form,
-            }
-
-            return render(request, 'main/user_auth/authorization.html', context)
-
-
-def add_new_ticket(request):
-    user_data = SiteUser(request.user.id)
-    tickets_data = Tickets(user_data)
-
-    if request.user.is_staff:
-        all_tickets = tickets_data.get_all_admin_tickets()
-    else:
-        all_tickets = tickets_data.get_all_user_tickets()
-
-
-    if request.method == "POST":
-        tickets_data.create_ticket(request)
-        return HttpResponseRedirect('/tickets')
-
-    context = {
-        'all_tickets': all_tickets,
-        'orders': user_data.orders,
-        'keywords_ordered': user_data.ordered_keywords,
-        'balance': user_data.balance,
-    }
-
-    return render(request, 'main/ticket/add_new_ticket.html', context)
-
-
-def tickets_admin_view(request, ticket_id=None):
-    user_data = SiteUser(request.user.id)
-    tickets_data = Tickets(user_data)
-    all_tickets = tickets_data.get_all_admin_tickets()
-
-    if all_tickets:
-        choosen_ticket = tickets_data.choose_ticket(ticket_id)
-        if request.method == "POST":
-            post_request = request.POST
-
-            if ticket_id == None:
-                ticket_id = choosen_ticket.user_ticket_id
-
-            tickets_data.create_ticket_post(ticket_id, post_request['ticket_post_text'])
-            return HttpResponseRedirect(request.path)
-
-        latest_ticket_posts = TicketPost.objects.filter(ticket_id=choosen_ticket.ticket_id).order_by('-ticket_post_id')
-
-        context = {
-            'all_tickets': all_tickets,
-            'latest_ticket': choosen_ticket,
-            'latest_ticket_posts': latest_ticket_posts,
-            'orders': user_data.orders,
-            'user_role': user_data.user_role,
-            'keywords_ordered': user_data.ordered_keywords,
-            'balance': user_data.balance,
-        }
-
-        return render(request, 'main/ticket/ticket.html', context)
-    else:
-        return add_new_ticket(request)
-
-
-def get_ticket_posts_from_ticket(request, ticket_id=None):
-    if request.user.is_staff:
-        return HttpResponseRedirect('/tickets/admin')
-
-    user_data = SiteUser(request.user.id)
-    tickets_data = Tickets(user_data)
-
-    all_tickets = tickets_data.get_all_user_tickets()
-
-    if all_tickets:
-        choosen_ticket = tickets_data.choose_ticket(ticket_id)
-        if choosen_ticket:
-            if request.method == "POST":
-                post_request = request.POST
-
-                if ticket_id == None:
-                    ticket_id = choosen_ticket.user_ticket_id
-
-                tickets_data.create_ticket_post(ticket_id, post_request['ticket_post_text'])
-                return HttpResponseRedirect(request.path)
-
-            latest_ticket_posts = TicketPost.objects.filter(ticket_id=choosen_ticket.ticket_id).order_by('-ticket_post_id')
-
-            context = {
-                'all_tickets': all_tickets,
-                'latest_ticket': choosen_ticket,
-                'latest_ticket_posts': latest_ticket_posts,
-                'orders': user_data.orders,
-                'user_role': user_data.user_role,
-                'keywords_ordered': user_data.ordered_keywords,
-                'balance': user_data.balance,
-            }
-
-            return render(request, 'main/ticket/ticket.html', context)
-        else:
-            return HttpResponse('У вас нет доступа к этому тикету')
-    else:
-        return add_new_ticket(request)
-
-
-def logout(request):
-    django_logout(request)
-    return HttpResponseRedirect('/authorization')
-
-
-def close_ticket(request, ticket_id):
-    user_data = SiteUser(request.user.id)
-    ticket_data = Tickets(user_data)
-
-    return ticket_data.close_ticket(ticket_id)
-
-
-def change_password(request):
-
-    if request.method == "POST":
-        post_request = request.POST
-        if post_request['first_password'] == post_request['second_password']:
-            password = post_request['first_password']
-            username = request.user.username
-            user = User.objects.get(username=username)
-            user.set_password(password)
-            user.save()
-
-            user = authenticate(request, username=username, password=password)
-            login(request, user)
-
-            message = 'Пароль успешно изменен'
-        else:
-            message = 'Пароли не совпадают'
-
-        context = {
-            'message': message
-        }
-        return render(request, 'main/user_auth/change_password.html', context)
-
-    else:
-        return render(request, 'main/user_auth/change_password.html')
-
-
-def password_reset(request):
-    if request.user.is_authenticated:
-        return HttpResponse('Вы уже авторизировались')
-    if request.method == "POST":
-        recipients = list()
-        post_request = request.POST
-        recipients.append(post_request['email'].lower())
-
-        try:
-            user = User.objects.get(email=recipients[0])
-            password = generate_password()
-            user.set_password(password)
-            user.save()
-
-            send_mail('Письмо с паролем',
-                      f'Ваш временный пароль: {password}. Пожалуйста, смените его сразу после авторизации. Ссылка для авторизации: https://seonior.ru/authorization',
-                      'admin@seonior.ru', recipients)
-            message = 'Новый пароль отправлен на указанный e-mail. Пожалуйста, проверьте папку "Спам"'
-        except:
-            message = 'Пользователь с таким e-mail не найден'
-
-        context = {
-            'message': message
-        }
-
-        return render(request, 'main/user_auth/password_reset.html', context)
-    else:
-        return render(request, 'main/user_auth/password_reset.html')
-
-
-def regions_list(request):
-    results = Region.objects.all
-    return render(request, "main/region.html", {"regions": results})
