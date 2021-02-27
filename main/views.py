@@ -68,7 +68,7 @@ class Orders:
         self.all_order_rows = Order.objects.filter(user_id=self.user_id)
 
     def get_unique_user_order_rows(self):
-        self.unique_order_rows = OrderStatus.objects.filter(user_id=self.user_id)
+        self.unique_order_rows = OrderStatus.objects.filter(user_id=self.user_id).order_by('-user_order_id')
 
     def all_ordered_requests(self):
         ordered_requests_ids = [order.request_id for order in self.all_order_rows]

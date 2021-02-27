@@ -25,13 +25,13 @@
                                         {% if request.status == 'progress'  %}
                                             <tr>
                                                 <td>{{ request.request_text }}</td>
-                                                <td colspan="3" style="text-align: center">Запрос в обработке. Это может занять около минуты.</td>
+                                                <td colspan="3" style="text-align: center">Запрос в очереди.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% elif request.status == 'backlinks' %}
                                             <tr>
                                                 <td>{{ request.request_text }}</td>
-                                                <td colspan="3" style="text-align: center">Запрос в обработке. Недостаточно выборки ссылок.</td>
+                                                <td colspan="3" style="text-align: center">Запрос обрабатывается.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% else %}
