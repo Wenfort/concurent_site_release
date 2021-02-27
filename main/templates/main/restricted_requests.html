@@ -54,6 +54,8 @@
                                                     Более {{ request.request_views|div:1000000 }} млн
                                                 {% elif request.request_views >= 10000 %}
                                                     ~{{ request.request_views }}
+                                                 {% elif request.request_views == 0 %}
+                                                    Недоступно
                                                 {% else %}
                                                     {{ request.request_views }}
                                                  {% endif %}</td>

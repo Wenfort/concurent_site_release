@@ -80,12 +80,12 @@ class Site:
         self.soup = soup[0]
         self.estimated_site_type = soup[1]
         self.position = position
-        self.url = ''
-        self.domain = ''
-        self.site_type = ''
-        self.html = ''
-        self.domain_object = ''
-        self.content_object = ''
+        self.url = str()
+        self.domain = str()
+        self.site_type = str()
+        self.html = str()
+        self.domain_object = str()
+        self.content_object = str()
 
         self.get_url()
         self.get_domain()
@@ -125,6 +125,9 @@ class Site:
             self.domain = urlparse(self.url)
             self.domain = self.domain.netloc
             self.domain.replace('www.', '')
+
+        if 'Турбо-страница' in self.domain:
+            self.domain = 'yandex.ru'
 
         while self.domain.count('.') != 1:
             first_dot = self.domain.find('.') + 1
@@ -194,7 +197,7 @@ class Yandex:
         try:
             self.request_views = int(self.page_xml.find('displayed').text)
         except:
-            self.request_views = 'Данные недоступны'
+            self.request_views = 0
 
     def start_logging(self):
         logger.add("critical.txt", format="{time:HH:mm:ss} {message}", level='CRITICAL', encoding="UTF-8")
@@ -310,11 +313,11 @@ class Yandex:
 class Backlinks:
     def __init__(self, domain):
         self.domain = domain
-        self.token = ''
-        self.request_json = ''
-        self.total_backlinks = ''
-        self.unique_backlinks = ''
-        self.status = ''
+        self.token = str()
+        self.request_json = str()
+        self.total_backlinks = str()
+        self.unique_backlinks = str()
+        self.status = str()
 
         self.get_token()
         self.get_backlinks()
@@ -344,9 +347,9 @@ class Backlinks:
 class Domain:
     def __init__(self, domain):
         self.domain = domain
-        self.domain_age = ''
-        self.backlinks = ''
-        self.backlinks_object = ''
+        self.domain_age = str()
+        self.backlinks = str()
+        self.backlinks_object = str()
 
         if self.check_data_in_database():
             pass
@@ -420,10 +423,10 @@ class Content:
         self.domain = domain
         self.html = html
         self.site_type = site_type
-        self.text = ''
-        self.letters_amount = ''
-        self.words_amount = ''
-        self.title = ''
+        self.text = str()
+        self.letters_amount = str()
+        self.words_amount = str()
+        self.title = str()
         self.stemmed_title = list()
         self.valid = True
 

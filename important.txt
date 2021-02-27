@@ -905,3 +905,6 @@ psycopg2.errors.SyntaxError: syntax error at or near "тыс"
 LINE 1: ... 6, site_seo_concurency = 0, request_views = ~1.1 тыс WHERE ...
                                                              ^
 
+22:23:36 Проблемы с доменом consultant-mos.ru
+22:23:37 Проблемы с доменом kaom.ru
+22:23:39 Проблемы с доменом jurexpertcenter.ru
