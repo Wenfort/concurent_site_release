@@ -1,8 +1,9 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from django.shortcuts import render, redirect
 from .models import Request, RequestQueue, UserData, Order, OrderStatus, Region
 
 from .forms import NewRequest
+from xls_test import export_page
 
 
 def index(request):
@@ -255,6 +256,15 @@ def results(request):
         orders_data = Orders(user_data.id)
         all_requests = orders_data.all_ordered_requests().select_related('region')
 
+    try:
+        prepare_report = request.GET['download']
+        if prepare_report == 'True':
+            buffer = export_page(all_requests)
+            return FileResponse(buffer, as_attachment=True, filename='report.xlsx')
+
+    except:
+        pass
+
 
     try:
         sort_type = request.GET['sort']
@@ -294,6 +304,14 @@ def requests_from_order(request, order_id):
         sort_type = None
         all_requests = order_data.all_requests_from_order(order_id).select_related('region').order_by('-site_seo_concurency')
 
+    try:
+        prepare_report = request.GET['download']
+        if prepare_report == 'True':
+            buffer = export_page(all_requests)
+            return FileResponse(buffer, as_attachment=True, filename='report.xlsx')
+
+    except:
+        pass
 
     if all_requests:
         context = {'all_requests': all_requests,
