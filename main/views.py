@@ -259,7 +259,7 @@ def results(request):
     try:
         prepare_report = request.GET['download']
         if prepare_report == 'True':
-            buffer = export_page(all_requests)
+            buffer = export_page(all_requests, user_data.user_role)
             return FileResponse(buffer, as_attachment=True, filename='report.xlsx')
 
     except:
@@ -307,7 +307,7 @@ def requests_from_order(request, order_id):
     try:
         prepare_report = request.GET['download']
         if prepare_report == 'True':
-            buffer = export_page(all_requests)
+            buffer = export_page(all_requests, user_data.user_role)
             return FileResponse(buffer, as_attachment=True, filename='report.xlsx')
 
     except:
