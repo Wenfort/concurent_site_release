@@ -5,6 +5,8 @@ from .models import Request, RequestQueue, UserData, Order, OrderStatus, Region
 from .forms import NewRequest
 from xls_test import export_page
 
+from conc_settings import REQUEST_COST
+
 
 def index(request):
     if request.user.is_authenticated:
@@ -171,12 +173,12 @@ class NewRequestHandler:
     def update_user_balance(self):
         user = UserData.objects.filter(user_id=self.user_id)
         if self.new_order:
-            user.update(balance=self.user_data.balance - self.new_requests_amount,
+            user.update(balance=self.user_data.balance - self.new_requests_amount * REQUEST_COST,
                         orders_amount=self.user_data.orders + 1,
                         ordered_keywords=self.user_data.ordered_keywords + self.new_requests_amount,
                         )
         else:
-            user.update(balance=self.user_data.balance - self.new_requests_amount,
+            user.update(balance=self.user_data.balance - self.new_requests_amount * REQUEST_COST,
                         ordered_keywords=self.user_data.ordered_keywords + self.new_requests_amount,
                         )
 
@@ -336,7 +338,7 @@ def user_confirmation(request):
     post_data = request.POST
     requests_list = post_data['requests_list'].split('\r\n')
     requests_amount = len(requests_list)
-    funds = requests_amount * 0.5
+    funds = requests_amount * REQUEST_COST
     context = {
         'requests_list': requests_list,
         'previous_page': post_data['previous_page'],
