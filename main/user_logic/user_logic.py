@@ -99,9 +99,9 @@ def password_reset(request):
     if request.user.is_authenticated:
         return HttpResponse('Вы уже авторизировались')
     if request.method == "POST":
-        recipients = list()
+
         post_request = request.POST
-        recipients.append(post_request['email'].lower())
+        recipients = post_request['email'].lower(),
 
         try:
             user = User.objects.get(email=recipients[0])

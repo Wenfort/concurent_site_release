@@ -1,0 +1,26 @@
+{% extends "./account_page_body.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 style="text-align: center">Пожалуйста, убедитесь в правильности заказа</h1>
+    <div class="col-4 offset-4" style="border: 1px solid black">
+
+        <br>
+        <h2 style="text-align: center">Выбранный регион: <span style="color: red">{{ geo }}</span></h2>
+        <h2 style="text-align: center">Запросов в заказе: <span style="color: red">{{ requests_amount }}</span></h2>
+        <h2 style="text-align: center">Будет списано: <span style="color: red">{{ funds }}</span> руб.</h2>
+            <center><details><summary><span style="font-size: 15px;">Полный список запросов</span></summary>{% for request in requests_list %}
+                <p style="margin-bottom: 2px;">{{ request }}</p>
+            {% endfor %}</details>
+        <form style="margin-top: 10px;" action="{% url 'handle_new_request' %}">
+            <input type="hidden" name="previous_page" value="{{ request.path }}">
+            <input type="hidden" name="geo" value="{{ region }}">
+            <input type="submit" value="Подтвердить" class="btn btn-primary">
+            <button class="btn btn-danger">Отмена</button>
+
+        </form>
+            </center>
+    <br>
+    </div>
+</div>
+{% endblock %}

@@ -330,3 +330,18 @@ def requests_from_order(request, order_id):
             return render(request, 'main/non_restricted_requests.html', context)
     else:
         return HttpResponse('У вас нет доступа к этой странице')
+
+
+def user_confirmation(request):
+    post_data = request.POST
+    requests_list = post_data['requests_list'].split('\r\n')
+    requests_amount = len(requests_list)
+    funds = requests_amount * 0.5
+    context = {
+        'requests_list': requests_list,
+        'previous_page': post_data['previous_page'],
+        'geo': post_data['geo'],
+        'requests_amount': requests_amount,
+        'funds': funds,
+    }
+    return render(request, 'main/user_confirmation.html', context)

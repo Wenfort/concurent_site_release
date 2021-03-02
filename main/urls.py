@@ -24,5 +24,6 @@ urlpatterns = [
     path('results', views.results, name='results'),
     path('orders', views.get_orders_page, name='get_orders_page'),
     path('orders/<int:order_id>', views.requests_from_order, name='requests_from_order'),
-    path('handle_new_requests', views.handle_new_request, name='handle_new_requests'),
+    path('user_confirmation', views.user_confirmation, name='user_confirmation'),
+    path('handle_new_request', views.handle_new_request, name='handle_new_request'),
 ]
