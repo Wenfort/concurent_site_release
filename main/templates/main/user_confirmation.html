@@ -12,9 +12,12 @@
             <center><details><summary><span style="font-size: 15px;">Полный список запросов</span></summary>{% for request in requests_list %}
                 <p style="margin-bottom: 2px;">{{ request }}</p>
             {% endfor %}</details>
-        <form style="margin-top: 10px;" action="{% url 'handle_new_request' %}">
-            <input type="hidden" name="previous_page" value="{{ request.path }}">
-            <input type="hidden" name="geo" value="{{ region }}">
+        <form style="margin-top: 10px;" action="{% url 'handle_new_request' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="previous_page" value="{{ previous_page }}">
+            <input type="hidden" name="geo" value="{{ geo }}">
+            <input type="hidden" name="order_id" value="{{ order_id }}">
+            <input type="hidden" name="requests_list" value="{{ requests_list_without_format }}">
             <input type="submit" value="Подтвердить" class="btn btn-primary">
             <button class="btn btn-danger">Отмена</button>
 

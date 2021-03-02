@@ -214,22 +214,6 @@ def unmask_sort_type(masked_sort_type):
     return unmasked_sort_type
 
 
-def handle_new_request(request):
-    if request.method == "POST":
-        try:
-            order_id = int(request.POST['order_id'])
-        except:
-            order_id = None
-
-        request_handler = NewRequestHandler(request, order_id)
-        if request_handler.is_money_enough():
-            previous_page = request.POST['previous_page']
-            return HttpResponseRedirect(previous_page)
-        else:
-            return HttpResponse(
-                f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на {request_handler.new_requests_amount - request_handler.user_data.balance} рублей')
-
-
 def get_orders_page(request):
     user_data = SiteUser(request.user.id)
     orders_data = Orders(user_data.id)
@@ -335,15 +319,39 @@ def requests_from_order(request, order_id):
 
 
 def user_confirmation(request):
+    try:
+        order_id = int(request.POST['order_id'])
+    except:
+        order_id = None
+
     post_data = request.POST
-    requests_list = post_data['requests_list'].split('\r\n')
+    requests_list_without_format = post_data['requests_list']
+    requests_list = requests_list_without_format.split('\r\n')
     requests_amount = len(requests_list)
     funds = requests_amount * REQUEST_COST
     context = {
         'requests_list': requests_list,
+        'requests_list_without_format': requests_list_without_format,
         'previous_page': post_data['previous_page'],
         'geo': post_data['geo'],
         'requests_amount': requests_amount,
         'funds': funds,
+        'order_id': order_id,
     }
     return render(request, 'main/user_confirmation.html', context)
+
+
+def handle_new_request(request):
+    if request.method == "POST":
+        try:
+            order_id = int(request.POST['order_id'])
+        except:
+            order_id = None
+
+        request_handler = NewRequestHandler(request, order_id)
+        if request_handler.is_money_enough():
+            previous_page = request.POST['previous_page']
+            return HttpResponseRedirect(previous_page)
+        else:
+            return HttpResponse(
+                f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на {request_handler.new_requests_amount * REQUEST_COST - request_handler.user_data.balance} рублей')
