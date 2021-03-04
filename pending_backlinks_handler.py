@@ -24,8 +24,15 @@ def run():
                 total += 1
                 unique_backlinks = int(request_json["summary"]["mjDin"])
                 total_backlinks = int(request_json["summary"]["mjHin"])
-                pm.delete_from_database('main_domain', 'name', (domain,))
-                pm.add_to_database('main_domain', (domain, age, unique_backlinks, total_backlinks, 'complete'))
+
+                pm.custom_request_to_database_without_return(
+                    "UPDATE concurent_site.main_domain SET "
+                    f"unique_backlinks = {unique_backlinks}, "
+                    f"total_backlinks = {total_backlinks}, "
+                    f"status = 'complete' "
+                    f"WHERE "
+                    f"name = {domain};"
+                )
 
     print(f'Добавлено {total} ссылок для доменов в БД. В очереди {len(domains)}: {domains}.')
 
