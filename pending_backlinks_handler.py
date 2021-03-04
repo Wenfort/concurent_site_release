@@ -31,7 +31,7 @@ def run():
                     f"total_backlinks = {total_backlinks}, "
                     f"status = 'complete' "
                     f"WHERE "
-                    f"name = {domain};"
+                    f"name = '{domain}';"
                 )
 
     print(f'Добавлено {total} ссылок для доменов в БД. В очереди {len(domains)}: {domains}.')
