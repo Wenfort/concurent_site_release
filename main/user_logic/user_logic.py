@@ -168,9 +168,10 @@ def authorization(request):
             user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
             if user:
                 login(request, user)
-                if request.GET['next']:
+                try:
                     return HttpResponseRedirect(request.GET['next'])
-                return HttpResponseRedirect('/results')
+                except:
+                    return HttpResponseRedirect('/results')
             else:
                 form = AuthUser()
                 context = {
