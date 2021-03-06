@@ -1,6 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from django.shortcuts import render, redirect
 from .models import Request, RequestQueue, UserData, Order, OrderStatus, Region
+from django.contrib.auth.decorators import login_required
+
 
 from .forms import NewRequest
 from xls_test import export_page
@@ -214,6 +216,7 @@ def unmask_sort_type(masked_sort_type):
     return unmasked_sort_type
 
 
+@login_required
 def get_orders_page(request):
     user_data = SiteUser(request.user.id)
     orders_data = Orders(user_data.id)
@@ -232,6 +235,7 @@ def get_orders_page(request):
     return render(request, 'main/orders.html', context)
 
 
+@login_required
 def results(request):
     user_data = SiteUser(request.user.id)
     all_regions = Region.objects.all().order_by('name')
@@ -247,7 +251,6 @@ def results(request):
         if prepare_report == 'True':
             buffer = export_page(all_requests, user_data.user_role)
             return FileResponse(buffer, as_attachment=True, filename='report.xlsx')
-
     except:
         pass
 
@@ -260,24 +263,22 @@ def results(request):
         sort_type = None
         all_requests = all_requests.order_by('-site_seo_concurency')
 
-    if all_requests:
-        context = {'all_requests': all_requests,
-                   'orders': user_data.orders,
-                   'keywords_ordered': user_data.ordered_keywords,
-                   'balance': user_data.balance,
-                   'regions': all_regions,
-                   'region': user_data.region,
-                   'sort_type': sort_type,
-                   }
+    context = {'all_requests': all_requests,
+               'orders': user_data.orders,
+               'keywords_ordered': user_data.ordered_keywords,
+               'balance': user_data.balance,
+               'regions': all_regions,
+               'region': user_data.region,
+               'sort_type': sort_type,
+               }
 
-        if request.user.is_staff:
-            return render(request, 'main/restricted_requests.html', context)
-        else:
-            return render(request, 'main/non_restricted_requests.html', context)
+    if request.user.is_staff:
+        return render(request, 'main/restricted_requests.html', context)
     else:
-        return HttpResponse('У вас нет доступа к этой странице')
+        return render(request, 'main/non_restricted_requests.html', context)
 
 
+@login_required
 def requests_from_order(request, order_id):
     user_data = SiteUser(request.user.id)
     order_data = Orders(user_data.id)

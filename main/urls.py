@@ -7,7 +7,7 @@ from .ticket_logic import ticket_logic
 urlpatterns = [
     path('balance', user_logic.balance, name='balance'),
     path('registration', user_logic.registration, name='registration'),
-    path('authorization', user_logic.authorization, name='authorization'),
+    path('authorization/', user_logic.authorization, name='authorization'),
     path('logout', user_logic.logout, name='logout'),
     path('change_region', user_logic.change_region, name='change_region'),
     path('change_password', user_logic.change_password, name='change_password'),
