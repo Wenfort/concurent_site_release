@@ -643,10 +643,15 @@ class Concurency:
         total_total_backlinks = 0
         total_unique_backlinks = 0
 
+        file = open(f'./reports/backs.txt', 'a', encoding='utf-8')
         for site_object in self.site_objects_list:
             try:
                 unique_backlinks = site_object.domain_object.unique_backlinks
                 total_backlinks = site_object.domain_object.total_backlinks
+
+
+                file.write(f'Сайт: {site_object.domain_object.domain}. Уников: {site_object.domain_object.unique_backlinks}. Тотал: {site_object.domain_object.total_backlinks}\n')
+
 
                 if site_object.site_type == 'organic':
                     total_unique_backlinks += unique_backlinks
@@ -663,6 +668,8 @@ class Concurency:
         self.site_backlinks_concurency = int(real_backlinks_concurency / max_backlinks_concurency * 100)
         self.average_total_backlinks = int(total_total_backlinks / len(self.organic_site_objects_list))
         self.average_unique_backlinks = int(total_unique_backlinks / len(self.organic_site_objects_list))
+        file.write(f'Среднее тотал {self.average_total_backlinks}, среднее уник {self.average_unique_backlinks}')
+        file.close()
 
     def calculate_direct_upscale(self):
         direct_upscale = 0

@@ -244,6 +244,8 @@ class Concurency:
         total_total_backlinks = 0
         total_unique_backlinks = 0
 
+        file = open(f'./reports/backs.txt', 'a', encoding='utf-8')
+        file.write(f'\nДанные из пендинга\n')
         for site_object in self.site_objects_list:
             try:
 
@@ -252,6 +254,8 @@ class Concurency:
 
                 total_unique_backlinks += unique_backlinks
                 total_total_backlinks += total_backlinks
+
+                file.write(f'Сайт: {site_object.domain}. Уников: {unique_backlinks}, Тотал: {total_backlinks}\n')
 
                 if unique_backlinks > maximum_backlinks:
                     unique_backlinks = maximum_backlinks
@@ -263,7 +267,8 @@ class Concurency:
         self.site_backlinks_concurency = int(real_backlinks_concurency / max_backlinks_concurency * 100)
         self.average_total_backlinks = int(total_total_backlinks / len(self.site_objects_list))
         self.average_unique_backlinks = int(total_unique_backlinks / len(self.site_objects_list))
-
+        file.write(f'Всего уников {self.average_unique_backlinks}, Всего тотал {self.average_total_backlinks}\n')
+        file.close()
 
     def calculate_site_total_concurency(self):
         total_difficulty = int(
