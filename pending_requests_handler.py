@@ -122,6 +122,8 @@ class Yandex:
             f"site_backlinks_concurency = {self.concurency_object.site_backlinks_concurency}, "
             f"site_seo_concurency = {self.concurency_object.site_seo_concurency}, "
             f"site_total_concurency = {self.concurency_object.site_total_concurency}, "
+            f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks}, "
+            f"average_total_backlinks = {self.concurency_object.average_total_backlinks}, "
             f"status = 'ready' "
             f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
         )
@@ -152,6 +154,7 @@ class Domain:
     def __init__(self, domain):
         self.domain = domain
         self.unique_backlinks = ''
+        self.total_backlinks = ''
         self.backlinks_object = ''
         self.status = ''
 
@@ -164,6 +167,7 @@ class Domain:
         if check:
             self.domain_age = check[0][1]
             self.unique_backlinks = check[0][2]
+            self.total_backlinks = check[0][3]
             self.status = check[0][4]
 
         if self.status == '':
@@ -186,10 +190,11 @@ class Concurency:
         self.site_direct_concurency = int()
         self.direct_upscale = int()
         self.status = ''
-
-
         self.site_backlinks_concurency = int()
         self.site_total_concurency = int()
+
+        self.average_total_backlinks = int()
+        self.average_unique_backlinks = int()
 
         self.get_concurency_from_database()
         if self.check_is_absourd_request():
@@ -236,15 +241,29 @@ class Concurency:
         real_backlinks_concurency = 0
         maximum_backlinks = 500
 
+        total_total_backlinks = 0
+        total_unique_backlinks = 0
+
         for site_object in self.site_objects_list:
             try:
-                if site_object.domain_object.unique_backlinks > maximum_backlinks:
-                    site_object.domain_object.unique_backlinks = maximum_backlinks
-                real_backlinks_concurency += int(site_object.domain_object.unique_backlinks / maximum_backlinks * 100 * self.WEIGHTS[str(site_object.position)])
+
+                unique_backlinks = site_object.domain_object.unique_backlinks
+                total_backlinks = site_object.domain_object.total_backlinks
+
+                total_unique_backlinks += unique_backlinks
+                total_total_backlinks += total_backlinks
+
+                if unique_backlinks > maximum_backlinks:
+                    unique_backlinks = maximum_backlinks
+                real_backlinks_concurency += int(unique_backlinks / maximum_backlinks * 100 * self.WEIGHTS[str(site_object.position)])
                 max_backlinks_concurency += 100 * self.WEIGHTS[str(site_object.position)]
             except:
                 pass
+
         self.site_backlinks_concurency = int(real_backlinks_concurency / max_backlinks_concurency * 100)
+        self.average_total_backlinks = int(total_total_backlinks / len(self.site_objects_list))
+        self.average_unique_backlinks = int(total_unique_backlinks / len(self.site_objects_list))
+
 
     def calculate_site_total_concurency(self):
         total_difficulty = int(
