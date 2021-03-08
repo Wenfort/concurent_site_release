@@ -910,3 +910,79 @@ LINE 1: ... 6, site_seo_concurency = 0, request_views = ~1.1 тыс WHERE ...
 22:23:39 Проблемы с доменом jurexpertcenter.ru
 03:55:27 Не удалось загрузить https://zdr.ru/articles/uluchshit-zrenie-vam-eto-pod-silu
 03:55:27 Проблема с валидностью контента zdr.ru. 
+12:11:35 An error has been caught in function 'run', process 'Process-1' (10673), thread 'MainThread' (140164933531456):
+Traceback (most recent call last):
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 857, in <module>
+    Manager()
+    └ <function Manager at 0x7f7ab07e2a60>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f7aacad2280>
+    └ <__main__.Manager object at 0x7f7aafb6a2e0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f7ab08149d0>
+    └ <Process name='Process-1' parent=10666 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=10666 started>
+    │    │        │    └ <staticmethod object at 0x7f7ab09ce070>
+    │    │        └ <Process name='Process-1' parent=10666 started>
+    │    └ None
+    └ <Process name='Process-1' parent=10666 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=10666 started>
+           │                └ <function DefaultContext.get_context at 0x7f7ab0868430>
+           └ <multiprocessing.context.DefaultContext object at 0x7f7ab089f280>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=10666 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=10666 started>
+    │    └ <function Popen._launch at 0x7f7aaca905e0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f7aaca8a3a0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f7ab0899310>
+           └ <Process name='Process-1' parent=10666 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f7ab0814940>
+    └ <Process name='Process-1' parent=10666 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=10666 started>
+    │    │        │    └ ((1245, 'коррекция зрения', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="2021030...
+    │    │        └ <Process name='Process-1' parent=10666 started>
+    │    └ <function Yandex at 0x7f7aacad2ee0>
+    └ <Process name='Process-1' parent=10666 started>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 192, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f7aaca60700>
+    └ <__main__.Yandex object at 0x7f7ab0802be0>
+
+  File "/home/wenfort/concurent_site_release/new_requests_handler.py", line 296, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f7aacad3ee0>
+    └ <module 'postgres_mode' from '/home/wenfort/concurent_site_release/postgres_mode.py'>
+
+  File "/home/wenfort/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ "UPDATE concurent_site.main_request SET site_age_concurency = 96, site_stem_concurency = 100, site_volume_concurency = 98, si...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f7aaa76d040; closed: 0>
+
+psycopg2.errors.SyntaxError: syntax error at or near "average_age"
+LINE 1: ... site_seo_concurency = 96, request_views = 191000 average_ag...
+                                                             ^
+

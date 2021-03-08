@@ -141,7 +141,7 @@ class Site:
 
     def get_html(self):
         try:
-            r = requests.get(self.url, headers=HEADERS, verify=False, timeout=10).content
+            r = requests.get(self.url, headers=HEADERS, verify=False, timeout=15).content
             if not self.is_pdf():
                 self.html = BeautifulSoup(r, 'html.parser')
             else:
@@ -277,6 +277,10 @@ class Yandex:
             'Итоговая конкуренция': self.concurency_object.site_total_concurency,
             'Модификатор директ': self.concurency_object.direct_upscale,
             'Статус': self.concurency_object.status,
+            'Средний возраст': self.concurency_object.average_site_age,
+            'Средний объем': self.concurency_object.average_site_volume,
+            'Средние уник бэклинки': self.concurency_object.average_unique_backlinks,
+            'Средние тотал бэклинки': self.concurency_object.average_total_backlinks,
             'Гео': self.geo,
             'Показов запроса': self.request_views,
         }
@@ -300,7 +304,11 @@ class Yandex:
             f"status = '{self.concurency_object.status}', "
             f"site_direct_concurency = {self.concurency_object.site_direct_concurency}, "
             f"site_seo_concurency = {self.concurency_object.site_seo_concurency}, "
-            f"request_views = {self.request_views} "
+            f"request_views = {self.request_views}, "
+            f"average_age = {self.concurency_object.average_site_age}, "
+            f"average_volume = {self.concurency_object.average_site_volume}, "
+            f"average_total_backlinks = {self.concurency_object.average_total_backlinks}, "
+            f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks} "
             f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
         )
 
@@ -348,7 +356,8 @@ class Domain:
     def __init__(self, domain):
         self.domain = domain
         self.domain_age = str()
-        self.backlinks = str()
+        self.unique_backlinks = str()
+        self.total_backlinks = str()
         self.backlinks_object = str()
 
         if self.check_data_in_database():
@@ -357,7 +366,7 @@ class Domain:
             try:
                 self.get_domain_age()
                 self.make_backlinks_object()
-                self.define_unique_backlinks()
+                self.define_backlinks_amount()
                 self.add_domain_backlinks_to_database()
             except:
                 logger.critical(f'Проблемы с доменом {self.domain}')
@@ -367,18 +376,20 @@ class Domain:
 
         if check:
             self.domain_age = check[0][1]
-            self.backlinks = check[0][2]
+            self.unique_backlinks = check[0][2]
+            self.total_backlinks = check[0][3]
             return True
         else:
             return False
 
-    def define_unique_backlinks(self):
-        self.backlinks = self.backlinks_object.unique_backlinks
+    def define_backlinks_amount(self):
+        self.unique_backlinks = self.backlinks_object.unique_backlinks
+        self.total_backlinks = self.backlinks_object.total_backlinks
 
     def add_domain_backlinks_to_database(self):
         values_to_go = (
-            self.domain, self.domain_age, self.backlinks,
-            self.backlinks_object.total_backlinks, self.backlinks_object.status)
+            self.domain, self.domain_age, self.unique_backlinks,
+            self.total_backlinks, self.backlinks_object.status)
         pm.add_to_database('main_domain', values_to_go)
 
     def get_domain_age(self):
@@ -407,8 +418,6 @@ class Domain:
                     item = soup[start:finish]
                     self.domain_age = 2020 - int(item)
 
-            if self.domain_age > 10:
-                self.domain_age = 10
         except:
             self.domain_age = 5
 
@@ -450,10 +459,6 @@ class Content:
 
     def count_letters_amount(self):
         self.letters_amount = len(self.text)
-        # logger.success(f'{self.domain} - реальное кол-во знаков {self.letters_amount}')
-
-        if self.letters_amount > 10000:
-            self.letters_amount = 10000
 
     def get_title(self):
         self.title = self.html.find('title').text
@@ -494,6 +499,11 @@ class Concurency:
         self.valid_backlinks_rate = 0
         self.direct_upscale = int()
         self.status = str()
+
+        self.average_site_age = int()
+        self.average_site_volume = int()
+        self.average_unique_backlinks = int()
+        self.average_total_backlinks = int()
 
         self.check_site_object_type()
 
@@ -541,14 +551,19 @@ class Concurency:
     def calculate_site_age_concurency(self):
         max_age_concurency = 0
         real_age_concurency = 0
+        total_site_age = 0
 
         for site_object in self.site_objects_list:
             try:
                 max_age_concurency += 10 * self.WEIGHTS[site_object.position]
                 if site_object.site_type == 'organic':
-                    real_age_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
-                    # Тест модуль
-                    # logger.success(f'Сайт: {site_object.content_object.domain}. Возраст сайта {site_object.domain_object.domain_age}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]} из {10 * self.WEIGHTS[site_object.position]}')
+                    site_age = site_object.domain_object.domain_age
+                    total_site_age += site_age
+
+                    if site_age > 10:
+                        site_age = 10
+
+                    real_age_concurency += site_age * self.WEIGHTS[site_object.position]
                 else:
                     real_age_concurency += 10 * self.WEIGHTS[site_object.position]
 
@@ -557,25 +572,33 @@ class Concurency:
                     f'В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом {site_object.content_object.domain}')
 
         self.site_age_concurency = int(real_age_concurency / max_age_concurency * 100)
+        self.average_site_age = int(total_site_age / len(self.organic_site_objects_list))
 
     def calculate_site_volume_concurency(self):
         max_volume_concurency = 0
         real_volume_concurency = 0
+        maximum_letters = 10000
+
+        total_letters = 0
 
         for site_object in self.site_objects_list:
             max_volume_concurency += 10000 * self.WEIGHTS[site_object.position]
             if site_object.site_type == 'organic':
                 if site_object.content_object.valid:
-                    real_volume_concurency += site_object.content_object.letters_amount * self.WEIGHTS[
-                        site_object.position]
+                    letters_amount = site_object.content_object.letters_amount
+                    total_letters += letters_amount
+
+                    if letters_amount > maximum_letters:
+                        letters_amount = maximum_letters
+
+                    real_volume_concurency += letters_amount * self.WEIGHTS[site_object.position]
                 else:
                     real_volume_concurency += 5000 * self.WEIGHTS[site_object.position]
-                # тест модуль
-                # logger.success(f'Сайт: {site_object.content_object.domain}. Объем статьи {site_object.content_object.letters_amount}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}')
             else:
                 real_volume_concurency += 10000 * self.WEIGHTS[site_object.position]
 
         self.site_volume_concurency = int(real_volume_concurency / max_volume_concurency * 100)
+        self.average_site_volume = int(total_letters / len(self.organic_site_objects_list))
 
     def calculate_site_stem_concurency(self):
         max_stem_concurency = 0
@@ -603,7 +626,7 @@ class Concurency:
 
         for site_object in self.site_objects_list:
             try:
-                if site_object.domain_object.backlinks > 0:
+                if site_object.domain_object.unique_backlinks > 0:
                     valid_backlinks += 1
             except:
                 pass
@@ -617,18 +640,29 @@ class Concurency:
         real_backlinks_concurency = 0
         maximum_backlinks = 500
 
+        total_total_backlinks = 0
+        total_unique_backlinks = 0
+
         for site_object in self.site_objects_list:
             try:
-                if site_object.domain_object.backlinks > maximum_backlinks:
-                    site_object.domain_object.backlinks = maximum_backlinks
-                real_backlinks_concurency += site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]
+                unique_backlinks = site_object.domain_object.unique_backlinks
+                total_backlinks = site_object.domain_object.total_backlinks
+
+                if site_object.site_type == 'organic':
+                    total_unique_backlinks += unique_backlinks
+                    total_total_backlinks += total_backlinks
+
+                if unique_backlinks > maximum_backlinks:
+                    unique_backlinks = maximum_backlinks
+                real_backlinks_concurency += unique_backlinks * self.WEIGHTS[site_object.position]
                 max_backlinks_concurency += 500 * self.WEIGHTS[site_object.position]
-                # Тест модуль
-                # logger.success(f'Сайт: {site_object.content_object.domain}. Ссылок: {site_object.domain_object.backlinks}. Кэф: {site_object.domain_object.backlinks / maximum_backlinks}. Сложность: {int(site_object.domain_object.backlinks / maximum_backlinks * 100 * self.WEIGHTS[site_object.position])} из {100 * self.WEIGHTS[site_object.position]}')
             except:
                 real_backlinks_concurency += 500 * self.WEIGHTS[site_object.position]
                 max_backlinks_concurency += 500 * self.WEIGHTS[site_object.position]
+
         self.site_backlinks_concurency = int(real_backlinks_concurency / max_backlinks_concurency * 100)
+        self.average_total_backlinks = int(total_total_backlinks / len(self.organic_site_objects_list))
+        self.average_unique_backlinks = int(total_unique_backlinks / len(self.organic_site_objects_list))
 
     def calculate_direct_upscale(self):
         direct_upscale = 0
@@ -780,9 +814,9 @@ class Concurency:
             for site_object in self.site_objects_list:
                 max_concurency += 500 * self.WEIGHTS[site_object.position]
                 if site_object.site_type == 'organic':
-                    real_concurency += site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]
+                    real_concurency += site_object.domain_object.unique_backlinks * self.WEIGHTS[site_object.position]
                     file.write(
-                        f'Сайт: {site_object.content_object.domain}. Количество бэклинков: {site_object.domain_object.backlinks}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]} Сложность повысилась на {site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]} из {500 * self.WEIGHTS[site_object.position]}\n')
+                        f'Сайт: {site_object.content_object.domain}. Количество бэклинков: {site_object.domain_object.unique_backlinks}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]} Сложность повысилась на {site_object.domain_object.unique_backlinks * self.WEIGHTS[site_object.position]} из {500 * self.WEIGHTS[site_object.position]}\n')
                 else:
                     real_concurency += 500 * self.WEIGHTS[site_object.position]
                     file.write(

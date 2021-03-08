@@ -52,6 +52,11 @@ class Request(models.Model):
     status = models.CharField(max_length=100, default='progress')
     region = models.ForeignKey(Region, default=255, on_delete=models.DO_NOTHING)
     request_views = models.IntegerField(default=0)
+    average_age = models.IntegerField(default=0)
+    average_volume = models.IntegerField(default=0)
+    average_total_backlinks = models.IntegerField(default=0)
+    average_unique_backlinks = models.IntegerField(default=0)
+
 
     def __str__(self):
         return self.request_text
@@ -104,3 +109,9 @@ class TicketPost(models.Model):
 class RequestQueue(models.Model):
     request_text = models.CharField(max_length=100)
     geo = models.IntegerField(default=255)
+
+
+class SuperSites(models.Model):
+    name = models.CharField(max_length=100, primary_key=True)
+    unique_backlinks = models.IntegerField(default=0)
+    total_backlinks = models.IntegerField(default=0)

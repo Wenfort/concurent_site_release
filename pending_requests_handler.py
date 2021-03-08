@@ -151,7 +151,7 @@ class Site:
 class Domain:
     def __init__(self, domain):
         self.domain = domain
-        self.backlinks = ''
+        self.unique_backlinks = ''
         self.backlinks_object = ''
         self.status = ''
 
@@ -163,7 +163,7 @@ class Domain:
 
         if check:
             self.domain_age = check[0][1]
-            self.backlinks = check[0][2]
+            self.unique_backlinks = check[0][2]
             self.status = check[0][4]
 
         if self.status == '':
@@ -238,9 +238,9 @@ class Concurency:
 
         for site_object in self.site_objects_list:
             try:
-                if site_object.domain_object.backlinks > maximum_backlinks:
-                    site_object.domain_object.backlinks = maximum_backlinks
-                real_backlinks_concurency += int(site_object.domain_object.backlinks / maximum_backlinks * 100 * self.WEIGHTS[str(site_object.position)])
+                if site_object.domain_object.unique_backlinks > maximum_backlinks:
+                    site_object.domain_object.unique_backlinks = maximum_backlinks
+                real_backlinks_concurency += int(site_object.domain_object.unique_backlinks / maximum_backlinks * 100 * self.WEIGHTS[str(site_object.position)])
                 max_backlinks_concurency += 100 * self.WEIGHTS[str(site_object.position)]
             except:
                 pass
@@ -262,12 +262,12 @@ class Concurency:
         max_concurency = int()
         for site_object in self.site_objects_list:
             site_object.position = str(site_object.position)
-            if site_object.domain_object.backlinks > 500:
-                site_object.domain_object.backlinks = 500
+            if site_object.domain_object.unique_backlinks > 500:
+                site_object.domain_object.unique_backlinks = 500
             max_concurency += 500 * self.WEIGHTS[site_object.position]
 
-            real_concurency += site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]
-            file.write(f'Сайт: {site_object.domain}. Количество бэклинков: {site_object.domain_object.backlinks}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]} Сложность повысилась на {site_object.domain_object.backlinks * self.WEIGHTS[site_object.position]} из {500 * self.WEIGHTS[site_object.position]}\n')
+            real_concurency += site_object.domain_object.unique_backlinks * self.WEIGHTS[site_object.position]
+            file.write(f'Сайт: {site_object.domain}. Количество бэклинков: {site_object.domain_object.unique_backlinks}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]} Сложность повысилась на {site_object.domain_object.unique_backlinks * self.WEIGHTS[site_object.position]} из {500 * self.WEIGHTS[site_object.position]}\n')
         file.write(f'Уровень конкуренции от бэклинков: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_backlinks_concurency}\n')
 
         file.write(f'Итоговая конкуренция:\n')
