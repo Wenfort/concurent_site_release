@@ -326,6 +326,7 @@ class Backlinks:
         self.total_backlinks = str()
         self.unique_backlinks = str()
         self.status = str()
+        self.domain_group = 0
 
         self.get_token()
         self.get_backlinks()
@@ -348,7 +349,9 @@ class Backlinks:
             self.unique_backlinks = int(self.request_json["summary"]["mjDin"])
             self.total_backlinks = int(self.request_json["summary"]["mjHin"])
             self.status = 'complete'
-            # logger.info(f'Данные {self.domain} получены. Всего ссылок: {self.request_json["summary"]["mjHin"]}. Уникальных ссылок: {self.request_json["summary"]["mjDin"]}')
+
+            if self.unique_backlinks >= 10000:
+                self.domain_group = 1
 
 
 @logger.catch
@@ -389,7 +392,7 @@ class Domain:
     def add_domain_backlinks_to_database(self):
         values_to_go = (
             self.domain, self.domain_age, self.unique_backlinks,
-            self.total_backlinks, self.backlinks_object.status)
+            self.total_backlinks, self.backlinks_object.status, self.backlinks_object.domain_group)
         pm.add_to_database('main_domain', values_to_go)
 
     def get_domain_age(self):
@@ -402,12 +405,12 @@ class Domain:
                 start = soup.find('Creation Date') + 15
                 finish = start + 4
                 item = soup[start:finish]
-                self.domain_age = 2020 - int(item)
+                self.domain_age = 2021 - int(item)
             elif 'Registered on' in soup:
                 start = soup.find('Registered on')
                 finish = soup.find('Registry fee')
                 item = soup[start:finish].split()[4]
-                self.domain_age = 2020 - int(item)
+                self.domain_age = 2021 - int(item)
             elif 'created' in soup:
                 if '.lv' in self.domain or '.club' in self.domain or '.to' in self.domain or '.ua' in self.domain or '.eu' in self.domain:
                     self.valid = False
@@ -416,10 +419,11 @@ class Domain:
                     start = soup.find('created') + 8
                     finish = start + 4
                     item = soup[start:finish]
-                    self.domain_age = 2020 - int(item)
-
+                    self.domain_age = 2021 - int(item)
         except:
             self.domain_age = 5
+
+
 
     def make_backlinks_object(self):
         self.backlinks_object = Backlinks(self.domain)
