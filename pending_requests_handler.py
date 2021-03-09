@@ -169,6 +169,7 @@ class Domain:
             self.unique_backlinks = check[0][2]
             self.total_backlinks = check[0][3]
             self.status = check[0][4]
+            self.domain_group = check[0][5]
 
         if self.status == '':
             test = self.domain.encode('utf-8')
@@ -252,10 +253,13 @@ class Concurency:
                 unique_backlinks = site_object.domain_object.unique_backlinks
                 total_backlinks = site_object.domain_object.total_backlinks
 
-                total_unique_backlinks += unique_backlinks
-                total_total_backlinks += total_backlinks
 
-                file.write(f'Сайт: {site_object.domain}. Уников: {unique_backlinks}, Тотал: {total_backlinks}\n')
+                if site_object.domain_object.domain_group != 1:
+                    total_unique_backlinks += unique_backlinks
+                    total_total_backlinks += total_backlinks
+                    file.write(f'Сайт: {site_object.domain}. Уников: {unique_backlinks}, Тотал: {total_backlinks} НЕ ВИТАЛЬНЫЙ\n')
+                else:
+                    file(f'Сайт: {site_object.domain}. Уников: {unique_backlinks}, Тотал: {total_backlinks} ВИТАЛЬНЫЙ\n')
 
                 if unique_backlinks > maximum_backlinks:
                     unique_backlinks = maximum_backlinks

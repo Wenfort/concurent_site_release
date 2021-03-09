@@ -999,3 +999,7 @@ LINE 1: ... site_seo_concurency = 96, request_views = 191000 average_ag...
 12:25:46 Проблема с валидностью контента nlv.ru. 
 12:30:58 Не удалось загрузить https://www.nlv.ru/laser-correction
 12:30:58 Проблема с валидностью контента nlv.ru. 
+14:42:50 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+14:42:50 Проблема с валидностью контента nlv.ru. 
+14:43:30 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+14:43:30 Проблема с валидностью контента nlv.ru. 
