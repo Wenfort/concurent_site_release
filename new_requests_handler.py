@@ -362,6 +362,7 @@ class Domain:
         self.unique_backlinks = str()
         self.total_backlinks = str()
         self.backlinks_object = str()
+        self.domain_group = int()
 
         if self.check_data_in_database():
             pass
@@ -369,6 +370,7 @@ class Domain:
             try:
                 self.get_domain_age()
                 self.make_backlinks_object()
+                self.domain_group = self.backlinks_object.domain_group
                 self.define_backlinks_amount()
                 self.add_domain_backlinks_to_database()
             except:
@@ -381,6 +383,7 @@ class Domain:
             self.domain_age = check[0][1]
             self.unique_backlinks = check[0][2]
             self.total_backlinks = check[0][3]
+            self.domain_group = check[0][5]
             return True
         else:
             return False
@@ -625,7 +628,6 @@ class Concurency:
 
     def check_valid_backlinks_sample(self):
         valid_backlinks = 0
-        limit_for_validation = 0.8
         domains_amount = len(self.organic_site_objects_list) + len(self.super_site_objects_list)
 
         for site_object in self.site_objects_list:
@@ -652,14 +654,18 @@ class Concurency:
             try:
                 unique_backlinks = site_object.domain_object.unique_backlinks
                 total_backlinks = site_object.domain_object.total_backlinks
+                domain_group = site_object.domain_object.domain_group
 
-
-                file.write(f'Сайт: {site_object.domain_object.domain}. Уников: {site_object.domain_object.unique_backlinks}. Тотал: {site_object.domain_object.total_backlinks}\n')
+                if domain_group:
+                    file.write(f'Сайт: {site_object.domain_object.domain}. Уников: {site_object.domain_object.unique_backlinks}. Тотал: {site_object.domain_object.total_backlinks}. Витальный сайт, в статистику не попал \n')
+                else:
+                    file.write(f'Сайт: {site_object.domain_object.domain}. Уников: {site_object.domain_object.unique_backlinks}. Тотал: {site_object.domain_object.total_backlinks}. НЕ витальный сайт\n')
 
 
                 if site_object.site_type == 'organic':
-                    total_unique_backlinks += unique_backlinks
-                    total_total_backlinks += total_backlinks
+                    if domain_group != 1:
+                        total_unique_backlinks += unique_backlinks
+                        total_total_backlinks += total_backlinks
 
                 if unique_backlinks > maximum_backlinks:
                     unique_backlinks = maximum_backlinks

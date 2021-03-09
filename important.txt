@@ -989,3 +989,13 @@ LINE 1: ... site_seo_concurency = 96, request_views = 191000 average_ag...
 12:38:14 Проблема с валидностью контента twitter.com. 
 12:38:23 Проблемы с доменом riotpixels.com
 12:40:22 Проблемы с доменом mihoyo.com
+12:18:59 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:19:00 Проблема с валидностью контента nlv.ru. 
+12:22:33 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+12:22:33 Проблема с валидностью контента nlv.ru. 
+12:24:11 Не удалось загрузить https://www.nlv.ru/laser-correction
+12:24:11 Проблема с валидностью контента nlv.ru. 
+12:25:46 Не удалось загрузить https://www.nlv.ru/laser-correction
+12:25:46 Проблема с валидностью контента nlv.ru. 
+12:30:58 Не удалось загрузить https://www.nlv.ru/laser-correction
+12:30:58 Проблема с валидностью контента nlv.ru. 
