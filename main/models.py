@@ -17,9 +17,14 @@ class Domain(models.Model):
     unique_backlinks = models.IntegerField(default=0)
     total_backlinks = models.IntegerField(default=0)
     status = models.CharField(max_length=10, default='pending')
+    domain_group = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
+
+
+class DomainGroup(models.Model):
+    group_name = models.CharField(max_length=20)
 
 
 class Payload(models.Model):
