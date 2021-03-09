@@ -33,7 +33,7 @@ def run():
                     "UPDATE concurent_site.main_domain SET "
                     f"unique_backlinks = {unique_backlinks}, "
                     f"total_backlinks = {total_backlinks}, "
-                    f"status = 'complete',"
+                    f"status = 'complete', "
                     f"domain_group = {domain_group} "
                     f"WHERE "
                     f"name = '{domain}';"
