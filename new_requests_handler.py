@@ -309,7 +309,8 @@ class Yandex:
             f"average_volume = {self.concurency_object.average_site_volume}, "
             f"average_total_backlinks = {self.concurency_object.average_total_backlinks}, "
             f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks}, "
-            f"vital_sites = '{self.concurency_object.vital_domains}' "
+            f"vital_sites = '{self.concurency_object.vital_domains}', "
+            f"vital_sites_count = {self.concurency_object.vital_domains_amount} "
             f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
         )
 
@@ -514,6 +515,7 @@ class Concurency:
         self.average_total_backlinks = int()
 
         self.vital_domains = list()
+        self.vital_domains_amount = int()
 
         self.check_site_object_type()
 
@@ -876,6 +878,7 @@ class Concurency:
         print('ya')
 
     def convert_vital_domains_to_sting(self):
+        self.vital_domains_amount = len(self.vital_domains)
         self.vital_domains = ' '.join(self.vital_domains)
 
 

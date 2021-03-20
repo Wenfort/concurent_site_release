@@ -125,6 +125,7 @@ class Yandex:
             f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks}, "
             f"average_total_backlinks = {self.concurency_object.average_total_backlinks},"
             f"vital_sites = '{self.concurency_object.vital_domains}', "
+            f"vital_sites_count =  {self.concurency_object.vital_domains_amount}, "
             f"status = 'ready' "
             f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
         )
@@ -198,6 +199,7 @@ class Concurency:
         self.average_total_backlinks = int()
         self.average_unique_backlinks = int()
         self.vital_domains = list()
+        self.vital_domains_amount = int()
 
         self.get_concurency_from_database()
         if self.check_is_absourd_request():
@@ -219,6 +221,7 @@ class Concurency:
         self.convert_vital_domains_to_sting()
 
     def convert_vital_domains_to_sting(self):
+        self.vital_domains_amount = len(self.vital_domains)
         self.vital_domains = ' '.join(self.vital_domains)
 
 

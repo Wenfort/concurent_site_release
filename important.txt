@@ -1155,3 +1155,160 @@ psycopg2.errors.StringDataRightTruncation: value too long for type character var
 
 12:45:12 Проблема с валидностью контента ppl-14.ru. 
 12:58:58 Проблема с валидностью контента ppl-14.ru. 
+16:14:46 Не удалось загрузить https://www.nlv.ru/laser-correction
+16:14:46 Проблема с валидностью контента nlv.ru. 
+16:14:53 An error has been caught in function 'make_concurency_object', process 'Process-1' (25600), thread 'MainThread' (139812300470080):
+Traceback (most recent call last):
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 887, in <module>
+    Manager()
+    └ <function Manager at 0x7f2895eb6550>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f289213fca0>
+    └ <__main__.Manager object at 0x7f28952476a0>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f2895f02040>
+    └ <Process name='Process-1' parent=24849 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=24849 started>
+    │    │        │    └ <staticmethod object at 0x7f2895e92760>
+    │    │        └ <Process name='Process-1' parent=24849 started>
+    │    └ None
+    └ <Process name='Process-1' parent=24849 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=24849 started>
+           │                └ <function DefaultContext.get_context at 0x7f2895ef0160>
+           └ <multiprocessing.context.DefaultContext object at 0x7f2895f0e100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=24849 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=24849 started>
+    │    └ <function Popen._launch at 0x7f28920e60d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f289216eac0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f2895f02940>
+           └ <Process name='Process-1' parent=24849 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f2895efdf70>
+    └ <Process name='Process-1' parent=24849 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=24849 started>
+    │    │        │    └ ((1254, 'коррекция зрения', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="2021032...
+    │    │        └ <Process name='Process-1' parent=24849 started>
+    │    └ <function Yandex at 0x7f2892145940>
+    └ <Process name='Process-1' parent=24849 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 190, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f2892146040>
+    └ <__main__.Yandex object at 0x7f2895eb5d60>
+
+> File "/home/artur/concurent_site_release/new_requests_handler.py", line 268, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request, self.request)
+    │    │                   │          │    │                  │    │                │    └ 'коррекция зрения'
+    │    │                   │          │    │                  │    │                └ <__main__.Yandex object at 0x7f2895eb5d60>
+    │    │                   │          │    │                  │    └ ['коррекция', 'зрение']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f2895eb5d60>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f2891a9c460>, <__main__.Site object at 0x7f2891a9c580>, <__main__.Site object at 0x7f2891a9c4f0>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f2895eb5d60>
+    │    │                   └ <function Concurency at 0x7f2892147670>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f2895eb5d60>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 551, in __init__
+    self.convert_vital_domains_to_sting()
+    │    └ <function Concurency.convert_vital_domains_to_sting at 0x7f2892147dc0>
+    └ <__main__.Concurency object at 0x7f2888884160>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 881, in convert_vital_domains_to_sting
+    self.vital_domains.amount = len(self.vital_domains)
+    │    │                          │    └ ['wikipedia.org', 'ProDoctorov.ru', 'zoon.ru', 'habr.com']
+    │    │                          └ <__main__.Concurency object at 0x7f2888884160>
+    │    └ ['wikipedia.org', 'ProDoctorov.ru', 'zoon.ru', 'habr.com']
+    └ <__main__.Concurency object at 0x7f2888884160>
+
+AttributeError: 'list' object has no attribute 'amount'
+16:14:53 An error has been caught in function 'run', process 'Process-1' (25600), thread 'MainThread' (139812300470080):
+Traceback (most recent call last):
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 887, in <module>
+    Manager()
+    └ <function Manager at 0x7f2895eb6550>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f289213fca0>
+    └ <__main__.Manager object at 0x7f28952476a0>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f2895f02040>
+    └ <Process name='Process-1' parent=24849 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=24849 started>
+    │    │        │    └ <staticmethod object at 0x7f2895e92760>
+    │    │        └ <Process name='Process-1' parent=24849 started>
+    │    └ None
+    └ <Process name='Process-1' parent=24849 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=24849 started>
+           │                └ <function DefaultContext.get_context at 0x7f2895ef0160>
+           └ <multiprocessing.context.DefaultContext object at 0x7f2895f0e100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=24849 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=24849 started>
+    │    └ <function Popen._launch at 0x7f28920e60d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f289216eac0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f2895f02940>
+           └ <Process name='Process-1' parent=24849 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f2895efdf70>
+    └ <Process name='Process-1' parent=24849 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=24849 started>
+    │    │        │    └ ((1254, 'коррекция зрения', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="2021032...
+    │    │        └ <Process name='Process-1' parent=24849 started>
+    │    └ <function Yandex at 0x7f2892145940>
+    └ <Process name='Process-1' parent=24849 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 191, in __init__
+    self.prepare_result()
+    │    └ <function Yandex.prepare_result at 0x7f28921460d0>
+    └ <__main__.Yandex object at 0x7f2895eb5d60>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 273, in prepare_result
+    'Конкуренция по возрасту': self.concurency_object.site_age_concurency,
+                               │    └ None
+                               └ <__main__.Yandex object at 0x7f2895eb5d60>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+16:15:24 Не удалось загрузить https://www.nlv.ru/laser-correction
+16:15:24 Проблема с валидностью контента nlv.ru. 
