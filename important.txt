@@ -1003,3 +1003,155 @@ LINE 1: ... site_seo_concurency = 96, request_views = 191000 average_ag...
 14:42:50 Проблема с валидностью контента nlv.ru. 
 14:43:30 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
 14:43:30 Проблема с валидностью контента nlv.ru. 
+11:44:02 An error has been caught in function 'run', process 'Process-1' (5371), thread 'MainThread' (140250365544256):
+Traceback (most recent call last):
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 887, in <module>
+    Manager()
+    └ <function Manager at 0x7f8e94a1e550>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f8e90ca8ca0>
+    └ <__main__.Manager object at 0x7f8e93dafdf0>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f8e94a70040>
+    └ <Process name='Process-1' parent=5369 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=5369 started>
+    │    │        │    └ <staticmethod object at 0x7f8e949fc760>
+    │    │        └ <Process name='Process-1' parent=5369 started>
+    │    └ None
+    └ <Process name='Process-1' parent=5369 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=5369 started>
+           │                └ <function DefaultContext.get_context at 0x7f8e94a56160>
+           └ <multiprocessing.context.DefaultContext object at 0x7f8e94a77100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=5369 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=5369 started>
+    │    └ <function Popen._launch at 0x7f8e90c4e0d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f8e90cd0d90>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f8e94a70940>
+           └ <Process name='Process-1' parent=5369 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f8e94a66f70>
+    └ <Process name='Process-1' parent=5369 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=5369 started>
+    │    │        │    └ ((1247, 'lasik', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210320T094334"><...
+    │    │        └ <Process name='Process-1' parent=5369 started>
+    │    └ <function Yandex at 0x7f8e90cac940>
+    └ <Process name='Process-1' parent=5369 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 192, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f8e90cad160>
+    └ <__main__.Yandex object at 0x7f8e94a20d60>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 296, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f8e90ca8940>
+    └ <module 'postgres_mode' from '/home/artur/concurent_site_release/postgres_mode.py'>
+
+  File "/home/artur/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ "UPDATE concurent_site.main_request SET site_age_concurency = 94, site_stem_concurency = 94, site_volume_concurency = 98, sit...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f8e8dbc28b0; closed: 0>
+
+psycopg2.errors.SyntaxError: syntax error at or near "yandex"
+LINE 1: ...ique_backlinks = 427, vital_sites = wikipedia.org yandex.ru ...
+                                                             ^
+
+11:44:43 An error has been caught in function 'run', process 'Process-1' (5463), thread 'MainThread' (139918137661248):
+Traceback (most recent call last):
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 887, in <module>
+    Manager()
+    └ <function Manager at 0x7f413a4eb550>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f4136775ca0>
+    └ <__main__.Manager object at 0x7f413987d790>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f413a53f040>
+    └ <Process name='Process-1' parent=5461 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=5461 started>
+    │    │        │    └ <staticmethod object at 0x7f413a4c8760>
+    │    │        └ <Process name='Process-1' parent=5461 started>
+    │    └ None
+    └ <Process name='Process-1' parent=5461 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=5461 started>
+           │                └ <function DefaultContext.get_context at 0x7f413a664160>
+           └ <multiprocessing.context.DefaultContext object at 0x7f413a546100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=5461 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=5461 started>
+    │    └ <function Popen._launch at 0x7f41367ae0d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f41367a5bb0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f413a53f940>
+           └ <Process name='Process-1' parent=5461 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f413a534f70>
+    └ <Process name='Process-1' parent=5461 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=5461 started>
+    │    │        │    └ ((1247, 'lasik', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="20210320T094334"><...
+    │    │        └ <Process name='Process-1' parent=5461 started>
+    │    └ <function Yandex at 0x7f413677a940>
+    └ <Process name='Process-1' parent=5461 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 192, in __init__
+    self.add_result_to_database()
+    │    └ <function Yandex.add_result_to_database at 0x7f413677b160>
+    └ <__main__.Yandex object at 0x7f413a4ecd60>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 296, in add_result_to_database
+    pm.custom_request_to_database_without_return(
+    │  └ <function custom_request_to_database_without_return at 0x7f4136775940>
+    └ <module 'postgres_mode' from '/home/artur/concurent_site_release/postgres_mode.py'>
+
+  File "/home/artur/concurent_site_release/postgres_mode.py", line 94, in custom_request_to_database_without_return
+    cursor.execute(sql)
+    │      │       └ "UPDATE concurent_site.main_request SET site_age_concurency = 94, site_stem_concurency = 94, site_volume_concurency = 98, sit...
+    │      └ <method 'execute' of 'psycopg2.extensions.cursor' objects>
+    └ <cursor object at 0x7f412e227b80; closed: 0>
+
+psycopg2.errors.StringDataRightTruncation: value too long for type character varying(100)
+
+12:45:12 Проблема с валидностью контента ppl-14.ru. 
+12:58:58 Проблема с валидностью контента ppl-14.ru. 

@@ -25,7 +25,7 @@ def run():
                 total_backlinks = int(request_json["summary"]["mjHin"])
                 domain_group = 0
 
-                if unique_backlinks >= 10000:
+                if unique_backlinks >= 10000 or total_backlinks >= 30000:
                     domain_group = 1
 
 

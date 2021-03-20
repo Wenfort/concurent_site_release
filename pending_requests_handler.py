@@ -123,7 +123,8 @@ class Yandex:
             f"site_seo_concurency = {self.concurency_object.site_seo_concurency}, "
             f"site_total_concurency = {self.concurency_object.site_total_concurency}, "
             f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks}, "
-            f"average_total_backlinks = {self.concurency_object.average_total_backlinks}, "
+            f"average_total_backlinks = {self.concurency_object.average_total_backlinks},"
+            f"vital_sites = '{self.concurency_object.vital_domains}', "
             f"status = 'ready' "
             f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
         )
@@ -196,6 +197,7 @@ class Concurency:
 
         self.average_total_backlinks = int()
         self.average_unique_backlinks = int()
+        self.vital_domains = list()
 
         self.get_concurency_from_database()
         if self.check_is_absourd_request():
@@ -214,6 +216,10 @@ class Concurency:
         self.calculate_site_total_concurency()
         self.status = 'ready'
         self.update_report()
+        self.convert_vital_domains_to_sting()
+
+    def convert_vital_domains_to_sting(self):
+        self.vital_domains = ' '.join(self.vital_domains)
 
 
     def get_concurency_from_database(self):
@@ -259,7 +265,8 @@ class Concurency:
                     total_total_backlinks += total_backlinks
                     file.write(f'Сайт: {site_object.domain}. Уников: {unique_backlinks}, Тотал: {total_backlinks} НЕ ВИТАЛЬНЫЙ\n')
                 else:
-                    file(f'Сайт: {site_object.domain}. Уников: {unique_backlinks}, Тотал: {total_backlinks} ВИТАЛЬНЫЙ\n')
+                    file.write(f'Сайт: {site_object.domain}. Уников: {unique_backlinks}, Тотал: {total_backlinks} ВИТАЛЬНЫЙ\n')
+                    self.vital_domains.append(site_object.domain)
 
                 if unique_backlinks > maximum_backlinks:
                     unique_backlinks = maximum_backlinks

@@ -308,7 +308,8 @@ class Yandex:
             f"average_age = {self.concurency_object.average_site_age}, "
             f"average_volume = {self.concurency_object.average_site_volume}, "
             f"average_total_backlinks = {self.concurency_object.average_total_backlinks}, "
-            f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks} "
+            f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks}, "
+            f"vital_sites = '{self.concurency_object.vital_domains}' "
             f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
         )
 
@@ -350,7 +351,7 @@ class Backlinks:
             self.total_backlinks = int(self.request_json["summary"]["mjHin"])
             self.status = 'complete'
 
-            if self.unique_backlinks >= 10000:
+            if self.unique_backlinks >= 10000 or self.total_backlinks >= 30000:
                 self.domain_group = 1
 
 
@@ -512,6 +513,8 @@ class Concurency:
         self.average_unique_backlinks = int()
         self.average_total_backlinks = int()
 
+        self.vital_domains = list()
+
         self.check_site_object_type()
 
         if len(self.direct_site_objects_list) > 0:
@@ -542,8 +545,8 @@ class Concurency:
             self.status = 'backlinks'
 
         self.prepare_report()
-        if self.site_age_concurency == 0:
-            print('Попался!')
+
+        self.convert_vital_domains_to_sting()
 
     def check_site_object_type(self):
         for site_object in self.site_objects_list:
@@ -666,6 +669,10 @@ class Concurency:
                     if domain_group != 1:
                         total_unique_backlinks += unique_backlinks
                         total_total_backlinks += total_backlinks
+                    else:
+                        self.vital_domains.append(site_object.domain_object.domain)
+                elif site_object.site_type == 'super':
+                    self.vital_domains.append(site_object.domain_object.domain)
 
                 if unique_backlinks > maximum_backlinks:
                     unique_backlinks = maximum_backlinks
@@ -867,6 +874,9 @@ class Concurency:
             file.write('Бэклинков недостаточно\n')
         file.close()
         print('ya')
+
+    def convert_vital_domains_to_sting(self):
+        self.vital_domains = ' '.join(self.vital_domains)
 
 
 if __name__ == "__main__":

@@ -61,6 +61,7 @@ class Request(models.Model):
     average_volume = models.IntegerField(default=0)
     average_total_backlinks = models.IntegerField(default=0)
     average_unique_backlinks = models.IntegerField(default=0)
+    vital_sites = models.CharField(max_length=100, default = '')
 
 
     def __str__(self):
