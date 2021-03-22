@@ -269,7 +269,8 @@ class Concurency:
                     file.write(f'Сайт: {site_object.domain}. Уников: {unique_backlinks}, Тотал: {total_backlinks} НЕ ВИТАЛЬНЫЙ\n')
                 else:
                     file.write(f'Сайт: {site_object.domain}. Уников: {unique_backlinks}, Тотал: {total_backlinks} ВИТАЛЬНЫЙ\n')
-                    self.vital_domains.append(site_object.domain)
+                    if site_object.position <= 10:
+                        self.vital_domains.append(site_object.domain)
 
                 if unique_backlinks > maximum_backlinks:
                     unique_backlinks = maximum_backlinks

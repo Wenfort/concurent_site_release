@@ -672,9 +672,11 @@ class Concurency:
                         total_unique_backlinks += unique_backlinks
                         total_total_backlinks += total_backlinks
                     else:
-                        self.vital_domains.append(site_object.domain_object.domain)
+                        if int(site_object.position) <= 10:
+                            self.vital_domains.append(site_object.domain_object.domain)
                 elif site_object.site_type == 'super':
-                    self.vital_domains.append(site_object.domain_object.domain)
+                    if int(site_object.position) <= 10:
+                        self.vital_domains.append(site_object.domain_object.domain)
 
                 if unique_backlinks > maximum_backlinks:
                     unique_backlinks = maximum_backlinks
