@@ -2,6 +2,7 @@
 {% load mathfilters %}
 {% block content %}
 {% include './add_to_queue.html' %}
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-10 offset-lg-1">
@@ -12,11 +13,18 @@
                         <table class="table table-centered mb-0">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>{% if sort_type == 'request' %} <a href="?sort=-request"> {% else %} <a href="?sort=request">{% endif %}Запрос</a></th>
-                                    <th>{% if sort_type == '-seo' %} <a href="?sort=seo"> {% else %} <a href="?sort=-seo">{% endif %}Конкуренция SEO</a></th>
-                                    <th>{% if sort_type == '-direct' %} <a href="?sort=direct"> {% else %} <a href="?sort=-direct">{% endif %}Конкуренция Я.Директ</a></th>
-                                    <th>{% if sort_type == '-total' %} <a href="?sort=total"> {% else %} <a href="?sort=-total">{% endif %}Сложность попадания в топ</a></th>
-                                    <th>{% if sort_type == 'region' %} <a href="?sort=-region"> {% else %} <a href="?sort=region">{% endif %}Гео</a></th>
+                                    <th><div style="text-align: center"> {% if sort_type == 'request' %} <a href="?sort=-request"> {% else %} <a href="?sort=request">{% endif %}Запрос</a></a></th>
+
+                                    <th><div style="text-align: center"> {% if sort_type == '-vital_count' %} <a href="?sort=vital_count"> {% else %} <a href="?sort=-vital_count">{% endif %}Витальных сайтов в топ-20</a></a></th>
+                                    <th><div style="text-align: center"> {% if sort_type == '-avg_backs' %} <a href="?sort=avg_backs"> {% else %} <a href="?sort=-avg_backs">{% endif %}Среднее количество бэклинков</a></a></th>
+                                    <th><div style="text-align: center"> {% if sort_type == '-avg_unique_backs' %} <a href="?sort=avg_unique_backs"> {% else %} <a href="?sort=-avg_unique_backs">{% endif %}Среднее количество уник. бэклинков</a></a></th>
+                                    <th><div style="text-align: center"> {% if sort_type == '-avg_vol' %} <a href="?sort=avg_vol"> {% else %} <a href="?sort=-avg_vol">{% endif %}Средний объем контента</a></a></th>
+                                    <th><div style="text-align: center"> {% if sort_type == '-avg_old' %} <a href="?sort=avg_old"> {% else %} <a href="?sort=-avg_old">{% endif %}Средний возраст доменов</a></a></th>
+
+                                    <th><div style="text-align: center"> {% if sort_type == '-seo' %} <a href="?sort=seo"> {% else %} <a href="?sort=-seo">{% endif %}Конкуренция SEO</a></a></th>
+                                    <th><div style="text-align: center"> {% if sort_type == '-direct' %} <a href="?sort=direct"> {% else %} <a href="?sort=-direct">{% endif %}Конкуренция Я.Директ</a></a></th>
+                                    <th><div style="text-align: center"> {% if sort_type == '-total' %} <a href="?sort=total"> {% else %} <a href="?sort=-total">{% endif %}Сложность попадания в топ</a></a></th>
+                                    <th><div style="text-align: center"> {% if sort_type == 'region' %} <a href="?sort=-region"> {% else %} <a href="?sort=region">{% endif %}Гео</a></a></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,11 +44,18 @@
                                             </tr>
                                         {% else %}
                                             <tr>
+                                            <div style="text-align: center">
                                                 <td> {{ request.request_text }} </td>
-                                                <td> {{ request.site_seo_concurency }}% </td>
-                                                <td> {{ request.site_direct_concurency }}%</td>
-                                                <td>{{ request.site_total_concurency|div:135|mul:100|floatformat:"0" }}</td>
-                                                <td> {{ request.region.name }}</td>
+                                                <td> <div style="text-align: center"><div class="vital_sites" data-title="{{ request.vital_sites }}">{{ request.vital_sites_count }}</div></div> </td>
+                                                <td> <div style="text-align: center">{{ request.average_total_backlinks }}</div> </td>
+                                                <td> <div style="text-align: center">{{ request.average_unique_backlinks }}</div> </td>
+                                                <td> <div style="text-align: center">{{ request.average_volume }}</div> </td>
+                                                <td> <div style="text-align: center">{{ request.average_age }}</div> </td>
+                                                <td> <div style="text-align: center">{{ request.site_seo_concurency }}%</div> </td>
+                                                <td> <div style="text-align: center">{{ request.site_direct_concurency }}%</div></td>
+                                                <td><div style="text-align: center">{{ request.site_total_concurency|div:135|mul:100|floatformat:"0" }}</div></td>
+                                                <td> <div style="text-align: center">{{ request.region.name }}</div></td>
+                                            </div>
                                             </tr>
                                         {% endif %}
                                     {% endfor %}

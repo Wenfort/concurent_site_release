@@ -212,6 +212,16 @@ def unmask_sort_type(masked_sort_type):
         unmasked_sort_type = masked_sort_type.replace('region', 'region_id')
     elif 'amount' in masked_sort_type:
         unmasked_sort_type = masked_sort_type.replace('amount', 'request_views')
+    elif 'vital_count' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('vital_count', 'vital_sites_count')
+    elif 'avg_backs' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('avg_backs', 'average_total_backlinks')
+    elif 'avg_unique_backs' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('avg_unique_backs', 'average_unique_backlinks')
+    elif 'avg_vol' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('avg_vol', 'average_volume')
+    elif 'avg_old' in masked_sort_type:
+        unmasked_sort_type = masked_sort_type.replace('avg_old', 'average_age')
 
     return unmasked_sort_type
 
