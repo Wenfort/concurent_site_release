@@ -33,27 +33,31 @@
                                         {% if request.status == 'progress'  %}
                                             <tr>
                                                 <td>{{ request.request_text }}</td>
-                                                <td colspan="3" style="text-align: center">Запрос в очереди.</td>
+                                                <td colspan="8" style="text-align: center">Запрос в очереди.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% elif request.status == 'backlinks' %}
                                             <tr>
                                                 <td>{{ request.request_text }}</td>
-                                                <td colspan="3" style="text-align: center">Запрос обрабатывается.</td>
+                                                <td colspan="8" style="text-align: center">Запрос обрабатывается.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% else %}
                                             <tr>
                                             <div style="text-align: center">
                                                 <td> {{ request.request_text }} </td>
-                                                <td> <div style="text-align: center"><div class="vital_sites" data-title="{{ request.vital_sites }}">{{ request.vital_sites_count }}</div></div> </td>
-                                                <td> <div style="text-align: center">{{ request.average_total_backlinks }}</div> </td>
-                                                <td> <div style="text-align: center">{{ request.average_unique_backlinks }}</div> </td>
-                                                <td> <div style="text-align: center">{{ request.average_volume }}</div> </td>
-                                                <td> <div style="text-align: center">{{ request.average_age }}</div> </td>
+                                                {% if request.vital_sites_count == 0 %}
+                                                    <td> <div style="text-align: center"> 0 </div> </td>
+                                                {% else %}
+                                                    <td> <div style="text-align: center"><div class="vital_sites" data-title="{{ request.vital_sites }}">{{ request.vital_sites_count }}</div></div> </td>
+                                                {% endif %}
+                                                <td> <div style="text-align: center">{{ request.average_total_backlinks }} ссылок</div> </td>
+                                                <td> <div style="text-align: center">{{ request.average_unique_backlinks }} ссылок</div> </td>
+                                                <td> <div style="text-align: center">{{ request.average_volume }} знаков </div> </td>
+                                                <td> <div style="text-align: center">{{ request.average_age }} лет </div> </td>
                                                 <td> <div style="text-align: center">{{ request.site_seo_concurency }}%</div> </td>
                                                 <td> <div style="text-align: center">{{ request.site_direct_concurency }}%</div></td>
-                                                <td><div style="text-align: center">{{ request.site_total_concurency|div:135|mul:100|floatformat:"0" }}</div></td>
+                                                <td> <div style="text-align: center">{{ request.site_total_concurency|div:135|mul:100|floatformat:"0" }}</div></td>
                                                 <td> <div style="text-align: center">{{ request.region.name }}</div></td>
                                             </div>
                                             </tr>

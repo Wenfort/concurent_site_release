@@ -1312,3 +1312,228 @@ Traceback (most recent call last):
 AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
 16:15:24 Не удалось загрузить https://www.nlv.ru/laser-correction
 16:15:24 Проблема с валидностью контента nlv.ru. 
+14:55:59 An error has been caught in function 'make_concurency_object', process 'Process-1' (19005), thread 'MainThread' (140530203260736):
+Traceback (most recent call last):
+
+  File "/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/pydevd.py", line 2131, in <module>
+    main()
+    └ <function main at 0x7fcfbb79d310>
+
+  File "/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/pydevd.py", line 2122, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 38505, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x7fcfbb79f310>
+              └ <__main__.PyDB object at 0x7fcfbbdc9d90>
+
+  File "/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/pydevd.py", line 1431, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ '/home/artur/concurent_site_release/new_requests_handler.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x7fcfbb79f3a0>
+           └ <__main__.PyDB object at 0x7fcfbbdc9d90>
+
+  File "/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/pydevd.py", line 1438, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ '/home/artur/concurent_site_release/new_requests_handler.py'
+    │             └ <function execfile at 0x7fcfbc4c0310>
+    └ <module '_pydev_bundle.pydev_imports' from '/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/_pydev_bundle/...
+
+  File "/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/_pydev_imps/_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ '/home/artur/concurent_site_release/new_requests_handler.py'
+                 └ 'from conc_settings import *\nfrom multiprocessing import Process, Queue\nfrom threading import Thread\nfrom loguru import lo...
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 892, in <module>
+    Manager()
+    └ <function Manager at 0x7fcfbb643b80>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fcfb8093040>
+    └ <__main__.Manager object at 0x7fcfb9986250>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fcfb9cd5dc0>
+    └ <Process name='Process-1' parent=18994 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=18994 started>
+    │    │        │    └ <staticmethod object at 0x7fcfbb656c70>
+    │    │        └ <Process name='Process-1' parent=18994 started>
+    │    └ None
+    └ <Process name='Process-1' parent=18994 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=18994 started>
+           │                └ <function DefaultContext.get_context at 0x7fcfb9cf5820>
+           └ <multiprocessing.context.DefaultContext object at 0x7fcfb9cf00a0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=18994 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=18994 started>
+    │    └ <function Popen._launch at 0x7fcfb804b430>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fcfb803e670>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7fcfb9ce8700>
+           └ <Process name='Process-1' parent=18994 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fcfb9cd5d30>
+    └ <Process name='Process-1' parent=18994 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=18994 started>
+    │    │        │    └ ((1267, 'натяжные потолки абакан', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="...
+    │    │        └ <Process name='Process-1' parent=18994 started>
+    │    └ <function Yandex at 0x7fcfb8093ca0>
+    └ <Process name='Process-1' parent=18994 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 190, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7fcfb80943a0>
+    └ <__main__.Yandex object at 0x7fcfb9ce1a30>
+
+> File "/home/artur/concurent_site_release/new_requests_handler.py", line 268, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request, self.request)
+    │    │                   │          │    │                  │    │                │    └ 'натяжные потолки абакан'
+    │    │                   │          │    │                  │    │                └ <__main__.Yandex object at 0x7fcfb9ce1a30>
+    │    │                   │          │    │                  │    └ ['натяжной', 'потолок', 'абакан']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7fcfb9ce1a30>
+    │    │                   │          │    └ [<__main__.Site object at 0x7fcfb8060100>, <__main__.Site object at 0x7fcfa8f7dbe0>, <__main__.Site object at 0x7fcfa8f7deb0>...
+    │    │                   │          └ <__main__.Yandex object at 0x7fcfb9ce1a30>
+    │    │                   └ <function Concurency at 0x7fcfb80969d0>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7fcfb9ce1a30>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 521, in __init__
+    self.check_site_object_type()
+    │    └ <function Concurency.check_site_object_type at 0x7fcfb8096af0>
+    └ <__main__.Concurency object at 0x7fcf7c74e0d0>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 560, in check_site_object_type
+    if site_object.position <= 4:
+       │           └ '1'
+       └ <__main__.Site object at 0x7fcfb8060100>
+
+TypeError: '<=' not supported between instances of 'str' and 'int'
+14:55:59 An error has been caught in function 'run', process 'Process-1' (19005), thread 'MainThread' (140530203260736):
+Traceback (most recent call last):
+
+  File "/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/pydevd.py", line 2131, in <module>
+    main()
+    └ <function main at 0x7fcfbb79d310>
+
+  File "/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/pydevd.py", line 2122, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 38505, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x7fcfbb79f310>
+              └ <__main__.PyDB object at 0x7fcfbbdc9d90>
+
+  File "/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/pydevd.py", line 1431, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ '/home/artur/concurent_site_release/new_requests_handler.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x7fcfbb79f3a0>
+           └ <__main__.PyDB object at 0x7fcfbbdc9d90>
+
+  File "/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/pydevd.py", line 1438, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ '/home/artur/concurent_site_release/new_requests_handler.py'
+    │             └ <function execfile at 0x7fcfbc4c0310>
+    └ <module '_pydev_bundle.pydev_imports' from '/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/_pydev_bundle/...
+
+  File "/home/artur/Загрузки/pycharm-2020.1.1/plugins/python/helpers/pydev/_pydev_imps/_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ '/home/artur/concurent_site_release/new_requests_handler.py'
+                 └ 'from conc_settings import *\nfrom multiprocessing import Process, Queue\nfrom threading import Thread\nfrom loguru import lo...
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 892, in <module>
+    Manager()
+    └ <function Manager at 0x7fcfbb643b80>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fcfb8093040>
+    └ <__main__.Manager object at 0x7fcfb9986250>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 47, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fcfb9cd5dc0>
+    └ <Process name='Process-1' parent=18994 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=18994 started>
+    │    │        │    └ <staticmethod object at 0x7fcfbb656c70>
+    │    │        └ <Process name='Process-1' parent=18994 started>
+    │    └ None
+    └ <Process name='Process-1' parent=18994 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=18994 started>
+           │                └ <function DefaultContext.get_context at 0x7fcfb9cf5820>
+           └ <multiprocessing.context.DefaultContext object at 0x7fcfb9cf00a0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=18994 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=18994 started>
+    │    └ <function Popen._launch at 0x7fcfb804b430>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fcfb803e670>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7fcfb9ce8700>
+           └ <Process name='Process-1' parent=18994 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fcfb9cd5d30>
+    └ <Process name='Process-1' parent=18994 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=18994 started>
+    │    │        │    └ ((1267, 'натяжные потолки абакан', '<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response date="...
+    │    │        └ <Process name='Process-1' parent=18994 started>
+    │    └ <function Yandex at 0x7fcfb8093ca0>
+    └ <Process name='Process-1' parent=18994 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 191, in __init__
+    self.prepare_result()
+    │    └ <function Yandex.prepare_result at 0x7fcfb8094430>
+    └ <__main__.Yandex object at 0x7fcfb9ce1a30>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 273, in prepare_result
+    'Конкуренция по возрасту': self.concurency_object.site_age_concurency,
+                               │    └ None
+                               └ <__main__.Yandex object at 0x7fcfb9ce1a30>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'

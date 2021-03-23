@@ -426,6 +426,7 @@ class Domain:
                     item = soup[start:finish]
                     self.domain_age = 2021 - int(item)
         except:
+            print(f'Возраст домена {self.domain} определен неправильно')
             self.domain_age = 5
 
 
@@ -496,6 +497,7 @@ class Concurency:
         self.organic_site_objects_list = list()
         self.super_site_objects_list = list()
         self.direct_site_objects_list = list()
+        self.super_ads_amount = int()
         self.WEIGHTS = dict()
         self.importance = dict()
         self.site_age_concurency = int()
@@ -556,6 +558,8 @@ class Concurency:
                 if site_object.content_object.valid:
                     self.organic_site_objects_list.append(site_object)
             elif site_object.site_type == 'direct':
+                if int(site_object.position) <= 4:
+                    self.super_ads_amount += 1
                 self.direct_site_objects_list.append(site_object)
             else:
                 self.super_site_objects_list.append(site_object)
@@ -672,10 +676,10 @@ class Concurency:
                         total_unique_backlinks += unique_backlinks
                         total_total_backlinks += total_backlinks
                     else:
-                        if int(site_object.position) <= 10:
+                        if int(site_object.position) + self.super_ads_amount <= 10:
                             self.vital_domains.append(site_object.domain_object.domain)
                 elif site_object.site_type == 'super':
-                    if int(site_object.position) <= 10:
+                    if int(site_object.position) + self.super_ads_amount <= 10:
                         self.vital_domains.append(site_object.domain_object.domain)
 
                 if unique_backlinks > maximum_backlinks:
