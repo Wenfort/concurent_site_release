@@ -330,6 +330,8 @@ def requests_from_order(request, order_id):
 
 
 def user_confirmation(request):
+    user_data = SiteUser(request.user.id)
+
     try:
         order_id = int(request.POST['order_id'])
     except:
@@ -342,6 +344,9 @@ def user_confirmation(request):
     funds = requests_amount * REQUEST_COST
     context = {
         'requests_list': requests_list,
+        'orders': user_data.orders,
+        'keywords_ordered': user_data.ordered_keywords,
+        'balance': user_data.balance,
         'requests_list_without_format': requests_list_without_format,
         'previous_page': post_data['previous_page'],
         'geo': post_data['geo'],
