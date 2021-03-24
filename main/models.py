@@ -72,7 +72,7 @@ class Request(models.Model):
 
 class UserData(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
-    balance = models.IntegerField(default=0)
+    balance = models.FloatField(default=0)
     orders_amount = models.IntegerField(default=0)
     ordered_keywords = models.IntegerField(default=0)
     region = models.ForeignKey(Region, on_delete=models.DO_NOTHING, default=255)
