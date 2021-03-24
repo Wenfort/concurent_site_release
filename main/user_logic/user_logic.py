@@ -62,7 +62,7 @@ class NewUserHandler:
 
     def create_user(self):
         new_user = User.objects.create_user(self.user_name, self.email, self.password)
-        UserData(user_id=new_user.id, balance=50).save()
+        UserData(user_id=new_user.id, balance=0).save()
 
     def compare_passwords(self):
         return self.password == self.password_again
