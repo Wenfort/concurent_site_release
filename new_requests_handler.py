@@ -541,7 +541,7 @@ class Concurency:
 
         if self.valid_backlinks_rate >= 1:
             self.calculate_site_backlinks_concurency()
-            logger.info(f'Выборки хватило')
+            logger.info(f'Выборки ({self.request}) хватило')
             self.calculate_site_total_concurency()
             self.status = 'ready'
         else:
