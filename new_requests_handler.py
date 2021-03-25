@@ -129,6 +129,9 @@ class Site:
         if 'Турбо-страница' in self.domain:
             self.domain = 'yandex.ru'
 
+        if self.domain.count('.') == 0:
+            self.domain = self.domain + '.ru'
+
         while self.domain.count('.') != 1:
             first_dot = self.domain.find('.') + 1
             self.domain = self.domain[first_dot:]
