@@ -101,11 +101,11 @@ class NewRequestHandler:
 
         self.get_user_data()
         self.make_requests_list()
-        self.add_new_requests_to_database()
 
-        self.calculate_new_requests_amount()
 
         if self.is_money_enough():
+            self.add_new_requests_to_database()
+            self.calculate_new_requests_amount()
             if self.new_requests_amount > 0:
                 if not user_order_id:
                     self.new_order = True
@@ -185,7 +185,7 @@ class NewRequestHandler:
                         )
 
     def is_money_enough(self):
-        if self.new_requests_amount <= self.user_data.balance:
+        if len(self.requests_list) * REQUEST_COST <= self.user_data.balance:
             return True
 
 
@@ -367,7 +367,9 @@ def handle_new_request(request):
         request_handler = NewRequestHandler(request, order_id)
         if request_handler.is_money_enough():
             previous_page = request.POST['previous_page']
+
             return HttpResponseRedirect(previous_page)
         else:
             return HttpResponse(
-                f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на {request_handler.new_requests_amount * REQUEST_COST - request_handler.user_data.balance} рублей')
+                f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на '
+                f'{len(request_handler.requests_list) * REQUEST_COST - request_handler.user_data.balance} рублей')
