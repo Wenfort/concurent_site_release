@@ -32,13 +32,13 @@ class XmlReport():
         for request in self.requests:
             request_text = request[1]
             request_region = request[2]
-            self.xml_request_packs.append(
-                {
-                    request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}&lr={request_region}',
-                }
-            )
+            if int(request_region) == 255:
+                xml_request_pack = {request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}', }
+            else:
+                xml_request_pack = {request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}&lr={request_region}', }
 
-            print(f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}&lr={request_region}')
+            self.xml_request_packs.append(xml_request_pack)
+            print(xml_request_pack)
         self.xml_request_packs = tuple(self.xml_request_packs)
 
     def get_xml_answer(self, request, xml_url, geo):
