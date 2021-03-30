@@ -1,4 +1,4 @@
-core_number = 2
+core_number = 4
 REQUEST_COST = 0.5
 
 HEADERS = {
