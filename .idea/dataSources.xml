@@ -11,7 +11,19 @@
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://185.212.128.234:5432/postgres</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="production_old" uuid="2e99a5e3-bb39-4fbb-9387-a13cce4add51">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://ovz16.9207253293.mzlgn.vps.myjino.ru:5432/postgres</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="newest_production" uuid="d732c0eb-a27f-4e1d-b2b0-377a728ff46d">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://178.250.158.252:5432/postgres</jdbc-url>
     </data-source>
   </component>
 </project>
