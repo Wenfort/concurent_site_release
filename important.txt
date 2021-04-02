@@ -1537,3 +1537,10 @@ Traceback (most recent call last):
                                └ <__main__.Yandex object at 0x7fcfb9ce1a30>
 
 AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+15:01:28 Не удалось загрузить https://www.nlv.ru/laser-correction
+15:01:28 Проблема с валидностью контента nlv.ru. 
+15:02:19 Не удалось загрузить https://www.nlv.ru/laser-correction
+15:02:19 Проблема с валидностью контента nlv.ru. 
+16:07:58 Не удалось загрузить https://www.nlv.ru/laser-correction
+16:07:58 Проблема с валидностью контента nlv.ru. 
+16:10:36 Проблема с валидностью контента юрист-мск.рф. 

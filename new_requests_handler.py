@@ -626,12 +626,25 @@ class Concurency:
         for site_object in self.site_objects_list:
             max_stem_concurency += self.WEIGHTS[site_object.position]
             if site_object.site_type == 'organic':
-                matched_stem_items = len(set(self.request) & set(site_object.content_object.stemmed_title))
+                matched_stem_items = self.count_matched_stem_items(site_object.content_object.stemmed_title)
                 real_stem_concurency += matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
             else:
                 real_stem_concurency += self.WEIGHTS[site_object.position]
 
         self.site_stem_concurency = int(real_stem_concurency / max_stem_concurency * 100)
+
+    def count_matched_stem_items(self, stemmed_title):
+        matched_stem_items = 0
+
+        for stemmed_request_word in self.request:
+            for stemmed_title_word in stemmed_title:
+                if stemmed_request_word in stemmed_title_word:
+                    matched_stem_items += 1
+                    print(f'{stemmed_request_word} in {stemmed_title_word}')
+
+        return matched_stem_items
+
+
 
     def check_is_absourd_request(self):
         if self.site_stem_concurency < 30:

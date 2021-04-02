@@ -7,12 +7,6 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="production" uuid="95336dd5-46f7-473c-a485-1fc0665e18c1">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://185.212.128.234:5432/postgres</jdbc-url>
-    </data-source>
     <data-source source="LOCAL" name="production_old" uuid="2e99a5e3-bb39-4fbb-9387-a13cce4add51">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
@@ -23,7 +17,7 @@
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://178.250.158.252:5432/postgres</jdbc-url>
+      <jdbc-url>jdbc:postgresql://178.250.158.252:5432/project_live</jdbc-url>
     </data-source>
   </component>
 </project>
