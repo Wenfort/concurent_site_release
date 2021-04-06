@@ -714,25 +714,28 @@ class Concurency:
 
     def calculate_direct_upscale(self):
         direct_upscale = 0
+        direct_sites = 0
 
         for site_object in self.site_objects_list:
             if site_object.site_type == 'direct':
-                if site_object.position == '1':
-                    direct_upscale += 13.0
-                    direct_upscale = round(direct_upscale, 2)
-                elif site_object.position == '2':
-                    direct_upscale += 9.0
-                    direct_upscale = round(direct_upscale, 2)
-                elif site_object.position == '3':
-                    direct_upscale += 6.0
-                    direct_upscale = round(direct_upscale, 2)
-                elif site_object.position == '4':
-                    direct_upscale += 4.0
-                    direct_upscale = round(direct_upscale, 2)
-                else:
-                    direct_upscale += float(0.6)
-                    direct_upscale = round(direct_upscale, 2)
-                logger.debug(f'Директ обнаружен на позиции {site_object.position}, текущий upscale = {direct_upscale}')
+                direct_sites += 1
+
+        logger.debug(f'Всего {direct_sites} сайтов в директе')
+
+        if direct_sites > 5:
+            direct_upscale += 3
+            direct_sites -= 5
+
+        if direct_sites == 4:
+            direct_upscale += 32
+        elif direct_sites == 3:
+            direct_upscale += 28
+        elif direct_sites == 2:
+            direct_upscale += 22
+        elif direct_sites == 1:
+            direct_upscale += 13
+
+        logger.debug(f'Upscale = {direct_upscale}')
 
         self.direct_upscale = direct_upscale
 

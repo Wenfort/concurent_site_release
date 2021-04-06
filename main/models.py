@@ -7,6 +7,7 @@ class HandledXml(models.Model):
     xml = models.TextField()
     status = models.CharField(max_length=10)
     geo = models.IntegerField(default=225)
+    refresh_timer = models.IntegerField(default=225)
 
     def __str__(self):
         return self.request
@@ -116,6 +117,7 @@ class TicketPost(models.Model):
 class RequestQueue(models.Model):
     request_text = models.CharField(max_length=100)
     geo = models.IntegerField(default=255)
+    is_recheck = models.BooleanField(default=False)
 
 
 class SuperSites(models.Model):

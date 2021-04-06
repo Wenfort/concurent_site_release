@@ -18,12 +18,14 @@ class XmlReport():
         self.get_requests_from_queue()
         self.make_xml_request_packs()
 
-
         self.make_threads()
         self.run_threads()
         self.check_threads()
         self.add_xml_answers_to_database()
         print(f'{len(self.requests)} запроса собраны за {time.time() - self.start} секунд')
+        print(f'Запускаю модуль перепроверки')
+        self.update_refresh_timer()
+        self.add_expired_domains_to_the_queue_again()
 
     def get_requests_from_queue(self):
         self.requests = pm.get_data_from_database('main_requestqueue', 10)
@@ -33,15 +35,17 @@ class XmlReport():
             request_text = request[1]
             request_region = request[2]
             if int(request_region) == 255:
-                xml_request_pack = {request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}', }
+                xml_request_pack = {
+                    request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}', }
             else:
-                xml_request_pack = {request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}&lr={request_region}', }
+                xml_request_pack = {
+                    request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}&lr={request_region}', }
 
             self.xml_request_packs.append(xml_request_pack)
             print(xml_request_pack)
         self.xml_request_packs = tuple(self.xml_request_packs)
 
-    def get_xml_answer(self, request, xml_url, geo):
+    def get_xml_answer(self, request, xml_url, geo, is_recheck):
         r = requests.get(xml_url)
         text = r.text
         site_numbers = len(re.findall(r'<doc>', text))
@@ -53,9 +57,19 @@ class XmlReport():
         file.write(f'{text}\n')
 
         if site_numbers > 15:
-            content_for_bs4 = text
+            if '<bottomads>' not in text and '<topads>' not in text:
+                if is_recheck:
+                    status = 'in work'
+                    retry_timer = 0
+                else:
+                    status = 'no ads'
+                    retry_timer = 11
+            else:
+                status = 'in work'
+                retry_timer = 0
+
             if 'Ответ от поисковой системы не получен' not in text:
-                self.xml_answers.append((request, text, 'in work', geo))
+                self.xml_answers.append((request, text, status, geo, retry_timer))
             else:
                 print(f'Ошибка XML в запросе {request}: {text}')
 
@@ -64,7 +78,9 @@ class XmlReport():
             for request_pack, xml_url in xml_pack.items():
                 request_text = request_pack[1]
                 geo = request_pack[2]
-                self.thread_list.append(Thread(target=self.get_xml_answer, args=(request_text, xml_url, geo)))
+                is_recheck = request_pack[3]
+                self.thread_list.append(
+                    Thread(target=self.get_xml_answer, args=(request_text, xml_url, geo, is_recheck)))
 
     def run_threads(self):
         for thread in self.thread_list:
@@ -87,6 +103,29 @@ class XmlReport():
         for xml_answer in self.xml_answers:
             pm.add_to_database_with_autoincrement('main_handledxml', xml_answer)
             self.delete_xml_answer_from_database(xml_answer)
+
+    def update_refresh_timer(self):
+        sql = ("UPDATE concurent_site.main_handledxml SET "
+               "refresh_timer = refresh_timer - 1 "
+               "WHERE refresh_timer > 1 AND status = 'no ads';")
+        pm.custom_request_to_database_without_return(sql)
+
+    def add_expired_domains_to_the_queue_again(self):
+        expired_requests = self.delete_expired_timer_requests_and_return_their_names()
+
+        if expired_requests:
+            exp_requests = ''
+            for e_r in expired_requests:
+                exp_requests += f'{e_r},'
+            exp_requests = exp_requests[:-1]
+            sql = f"INSERT INTO concurent_site.main_requestqueue(request_text, geo, is_recheck) VALUES {exp_requests}"
+            pm.custom_request_to_database_without_return(sql)
+
+    def delete_expired_timer_requests_and_return_their_names(self):
+        sql = "DELETE FROM concurent_site.main_handledxml WHERE refresh_timer = 1 RETURNING request, geo, TRUE;"
+        expired_requests = pm.custom_request_to_database_with_return(sql)
+
+        return expired_requests
 
 
 while True:
