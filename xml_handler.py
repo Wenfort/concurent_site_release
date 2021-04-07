@@ -28,7 +28,12 @@ class XmlReport():
         self.add_expired_domains_to_the_queue_again()
 
     def get_requests_from_queue(self):
-        self.requests = pm.get_data_from_database('main_requestqueue', 10)
+        sql = ('SELECT request_id, request_text, region_id, is_recheck '  
+               'FROM concurent_site.main_requestqueue '
+               'INNER JOIN concurent_site.main_request USING (request_id) '
+               'LIMIT 10;')
+
+        self.requests = pm.custom_request_to_database_with_return(sql)
 
     def make_xml_request_packs(self):
         for request in self.requests:
@@ -45,7 +50,7 @@ class XmlReport():
             print(xml_request_pack)
         self.xml_request_packs = tuple(self.xml_request_packs)
 
-    def get_xml_answer(self, request, xml_url, geo, is_recheck):
+    def get_xml_answer(self, request_id, request, xml_url, geo, is_recheck):
         r = requests.get(xml_url)
         text = r.text
         site_numbers = len(re.findall(r'<doc>', text))
@@ -69,18 +74,19 @@ class XmlReport():
                 retry_timer = 0
 
             if 'Ответ от поисковой системы не получен' not in text:
-                self.xml_answers.append((request, text, status, geo, retry_timer))
+                self.xml_answers.append((text, status, geo, retry_timer, request_id))
             else:
                 print(f'Ошибка XML в запросе {request}: {text}')
 
     def make_threads(self):
         for xml_pack in self.xml_request_packs:
             for request_pack, xml_url in xml_pack.items():
+                request_id = request_pack[0]
                 request_text = request_pack[1]
                 geo = request_pack[2]
                 is_recheck = request_pack[3]
                 self.thread_list.append(
-                    Thread(target=self.get_xml_answer, args=(request_text, xml_url, geo, is_recheck)))
+                    Thread(target=self.get_xml_answer, args=(request_id, request_text, xml_url, geo, is_recheck)))
 
     def run_threads(self):
         for thread in self.thread_list:
@@ -91,12 +97,11 @@ class XmlReport():
             thread.join()
 
     def delete_xml_answer_from_database(self, xml_answer):
-        request_text = xml_answer[0]
-        geo = xml_answer[3]
+        request_id = xml_answer[4]
         sql = ('DELETE FROM '
                'concurent_site.main_requestqueue '
                'WHERE '
-               f"request_text='{request_text}' AND geo='{geo}';")
+               f"request_id={request_id};")
         pm.custom_request_to_database_without_return(sql)
 
     def add_xml_answers_to_database(self):
@@ -118,11 +123,11 @@ class XmlReport():
             for e_r in expired_requests:
                 exp_requests += f'{e_r},'
             exp_requests = exp_requests[:-1]
-            sql = f"INSERT INTO concurent_site.main_requestqueue(request_text, geo, is_recheck) VALUES {exp_requests}"
+            sql = f"INSERT INTO concurent_site.main_requestqueue(request_id, geo, is_recheck) VALUES {exp_requests}"
             pm.custom_request_to_database_without_return(sql)
 
     def delete_expired_timer_requests_and_return_their_names(self):
-        sql = "DELETE FROM concurent_site.main_handledxml WHERE refresh_timer = 1 RETURNING request, geo, TRUE;"
+        sql = "DELETE FROM concurent_site.main_handledxml WHERE refresh_timer = 1 RETURNING request_id, geo, TRUE;"
         expired_requests = pm.custom_request_to_database_with_return(sql)
 
         return expired_requests
