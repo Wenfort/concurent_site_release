@@ -129,11 +129,10 @@ class NewRequestHandler:
 
     def add_new_requests_to_database(self):
         for request in self.requests_list:
-
             new_request = Request(request_text=request, region_id=self.user_data.region_id)
-            RequestQueue(request_text=request, geo=self.user_data.region_id).save()
             new_request.save()
             new_request_id = new_request.pk
+            RequestQueue(request_id=new_request_id, geo=self.user_data.region_id).save()
 
             self.new_requests.append(new_request_id)
 
