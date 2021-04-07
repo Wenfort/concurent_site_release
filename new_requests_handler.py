@@ -32,7 +32,15 @@ class Manager:
         print(f'СОбрано {len(self.process_list)} первичных запросов')
 
     def get_requests_from_queue(self):
-        items = pm.check_in_database('main_handledxml', 'status', 'in work', core_number)
+
+        sql = ("SELECT request_id, request_text, xml, concurent_site.main_handledxml.status, geo "
+               "FROM concurent_site.main_handledxml "
+               "INNER JOIN concurent_site.main_request USING (request_id) "
+               "WHERE concurent_site.main_handledxml.status = 'in work' "
+               f"LIMIT {core_number};")
+
+        items = pm.custom_request_to_database_with_return(sql)
+
         reqs = list()
         for item in items:
             reqs.append(item)
@@ -65,11 +73,11 @@ class Manager:
     def delete_requests_from_queue(self):
         for yandex_object in self.yandex_objects_list:
             if yandex_object['Статус'] == 'backlinks':
-                sql = f"UPDATE concurent_site.main_handledxml SET status = 'pending' WHERE request = '{yandex_object['Запрос']}' AND geo='{yandex_object['Гео']}';"
+                sql = f"UPDATE concurent_site.main_handledxml SET status = 'pending' WHERE request_id = {yandex_object['ID запроса']};"
                 pm.custom_request_to_database_without_return(sql)
             else:
                 pm.custom_request_to_database_without_return(
-                    f"DELETE FROM concurent_site.main_handledxml WHERE request='{yandex_object['Запрос']}' AND geo='{yandex_object['Гео']}';"
+                    f"DELETE FROM concurent_site.main_handledxml WHERE request_id = {yandex_object['ID запроса']};"
                 )
 
 
@@ -163,6 +171,7 @@ class Site:
 class Yandex:
     def __init__(self, request, q):
 
+        self.request_id = request[0]
         self.request = request[1]
         self.xml = request[2]
         self.geo = request[4]
@@ -286,6 +295,7 @@ class Yandex:
             'Средние тотал бэклинки': self.concurency_object.average_total_backlinks,
             'Гео': self.geo,
             'Показов запроса': self.request_views,
+            'ID запроса': self.request_id
         }
 
     def add_result_to_database(self):
@@ -314,7 +324,7 @@ class Yandex:
             f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks}, "
             f"vital_sites = '{self.concurency_object.vital_domains}', "
             f"vital_sites_count = {self.concurency_object.vital_domains_amount} "
-            f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
+            f"WHERE request_id = {self.request_id}"
         )
 
 

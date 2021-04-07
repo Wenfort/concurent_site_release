@@ -1565,3 +1565,9 @@
 15:50:39 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
 15:50:39 Проблема с валидностью контента nlv.ru. 
 15:50:39 Проблема с валидностью контента nlv.ru. 
+17:31:17 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+17:31:17 Проблема с валидностью контента nlv.ru. 
+17:31:17 Проблема с валидностью контента nlv.ru. 
+18:21:47 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+18:21:47 Проблема с валидностью контента nlv.ru. 
+18:21:47 Проблема с валидностью контента nlv.ru. 
