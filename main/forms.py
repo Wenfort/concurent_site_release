@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class NewRequest(forms.ModelForm):
     class Meta:
         model = RequestQueue
-        fields = ('request_text',)
+        fields = ('request_id',)
 
 
 class NewUser(forms.ModelForm):

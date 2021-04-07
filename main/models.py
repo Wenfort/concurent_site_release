@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 class HandledXml(models.Model):
-    request = models.CharField(max_length=100)
+    request_id = models.IntegerField(default=0)
     xml = models.TextField()
     status = models.CharField(max_length=10)
     geo = models.IntegerField(default=225)
@@ -115,7 +115,7 @@ class TicketPost(models.Model):
 
 
 class RequestQueue(models.Model):
-    request_text = models.CharField(max_length=100)
+    request_id = models.IntegerField(default=0)
     geo = models.IntegerField(default=255)
     is_recheck = models.BooleanField(default=False)
 

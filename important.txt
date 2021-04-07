@@ -1544,3 +1544,5 @@ AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
 16:07:58 Не удалось загрузить https://www.nlv.ru/laser-correction
 16:07:58 Проблема с валидностью контента nlv.ru. 
 16:10:36 Проблема с валидностью контента юрист-мск.рф. 
+15:50:39 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+15:50:39 Проблема с валидностью контента nlv.ru. 
