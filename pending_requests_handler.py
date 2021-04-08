@@ -24,7 +24,15 @@ class Manager:
         print(f'Обработано {len(self.requests)} запросов ожидающих ссылок')
 
     def get_requests_from_queue(self):
-        items = pm.check_in_database('main_handledxml', 'status', 'pending', 10)
+
+        sql = ("SELECT request_id, request_text, xml, concurent_site.main_handledxml.status, geo "
+               "FROM concurent_site.main_handledxml "
+               "INNER JOIN concurent_site.main_request USING (request_id) "
+               "WHERE concurent_site.main_handledxml.status = 'pending' "
+               f"LIMIT 10;")
+
+        items = pm.custom_request_to_database_with_return(sql)
+
         reqs = list()
         for item in items:
             reqs.append(item)
@@ -50,7 +58,7 @@ class Manager:
             if yandex_object.concurency_object:
                 if yandex_object.concurency_object.status == 'ready':
                     pm.custom_request_to_database_without_return(
-                        f"DELETE FROM concurent_site.main_handledxml WHERE request='{yandex_object.request}' AND geo='{yandex_object.geo}';"
+                        f"DELETE FROM concurent_site.main_handledxml WHERE request_id = {yandex_object.request_id};"
                     )
 
 
@@ -58,7 +66,7 @@ class Manager:
 class Yandex:
     def __init__(self, request):
 
-
+        self.request_id = request[0]
         self.request = request[1]
         self.xml = request[2]
         self.geo = request[4]
@@ -112,7 +120,7 @@ class Yandex:
             return False
 
     def make_concurency_object(self):
-        self.concurency_object = Concurency(self.site_objects_list, self.request, self.geo)
+        self.concurency_object = Concurency(self.site_objects_list, self.request, self.geo, self.request_id)
 
 
     def update_database(self):
@@ -127,7 +135,7 @@ class Yandex:
             f"vital_sites = '{self.concurency_object.vital_domains}', "
             f"vital_sites_count =  {self.concurency_object.vital_domains_amount}, "
             f"status = 'ready' "
-            f"WHERE request_text = '{self.request}' AND region_id = '{self.geo}'"
+            f"WHERE request_id = {self.request_id}"
         )
 
 class Site:
@@ -180,7 +188,8 @@ class Domain:
             pm.add_to_database('main_domain', values_to_go)
 
 class Concurency:
-    def __init__(self, site_objects_list, request, geo):
+    def __init__(self, site_objects_list, request, geo, request_id):
+        self.request_id = request_id
         self.site_objects_list = site_objects_list
         self.request = request
         self.geo = geo
@@ -231,7 +240,7 @@ class Concurency:
                'FROM '
                'concurent_site.main_request '
                'WHERE '
-               f"request_text='{self.request}' AND region_id='{self.geo}';")
+               f"request_id = {self.request_id};")
         concurency =pm.custom_request_to_database_with_return(sql)[0]
 
         self.site_age_concurency = int(concurency[0])
