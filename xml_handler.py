@@ -3,6 +3,7 @@ import time
 import postgres_mode as pm
 from threading import Thread
 import re
+from bs4 import BeautifulSoup
 
 
 class XmlReport():
@@ -28,7 +29,7 @@ class XmlReport():
         self.add_expired_domains_to_the_queue_again()
 
     def get_requests_from_queue(self):
-        sql = ('SELECT request_id, request_text, region_id, is_recheck '  
+        sql = ('SELECT request_id, request_text, region_id, is_recheck '
                'FROM concurent_site.main_requestqueue '
                'INNER JOIN concurent_site.main_request USING (request_id) '
                'LIMIT 10;')
@@ -70,6 +71,7 @@ class XmlReport():
                     status = 'no ads'
                     retry_timer = 11
             else:
+                text = self.validate_ads_count(text)
                 status = 'in work'
                 retry_timer = 0
 
@@ -77,6 +79,41 @@ class XmlReport():
                 self.xml_answers.append((text, status, geo, retry_timer, request_id))
             else:
                 print(f'Ошибка XML в запросе {request}: {text}')
+
+    def validate_ads_count(self, text):
+        soup = BeautifulSoup(text, 'html.parser')
+
+        try:
+            top_ads_block = soup.find('topads')
+            top_ads_block = top_ads_block.find_all('query')
+        except:
+            top_ads_block = ''
+
+        try:
+            bottom_ads_block = soup.find('bottomads')
+            bottom_ads_block = bottom_ads_block.find_all('query')
+        except:
+            bottom_ads_block = ''
+
+        overcaped_bottom_ads_count = len(bottom_ads_block) - 5
+
+        if overcaped_bottom_ads_count <= 0:
+            return text
+
+        top_ads_count = len(top_ads_block)
+
+        if overcaped_bottom_ads_count > 0 and top_ads_count > 0:
+            raise SystemError('В гарантии оверкап, но и наверху есть объявления')
+
+        result = ''
+        for n in range(overcaped_bottom_ads_count):
+            result += str(bottom_ads_block[n]) + '\n'
+        result = result[0:-1]
+
+        text = text.replace(result, '')
+        validated_text = '<topads>' + result + '</topads>' + text
+
+        return validated_text
 
     def make_threads(self):
         for xml_pack in self.xml_request_packs:

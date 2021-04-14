@@ -732,18 +732,18 @@ class Concurency:
 
         logger.debug(f'Всего {direct_sites} сайтов в директе')
 
-        if direct_sites > 5:
-            direct_upscale += 3
+        if direct_sites >= 5:
+            direct_upscale += 8
             direct_sites -= 5
 
         if direct_sites == 4:
-            direct_upscale += 32
+            direct_upscale += 27
         elif direct_sites == 3:
-            direct_upscale += 28
+            direct_upscale += 23
         elif direct_sites == 2:
-            direct_upscale += 22
+            direct_upscale += 17
         elif direct_sites == 1:
-            direct_upscale += 13
+            direct_upscale += 8
 
         logger.debug(f'Upscale = {direct_upscale}')
 
