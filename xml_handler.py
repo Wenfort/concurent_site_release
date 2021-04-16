@@ -107,8 +107,7 @@ class XmlReport():
 
         result = ''
         for n in range(overcaped_bottom_ads_count):
-            result += str(bottom_ads_block[n]) + '\n'
-        result = result[0:-1]
+            result += str(bottom_ads_block[n])
 
         text = text.replace(result, '')
         validated_text = '<topads>' + result + '</topads>' + text

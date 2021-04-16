@@ -1550,3 +1550,515 @@ AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
 17:31:17 Проблема с валидностью контента nlv.ru. 
 18:21:47 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
 18:21:47 Проблема с валидностью контента nlv.ru. 
+16:23:49 Не удалось загрузить https://www.nlv.ru/laser-correction/lasik-operatsiya
+16:23:49 Проблема с валидностью контента nlv.ru. 
+16:23:56 Проблемы с доменом офтальма.рф
+12:38:20 An error has been caught in function 'make_concurency_object', process 'Process-6' (4745), thread 'MainThread' (140081072482112):
+Traceback (most recent call last):
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 922, in <module>
+    Manager()
+    └ <function Manager at 0x7f6729f34670>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f672623cd30>
+    └ <__main__.Manager object at 0x7f6729449ca0>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 55, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f6729f410d0>
+    └ <Process name='Process-6' parent=4499 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-6' parent=4499 started>
+    │    │        │    └ <staticmethod object at 0x7f6729f88790>
+    │    │        └ <Process name='Process-6' parent=4499 started>
+    │    └ None
+    └ <Process name='Process-6' parent=4499 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-6' parent=4499 started>
+           │                └ <function DefaultContext.get_context at 0x7f672a0641f0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f6729f48100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-6' parent=4499 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-6' parent=4499 started>
+    │    └ <function Popen._launch at 0x7f67261e41f0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f67262744c0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f6729f419d0>
+           └ <Process name='Process-6' parent=4499 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f6729f41040>
+    └ <Process name='Process-6' parent=4499 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-6' parent=4499 started>
+    │    │        │    └ ((211, 'стоимость нотариального оформления договора купли продажи квартиры', '<topads><query><url>uslugi.yandex.ru</url><titl...
+    │    │        └ <Process name='Process-6' parent=4499 started>
+    │    └ <function Yandex at 0x7f67262409d0>
+    └ <Process name='Process-6' parent=4499 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 202, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f67262410d0>
+    └ <__main__.Yandex object at 0x7f6729fa3d90>
+
+> File "/home/artur/concurent_site_release/new_requests_handler.py", line 280, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request, self.request)
+    │    │                   │          │    │                  │    │                │    └ 'стоимость нотариального оформления договора купли продажи квартиры'
+    │    │                   │          │    │                  │    │                └ <__main__.Yandex object at 0x7f6729fa3d90>
+    │    │                   │          │    │                  │    └ ['стоимость', 'нотариальный', 'оформление', 'договор', 'купля', 'продажа', 'квартира']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f6729fa3d90>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f6725b45b20>, <__main__.Site object at 0x7f6725b45c40>, <__main__.Site object at 0x7f6725b45bb0>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f6729fa3d90>
+    │    │                   └ <function Concurency at 0x7f6726243700>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f6729fa3d90>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 542, in __init__
+    self.calculate_site_stem_concurency()
+    │    └ <function Concurency.calculate_site_stem_concurency at 0x7f67262439d0>
+    └ <__main__.Concurency object at 0x7f6725acb820>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 637, in calculate_site_stem_concurency
+    max_stem_concurency += self.WEIGHTS[site_object.position]
+    │                      │    │       │           └ '33'
+    │                      │    │       └ <__main__.Site object at 0x7f6725ad7d30>
+    │                      │    └ {'1': 21, '2': 15, '3': 11, '4': 8, '5': 6, '6': 4, '7': 3, '8': 2, '9': 2, '10': 2, '11': 2, '12': 2, '13': 2, '14': 2, '15'...
+    │                      └ <__main__.Concurency object at 0x7f6725acb820>
+    └ 71
+
+KeyError: '33'
+12:38:20 An error has been caught in function 'run', process 'Process-6' (4745), thread 'MainThread' (140081072482112):
+Traceback (most recent call last):
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 922, in <module>
+    Manager()
+    └ <function Manager at 0x7f6729f34670>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f672623cd30>
+    └ <__main__.Manager object at 0x7f6729449ca0>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 55, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f6729f410d0>
+    └ <Process name='Process-6' parent=4499 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-6' parent=4499 started>
+    │    │        │    └ <staticmethod object at 0x7f6729f88790>
+    │    │        └ <Process name='Process-6' parent=4499 started>
+    │    └ None
+    └ <Process name='Process-6' parent=4499 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-6' parent=4499 started>
+           │                └ <function DefaultContext.get_context at 0x7f672a0641f0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f6729f48100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-6' parent=4499 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-6' parent=4499 started>
+    │    └ <function Popen._launch at 0x7f67261e41f0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f67262744c0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f6729f419d0>
+           └ <Process name='Process-6' parent=4499 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f6729f41040>
+    └ <Process name='Process-6' parent=4499 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-6' parent=4499 started>
+    │    │        │    └ ((211, 'стоимость нотариального оформления договора купли продажи квартиры', '<topads><query><url>uslugi.yandex.ru</url><titl...
+    │    │        └ <Process name='Process-6' parent=4499 started>
+    │    └ <function Yandex at 0x7f67262409d0>
+    └ <Process name='Process-6' parent=4499 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 203, in __init__
+    self.prepare_result()
+    │    └ <function Yandex.prepare_result at 0x7f6726241160>
+    └ <__main__.Yandex object at 0x7f6729fa3d90>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 285, in prepare_result
+    'Конкуренция по возрасту': self.concurency_object.site_age_concurency,
+                               │    └ None
+                               └ <__main__.Yandex object at 0x7f6729fa3d90>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+12:39:34 An error has been caught in function 'make_concurency_object', process 'Process-2' (5102), thread 'MainThread' (140291171755840):
+Traceback (most recent call last):
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 922, in <module>
+    Manager()
+    └ <function Manager at 0x7f9814d7c670>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f981109cd30>
+    └ <__main__.Manager object at 0x7f981419c6d0>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 55, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f9814da30d0>
+    └ <Process name='Process-2' parent=4997 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=4997 started>
+    │    │        │    └ <staticmethod object at 0x7f9814dea760>
+    │    │        └ <Process name='Process-2' parent=4997 started>
+    │    └ None
+    └ <Process name='Process-2' parent=4997 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=4997 started>
+           │                └ <function DefaultContext.get_context at 0x7f9814e4b1f0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f9814d9dfa0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=4997 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=4997 started>
+    │    └ <function Popen._launch at 0x7f98110581f0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f981104cac0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f9814da39d0>
+           └ <Process name='Process-2' parent=4997 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f9814da3040>
+    └ <Process name='Process-2' parent=4997 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=4997 started>
+    │    │        │    └ ((211, 'стоимость нотариального оформления договора купли продажи квартиры', '<topads><query><url>uslugi.yandex.ru</url><titl...
+    │    │        └ <Process name='Process-2' parent=4997 started>
+    │    └ <function Yandex at 0x7f981109b9d0>
+    └ <Process name='Process-2' parent=4997 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 202, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f98110a10d0>
+    └ <__main__.Yandex object at 0x7f9814d90cd0>
+
+> File "/home/artur/concurent_site_release/new_requests_handler.py", line 280, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request, self.request)
+    │    │                   │          │    │                  │    │                │    └ 'стоимость нотариального оформления договора купли продажи квартиры'
+    │    │                   │          │    │                  │    │                └ <__main__.Yandex object at 0x7f9814d90cd0>
+    │    │                   │          │    │                  │    └ ['стоимость', 'нотариальный', 'оформление', 'договор', 'купля', 'продажа', 'квартира']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f9814d90cd0>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f98109a7400>, <__main__.Site object at 0x7f98109a7520>, <__main__.Site object at 0x7f98109a7490>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f9814d90cd0>
+    │    │                   └ <function Concurency at 0x7f98110a2700>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f9814d90cd0>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 542, in __init__
+    self.calculate_site_stem_concurency()
+    │    └ <function Concurency.calculate_site_stem_concurency at 0x7f98110a29d0>
+    └ <__main__.Concurency object at 0x7f9810926640>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 637, in calculate_site_stem_concurency
+    max_stem_concurency += self.WEIGHTS[site_object.position]
+    │                      │    │       │           └ '33'
+    │                      │    │       └ <__main__.Site object at 0x7f98108bd820>
+    │                      │    └ {'1': 21, '2': 15, '3': 11, '4': 8, '5': 6, '6': 4, '7': 3, '8': 2, '9': 2, '10': 2, '11': 2, '12': 2, '13': 2, '14': 2, '15'...
+    │                      └ <__main__.Concurency object at 0x7f9810926640>
+    └ 71
+
+KeyError: '33'
+12:39:34 An error has been caught in function 'run', process 'Process-2' (5102), thread 'MainThread' (140291171755840):
+Traceback (most recent call last):
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 922, in <module>
+    Manager()
+    └ <function Manager at 0x7f9814d7c670>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f981109cd30>
+    └ <__main__.Manager object at 0x7f981419c6d0>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 55, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f9814da30d0>
+    └ <Process name='Process-2' parent=4997 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-2' parent=4997 started>
+    │    │        │    └ <staticmethod object at 0x7f9814dea760>
+    │    │        └ <Process name='Process-2' parent=4997 started>
+    │    └ None
+    └ <Process name='Process-2' parent=4997 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-2' parent=4997 started>
+           │                └ <function DefaultContext.get_context at 0x7f9814e4b1f0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f9814d9dfa0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-2' parent=4997 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-2' parent=4997 started>
+    │    └ <function Popen._launch at 0x7f98110581f0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f981104cac0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f9814da39d0>
+           └ <Process name='Process-2' parent=4997 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f9814da3040>
+    └ <Process name='Process-2' parent=4997 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-2' parent=4997 started>
+    │    │        │    └ ((211, 'стоимость нотариального оформления договора купли продажи квартиры', '<topads><query><url>uslugi.yandex.ru</url><titl...
+    │    │        └ <Process name='Process-2' parent=4997 started>
+    │    └ <function Yandex at 0x7f981109b9d0>
+    └ <Process name='Process-2' parent=4997 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 203, in __init__
+    self.prepare_result()
+    │    └ <function Yandex.prepare_result at 0x7f98110a1160>
+    └ <__main__.Yandex object at 0x7f9814d90cd0>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 285, in prepare_result
+    'Конкуренция по возрасту': self.concurency_object.site_age_concurency,
+                               │    └ None
+                               └ <__main__.Yandex object at 0x7f9814d90cd0>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+12:40:55 An error has been caught in function 'make_concurency_object', process 'Process-1' (5356), thread 'MainThread' (140225329702720):
+Traceback (most recent call last):
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 922, in <module>
+    Manager()
+    └ <function Manager at 0x7f88c059c670>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f88bc8a4d30>
+    └ <__main__.Manager object at 0x7f88bf9a7490>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 55, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f88c05aa0d0>
+    └ <Process name='Process-1' parent=5354 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=5354 started>
+    │    │        │    └ <staticmethod object at 0x7f88c05f0760>
+    │    │        └ <Process name='Process-1' parent=5354 started>
+    │    └ None
+    └ <Process name='Process-1' parent=5354 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=5354 started>
+           │                └ <function DefaultContext.get_context at 0x7f88c06cb1f0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f88c05b1100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=5354 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=5354 started>
+    │    └ <function Popen._launch at 0x7f88bc8491f0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f88bc8d56a0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f88c05aa9d0>
+           └ <Process name='Process-1' parent=5354 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f88c05aa040>
+    └ <Process name='Process-1' parent=5354 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=5354 started>
+    │    │        │    └ ((211, 'стоимость нотариального оформления договора купли продажи квартиры', '<topads><query><url>uslugi.yandex.ru</url><titl...
+    │    │        └ <Process name='Process-1' parent=5354 started>
+    │    └ <function Yandex at 0x7f88bc8a39d0>
+    └ <Process name='Process-1' parent=5354 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 202, in __init__
+    self.make_concurency_object()
+    │    └ <function Yandex.make_concurency_object at 0x7f88bc8a80d0>
+    └ <__main__.Yandex object at 0x7f88c060bd60>
+
+> File "/home/artur/concurent_site_release/new_requests_handler.py", line 280, in make_concurency_object
+    self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request, self.request)
+    │    │                   │          │    │                  │    │                │    └ 'стоимость нотариального оформления договора купли продажи квартиры'
+    │    │                   │          │    │                  │    │                └ <__main__.Yandex object at 0x7f88c060bd60>
+    │    │                   │          │    │                  │    └ ['стоимость', 'нотариальный', 'оформление', 'договор', 'купля', 'продажа', 'квартира']
+    │    │                   │          │    │                  └ <__main__.Yandex object at 0x7f88c060bd60>
+    │    │                   │          │    └ [<__main__.Site object at 0x7f88bc207cd0>, <__main__.Site object at 0x7f88bc207df0>, <__main__.Site object at 0x7f88bc207d60>...
+    │    │                   │          └ <__main__.Yandex object at 0x7f88c060bd60>
+    │    │                   └ <function Concurency at 0x7f88bc8ab700>
+    │    └ ''
+    └ <__main__.Yandex object at 0x7f88c060bd60>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 542, in __init__
+    self.calculate_site_stem_concurency()
+    │    └ <function Concurency.calculate_site_stem_concurency at 0x7f88bc8ab9d0>
+    └ <__main__.Concurency object at 0x7f88bc207f70>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 637, in calculate_site_stem_concurency
+    max_stem_concurency += self.WEIGHTS[site_object.position]
+    │                      │    │       │           └ '33'
+    │                      │    │       └ <__main__.Site object at 0x7f88bc136d90>
+    │                      │    └ {'1': 21, '2': 15, '3': 11, '4': 8, '5': 6, '6': 4, '7': 3, '8': 2, '9': 2, '10': 2, '11': 2, '12': 2, '13': 2, '14': 2, '15'...
+    │                      └ <__main__.Concurency object at 0x7f88bc207f70>
+    └ 71
+
+KeyError: '33'
+12:40:55 An error has been caught in function 'run', process 'Process-1' (5356), thread 'MainThread' (140225329702720):
+Traceback (most recent call last):
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 922, in <module>
+    Manager()
+    └ <function Manager at 0x7f88c059c670>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 25, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f88bc8a4d30>
+    └ <__main__.Manager object at 0x7f88bf9a7490>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 55, in run_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f88c05aa0d0>
+    └ <Process name='Process-1' parent=5354 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=5354 started>
+    │    │        │    └ <staticmethod object at 0x7f88c05f0760>
+    │    │        └ <Process name='Process-1' parent=5354 started>
+    │    └ None
+    └ <Process name='Process-1' parent=5354 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=5354 started>
+           │                └ <function DefaultContext.get_context at 0x7f88c06cb1f0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f88c05b1100>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=5354 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=5354 started>
+    │    └ <function Popen._launch at 0x7f88bc8491f0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f88bc8d56a0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f88c05aa9d0>
+           └ <Process name='Process-1' parent=5354 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f88c05aa040>
+    └ <Process name='Process-1' parent=5354 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=5354 started>
+    │    │        │    └ ((211, 'стоимость нотариального оформления договора купли продажи квартиры', '<topads><query><url>uslugi.yandex.ru</url><titl...
+    │    │        └ <Process name='Process-1' parent=5354 started>
+    │    └ <function Yandex at 0x7f88bc8a39d0>
+    └ <Process name='Process-1' parent=5354 started>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 203, in __init__
+    self.prepare_result()
+    │    └ <function Yandex.prepare_result at 0x7f88bc8a8160>
+    └ <__main__.Yandex object at 0x7f88c060bd60>
+
+  File "/home/artur/concurent_site_release/new_requests_handler.py", line 285, in prepare_result
+    'Конкуренция по возрасту': self.concurency_object.site_age_concurency,
+                               │    └ None
+                               └ <__main__.Yandex object at 0x7f88c060bd60>
+
+AttributeError: 'NoneType' object has no attribute 'site_age_concurency'
+13:15:15 Проблема с валидностью контента юрист-мск.рф. 
+13:15:16 Проблема с валидностью контента юрист-мск.рф. 
+13:15:30 Проблема с валидностью контента юрист-мск.рф. 
+13:15:45 Проблема с валидностью контента юрист-мск.рф. 
+13:16:13 Проблема с валидностью контента юрист-мск.рф. 
+13:16:13 Проблема с валидностью контента юрист-мск.рф. 
+13:16:28 Проблема с валидностью контента юрист-мск.рф. 
+13:16:42 Проблема с валидностью контента юрист-мск.рф. 
+13:16:42 Проблема с валидностью контента юрист-мск.рф. 
+13:16:56 Проблема с валидностью контента юрист-мск.рф. 
+13:17:10 Проблема с валидностью контента юрист-мск.рф. 
+13:17:10 Проблема с валидностью контента юрист-мск.рф. 
+13:17:28 Проблема с валидностью контента юрист-мск.рф. 
+13:18:31 Проблема с валидностью контента юрист-мск.рф. 
+13:24:22 Не удалось загрузить https://retail-realty.ru/articles/item/oformlenie-sdelok-s-nedvizhimostyu-pokupka-prodazha-i-kak-izbezhat-obmana
+13:24:22 Проблема с валидностью контента retail-realty.ru. 
+13:24:34 Проблема с валидностью контента notary-msk.ru. 
+13:25:21 Проблема с валидностью контента gov.ru. 
+13:25:21 Проблема с валидностью контента gov.ru. 
+13:25:21 Проблема с валидностью контента gov.ru. 
+13:25:21 Проблема с валидностью контента gov.ru. 
+13:25:22 Проблема с валидностью контента notary-msk.ru. 
+13:25:36 Проблема с валидностью контента gov.ru. 
+13:25:36 Проблема с валидностью контента gov.ru. 
+13:25:38 Проблема с валидностью контента domofond.ru. 
+13:25:55 Проблема с валидностью контента law.ru. 
+13:26:10 Проблема с валидностью контента law.ru. 
+13:26:10 Проблема с валидностью контента law.ru. 
+13:26:24 Проблема с валидностью контента law.ru. 
+13:26:25 Проблема с валидностью контента gov.ru. 
+13:26:25 Проблема с валидностью контента gov.ru. 
+13:26:39 Проблема с валидностью контента gov.ru. 
+13:27:09 Не удалось загрузить https://forma-prava.ru/msk/uslugi/bankrotstvo-fizicheskih-lits/
+13:27:09 Проблема с валидностью контента forma-prava.ru. 
+13:27:35 Не удалось загрузить https://forma-prava.ru/msk/uslugi/bankrotstvo-fizicheskih-lits/
+13:27:35 Проблема с валидностью контента forma-prava.ru. 
+13:27:35 Не удалось загрузить https://forma-prava.ru/msk/
+13:27:35 Проблема с валидностью контента forma-prava.ru. 
+13:27:46 Проблема с валидностью контента gov.ru. 
+13:27:46 Проблема с валидностью контента gov.ru. 
+13:28:18 Проблема с валидностью контента law.ru. 
+13:28:19 Проблема с валидностью контента Zarplata-online.ru. 
+13:28:19 Проблема с валидностью контента business.ru. 
+13:28:19 Проблема с валидностью контента law.ru. 
+13:28:19 Проблема с валидностью контента dvitex.ru. 
+13:28:35 Проблема с валидностью контента business.ru. 
+13:28:36 Проблема с валидностью контента assistentus.ru. 
