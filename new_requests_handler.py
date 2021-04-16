@@ -119,7 +119,7 @@ class Site:
         self.url = self.soup.find('url').text
 
     def get_site_type(self):
-        if self.estimated_site_type == 'direct':
+        if self.estimated_site_type == 'direct' or 'yabs.yandex.ru' in self.url:
             self.site_type = 'direct'
         elif 'yandex.ru' in self.url or 'youtube.com' in self.url or 'wikipedia.org' in self.url:
             self.site_type = 'super'
