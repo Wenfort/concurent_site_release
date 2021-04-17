@@ -7,7 +7,10 @@ class HandledXml(models.Model):
     xml = models.TextField()
     status = models.CharField(max_length=10)
     geo = models.IntegerField(default=225)
-    refresh_timer = models.IntegerField(default=225)
+    refresh_timer = models.SmallIntegerField(default=10)
+    reruns_count = models.SmallIntegerField(default=0)
+    top_ads_count = models.SmallIntegerField(default=0)
+    bottom_ads_count = models.SmallIntegerField(default=0)
 
     def __str__(self):
         return self.request
