@@ -15,6 +15,7 @@ class XmlReport():
         self.xml_answers = list()
         self.requests_in_work = list()
         self.thread_list = list()
+        self.deleted_requests = tuple()
 
         self.get_requests_from_queue()
         if len(self.requests) == 0:
@@ -27,7 +28,7 @@ class XmlReport():
                 self.run_threads()
                 self.check_threads()
                 self.update_ads_count_in_database()
-            self.delete_fully_rechecked_requests()
+            self.deleted_requests = self.delete_fully_rechecked_requests()
         else:
             self.make_xml_request_packs()
             self.make_threads()
@@ -42,9 +43,12 @@ class XmlReport():
     def delete_fully_rechecked_requests(self):
         sql = ("DELETE FROM concurent_site.main_handledxml xml "
                "USING concurent_site.main_request req "
-               "WHERE req.status = 'ready' AND xml.reruns_count = 4 ")
+               "WHERE req.request_id  = xml.request_id AND xml.reruns_count = 4 AND req.status = 'ready' "
+               "RETURNING req.status;")
 
-        pm.custom_request_to_database_without_return(sql)
+
+        deleted_requests = pm.custom_request_to_database_with_return(sql)
+        return deleted_requests
 
     def update_ads_count_in_database(self):
         for xml_answer in self.xml_answers:
@@ -105,7 +109,7 @@ class XmlReport():
 
             if 'Ответ от поисковой системы не получен' not in text:
                 if not rerun:
-                    self.xml_answers.append((text, 'in work', geo, refresh_timer, request_id, reruns_count, top_ads_count, bottom_ads_count))
+                    self.xml_answers.append((text, 'in work', geo, refresh_timer, request_id, reruns_count, bottom_ads_count, top_ads_count))
                 else:
                     if bottom_ads_count > 5:
                         top_ads_count = bottom_ads_count - 5
@@ -115,7 +119,7 @@ class XmlReport():
                     if total_ads_count > previous_run_ads_count:
                         refresh_timer = 10
                         self.xml_answers.append((text, 'in work', geo, refresh_timer, request_id, rerun,
-                                                 top_ads_count, bottom_ads_count))
+                                                 bottom_ads_count, top_ads_count))
 
             else:
                 print(f'Ошибка XML в запросе {request}: {text}')
@@ -135,10 +139,15 @@ class XmlReport():
         except:
             bottom_ads_block = ''
 
+
+
         top_ads_count = len(top_ads_block)
         bottom_ads_count = len(bottom_ads_block)
 
-        overcaped_bottom_ads_count = len(bottom_ads_block) - 5
+        if not top_ads_block and not bottom_ads_block:
+            bottom_ads_count = text.count('yabs.yandex.ru')
+
+        overcaped_bottom_ads_count = bottom_ads_count - 5
 
         return overcaped_bottom_ads_count, top_ads_count, bottom_ads_count, bottom_ads_block
 
@@ -201,7 +210,7 @@ class XmlReport():
         pm.custom_request_to_database_without_return(sql)
 
     def get_requests_for_recheck(self):
-        sql = ('SELECT request_id, request_text, region_id, reruns_count, bottom_ads_count, top_ads_count, main_request.status '
+        sql = ('SELECT request_id, request_text, region_id, reruns_count, top_ads_count, bottom_ads_count, main_request.status '
                'FROM concurent_site.main_handledxml '
                'INNER JOIN concurent_site.main_request USING (request_id) '
                'WHERE refresh_timer < 0 AND reruns_count < 4'
@@ -216,8 +225,8 @@ class XmlReport():
                 request_text = request_pack[1]
                 geo = request_pack[2]
                 reruns_count = request_pack[3]
-                bottom_ads_count = request_pack[4]
-                top_ads_count = request_pack[5]
+                top_ads_count = request_pack[4]
+                bottom_ads_count = request_pack[5]
                 self.thread_list.append(
                     Thread(target=self.get_xml_answer, args=(request_id, request_text, xml_url, geo, reruns_count, bottom_ads_count, top_ads_count)))
 
