@@ -75,10 +75,6 @@ class Manager:
             if yandex_object['Статус'] == 'backlinks':
                 sql = f"UPDATE concurent_site.main_handledxml SET status = 'pending' WHERE request_id = {yandex_object['ID запроса']};"
                 pm.custom_request_to_database_without_return(sql)
-            else:
-                pm.custom_request_to_database_without_return(
-                    f"DELETE FROM concurent_site.main_handledxml WHERE request_id = {yandex_object['ID запроса']};"
-                )
 
 
 @logger.catch

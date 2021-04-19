@@ -28,6 +28,7 @@ class XmlReport():
                 self.run_threads()
                 self.check_threads()
                 self.update_ads_count_in_database()
+            self.update_fully_rechecked_requests()
             self.deleted_requests = self.delete_fully_rechecked_requests()
         else:
             self.make_xml_request_packs()
@@ -39,6 +40,39 @@ class XmlReport():
 
         self.update_refresh_timer()
 
+    def update_fully_rechecked_requests(self):
+        sql = ("SELECT request_id, bottom_ads_count, top_ads_count "
+               "FROM concurent_site.main_handledxml xml "
+               "INNER JOIN concurent_site.main_request req "
+               "USING (request_id) "
+               "WHERE req.status = 'ready' AND "
+               "xml.reruns_count = 4;")
+
+        rechecked_requests = pm.custom_request_to_database_with_return(sql)
+
+        for req in rechecked_requests:
+            request_id = req[0]
+            direct_sites = req[1] + req[2]
+            direct_upscale = 0
+
+            if direct_sites >= 5:
+                direct_upscale += 8
+                direct_sites -= 5
+
+            if direct_sites == 4:
+                direct_upscale += 27
+            elif direct_sites == 3:
+                direct_upscale += 23
+            elif direct_sites == 2:
+                direct_upscale += 17
+            elif direct_sites == 1:
+                direct_upscale += 8
+
+            sql = ("UPDATE concurent_site.main_request "
+                   f"SET direct_upscale = {direct_upscale} "
+                   f"WHERE request_id = {request_id};")
+
+            pm.custom_request_to_database_without_return(sql)
 
     def delete_fully_rechecked_requests(self):
         sql = ("DELETE FROM concurent_site.main_handledxml xml "
@@ -100,7 +134,7 @@ class XmlReport():
 
         if site_numbers > 15:
             text, top_ads_count, bottom_ads_count = self.validate_xml_answer(text)
-            if top_ads_count == 4 and bottom_ads_count == 5:
+            if top_ads_count + bottom_ads_count == 9:
                 reruns_count = 4
                 refresh_timer = 0
             else:
@@ -118,6 +152,7 @@ class XmlReport():
                     previous_run_ads_count = previous_run_top_ads + previous_run_bottom_ads
                     if total_ads_count > previous_run_ads_count:
                         refresh_timer = 10
+                        rerun += 1
                         self.xml_answers.append((text, 'in work', geo, refresh_timer, request_id, rerun,
                                                  bottom_ads_count, top_ads_count))
 

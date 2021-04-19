@@ -18,8 +18,8 @@ class Manager:
         self.run_threads()
         self.check_threads()
 
-        if len(self.requests) > 0:
-            self.delete_requests_from_queue()
+        #if len(self.requests) > 0:
+            #self.delete_requests_from_queue()
 
         print(f'Обработано {len(self.requests)} запросов ожидающих ссылок')
 
@@ -58,7 +58,7 @@ class Manager:
             if yandex_object.concurency_object:
                 if yandex_object.concurency_object.status == 'ready':
                     pm.custom_request_to_database_without_return(
-                        f"DELETE FROM concurent_site.main_handledxml WHERE request_id = {yandex_object.request_id};"
+                        f"DELETE FROM concurent_site.main_handledxml WHERE request_id = {yandex_object.request_id} AND reruns_count = 4;"
                     )
 
 
