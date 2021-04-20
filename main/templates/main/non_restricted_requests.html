@@ -131,7 +131,7 @@
                                                 <td> <div style="text-align: center">{{ request.average_age }} лет </div> </td>
                                                 <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1;"> <div style="text-align: center">{{ request.site_seo_concurency }}%</div> </td>
                                                 {% if request.is_direct_final == 0 %}
-                                                    <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1; color: red;"> <div style="color: red; text-align: center;"><div class="vital_sites" data-title="Предварительные данные. Они могут автоматически обновиться в течение 5-10 минут. ">{{ request.site_direct_concurency }}%</div></div></td>
+                                                    <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1; color: red;"> <div style="color: red; text-align: center;"><div class="vital_sites" data-title="Предварительные данные. Они могут автоматически измениться в течение 5-10 минут. ">{{ request.site_direct_concurency }}%</div></div></td>
                                                 {% else %}
                                                     <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1;"> <div style="text-align: center">{{ request.site_direct_concurency }}%</div></td>
                                                 {% endif %}
