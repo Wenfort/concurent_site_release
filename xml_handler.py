@@ -59,17 +59,32 @@ class XmlReport():
                 direct_upscale += 8
                 direct_sites -= 5
 
-            if direct_sites == 4:
-                direct_upscale += 27
-            elif direct_sites == 3:
-                direct_upscale += 23
-            elif direct_sites == 2:
-                direct_upscale += 17
-            elif direct_sites == 1:
-                direct_upscale += 8
+                if direct_sites == 4:
+                    direct_upscale += 27
+                elif direct_sites == 3:
+                    direct_upscale += 23
+                elif direct_sites == 2:
+                    direct_upscale += 17
+                elif direct_sites == 1:
+                    direct_upscale += 8
+            else:
+                if direct_sites == 5:
+                    direct_upscale += 8
+                elif direct_sites == 4:
+                    direct_upscale += 6.4
+                elif direct_sites == 3:
+                    direct_upscale += 4.8
+                elif direct_sites == 2:
+                    direct_upscale += 3.2
+                elif direct_sites == 1:
+                    direct_upscale += 1.6
+
+            direct_concurency = int(direct_upscale / 35 * 100)
 
             sql = ("UPDATE concurent_site.main_request "
-                   f"SET direct_upscale = {direct_upscale} "
+                   f"SET direct_upscale = {direct_upscale}, "
+                   f"is_direct_final = 1, "
+                   f"site_direct_concurency = {direct_concurency} "
                    f"WHERE request_id = {request_id};")
 
             pm.custom_request_to_database_without_return(sql)
@@ -86,13 +101,15 @@ class XmlReport():
 
     def update_ads_count_in_database(self):
         for xml_answer in self.xml_answers:
+            text = xml_answer[0]
             request_id = xml_answer[4]
-            top_ads = xml_answer[6]
-            bottom_ads = xml_answer[7]
-            sql = ('UPDATE concurent_site.main_handledxml '
-                   f'SET bottom_ads_count = {bottom_ads}, '
-                   f'top_ads_count = {top_ads} '
-                   f'WHERE request_id = {request_id}')
+            bottom_ads = xml_answer[6]
+            top_ads = xml_answer[7]
+            sql = ("UPDATE concurent_site.main_handledxml "
+                   f"SET bottom_ads_count = {bottom_ads}, "
+                   f"top_ads_count = {top_ads},"
+                   f"xml = '{text}' "
+                   f"WHERE request_id = {request_id}")
 
             pm.custom_request_to_database_without_return(sql)
 
@@ -142,12 +159,12 @@ class XmlReport():
                 refresh_timer = 10
 
             if 'Ответ от поисковой системы не получен' not in text:
+                if bottom_ads_count > 5:
+                    top_ads_count = bottom_ads_count - 5
+                    bottom_ads_count = bottom_ads_count - top_ads_count
                 if not rerun:
                     self.xml_answers.append((text, 'in work', geo, refresh_timer, request_id, reruns_count, bottom_ads_count, top_ads_count))
                 else:
-                    if bottom_ads_count > 5:
-                        top_ads_count = bottom_ads_count - 5
-                        bottom_ads_count = bottom_ads_count - top_ads_count
                     total_ads_count = top_ads_count + bottom_ads_count
                     previous_run_ads_count = previous_run_top_ads + previous_run_bottom_ads
                     if total_ads_count > previous_run_ads_count:
@@ -196,8 +213,11 @@ class XmlReport():
             raise SystemError('В гарантии оверкап, но и наверху есть объявления')
 
         result = ''
-        for n in range(overcaped_bottom_ads_count):
-            result += str(bottom_ads_block[n])
+        try:
+            for n in range(overcaped_bottom_ads_count):
+                result += str(bottom_ads_block[n])
+        except:
+            print('aa')
 
         text = text.replace(result, '')
         validated_text = '<topads>' + result + '</topads>' + text

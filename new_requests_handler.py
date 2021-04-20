@@ -75,7 +75,9 @@ class Manager:
             if yandex_object['Статус'] == 'backlinks':
                 sql = f"UPDATE concurent_site.main_handledxml SET status = 'pending' WHERE request_id = {yandex_object['ID запроса']};"
                 pm.custom_request_to_database_without_return(sql)
-
+            else:
+                sql = f"UPDATE concurent_site.main_handledxml SET status = 'conf' WHERE request_id = {yandex_object['ID запроса']};"
+                pm.custom_request_to_database_without_return(sql)
 
 @logger.catch
 class Site:
@@ -732,14 +734,25 @@ class Concurency:
             direct_upscale += 8
             direct_sites -= 5
 
-        if direct_sites == 4:
-            direct_upscale += 27
-        elif direct_sites == 3:
-            direct_upscale += 23
-        elif direct_sites == 2:
-            direct_upscale += 17
-        elif direct_sites == 1:
-            direct_upscale += 8
+            if direct_sites == 4:
+                direct_upscale += 27
+            elif direct_sites == 3:
+                direct_upscale += 23
+            elif direct_sites == 2:
+                direct_upscale += 17
+            elif direct_sites == 1:
+                direct_upscale += 8
+        else:
+            if direct_sites == 5:
+                direct_upscale += 8
+            elif direct_sites == 4:
+                direct_upscale += 6.4
+            elif direct_sites == 3:
+                direct_upscale += 4.8
+            elif direct_sites == 2:
+                direct_upscale += 3.2
+            elif direct_sites == 1:
+                direct_upscale += 1.6
 
         logger.debug(f'Upscale = {direct_upscale}')
 

@@ -67,6 +67,7 @@ class Request(models.Model):
     average_unique_backlinks = models.IntegerField(default=0)
     vital_sites = models.CharField(max_length=100, default = '')
     vital_sites_count = models.SmallIntegerField(default= 0)
+    is_direct_final = models.SmallIntegerField(default=0)
 
 
     def __str__(self):

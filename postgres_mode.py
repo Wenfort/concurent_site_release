@@ -1,6 +1,6 @@
 import psycopg2
 
-DATABASE = 'project_live'
+DATABASE = 'postgres'
 SCHEMA = 'concurent_site'
 USER = 'postgres'
 PASSWORD = 'fn3kMls1'
