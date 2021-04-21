@@ -49,7 +49,7 @@ class Region(models.Model):
 
 class Request(models.Model):
     request_id = models.AutoField(primary_key=True)
-    request_text = models.CharField(max_length=100)
+    request_text = models.CharField(max_length=150)
     site_age_concurency = models.IntegerField(default=0)
     site_stem_concurency = models.IntegerField(default=0)
     site_volume_concurency = models.IntegerField(default=0)
@@ -65,7 +65,7 @@ class Request(models.Model):
     average_volume = models.IntegerField(default=0)
     average_total_backlinks = models.IntegerField(default=0)
     average_unique_backlinks = models.IntegerField(default=0)
-    vital_sites = models.CharField(max_length=100, default = '')
+    vital_sites = models.CharField(max_length=150, default = '')
     vital_sites_count = models.SmallIntegerField(default= 0)
     is_direct_final = models.SmallIntegerField(default=0)
 
