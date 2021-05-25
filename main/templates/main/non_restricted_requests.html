@@ -106,20 +106,20 @@
                                     {% for request in all_requests %}
                                         {% if request.status == 'progress'  %}
                                             <tr>
-                                                <td>{{ request.request_text }}</td>
+                                                <td>{{ request.text }}</td>
                                                 <td colspan="7" style="text-align: center">Запрос в очереди.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% elif request.status == 'backlinks' %}
                                             <tr>
-                                                <td>{{ request.request_text }}</td>
+                                                <td>{{ request.text }}</td>
                                                 <td colspan="7" style="text-align: center">Запрос обрабатывается.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% else %}
                                             <tr>
                                             <div style="text-align: center">
-                                                <td> {{ request.request_text }} </td>
+                                                <td> {{ request.text }} </td>
                                                 {% if request.vital_sites_count == 0 %}
                                                     <td> <div style="text-align: center"> 0 </div> </td>
                                                 {% else %}
@@ -129,11 +129,11 @@
                                                 <td> <div style="text-align: center">{{ request.average_unique_backlinks }} ссылок</div> </td>
                                                 <td> <div style="text-align: center">{{ request.average_volume }} знаков </div> </td>
                                                 <td> <div style="text-align: center">{{ request.average_age }} лет </div> </td>
-                                                <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1;"> <div style="text-align: center">{{ request.site_seo_concurency }}%</div> </td>
+                                                <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1;"> <div style="text-align: center">{{ request.seo_concurency }}%</div> </td>
                                                 {% if request.is_direct_final == 0 %}
-                                                    <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1; color: red;"> <div style="color: red; text-align: center;"><div class="vital_sites" data-title="Предварительные данные. Они могут автоматически измениться в течение 5-10 минут. ">{{ request.site_direct_concurency }}%</div></div></td>
+                                                    <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1; color: red;"> <div style="color: red; text-align: center;"><div class="vital_sites" data-title="Предварительные данные. Они могут автоматически измениться в течение 5-10 минут. ">{{ request.direct_concurency }}%</div></div></td>
                                                 {% else %}
-                                                    <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1;"> <div style="text-align: center">{{ request.site_direct_concurency }}%</div></td>
+                                                    <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1;"> <div style="text-align: center">{{ request.direct_concurency }}%</div></td>
                                                 {% endif %}
                                                 <td> <div style="text-align: center">{{ request.region.name }}</div></td>
                                             </div>

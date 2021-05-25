@@ -2,44 +2,45 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+
 class Region(models.Model):
-    region_id = models.IntegerField(primary_key=True, default=0)
+    id = models.IntegerField(primary_key=True, default=0)
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
+
 class Request(models.Model):
-    request_id = models.AutoField(primary_key=True)
-    request_text = models.CharField(max_length=150)
-    site_age_concurency = models.IntegerField(default=0)
-    site_stem_concurency = models.IntegerField(default=0)
-    site_volume_concurency = models.IntegerField(default=0)
-    site_backlinks_concurency = models.IntegerField(default=0)
-    site_total_concurency = models.FloatField(default=0)
+    text = models.CharField(max_length=150)
+    age_concurency = models.IntegerField(default=0)
+    stem_concurency = models.IntegerField(default=0)
+    volume_concurency = models.IntegerField(default=0)
+    backlinks_concurency = models.IntegerField(default=0)
+    total_concurency = models.FloatField(default=0)
     direct_upscale = models.FloatField(default=0)
-    site_seo_concurency = models.IntegerField(default=0)
-    site_direct_concurency = models.IntegerField(default=0)
+    seo_concurency = models.IntegerField(default=0)
+    direct_concurency = models.IntegerField(default=0)
     status = models.CharField(max_length=100, default='progress')
-    region = models.OneToOneField(Region, default=255, on_delete=models.DO_NOTHING)
-    request_views = models.IntegerField(default=0)
+    region = models.ForeignKey(Region, default=255, on_delete=models.DO_NOTHING)
+    views = models.IntegerField(default=0)
     average_age = models.IntegerField(default=0)
     average_volume = models.IntegerField(default=0)
     average_total_backlinks = models.IntegerField(default=0)
     average_unique_backlinks = models.IntegerField(default=0)
-    vital_sites = models.CharField(max_length=150, default = '')
-    vital_sites_count = models.SmallIntegerField(default= 0)
+    vital_sites = models.CharField(max_length=150, default='')
+    vital_sites_count = models.SmallIntegerField(default=0)
     is_direct_final = models.SmallIntegerField(default=0)
 
-
     def __str__(self):
-        return self.request_text
+        return self.text
+
 
 class HandledXml(models.Model):
-    request_id = models.OneToOneField(Request, on_delete=models.CASCADE)
+    request = models.OneToOneField(Request, on_delete=models.CASCADE)
     xml = models.TextField()
     status = models.CharField(max_length=10)
-    geo = models.IntegerField(default=225)
+    region = models.ForeignKey(Region, default=255, on_delete=models.DO_NOTHING)
     refresh_timer = models.SmallIntegerField(default=10)
     reruns_count = models.SmallIntegerField(default=0)
     top_ads_count = models.SmallIntegerField(default=0)
@@ -47,6 +48,7 @@ class HandledXml(models.Model):
 
     def __str__(self):
         return self.request
+
 
 class Domain(models.Model):
     name = models.CharField(max_length=100, primary_key=True)
@@ -58,10 +60,6 @@ class Domain(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class DomainGroup(models.Model):
-    group_name = models.CharField(max_length=20)
 
 
 class Payload(models.Model):
@@ -79,49 +77,36 @@ class UserData(models.Model):
     ordered_keywords = models.IntegerField(default=0)
     region = models.ForeignKey(Region, on_delete=models.DO_NOTHING, default=255)
 
-
-class OrderStatus(models.Model):
-    order_id = models.AutoField(primary_key=True)
+class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     status = models.SmallIntegerField(default=0)
     progress = models.SmallIntegerField(default=0)
     ordered_keywords_amount = models.SmallIntegerField(default=0)
     user_order_id = models.IntegerField(default=1)
 
+class OrderData(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
+    request = models.OneToOneField(Request, on_delete=models.CASCADE)
 
-class Order(models.Model):
-    order = models.ForeignKey(OrderStatus, on_delete=models.CASCADE)
-    request = models.ForeignKey(Request, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+class RequestQueue(models.Model):
+    request = models.OneToOneField(Request, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, on_delete=models.DO_NOTHING, default=255)
+    is_recheck = models.BooleanField(default=False)
+
+
+class TicketPost(models.Model):
+    author = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    text = models.TextField()
+    order = models.SmallIntegerField(default=0)
 
 
 class Ticket(models.Model):
-    ticket_id = models.AutoField(primary_key=True)
-    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    author = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     status = models.CharField(max_length=15, default='pending')
     opened = models.DateTimeField(default=timezone.now)
     closed = models.DateTimeField(blank=True, null=True)
     user_ticket_id = models.IntegerField(default=1)
+    posts = models.ForeignKey(TicketPost, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.author
-
-
-class TicketPost(models.Model):
-    ticket_post_id = models.AutoField(primary_key=True)
-    ticket = models.ForeignKey(Ticket, on_delete=models.DO_NOTHING)
-    ticket_post_author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    ticket_post_text = models.TextField(default='')
-    ticket_post_order = models.SmallIntegerField(default=0)
-
-
-class RequestQueue(models.Model):
-    request_id = models.IntegerField(default=0)
-    geo = models.IntegerField(default=255)
-    is_recheck = models.BooleanField(default=False)
-
-
-class SuperSites(models.Model):
-    name = models.CharField(max_length=100, primary_key=True)
-    unique_backlinks = models.IntegerField(default=0)
-    total_backlinks = models.IntegerField(default=0)

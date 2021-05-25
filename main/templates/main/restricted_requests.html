@@ -29,26 +29,26 @@
                                     {% for request in all_requests %}
                                         {% if request.status == 'progress'  %}
                                             <tr>
-                                                <td>{{ request.request_text }}</td>
+                                                <td>{{ request.text }}</td>
                                                 <td colspan="7" style="text-align: center">Запрос в очереди.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% elif request.status == 'backlinks' %}
                                             <tr>
-                                                <td>{{ request.request_text }}</td>
+                                                <td>{{ request.text }}</td>
                                                 <td colspan="7" style="text-align: center">Запрос обрабатывается.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% else %}
                                             <tr>
-                                                <td> {{ request.request_text }} </td>
-                                                <td> {{ request.site_age_concurency }} </td>
-                                                <td> {{ request.site_stem_concurency }} </td>
-                                                <td>{{ request.site_volume_concurency }}</td>
-                                                <td>{{ request.site_backlinks_concurency }}</td>
-                                                <td>{{ request.site_seo_concurency }}</td>
+                                                <td> {{ request.text }} </td>
+                                                <td> {{ request.age_concurency }} </td>
+                                                <td> {{ request.stem_concurency }} </td>
+                                                <td>{{ request.volume_concurency }}</td>
+                                                <td>{{ request.backlinks_concurency }}</td>
+                                                <td>{{ request.seo_concurency }}</td>
                                                 <td>{{ request.direct_upscale }}</td>
-                                                <td>{{ request.site_total_concurency }}</td>
+                                                <td>{{ request.total_concurency }}</td>
                                                 <td>{{ request.region.name }}</td>
                                                  <td>{% if request.request_views >= 1000000 %}
                                                     Более {{ request.request_views|div:1000000 }} млн

@@ -31,6 +31,19 @@ def clean_all_data_from_database(connection):
     cursor.execute(sql)
     connection.commit()
 
+def fetch_regions_from_production_to_testing(remote_connection, local_connection):
+    remote_cursor = remote_connection.cursor()
+    local_cursor = local_connection.cursor()
+
+    sql = "SELECT * FROM concurent_site.main_region;"
+    remote_cursor.execute(sql)
+    data_set = remote_cursor.fetchall()
+
+    for data in data_set:
+        sql = f"INSERT INTO concurent_site.main_region VALUES {data};"
+        local_cursor.execute(sql)
+
+    local_connection.commit()
 
 def get_data_from_database(connection):
     def get_data_from_table(table):
@@ -72,6 +85,11 @@ def insert_data_to_database(connection):
 local_connection = establish_connection('local')
 remote_connection = establish_connection('remote')
 
-clean_all_data_from_database(local_connection)
-order, orderstatus, handledxml, requestqueue, request, domain = get_data_from_database(remote_connection)
-insert_data_to_database(local_connection)
+#clean_all_data_from_database(local_connection)
+#order, orderstatus, handledxml, requestqueue, request, domain = get_data_from_database(remote_connection)
+#insert_data_to_database(local_connection)
+
+fetch_regions_from_production_to_testing(remote_connection, local_connection)
+
+local_connection.close()
+remote_connection.close()

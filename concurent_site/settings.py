@@ -40,11 +40,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'mathfilters',
+    'debug_toolbar',
+
     'psycopg2',
 ]
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,6 +95,9 @@ DATABASES = {
         'PASSWORD': 'fn3kMls1',
         'HOST': 'localhost',
         'PORT': 5432,
+        'OPTIONS': {
+            'options': '-c search_path=concurent_site'
+        },
     }
 }
 

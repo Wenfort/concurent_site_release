@@ -2,10 +2,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
 from main.models import TicketPost, Ticket
-from main.views import SiteUser
+from main.user_logic.user_logic import SiteUser
 
 class Tickets:
-
     def __init__(self, user_data):
         self.user_id = user_data.id
         self.user_role = user_data.user_role

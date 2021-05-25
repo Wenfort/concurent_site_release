@@ -1,10 +1,10 @@
 import psycopg2
 
-DATABASE = 'project_live'
+DATABASE = 'postgres'
 SCHEMA = 'concurent_site'
 USER = 'postgres'
 PASSWORD = 'fn3kMls1'
-HOST = '178.250.158.252'
+HOST = '127.0.0.1'
 
 def establish_connection():
     connection = psycopg2.connect(dbname=DATABASE, user=USER, password=PASSWORD, host=HOST)

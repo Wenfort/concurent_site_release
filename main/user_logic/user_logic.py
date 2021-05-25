@@ -6,10 +6,50 @@ from main.models import UserData, Region
 from django.contrib.auth.models import User
 from main.tools.password_generator import generate_password
 
-from main.forms import NewUser, AuthUser
 from django.contrib import messages
 
-from main.views import SiteUser
+class SiteUser:
+    def __init__(self, user):
+        self.user = user
+        self.id = self.user.id
+        self.user_billing = object
+        self.user_role = str
+        self.balance = int
+        self.orders = int
+        self.ordered_keywords = int
+        self.region_id = int
+        self.region = str
+
+        self.get_data()
+        self.get_user_role()
+        self.get_balance()
+        self.get_orders()
+        self.get_ordered_requests()
+        self.get_region()
+
+
+    def get_data(self):
+        self.user_billing = UserData.objects.get(user_id=self.id)
+
+    def get_user_role(self):
+        if self.user.is_staff:
+            self.user_role = 'admin'
+        else:
+            self.user_role = 'user'
+
+    def get_balance(self):
+        self.balance = self.user_billing.balance
+
+    def get_orders(self):
+        self.orders = self.user_billing.orders_amount
+
+    def get_ordered_requests(self):
+        self.ordered_keywords = self.user_billing.ordered_keywords
+
+    def get_region(self):
+        self.region_id = self.user_billing.region_id
+        self.region = Region.objects.get(id=self.region_id).name
+
 
 class NewUserHandler:
     def __init__(self, request):
@@ -153,9 +193,7 @@ def registration(request):
                 }
                 return render(request, 'main/user_auth/registration.html', context)
         else:
-            form = NewUser()
             context = {
-                'form': form,
             }
             return render(request, 'main/user_auth/registration.html', context)
 
@@ -173,17 +211,13 @@ def authorization(request):
                 except:
                     return HttpResponseRedirect('/results')
             else:
-                form = AuthUser()
                 context = {
-                    'form': form,
                     'error': 'Логин и пароль не совпадают'
                 }
 
                 return render(request, 'main/user_auth/authorization.html', context)
         else:
-            form = AuthUser()
             context = {
-                'form': form,
             }
 
             return render(request, 'main/user_auth/authorization.html', context)
