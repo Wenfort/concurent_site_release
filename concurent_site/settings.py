@@ -25,7 +25,7 @@ SECRET_KEY = 'zs_8uh!va$xehk*ld=8s&1-%a1bc8)gdgt6t*9-%7tuk3gg+i1'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 LOGIN_URL = '/authorization/'
 ALLOWED_HOSTS = ['*']
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mathfilters',
+    'psycopg2',
 ]
 
 MIDDLEWARE = [
@@ -80,15 +81,12 @@ WSGI_APPLICATION = 'concurent_site.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'project_live',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'fn3kMls1',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-        'OPTIONS': {
-            'options': '-c search_path=concurent_site'
-        },
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 

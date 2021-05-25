@@ -4,7 +4,7 @@ DATABASE = 'project_live'
 SCHEMA = 'concurent_site'
 USER = 'postgres'
 PASSWORD = 'fn3kMls1'
-HOST = '127.0.0.1'
+HOST = '178.250.158.252'
 
 def establish_connection():
     connection = psycopg2.connect(dbname=DATABASE, user=USER, password=PASSWORD, host=HOST)

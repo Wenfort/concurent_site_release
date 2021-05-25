@@ -2,8 +2,41 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+class Region(models.Model):
+    region_id = models.IntegerField(primary_key=True, default=0)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Request(models.Model):
+    request_id = models.AutoField(primary_key=True)
+    request_text = models.CharField(max_length=150)
+    site_age_concurency = models.IntegerField(default=0)
+    site_stem_concurency = models.IntegerField(default=0)
+    site_volume_concurency = models.IntegerField(default=0)
+    site_backlinks_concurency = models.IntegerField(default=0)
+    site_total_concurency = models.FloatField(default=0)
+    direct_upscale = models.FloatField(default=0)
+    site_seo_concurency = models.IntegerField(default=0)
+    site_direct_concurency = models.IntegerField(default=0)
+    status = models.CharField(max_length=100, default='progress')
+    region = models.OneToOneField(Region, default=255, on_delete=models.DO_NOTHING)
+    request_views = models.IntegerField(default=0)
+    average_age = models.IntegerField(default=0)
+    average_volume = models.IntegerField(default=0)
+    average_total_backlinks = models.IntegerField(default=0)
+    average_unique_backlinks = models.IntegerField(default=0)
+    vital_sites = models.CharField(max_length=150, default = '')
+    vital_sites_count = models.SmallIntegerField(default= 0)
+    is_direct_final = models.SmallIntegerField(default=0)
+
+
+    def __str__(self):
+        return self.request_text
+
 class HandledXml(models.Model):
-    request_id = models.IntegerField(default=0)
+    request_id = models.OneToOneField(Request, on_delete=models.CASCADE)
     xml = models.TextField()
     status = models.CharField(max_length=10)
     geo = models.IntegerField(default=225)
@@ -37,42 +70,6 @@ class Payload(models.Model):
 
     def __str__(self):
         return f'{self.key} ({self.balance})'
-
-
-class Region(models.Model):
-    region_id = models.IntegerField(primary_key=True, default=0)
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
-class Request(models.Model):
-    request_id = models.AutoField(primary_key=True)
-    request_text = models.CharField(max_length=150)
-    site_age_concurency = models.IntegerField(default=0)
-    site_stem_concurency = models.IntegerField(default=0)
-    site_volume_concurency = models.IntegerField(default=0)
-    site_backlinks_concurency = models.IntegerField(default=0)
-    site_total_concurency = models.FloatField(default=0)
-    direct_upscale = models.FloatField(default=0)
-    site_seo_concurency = models.IntegerField(default=0)
-    site_direct_concurency = models.IntegerField(default=0)
-    status = models.CharField(max_length=100, default='progress')
-    region = models.ForeignKey(Region, default=255, on_delete=models.DO_NOTHING)
-    request_views = models.IntegerField(default=0)
-    average_age = models.IntegerField(default=0)
-    average_volume = models.IntegerField(default=0)
-    average_total_backlinks = models.IntegerField(default=0)
-    average_unique_backlinks = models.IntegerField(default=0)
-    vital_sites = models.CharField(max_length=150, default = '')
-    vital_sites_count = models.SmallIntegerField(default= 0)
-    is_direct_final = models.SmallIntegerField(default=0)
-
-
-    def __str__(self):
-        return self.request_text
-
 
 
 class UserData(models.Model):

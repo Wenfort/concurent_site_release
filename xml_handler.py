@@ -150,7 +150,7 @@ class XmlReport():
         file.write(f'{text}\n')
 
         if site_numbers > 15:
-            text, top_ads_count, bottom_ads_count = self.validate_xml_answer(text)
+            text, top_ads_count, bottom_ads_count = self.validate_xml_answer(text, rerun)
             if top_ads_count + bottom_ads_count == 9:
                 reruns_count = 4
                 refresh_timer = 0
@@ -176,7 +176,7 @@ class XmlReport():
             else:
                 print(f'Ошибка XML в запросе {request}: {text}')
 
-    def count_ads(self, text):
+    def count_ads(self, text, rerun):
         soup = BeautifulSoup(text, 'html.parser')
 
         try:
@@ -191,8 +191,6 @@ class XmlReport():
         except:
             bottom_ads_block = ''
 
-
-
         top_ads_count = len(top_ads_block)
         bottom_ads_count = len(bottom_ads_block)
 
@@ -203,8 +201,8 @@ class XmlReport():
 
         return overcaped_bottom_ads_count, top_ads_count, bottom_ads_count, bottom_ads_block
 
-    def validate_xml_answer(self, text):
-        overcaped_bottom_ads_count, top_ads_count, bottom_ads_count, bottom_ads_block = self.count_ads(text)
+    def validate_xml_answer(self, text, rerun):
+        overcaped_bottom_ads_count, top_ads_count, bottom_ads_count, bottom_ads_block = self.count_ads(text, rerun)
 
         if overcaped_bottom_ads_count <= 0:
             return text, top_ads_count, bottom_ads_count
