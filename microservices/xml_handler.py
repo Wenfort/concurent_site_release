@@ -1,6 +1,6 @@
 import requests
 import time
-import postgres_mode as pm
+from microservices import postgres_mode as pm
 from threading import Thread
 import re
 from bs4 import BeautifulSoup

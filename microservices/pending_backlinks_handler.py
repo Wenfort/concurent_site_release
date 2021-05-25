@@ -1,5 +1,5 @@
 import requests
-import postgres_mode as pm
+from microservices import postgres_mode as pm
 import time
 
 def get_token():

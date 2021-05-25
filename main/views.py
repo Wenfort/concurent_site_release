@@ -5,9 +5,9 @@ from django.contrib.auth.decorators import login_required
 
 
 from .forms import NewRequest
-from xls_test import export_page
+from main.tools.xls_exporter import export_page
 
-from conc_settings import REQUEST_COST
+from microservices.conc_settings import REQUEST_COST
 
 
 def index(request):

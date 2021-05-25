@@ -1,9 +1,8 @@
-import lxml
-import postgres_mode as pm
+from microservices import postgres_mode as pm
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from threading import Thread
-from conc_settings import *
+from microservices.conc_settings import *
 import time
 
 class Manager:

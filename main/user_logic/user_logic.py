@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout as django_logout
 from main.models import UserData, Region
 from django.contrib.auth.models import User
-from .password_generator import generate_password
+from main.tools.password_generator import generate_password
 
 from main.forms import NewUser, AuthUser
 from django.contrib import messages

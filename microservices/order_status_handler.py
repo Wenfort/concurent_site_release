@@ -1,6 +1,6 @@
 import time
-from postgres_mode import establish_connection
-from custom_send_email import send_order_ready_mail
+from microservices.postgres_mode import establish_connection
+from main.tools.microservice_email_sender import send_order_ready_mail
 
 
 while True:

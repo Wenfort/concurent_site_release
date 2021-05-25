@@ -1,4 +1,4 @@
-from conc_settings import *
+from microservices.conc_settings import *
 from multiprocessing import Process, Queue
 from threading import Thread
 from loguru import logger
@@ -6,9 +6,8 @@ import time
 import pymorphy2
 import requests
 from bs4 import BeautifulSoup
-import lxml
 from urllib.parse import urlparse
-import postgres_mode as pm
+from microservices import postgres_mode as pm
 import re
 
 
