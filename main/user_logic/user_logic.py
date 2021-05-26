@@ -10,10 +10,9 @@ from django.contrib import messages
 
 class SiteUser:
     def __init__(self, user):
-        self.user = user
-        self.id = self.user.id
+        self.account_data = user
+        self.id = self.account_data.id
         self.user_billing = object
-        self.user_role = str
         self.balance = int
         self.orders = int
         self.ordered_keywords = int
@@ -21,7 +20,6 @@ class SiteUser:
         self.region = str
 
         self.get_data()
-        self.get_user_role()
         self.get_balance()
         self.get_orders()
         self.get_ordered_requests()
@@ -29,13 +27,8 @@ class SiteUser:
 
 
     def get_data(self):
-        self.user_billing = UserData.objects.get(user_id=self.id)
-
-    def get_user_role(self):
-        if self.user.is_staff:
-            self.user_role = 'admin'
-        else:
-            self.user_role = 'user'
+        self.user_billing = UserData.objects.filter(user_id=self.id).select_related()
+        self.user_billing = self.user_billing[0]
 
     def get_balance(self):
         self.balance = self.user_billing.balance
@@ -114,7 +107,7 @@ def change_password(request):
         post_request = request.POST
         if post_request['first_password'] == post_request['second_password']:
             password = post_request['first_password']
-            username = request.user.username
+            username = request.account_data.username
             user = User.objects.get(username=username)
             user.set_password(password)
             user.save()
@@ -136,7 +129,7 @@ def change_password(request):
 
 
 def password_reset(request):
-    if request.user.is_authenticated:
+    if request.account_data.is_authenticated:
         return HttpResponse('Вы уже авторизировались')
     if request.method == "POST":
 
@@ -166,7 +159,7 @@ def password_reset(request):
 
 
 def balance(request):
-    user_data = SiteUser(request.user.id)
+    user_data = SiteUser(request.user)
     context = {'orders': user_data.orders,
                'keywords_ordered': user_data.ordered_keywords,
                'balance': user_data.balance
@@ -175,7 +168,7 @@ def balance(request):
 
 
 def registration(request):
-    if request.user.is_authenticated:
+    if request.account_data.is_authenticated:
         return HttpResponse('Вы уже зарегистрированы')
     else:
         if request.method == "POST":
@@ -224,7 +217,7 @@ def authorization(request):
 
 
 def change_region(request):
-    user_id = request.user.id
+    user_id = request.account_data.id
     new_region = request.POST['region']
     previous_url = request.POST['previous_url']
     if new_region:

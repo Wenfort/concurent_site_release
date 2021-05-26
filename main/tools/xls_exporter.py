@@ -2,7 +2,7 @@ import io
 import xlsxwriter
 
 
-def export_page(request_list, user_role):
+def export_page(request_list, user_is_staff):
 
     buffer = io.BytesIO()
     workbook = xlsxwriter.Workbook(buffer)
@@ -10,7 +10,7 @@ def export_page(request_list, user_role):
 
     if request_list:
         worksheet.set_column(0, 0, 50)
-        if user_role == 'admin':
+        if user_is_staff:
             worksheet.set_column(1, 9, 15)
             worksheet_headers = ['Текст запроса',
                                  'Сложность от возраста',
@@ -53,12 +53,12 @@ def export_page(request_list, user_role):
             row = 1
 
             for request in request_list:
-                values = [request.request_text,
-                          request.site_seo_concurency,
+                values = [request.text,
+                          request.seo_concurency,
                           request.direct_upscale,
-                          request.site_total_concurency,
+                          request.total_concurency,
                           request.region_id,
-                          request.request_views,
+                          request.views,
                 ]
                 worksheet.write_row(row, 0, values)
 

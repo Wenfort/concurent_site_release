@@ -74,10 +74,10 @@ class Tickets:
 
 
 def add_new_ticket(request):
-    user_data = SiteUser(request.user.id)
+    user_data = SiteUser(request.account_data.id)
     tickets_data = Tickets(user_data)
 
-    if request.user.is_staff:
+    if request.account_data.is_staff:
         all_tickets = tickets_data.get_all_admin_tickets()
     else:
         all_tickets = tickets_data.get_all_user_tickets()
@@ -98,7 +98,7 @@ def add_new_ticket(request):
 
 
 def tickets_admin_view(request, ticket_id=None):
-    user_data = SiteUser(request.user.id)
+    user_data = SiteUser(request.user)
     tickets_data = Tickets(user_data)
     all_tickets = tickets_data.get_all_admin_tickets()
 
@@ -134,7 +134,7 @@ def get_ticket_posts_from_ticket(request, ticket_id=None):
     if request.user.is_staff:
         return HttpResponseRedirect('/tickets/admin')
 
-    user_data = SiteUser(request.user.id)
+    user_data = SiteUser(request.account_data.id)
     tickets_data = Tickets(user_data)
 
     all_tickets = tickets_data.get_all_user_tickets()
@@ -171,7 +171,7 @@ def get_ticket_posts_from_ticket(request, ticket_id=None):
 
 
 def close_ticket(request, ticket_id):
-    user_data = SiteUser(request.user.id)
+    user_data = SiteUser(request.account_data.id)
     ticket_data = Tickets(user_data)
 
     return ticket_data.close_ticket(ticket_id)
