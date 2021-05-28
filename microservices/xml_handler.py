@@ -4,13 +4,27 @@ from microservices import postgres_mode as pm
 from threading import Thread
 import re
 from bs4 import BeautifulSoup
+from dataclasses import dataclass
+
+
+@dataclass
+class Request:
+    id: int
+    text: str
+    region_id: int
+    xml_url: str = ''
+    validated_text: str = ''
+    status: str = ''
+    refresh_timer: int = 0
+    reruns_count: int = 0
+    bottom_ads_count: int = 0
+    top_ads_count: int = 0
 
 
 class XmlReport:
 
     def __init__(self):
-        self.requests = tuple()
-        self.xml_request_packs = list()
+        self.requests = list()
         self.xml_answers = list()
         self.requests_in_work = list()
         self.thread_list = list()
@@ -20,8 +34,8 @@ class XmlReport:
         if len(self.requests) == 0:
             self.get_requests_for_recheck()
             if len(self.requests) != 0:
-                self.update_reruns_for_recheck_requests()
                 self.make_xml_request_packs()
+                self.update_reruns_for_recheck_requests()
                 self.make_recheck_threads()
                 self.run_threads()
                 self.check_threads()
@@ -48,9 +62,9 @@ class XmlReport:
         """
         sql = ("SELECT request_id, bottom_ads_count, top_ads_count "
                "FROM concurent_site.main_handledxml xml "
-               "INNER JOIN concurent_site.main_request req "
-               "USING (request_id) "
-               "WHERE req.status = 'ready' AND "
+               "INNER JOIN concurent_site.main_request request "
+               "ON (xml.request_id = request.id) "
+               "WHERE request.status = 'ready' AND "
                "xml.reruns_count = 4;")
 
         rechecked_requests = pm.custom_request_to_database_with_return(sql)
@@ -119,9 +133,9 @@ class XmlReport:
         Удаление их очереди всех запросов, по которым было выполнено максимальное количество перепроверок
         """
         sql = ("DELETE FROM concurent_site.main_handledxml xml "
-               "USING concurent_site.main_request req "
-               "WHERE req.request_id  = xml.request_id AND xml.reruns_count = 4 AND req.status = 'ready' "
-               "RETURNING req.status;")
+               "USING concurent_site.main_request request "
+               "WHERE request.id  = xml.request_id AND xml.reruns_count = 4 AND request.status = 'ready' "
+               "RETURNING request.status;")
 
         pm.custom_request_to_database_without_return(sql)
 
@@ -147,12 +161,43 @@ class XmlReport:
         LIMIT 10 установлен из-за ограничений XML сервиса. Одновременно может работать
         не более 10 потоков
         """
-        sql = ('SELECT request_id, request_text, region_id '
-               'FROM concurent_site.main_requestqueue '
-               'INNER JOIN concurent_site.main_request USING (request_id) '
+        sql = ('SELECT request_id, text, queue.region_id '
+               'FROM concurent_site.main_requestqueue queue '
+               'INNER JOIN concurent_site.main_request request ON '
+               '(queue.request_id = request.id) '
                'LIMIT 10;')
 
-        self.requests = pm.custom_request_to_database_with_return(sql)
+        database_return = pm.custom_request_to_database_with_return(sql)
+
+        for data in database_return:
+            request_data = Request(id=data[0], text=data[1], region_id=data[2])
+
+            self.requests.append(request_data)
+
+    def get_requests_for_recheck(self):
+        """
+        Сторонний XML сервис слишком часто показывает некорректные результаты, их необходимо перепроверять.
+        Если в очереди закончились поисковые запросы пользователей, выполняется перепроверка результатов.
+        На выходе получается кортеж, содержащий id запроса, текст запроса, id региона,
+        количество пройденных итерация перепроверки, а также, максимальное количество  объявлений,
+        которое было собрано в предыдущие обходы. Максимальное количество перепроверок - 3.
+        """
+        sql = (
+            'SELECT request_id, text, xml.region_id, reruns_count, top_ads_count, bottom_ads_count, request.status '
+            'FROM concurent_site.main_handledxml xml '
+            'INNER JOIN concurent_site.main_request request '
+            'ON (xml.request_id = request.id) '
+            'WHERE refresh_timer < 0 AND reruns_count < 4'
+            'LIMIT 10;')
+
+        database_return = pm.custom_request_to_database_with_return(sql)
+
+        for data in database_return:
+            request_data = Request(id=data[0], text=data[1], region_id=data[2],
+                                   reruns_count=data[3], top_ads_count=data[4],
+                                   bottom_ads_count=data[5], status=data[6])
+
+            self.requests.append(request_data)
 
     def make_xml_request_packs(self):
         """
@@ -163,40 +208,45 @@ class XmlReport:
         рекламные блоки в выдаче. Поэтому, через IF конструкцию происходит перепроврерка не совпадает ли регион
         запроса пользователя с регионом, указанным в админке.
         """
-        for request in self.requests:
-            request_text = request[1]
-            request_region = request[2]
-            if int(request_region) == 255:
-                xml_request_pack = {
-                    request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}', }
+        for request_data in self.requests:
+            if int(request_data.region_id) == 255:
+                xml_url = f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_data.text}'
             else:
-                xml_request_pack = {
-                    request: f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_text}&lr={request_region}', }
+                xml_url = f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_data.text}&lr={request_data.region_id}'
 
-            self.xml_request_packs.append(xml_request_pack)
-            print(xml_request_pack)
-        self.xml_request_packs = tuple(self.xml_request_packs)
+            request_data.xml_url = xml_url
 
-    def write_xmlurl_and_answer_to_log_file(self, request, geo, xml_url, text):
+            print(request_data)
+
+    def write_xmlurl_and_answer_to_log_file(self, request, raw_text):
         """
         Записывает в файл url XML запроса и ответ XML сервиса
         """
-        file = open(f'./reports/{request}-{geo}.txt', 'a', encoding='utf-8')
+        file = open(f'./reports/{request.text}-{request.region_id}.txt', 'a', encoding='utf-8')
         file.write('----------------------------------------\n')
-        file.write(f'{xml_url}\n')
+        file.write(f'{request.xml_url}\n')
         file.write('----------------------------------------\n')
-        file.write(f'{text}\n')
+        file.write(f'{raw_text}\n')
 
-    def get_xml_answer(self, request_id, request, xml_url, geo, rerun=0, previous_run_top_ads=0,
+    def add_data_to_dataset(self, request, validated_text, refresh_timer, reruns_count, bottom_ads_count, top_ads_count):
+        request.validated_text = validated_text
+        request.status = 'in work'
+        request.refresh_timer = refresh_timer
+        request.reruns_count = reruns_count
+        request.bottom_ads_count = bottom_ads_count
+        request.top_ads_count = top_ads_count
+        self.xml_answers.append(request)
+
+    def get_xml_answer(self, request, rerun=0, previous_run_top_ads=0,
                        previous_run_bottom_ads=0):
         """
 
         """
-        r = requests.get(xml_url)
+        r = requests.get(request.xml_url)
         raw_text = r.text
         site_numbers = len(re.findall(r'<doc>', raw_text))
 
-        self.write_xmlurl_and_answer_to_log_file(request, geo, xml_url, raw_text)
+        self.write_xmlurl_and_answer_to_log_file(request, raw_text)
 
         if site_numbers > 15:
             validated_text, top_ads_count, bottom_ads_count = self.validate_xml_answer(raw_text)
@@ -212,16 +262,15 @@ class XmlReport:
                     top_ads_count = bottom_ads_count - 5
                     bottom_ads_count = bottom_ads_count - top_ads_count
                 if not rerun:
-                    self.xml_answers.append((validated_text, 'in work', geo, refresh_timer, request_id, reruns_count,
-                                             bottom_ads_count, top_ads_count))
+                    self.add_data_to_dataset(request, validated_text, refresh_timer, reruns_count, bottom_ads_count, top_ads_count)
                 else:
                     total_ads_count = top_ads_count + bottom_ads_count
                     previous_run_ads_count = previous_run_top_ads + previous_run_bottom_ads
                     if total_ads_count > previous_run_ads_count:
                         refresh_timer = 10
                         rerun += 1
-                        self.xml_answers.append((validated_text, 'in work', geo, refresh_timer, request_id, rerun,
-                                                 bottom_ads_count, top_ads_count))
+                        self.add_data_to_dataset(request, validated_text, refresh_timer, reruns_count, bottom_ads_count,
+                                                 top_ads_count)
 
             else:
                 print(f'Ошибка XML в запросе {request}: {validated_text}')
@@ -300,13 +349,9 @@ class XmlReport:
         В self.xml_request_packs лежат словари формата {(Ответ от базы данных):'ссылка для xml запроса'}
         Для каждого такого словаря создается объект Thread, в который передаются данные из БД и url для запроса
         """
-        for xml_pack in self.xml_request_packs:
-            for request_pack, xml_url in xml_pack.items():
-                request_id = request_pack[0]
-                request_text = request_pack[1]
-                geo = request_pack[2]
-                self.thread_list.append(
-                    Thread(target=self.get_xml_answer, args=(request_id, request_text, xml_url, geo)))
+        for request in self.requests:
+            self.thread_list.append(
+                Thread(target=self.get_xml_answer, args=(request,)))
 
     def run_threads(self):
         for thread in self.thread_list:
@@ -316,8 +361,7 @@ class XmlReport:
         for thread in self.thread_list:
             thread.join()
 
-    def delete_xml_answer_from_database(self, xml_answer):
-        request_id = xml_answer[4]
+    def delete_xml_answer_from_database(self, request_id):
         sql = ('DELETE FROM '
                'concurent_site.main_requestqueue '
                'WHERE '
@@ -326,8 +370,13 @@ class XmlReport:
 
     def add_xml_answers_to_database(self):
         for xml_answer in self.xml_answers:
-            pm.add_to_database_with_autoincrement('main_handledxml', xml_answer)
-            self.delete_xml_answer_from_database(xml_answer)
+            sql = ('INSERT INTO concurent_site.main_handledxml '
+                   '(xml, status, refresh_timer, reruns_count, top_ads_count, bottom_ads_count, region_id, request_id)'
+                   ' VALUES '
+                   f"('{xml_answer.xml_url}', '{xml_answer.status}', '{xml_answer.refresh_timer}', '{xml_answer.reruns_count}',"
+                   f"'{xml_answer.top_ads_count}', '{xml_answer.bottom_ads_count}', '{xml_answer.region_id}', '{xml_answer.id}')")
+            pm.custom_request_to_database_without_return(sql)
+            self.delete_xml_answer_from_database(xml_answer.id)
 
     def update_refresh_timer(self):
         """
@@ -341,29 +390,15 @@ class XmlReport:
 
         pm.custom_request_to_database_without_return(sql)
 
-    def get_requests_for_recheck(self):
-        """
-        Сторонний XML сервис слишком часто показывает некорректные результаты, их необходимо перепроверять.
-        Если в очереди закончились поисковые запросы пользователей, выполняется перепроверка результатов.
-        На выходе получается кортеж, содержащий id запроса, текст запроса, id региона,
-        количество пройденных итерация перепроверки, а также, максимальное количество  объявлений,
-        которое было собрано в предыдущие обходы. Максимальное количество перепроверок - 3.
-        """
-        sql = (
-            'SELECT request_id, request_text, region_id, reruns_count, top_ads_count, bottom_ads_count, main_request.status '
-            'FROM concurent_site.main_handledxml '
-            'INNER JOIN concurent_site.main_request USING (request_id) '
-            'WHERE refresh_timer < 0 AND reruns_count < 4'
-            'LIMIT 10;')
 
-        self.requests = pm.custom_request_to_database_with_return(sql)
+
 
     def make_recheck_threads(self):
         """
         В self.xml_request_packs лежат словари формата {(Ответ от базы данных):'ссылка для xml запроса'}
         Для каждого такого словаря создается объект Thread, в который передаются данные из БД и url для запроса
         """
-        for xml_pack in self.xml_request_packs:
+        for xml_pack in self.requests:
             for request_pack, xml_url in xml_pack.items():
                 request_id = request_pack[0]
                 request_text = request_pack[1]
@@ -379,12 +414,12 @@ class XmlReport:
         """
         Счетчик перепроверок увеличивается на 1 и таймер перепроверки становится равен 10.
         """
-        reqs = [str(req[0]) for req in self.requests]
-        reqs = ','.join(reqs)
+        list_of_rechecking_requests_ids = [str(request[0]) for request in self.requests]
+        requests_ids = ','.join(list_of_rechecking_requests_ids)
         sql = ("UPDATE concurent_site.main_handledxml SET "
                "reruns_count = reruns_count + 1, "
                "refresh_timer = 10 "
-               f"WHERE request_id IN ({reqs})")
+               f"WHERE request_id IN ({requests_ids})")
 
         pm.custom_request_to_database_without_return(sql)
 
