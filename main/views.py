@@ -19,17 +19,28 @@ def index(request):
 
 
 class Orders:
-    def __init__(self, user_id):
-        self.user_id = user_id
+    def __init__(self, user_data):
+        self.user_id = user_data.id
+        self.is_staff = user_data.account_data.is_staff
 
     def get_all_user_orders(self):
         return Order.objects.filter(user_id=self.user_id)
 
-    def get_all_user_order_rows(self, order_id=0):
+    def get_admin_queryset(self):
+        return Request.objects.all()
+
+    def get_user_queryset(self, order_id):
         if order_id:
             return Request.objects.filter(order__user_order_id=order_id)
         else:
             return Request.objects.filter(order__user_id=self.user_id)
+
+    def get_all_user_order_rows(self, order_id=0):
+
+        if self.is_staff:
+            return self.get_admin_queryset()
+        else:
+            return self.get_user_queryset(order_id)
 
 
 class NewRequestHandler:
@@ -73,7 +84,7 @@ class NewRequestHandler:
 
     def add_new_requests_to_database(self):
         """
-        Запрос одновременно добавляется в таблицу main_request и main_requestqueue.
+        Запрос одновременно добавляется в таблицы main_request и main_requestqueue.
         Запросами в этих таблицах занимаются разные микросервисы.
         """
         for request in self.requests_list:
@@ -168,34 +179,6 @@ def unmask_sort_type(masked_sort_type):
     return unmasked_sort_type
 
 
-@login_required
-def get_orders_page(request):
-    user_data = SiteUser(request.user)
-    all_user_orders = Orders(user_data.id).get_all_user_orders()
-    all_regions = Region.objects.all().order_by('name')
-
-    context = {'all_orders_list': all_user_orders,
-               'orders': user_data.orders,
-               'keywords_ordered': user_data.ordered_keywords,
-               'balance': user_data.balance,
-               'regions': all_regions,
-               'region': user_data.region
-               }
-
-    return render(request, 'main/orders.html', context)
-
-def get_all_user_requests(user_data):
-    РАЗОБРАТЬСЯ ВОТ ТУТ
-    if user_data.account_data.is_staff:
-        all_requests = Request.objects.all().select_related()
-    else:
-        orders_data = Orders(user_data.id)
-
-        all_requests = orders_data.get_all_user_order_rows()
-
-    return all_requests
-
-
 def check_download_request(request):
     if 'download' in request.GET:
         return True
@@ -211,11 +194,27 @@ def render_page_with_privilegies(request, context):
     else:
         return render(request, 'main/non_restricted_requests.html', context)
 
+
+def get_sorted_order_rows(request, all_user_order_rows):
+    if 'sort' in request.GET:
+        sort_type = request.GET['sort']
+        unmasked_sort_type = unmask_sort_type(sort_type)
+        all_user_order_rows = all_user_order_rows.select_related('region').order_by(unmasked_sort_type)
+    else:
+        all_user_order_rows = all_user_order_rows.select_related('region').order_by('seo_concurency')
+        sort_type = 'seo_concurency'
+
+    return all_user_order_rows, sort_type
+
 @login_required
 def results(request):
+    """
+    Отображает абсолютно все заказанные пользователем ключевые слова.
+    Если страницу просматривает админ, показываются абсолютно все заказанные ключевые слова всех пользователей.
+    """
     user_data = SiteUser(request.user)
     all_regions = Region.objects.all().order_by('name')
-    all_requests = get_all_user_requests(user_data)
+    all_requests = Orders(user_data).get_all_user_order_rows()
 
     if check_download_request(request):
         return download_xls_file(all_requests, user_data)
@@ -234,21 +233,13 @@ def results(request):
     return render_page_with_privilegies(request, context)
 
 
-def get_sorted_order_rows(request, all_user_order_rows):
-    if 'sort' in request.GET:
-        sort_type = request.GET['sort']
-        unmasked_sort_type = unmask_sort_type(sort_type)
-        all_user_order_rows = all_user_order_rows.select_related('region').order_by(unmasked_sort_type)
-    else:
-        all_user_order_rows = all_user_order_rows.select_related('region').order_by('seo_concurency')
-        sort_type = 'seo_concurency'
-
-    return all_user_order_rows, sort_type
-
 @login_required
 def requests_from_order(request, order_id=0):
+    """
+    Отображает все ключевые слова в рамках заказа
+    """
     user_data = SiteUser(request.user)
-    all_requests = Orders(user_data.id).get_all_user_order_rows(order_id)
+    all_requests = Orders(user_data).get_all_user_order_rows(order_id)
     all_regions = Region.objects.all().order_by('name')
     all_requests, sort_type = get_sorted_order_rows(request, all_requests)
 
@@ -268,6 +259,25 @@ def requests_from_order(request, order_id=0):
     return render_page_with_privilegies(request, context)
 
 
+@login_required
+def get_orders_page(request):
+    """
+    Отображает все заказы пользователя
+    """
+    user_data = SiteUser(request.user)
+    all_user_orders = Orders(user_data).get_all_user_orders()
+    all_regions = Region.objects.all().order_by('name')
+
+    context = {'all_orders_list': all_user_orders,
+               'orders': user_data.orders,
+               'keywords_ordered': user_data.ordered_keywords,
+               'balance': user_data.balance,
+               'regions': all_regions,
+               'region': user_data.region
+               }
+
+    return render(request, 'main/orders.html', context)
+
 def user_confirmation(request):
     user_data = SiteUser(request.user)
 
@@ -280,7 +290,7 @@ def user_confirmation(request):
     requests_list_without_format = post_data['requests_list']
     requests_list = requests_list_without_format.split('\r\n')
     requests_amount = len(requests_list)
-    funds = requests_amount * REQUEST_COST
+    bill = requests_amount * REQUEST_COST
     context = {
         'user_data': user_data,
         'requests_list': requests_list,
@@ -291,7 +301,7 @@ def user_confirmation(request):
         'previous_page': post_data['previous_page'],
         'geo': post_data['geo'],
         'requests_amount': requests_amount,
-        'funds': funds,
+        'funds': bill,
         'order_id': order_id,
     }
     return render(request, 'main/user_confirmation.html', context)
@@ -312,4 +322,4 @@ def handle_new_request(request):
         else:
             return HttpResponse(
                 f'К сожалению, на балансе недостаточно средств. Нужно пополнить еще на '
-                f'{len(request_handler.requests_list) * REQUEST_COST - request_handler.user_data.balance} рублей')
+                f'{request_handler.new_requests_amount * REQUEST_COST - request_handler.user_data.balance} рублей')

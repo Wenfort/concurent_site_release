@@ -5,6 +5,7 @@
     {% csrf_token %}
     <p>Пожалуйста, подробно опишите что идет не так :)</p>
     <textarea rows="20" name="ticket_post_text" style="width: 100%"></textarea>
+    <input type="hidden" value="True" name="new_ticket">
     <input type="submit" value="Отправить тикет" class="btn btn-primary" style="width: 100%">
 </form>
 {% endblock %}

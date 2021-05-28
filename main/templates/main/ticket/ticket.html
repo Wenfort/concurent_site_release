@@ -1,31 +1,30 @@
 {% extends './ticket_page_body.html' %}
 
 {% block content %}
-    {% if latest_ticket %}
-        <div class="container chat-window">
-        {% for ticket_post in latest_ticket_posts %}
 
-            {% if ticket_post.ticket_post_author.username == 'airlove' %}
+        <div class="container chat-window">
+        {% for ticket_post in all_ticket_posts %}
+
+            {% if ticket_post.author_id == 1 %}
                 <div class="row chat-container">
                     <div class="col-sm-8 offset-sm-4 chat-message admin-chat-message">
                         <p class="chat-nickname admin-chat-nickname">Админ</p>
-                        <p>{{ ticket_post.ticket_post_text }}</p>
+                        <p>{{ ticket_post.text }}</p>
                     </div>
                 </div>
             {% else %}
                 <div class="row chat-container">
                     <div class="col-sm-8 chat-message client-chat-message">
-                        <p class="chat-nickname client-chat-nickname">{{ ticket_post.ticket_post_author }}</p>
-                        <p>{{ ticket_post.ticket_post_text }}</p>
+                        <p class="chat-nickname client-chat-nickname">{{ ticket_post.author.username }}</p>
+                        <p>{{ ticket_post.text }}</p>
                     </div>
                  </div>
     {% endif %}
     {% endfor %}
     </div>
-    {% endif %}
 <div class="container">
     <div class="row">
-        {% if latest_ticket.status == 'pending' %}
+        {% if ticket_status == 'pending' %}
         <div class="col-md-10">
             <form action="" method="post">
                 {% csrf_token %}
@@ -39,10 +38,10 @@
             <p style="background-color: black; width: 100%; height: 40px; color: white; text-align: center; padding-top: 10px;">Тикет закрыт</p>
         {% endif %}
     </div>
-        {% if user_role == 'admin' %}
+        {% if is_staff and ticket_status == 'pending' %}
             <div class="row">
                 <div class="col-md-12">
-                    <a href="/close_ticket/{{ latest_ticket.ticket_id }}" class="btn btn-primary" style="width: 100%;">Закрыть тикет</a>
+                    <a href="/close_ticket/{{ ticket_id }}" class="btn btn-primary" style="width: 100%;">Закрыть тикет</a>
                 </div>
             </div>
         {% endif %}

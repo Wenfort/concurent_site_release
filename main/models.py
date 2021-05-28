@@ -89,20 +89,17 @@ class RequestQueue(models.Model):
     region = models.ForeignKey(Region, on_delete=models.DO_NOTHING, default=255)
     is_recheck = models.BooleanField(default=False)
 
-
-class TicketPost(models.Model):
-    author = models.OneToOneField(User, on_delete=models.DO_NOTHING)
-    text = models.TextField()
-    order = models.SmallIntegerField(default=0)
-
-
 class Ticket(models.Model):
-    author = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     status = models.CharField(max_length=15, default='pending')
     opened = models.DateTimeField(default=timezone.now)
     closed = models.DateTimeField(blank=True, null=True)
     user_ticket_id = models.IntegerField(default=1)
-    posts = models.ForeignKey(TicketPost, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.author
+
+class TicketPost(models.Model):
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    text = models.TextField()
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)

@@ -17,7 +17,7 @@
             {% if all_tickets %}
                 {% if user.is_staff %}
                     {% for ticket in all_tickets %}
-                        <a href="/tickets/admin/{{ ticket.ticket_id }}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">Тикет #{{ ticket.ticket_id }}
+                           <a href="/tickets/{{ ticket.id }}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">Тикет #{{ ticket.id }}
                             {% if ticket.status == 'pending' %}
                             (Открыт)</p></a>
                             {% else %}
@@ -35,7 +35,7 @@
                     {% endfor %}
                 {% endif %}
             {% endif %}
-            <a href="{% url 'add_new_ticket' %}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">+ Создать новый тикет</p></a>
+            <a href="{% url 'ntickets_page' %}"><p class="ticket-in-list" style="text-align: center; border-top: 2px solid #eff2f7; border-radius: 1px;">+ Создать новый тикет</p></a>
         </div>
         <div class="col-sm-9">
             {% block content %}

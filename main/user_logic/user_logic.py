@@ -25,7 +25,6 @@ class SiteUser:
         self.get_ordered_requests()
         self.get_region()
 
-
     def get_data(self):
         self.user_billing = UserData.objects.filter(user_id=self.id).select_related()
         self.user_billing = self.user_billing[0]
@@ -168,7 +167,7 @@ def balance(request):
 
 
 def registration(request):
-    if request.account_data.is_authenticated:
+    if request.user.is_authenticated:
         return HttpResponse('Вы уже зарегистрированы')
     else:
         if request.method == "POST":
