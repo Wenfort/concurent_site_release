@@ -9,20 +9,34 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from microservices import postgres_mode as pm
 import re
+from dataclasses import dataclass
 
+
+@dataclass
+class RequestDataSet:
+    id: int
+    text: str
+    xml: str
+    xml_status: str
+    region_id: int
+
+
+@dataclass
+class SiteDataSet:
+    html: str
+    type: str
+    order_on_page: int
 
 @logger.catch
 class Manager:
     def __init__(self):
-        self.requests = tuple()
+        self.requests = list()
         self.yandex_objects_list = list()
-        self.process_list = ''
+        self.process_list = list()
         self.q = Queue()
 
         self.get_requests_from_queue()
-        self.make_processes()
         self.run_processes()
-        self.get_data_from_processes()
 
         if len(self.process_list) > 0:
             self.refresh_balance()
@@ -31,25 +45,41 @@ class Manager:
         print(f'СОбрано {len(self.process_list)} первичных запросов')
 
     def get_requests_from_queue(self):
+        """
+        Метод берет данные из БД и кладет их в датасет, который будет дополняться в ходе выполнения инструкций.
+        Так как для каждого датасета будет выделен отдельный процесс, лимит ограничен количеством ядер процессора
+        """
 
-        sql = ("SELECT request_id, request_text, xml, concurent_site.main_handledxml.status, geo "
-               "FROM concurent_site.main_handledxml "
-               "INNER JOIN concurent_site.main_request USING (request_id) "
-               "WHERE concurent_site.main_handledxml.status = 'in work' "
+        sql = ("SELECT request_id, text, xml, xml.status, xml.region_id "
+               "FROM concurent_site.main_handledxml xml "
+               "INNER JOIN concurent_site.main_request req "
+               "ON (xml.request_id = req.id) "
+               "WHERE xml.status = 'in work' "
                f"LIMIT {core_number};")
 
-        items = pm.custom_request_to_database_with_return(sql)
+        database_return = pm.custom_request_to_database_with_return(sql)
 
-        reqs = list()
-        for item in items:
-            reqs.append(item)
+        for data in database_return:
+            request_dataset = RequestDataSet(id=data[0], text=data[1], xml=data[2],
+                                             xml_status=data[3], region_id=data[4])
 
-        self.requests = tuple(reqs)
+            self.requests.append(request_dataset)
+
+        self.requests = tuple(self.requests)
+
+    def run_processes(self):
+        """
+        Создает процессы, кладет в каждый из них датасет и объект класса Queue для извлечения данных.
+        Затем запускает эти процессы и ожидает получение данных от Queue
+        """
+        self.make_processes()
+        self.start_processes()
+        self.get_data_from_processes()
 
     def make_processes(self):
         self.process_list = [Process(target=Yandex, args=(request, self.q)) for request in self.requests]
 
-    def run_processes(self):
+    def start_processes(self):
         for process in self.process_list:
             process.start()
 
@@ -57,17 +87,52 @@ class Manager:
         for process in self.process_list:
             self.yandex_objects_list.append(self.q.get())
 
+    @staticmethod
+    def _get_keys_list():
+        sql = ('SELECT key '
+               'FROM concurent_site.main_payload;')
+
+        return pm.custom_request_to_database_with_return(sql)
+
+    @staticmethod
+    def _get_balance(key):
+        balance_request_return = requests.get(
+            f'https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey={key}&host=yandex.ru&parameterList=').json()
+        return balance_request_return['hostLimitsBalance']
+
+    @staticmethod
+    def _delete_checktrust_zero_balance_accounts(zero_balance_accounts_count):
+        if zero_balance_accounts_count:
+            sql = ('DELETE FROM concurent_site.main_payload '
+                   'WHERE balance = 0;')
+
+            pm.custom_request_to_database_without_return(sql)
+
+    @staticmethod
+    def _update_checktrust_api_balance_accounts(key, balance):
+        sql = ("UPDATE concurent_site.main_payload "
+               f"SET key = '{key}' "
+               f"balance = {balance};")
+
+        pm.custom_request_to_database_without_return(sql)
+
     def refresh_balance(self):
-        keys_and_tokens = pm.check_in_database('main_payload', 'balance', 0)
-        for item in keys_and_tokens:
-            key = item[0]
-            r = requests.get(
-                f'https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey={key}&host=yandex.ru&parameterList=').json()
-            balance = r['hostLimitsBalance']
+        """
+        У меня тут маленький стартап, так что приходится экономить :)
+        Часть данных о конкуренции получается с помощью API сервиса checktrust. Но полноценная подписка очень дорогая
+        Так что на время тестирования приходится абузить триал аккаунты. Этот метод проверяет баланс на триал аккаунтах
+        и удаляет те, на которых нулевой баланс.
+        """
+        keys_list = self._get_keys_list()
+        zero_balance_accounts_count = 0
+        for key in keys_list:
+            balance = self._get_balance(key)
             if balance == 0:
-                pm.delete_from_database('main_payload', 'balance', '0')
+                zero_balance_accounts_count += 1
             else:
-                pm.update_database('main_payload', 'balance', balance, 'key', key)
+                self._update_checktrust_api_balance_accounts(key, balance)
+
+        self._delete_checktrust_zero_balance_accounts(zero_balance_accounts_count)
 
     def delete_requests_from_queue(self):
         for yandex_object in self.yandex_objects_list:
@@ -167,14 +232,13 @@ class Site:
 @logger.catch
 class Yandex:
     def __init__(self, request, q):
-
-        self.request_id = request[0]
-        self.request = request[1]
-        self.xml = request[2]
-        self.geo = request[4]
+        print('ya')
+        self.request_id = request.id
+        self.request_text = request.text
+        self.xml_text = request.xml
+        self.region_id = request.region_id
         self.q = q
         self.stemmed_request = list()
-        self.page_xml = str()
         self.site_list = list()
         self.site_objects_list = list()
         self.thread_list = str()
@@ -186,7 +250,7 @@ class Yandex:
 
         self.stem_request()
 
-        self.get_page_xml()
+        self.parse_xml_text_with_bs4()
         self.get_request_views()
         self.get_site_list()
 
@@ -203,8 +267,11 @@ class Yandex:
         self.q.put(self.result)
 
     def get_request_views(self):
+        """
+        Примерно в ~50% XML ответах есть тег <displayed>, который показывает количество показов запроса в месяц.
+        """
         try:
-            self.request_views = int(self.page_xml.find('displayed').text)
+            self.request_views = int(self.xml_text.find('displayed').text)
         except:
             self.request_views = 0
 
@@ -212,51 +279,83 @@ class Yandex:
         logger.add("critical.txt", format="{time:HH:mm:ss} {message}", level='CRITICAL', encoding="UTF-8")
         logger.add("important.txt", format="{time:HH:mm:ss} {message}", level='SUCCESS', encoding="UTF-8")
         logger.debug('Класс Yandex создан')
-        logger.info(f'Запрос: {self.request}')
+        logger.info(f'Запрос: {self.request_text}')
+
+    def _is_functional_part_of_speech(self, part_of_speech):
+        if part_of_speech == 'PREP' or part_of_speech == 'CONJ' or part_of_speech == 'PRCL' or part_of_speech == 'INTJ':
+            return True
 
     def stem_request(self):
-        morph = pymorphy2.MorphAnalyzer()
-        for word in self.request.split():
-            parsed_word = morph.parse(word)[0]
-            type_of_word = str(parsed_word.tag.POS)
-            if type_of_word == 'PREP' or type_of_word == 'CONJ' or type_of_word == 'PRCL' or type_of_word == 'INTJ':
-                continue
-            else:
-                self.stemmed_request.append(parsed_word.normal_form)
+        """
+        Стемироание - приведение слова к его изначальной форме. Например, слова "покупка" и "купить" будет приведены
+        к слову "купить". Это очень полезно для оценки конкуренции по вхождению ключевых слов в заголовок страницы.
+        Метод _is_functional_part_of_speech отсекает служебные части речи. Они не нужны.
+        """
+        morpher = pymorphy2.MorphAnalyzer()
+        for word in self.request_text.split():
+            stemed_word = morpher.parse(word)
+            the_best_form_of_stemed_word = stemed_word[0]
+            part_of_speech = str(the_best_form_of_stemed_word.tag.POS)
+            if not self._is_functional_part_of_speech(part_of_speech):
+                self.stemmed_request.append(the_best_form_of_stemed_word.normal_form)
 
-        # self.stemmed_request = morph.parse(self.request)[0].normal_form.split()
         logger.info(f'Стемированный запрос: {self.stemmed_request}')
 
-    def get_page_xml(self):
-        self.page_xml = BeautifulSoup(self.xml, 'lxml')
+    def parse_xml_text_with_bs4(self):
+        self.xml_text = BeautifulSoup(self.xml_text, 'lxml')
 
-    def get_site_list(self):
-        try:
-            top_direct_sites = self.page_xml.find('topads').find_all('query')
-        except:
-            top_direct_sites = []
+    def _parse_url_data_from_page_xml(self, xml_tag, ad_tag=''):
+        """
+        Из объекта BS4 парсится html код, содержащий базовую информацию о сайте
+        """
+        if ad_tag:
+            text = self.xml_text.find(ad_tag)
+            if text:
+                return text.find_all(xml_tag)
+            else:
+                return []
+        else:
+            return self.xml_text.find_all(xml_tag)
 
-        organic_sites = self.page_xml.find_all('doc')
+    def _make_datasets(self, html_list, site_type):
 
-        try:
-            bottom_direct_sites = self.page_xml.find('bottomads').find_all('query')
-        except:
-            bottom_direct_sites = []
+        order_on_page = self._prepare_site_data.order_on_page
+        for site in html_list:
+            site_dataset = SiteDataSet(html=site, type=site_type, order_on_page=order_on_page)
+            order_on_page += 1
+            self.site_list.append(site_dataset)
+
+    def _prepare_site_data(self, top_direct_sites, organic_sites, bottom_direct_sites):
+
+        self._prepare_site_data.order_on_page = 1
+        self._make_datasets(top_direct_sites, 'direct')
 
         for site in top_direct_sites:
-            self.site_list.append((site, 'direct'))
+            site_dataset = SiteDataSet(html=site, type='direct', order_on_page=order_on_page)
+            order_on_page += 1
+            self.site_list.append(site_dataset)
 
         for site in organic_sites:
-            self.site_list.append((site, 'unknown'))
+            site_dataset = SiteDataSet(html=site, type='organic', order_on_page=order_on_page)
+            order_on_page += 1
+            self.site_list.append(site_dataset)
 
         for site in bottom_direct_sites:
-            self.site_list.append((site, 'direct'))
+            site_dataset = SiteDataSet(html=site, type='direct', order_on_page=order_on_page)
+            order_on_page += 1
+            self.site_list.append(site_dataset)
+
+    def get_site_list(self):
+        top_direct_sites = self._parse_url_data_from_page_xml('query', 'topads')
+        organic_sites = self._parse_url_data_from_page_xml('doc')
+        bottom_direct_sites = self._parse_url_data_from_page_xml('query', 'bottomads')
+
+        self._prepare_site_data(top_direct_sites, organic_sites, bottom_direct_sites)
 
         logger.info(f'Собран список сайтов {self.request}')
 
     def clean_garbage(self):
         del self.xml
-        del self.page_xml
 
     def make_site_object(self, position, site):
         self.site_objects_list.append(Site(position, site))
@@ -323,10 +422,6 @@ class Yandex:
             f"vital_sites_count = {self.concurency_object.vital_domains_amount} "
             f"WHERE request_id = {self.request_id}"
         )
-
-
-    def get_scalp(self):
-        print(self.page_xml.prettify())
 
 
 @logger.catch

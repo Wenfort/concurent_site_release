@@ -22,7 +22,6 @@ def establish_connection(type):
 def clean_all_data_from_database(connection):
     cursor = connection.cursor()
     sql = (f'DELETE FROM {SCHEMA}.main_order;'
-           f'DELETE FROM {SCHEMA}.main_orderstatus;'
            f'DELETE FROM {SCHEMA}.main_handledxml;'
            f'DELETE FROM {SCHEMA}.main_requestqueue;'
            f'DELETE FROM {SCHEMA}.main_request;'
@@ -83,13 +82,14 @@ def insert_data_to_database(connection):
 
 
 local_connection = establish_connection('local')
-remote_connection = establish_connection('remote')
+#remote_connection = establish_connection('remote')
 
 #clean_all_data_from_database(local_connection)
 #order, orderstatus, handledxml, requestqueue, request, domain = get_data_from_database(remote_connection)
 #insert_data_to_database(local_connection)
 
-fetch_regions_from_production_to_testing(remote_connection, local_connection)
+#fetch_regions_from_production_to_testing(remote_connection, local_connection)
+clean_all_data_from_database(local_connection)
 
 local_connection.close()
-remote_connection.close()
+#remote_connection.close()

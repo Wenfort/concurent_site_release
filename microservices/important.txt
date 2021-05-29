@@ -1,0 +1,912 @@
+17:40:00 An error has been caught in function 'run', process 'Process-1' (24763), thread 'MainThread' (140479452514112):
+Traceback (most recent call last):
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2131, in <module>
+    main()
+    └ <function main at 0x7fc3ea7594c0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2122, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 32809, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x7fc3ea7584c0>
+              └ <__main__.PyDB object at 0x7fc3eaf59ee0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1431, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x7fc3ea758550>
+           └ <__main__.PyDB object at 0x7fc3eaf59ee0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1438, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+    │             └ <function execfile at 0x7fc3eb610280>
+    └ <module '_pydev_bundle.pydev_imports' from '/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_bundle/...
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_imps/_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+                 └ 'from microservices.conc_settings import *\nfrom multiprocessing import Process, Queue\nfrom threading import Thread\nfrom lo...
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 1026, in <module>
+    Manager()
+    └ <function Manager at 0x7fc3e8d0f0d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 39, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fc3e81c8280>
+    └ <__main__.Manager object at 0x7fc3e81b7eb0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 76, in run_processes
+    self.start_processes()
+    │    └ <function Manager.start_processes at 0x7fc3e81c83a0>
+    └ <__main__.Manager object at 0x7fc3e81b7eb0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 84, in start_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7fc3e8d05940>
+    └ <Process name='Process-1' parent=24752 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=24752 started>
+    │    │        │    └ <staticmethod object at 0x7fc3e8d019a0>
+    │    │        └ <Process name='Process-1' parent=24752 started>
+    │    └ None
+    └ <Process name='Process-1' parent=24752 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=24752 started>
+           │                └ <function DefaultContext.get_context at 0x7fc3ea56b3a0>
+           └ <multiprocessing.context.DefaultContext object at 0x7fc3e8d15d60>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=24752 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=24752 started>
+    │    └ <function Popen._launch at 0x7fc3e817bca0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fc3e8170d00>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7fc3e8d1b280>
+           └ <Process name='Process-1' parent=24752 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7fc3e8d058b0>
+    └ <Process name='Process-1' parent=24752 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=24752 started>
+    │    │        │    └ (RequestDataSet(id=44, text='lasik', xml='<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response ...
+    │    │        └ <Process name='Process-1' parent=24752 started>
+    │    └ <function Yandex at 0x7fc3e81c7280>
+    └ <Process name='Process-1' parent=24752 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 256, in __init__
+    self.get_site_list()
+    │    └ <function Yandex.get_site_list at 0x7fc3e81c7820>
+    └ <__main__.Yandex object at 0x7fc3e8d15730>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 345, in get_site_list
+    top_direct_sites = self._parse_url_data_from_page_xml('query', 'topads')
+                       │    └ <function Yandex._parse_url_data_from_page_xml at 0x7fc3e81c7670>
+                       └ <__main__.Yandex object at 0x7fc3e8d15730>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 313, in _parse_url_data_from_page_xml
+    return self.page_xml.find(ad_tag).find_all(xml_tag)
+           │    │        │    │                └ 'query'
+           │    │        │    └ 'topads'
+           │    │        └ <method 'find' of 'str' objects>
+           │    └ ''
+           └ <__main__.Yandex object at 0x7fc3e8d15730>
+
+AttributeError: 'int' object has no attribute 'find_all'
+17:40:39 An error has been caught in function 'run', process 'Process-1' (24797), thread 'MainThread' (139719279929152):
+Traceback (most recent call last):
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2131, in <module>
+    main()
+    └ <function main at 0x7f12eca484c0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2122, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 45823, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x7f12eca444c0>
+              └ <__main__.PyDB object at 0x7f12ed248ee0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1431, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x7f12eca44550>
+           └ <__main__.PyDB object at 0x7f12ed248ee0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1438, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+    │             └ <function execfile at 0x7f12ed8fe280>
+    └ <module '_pydev_bundle.pydev_imports' from '/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_bundle/...
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_imps/_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+                 └ 'from microservices.conc_settings import *\nfrom multiprocessing import Process, Queue\nfrom threading import Thread\nfrom lo...
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 1026, in <module>
+    Manager()
+    └ <function Manager at 0x7f12e6fe60d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 39, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f12e403d280>
+    └ <__main__.Manager object at 0x7f12e402ed00>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 76, in run_processes
+    self.start_processes()
+    │    └ <function Manager.start_processes at 0x7f12e403d3a0>
+    └ <__main__.Manager object at 0x7f12e402ed00>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 84, in start_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f12e6fd9940>
+    └ <Process name='Process-1' parent=24786 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=24786 started>
+    │    │        │    └ <staticmethod object at 0x7f12e6fd5a00>
+    │    │        └ <Process name='Process-1' parent=24786 started>
+    │    └ None
+    └ <Process name='Process-1' parent=24786 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=24786 started>
+           │                └ <function DefaultContext.get_context at 0x7f12e6ffb3a0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f12e6fdbdf0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=24786 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=24786 started>
+    │    └ <function Popen._launch at 0x7f12dfb8eca0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f12dfb83e50>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f12e6fef280>
+           └ <Process name='Process-1' parent=24786 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f12e6fd98b0>
+    └ <Process name='Process-1' parent=24786 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=24786 started>
+    │    │        │    └ (RequestDataSet(id=44, text='lasik', xml='<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response ...
+    │    │        └ <Process name='Process-1' parent=24786 started>
+    │    └ <function Yandex at 0x7f12e4039280>
+    └ <Process name='Process-1' parent=24786 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 256, in __init__
+    self.get_site_list()
+    │    └ <function Yandex.get_site_list at 0x7f12e4039820>
+    └ <__main__.Yandex object at 0x7f12e6fdb7c0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 345, in get_site_list
+    top_direct_sites = self._parse_url_data_from_page_xml('query', 'topads')
+                       │    └ <function Yandex._parse_url_data_from_page_xml at 0x7f12e4039670>
+                       └ <__main__.Yandex object at 0x7f12e6fdb7c0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 313, in _parse_url_data_from_page_xml
+    return self.page_xml.find(ad_tag).find_all(xml_tag)
+           │    │        │    │                └ 'query'
+           │    │        │    └ 'topads'
+           │    │        └ <method 'find' of 'str' objects>
+           │    └ ''
+           └ <__main__.Yandex object at 0x7f12e6fdb7c0>
+
+AttributeError: 'int' object has no attribute 'find_all'
+17:43:03 An error has been caught in function 'run', process 'Process-1' (25036), thread 'MainThread' (140015784388416):
+Traceback (most recent call last):
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 1020, in <module>
+    Manager()
+    └ <function Manager at 0x7f57f68b4ca0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 39, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f57f2abb700>
+    └ <__main__.Manager object at 0x7f57f2ab4cd0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 76, in run_processes
+    self.start_processes()
+    │    └ <function Manager.start_processes at 0x7f57f2abb820>
+    └ <__main__.Manager object at 0x7f57f2ab4cd0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 84, in start_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f57f68a0ca0>
+    └ <Process name='Process-1' parent=25034 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=25034 started>
+    │    │        │    └ <staticmethod object at 0x7f57f6a1e430>
+    │    │        └ <Process name='Process-1' parent=25034 started>
+    │    └ None
+    └ <Process name='Process-1' parent=25034 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=25034 started>
+           │                └ <function DefaultContext.get_context at 0x7f57f696b790>
+           └ <multiprocessing.context.DefaultContext object at 0x7f57f68a4640>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=25034 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=25034 started>
+    │    └ <function Popen._launch at 0x7f57f2a7d0d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f57f2a68dc0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f57f68a35e0>
+           └ <Process name='Process-1' parent=25034 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f57f68a0c10>
+    └ <Process name='Process-1' parent=25034 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=25034 started>
+    │    │        │    └ (RequestDataSet(id=44, text='lasik', xml='<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response ...
+    │    │        └ <Process name='Process-1' parent=25034 started>
+    │    └ <function Yandex at 0x7f57f2ac7700>
+    └ <Process name='Process-1' parent=25034 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 255, in __init__
+    self.get_site_list()
+    │    └ <function Yandex.get_site_list at 0x7f57f2ac7ca0>
+    └ <__main__.Yandex object at 0x7f57f68079d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 344, in get_site_list
+    top_direct_sites = self._parse_url_data_from_page_xml('query', 'topads')
+                       │    └ <function Yandex._parse_url_data_from_page_xml at 0x7f57f2ac7af0>
+                       └ <__main__.Yandex object at 0x7f57f68079d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 312, in _parse_url_data_from_page_xml
+    return self.xml_text.find(ad_tag).find_all(xml_tag)
+           │    │        │    │                └ 'query'
+           │    │        │    └ 'topads'
+           │    │        └ <function Tag.find at 0x7f57f5ba51f0>
+           │    └ <?xml version="1.0" encoding="UTF-8" ?><html><body><yandexsearch version="1.0">
+           │      <response date="20210529T101600"><found prior...
+           └ <__main__.Yandex object at 0x7f57f68079d0>
+
+AttributeError: 'NoneType' object has no attribute 'find_all'
+17:46:39 An error has been caught in function 'run', process 'Process-1' (25214), thread 'MainThread' (140290936780608):
+Traceback (most recent call last):
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2131, in <module>
+    main()
+    └ <function main at 0x7f98060bd4c0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2122, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 45759, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x7f98060ba4c0>
+              └ <__main__.PyDB object at 0x7f98068bdee0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1431, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x7f98060ba550>
+           └ <__main__.PyDB object at 0x7f98068bdee0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1438, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+    │             └ <function execfile at 0x7f9806f73280>
+    └ <module '_pydev_bundle.pydev_imports' from '/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_bundle/...
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_imps/_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+                 └ 'from microservices.conc_settings import *\nfrom multiprocessing import Process, Queue\nfrom threading import Thread\nfrom lo...
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 1024, in <module>
+    Manager()
+    └ <function Manager at 0x7f98046710d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 39, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f97f524c280>
+    └ <__main__.Manager object at 0x7f98042a0910>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 76, in run_processes
+    self.start_processes()
+    │    └ <function Manager.start_processes at 0x7f97f524c3a0>
+    └ <__main__.Manager object at 0x7f98042a0910>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 84, in start_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f9804679940>
+    └ <Process name='Process-1' parent=25204 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=25204 started>
+    │    │        │    └ <staticmethod object at 0x7f98046679d0>
+    │    │        └ <Process name='Process-1' parent=25204 started>
+    │    └ None
+    └ <Process name='Process-1' parent=25204 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=25204 started>
+           │                └ <function DefaultContext.get_context at 0x7f9805ecd3a0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f980467bdc0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=25204 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=25204 started>
+    │    └ <function Popen._launch at 0x7f97f5201c10>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f97f51f5fa0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f980467f280>
+           └ <Process name='Process-1' parent=25204 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f98046798b0>
+    └ <Process name='Process-1' parent=25204 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=25204 started>
+    │    │        │    └ (RequestDataSet(id=44, text='lasik', xml='<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response ...
+    │    │        └ <Process name='Process-1' parent=25204 started>
+    │    └ <function Yandex at 0x7f97f51cf280>
+    └ <Process name='Process-1' parent=25204 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 255, in __init__
+    self.get_site_list()
+    │    └ <function Yandex.get_site_list at 0x7f97f51cf820>
+    └ <__main__.Yandex object at 0x7f980467b790>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 350, in get_site_list
+    bottom_direct_sites = self._parse_url_data_from_page_xml('query', 'bottomads')
+                          │    └ <function Yandex._parse_url_data_from_page_xml at 0x7f97f51cf670>
+                          └ <__main__.Yandex object at 0x7f980467b790>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 314, in _parse_url_data_from_page_xml
+    return self.text.find_all(xml_tag)
+           │                  └ 'query'
+           └ <__main__.Yandex object at 0x7f980467b790>
+
+AttributeError: 'Yandex' object has no attribute 'text'
+17:46:43 An error has been caught in function 'run', process 'Process-1' (25279), thread 'MainThread' (140712012965696):
+Traceback (most recent call last):
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 1024, in <module>
+    Manager()
+    └ <function Manager at 0x7ffa11006ca0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 39, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7ffa0d20b700>
+    └ <__main__.Manager object at 0x7ffa0d204cd0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 76, in run_processes
+    self.start_processes()
+    │    └ <function Manager.start_processes at 0x7ffa0d20b820>
+    └ <__main__.Manager object at 0x7ffa0d204cd0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 84, in start_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7ffa10ff0ca0>
+    └ <Process name='Process-1' parent=25276 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=25276 started>
+    │    │        │    └ <staticmethod object at 0x7ffa1116f460>
+    │    │        └ <Process name='Process-1' parent=25276 started>
+    │    └ None
+    └ <Process name='Process-1' parent=25276 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=25276 started>
+           │                └ <function DefaultContext.get_context at 0x7ffa110bb790>
+           └ <multiprocessing.context.DefaultContext object at 0x7ffa10ff3640>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=25276 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=25276 started>
+    │    └ <function Popen._launch at 0x7ffa0d1cd0d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7ffa0d1b8dc0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7ffa10ff55e0>
+           └ <Process name='Process-1' parent=25276 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7ffa10ff0c10>
+    └ <Process name='Process-1' parent=25276 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=25276 started>
+    │    │        │    └ (RequestDataSet(id=44, text='lasik', xml='<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response ...
+    │    │        └ <Process name='Process-1' parent=25276 started>
+    │    └ <function Yandex at 0x7ffa0d217700>
+    └ <Process name='Process-1' parent=25276 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 255, in __init__
+    self.get_site_list()
+    │    └ <function Yandex.get_site_list at 0x7ffa0d217ca0>
+    └ <__main__.Yandex object at 0x7ffa10f579d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 350, in get_site_list
+    bottom_direct_sites = self._parse_url_data_from_page_xml('query', 'bottomads')
+                          │    └ <function Yandex._parse_url_data_from_page_xml at 0x7ffa0d217af0>
+                          └ <__main__.Yandex object at 0x7ffa10f579d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 314, in _parse_url_data_from_page_xml
+    return self.text.find_all(xml_tag)
+           │                  └ 'query'
+           └ <__main__.Yandex object at 0x7ffa10f579d0>
+
+AttributeError: 'Yandex' object has no attribute 'text'
+17:47:50 An error has been caught in function 'run', process 'Process-1' (25310), thread 'MainThread' (140054846109504):
+Traceback (most recent call last):
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2131, in <module>
+    main()
+    └ <function main at 0x7f610df204c0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2122, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 34855, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x7f610df1c4c0>
+              └ <__main__.PyDB object at 0x7f610e721ee0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1431, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x7f610df1c550>
+           └ <__main__.PyDB object at 0x7f610e721ee0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1438, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+    │             └ <function execfile at 0x7f610edd7280>
+    └ <module '_pydev_bundle.pydev_imports' from '/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_bundle/...
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_imps/_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+                 └ 'from microservices.conc_settings import *\nfrom multiprocessing import Process, Queue\nfrom threading import Thread\nfrom lo...
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 1024, in <module>
+    Manager()
+    └ <function Manager at 0x7f610c4d50d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 39, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f610c08f280>
+    └ <__main__.Manager object at 0x7f610c07feb0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 76, in run_processes
+    self.start_processes()
+    │    └ <function Manager.start_processes at 0x7f610c08f3a0>
+    └ <__main__.Manager object at 0x7f610c07feb0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 84, in start_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f610c4c9940>
+    └ <Process name='Process-1' parent=25301 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=25301 started>
+    │    │        │    └ <staticmethod object at 0x7f610c4c4a30>
+    │    │        └ <Process name='Process-1' parent=25301 started>
+    │    └ None
+    └ <Process name='Process-1' parent=25301 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=25301 started>
+           │                └ <function DefaultContext.get_context at 0x7f610c4ec3a0>
+           └ <multiprocessing.context.DefaultContext object at 0x7f610c4cadf0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=25301 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=25301 started>
+    │    └ <function Popen._launch at 0x7f610c042c10>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f610c036d00>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7f610c4df280>
+           └ <Process name='Process-1' parent=25301 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f610c4c98b0>
+    └ <Process name='Process-1' parent=25301 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=25301 started>
+    │    │        │    └ (RequestDataSet(id=44, text='lasik', xml='<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response ...
+    │    │        └ <Process name='Process-1' parent=25301 started>
+    │    └ <function Yandex at 0x7f610c08d280>
+    └ <Process name='Process-1' parent=25301 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 255, in __init__
+    self.get_site_list()
+    │    └ <function Yandex.get_site_list at 0x7f610c08d820>
+    └ <__main__.Yandex object at 0x7f610c4ca7f0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 352, in get_site_list
+    self._prepare_site_data(top_direct_sites, organic_sites, bottom_direct_sites)
+    │    │                  │                 │              └ [<query><url>monaliza18.ru</url><title>Глазная клиника "Мона Лиза". Лазерная коррекция зрения</title><snippet>Офтальмологичес...
+    │    │                  │                 └ [<doc><url>https://ru.wikipedia.org/wiki/LASIK</url><title>LASIK — Википедия</title><breadcrumbs></breadcrumbs><passages><pas...
+    │    │                  └ []
+    │    └ <function Yandex._prepare_site_data at 0x7f610c08d790>
+    └ <__main__.Yandex object at 0x7f610c4ca7f0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 330, in _prepare_site_data
+    self._make_datasets(top_direct_sites, 'direct')
+    │    │              └ []
+    │    └ <function Yandex._make_datasets at 0x7f610c08d700>
+    └ <__main__.Yandex object at 0x7f610c4ca7f0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 321, in _make_datasets
+    order_on_page = self._prepare_site_data.order_on_page
+                    │    └ <function Yandex._prepare_site_data at 0x7f610c08d790>
+                    └ <__main__.Yandex object at 0x7f610c4ca7f0>
+
+AttributeError: 'function' object has no attribute 'order_on_page'
+17:47:54 An error has been caught in function 'run', process 'Process-1' (25400), thread 'MainThread' (139973379295040):
+Traceback (most recent call last):
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 1024, in <module>
+    Manager()
+    └ <function Manager at 0x7f4e17010ca0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 39, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7f4e13215700>
+    └ <__main__.Manager object at 0x7f4e1320cd30>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 76, in run_processes
+    self.start_processes()
+    │    └ <function Manager.start_processes at 0x7f4e13215820>
+    └ <__main__.Manager object at 0x7f4e1320cd30>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 84, in start_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7f4e16ffbca0>
+    └ <Process name='Process-1' parent=25398 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=25398 started>
+    │    │        │    └ <staticmethod object at 0x7f4e17178430>
+    │    │        └ <Process name='Process-1' parent=25398 started>
+    │    └ None
+    └ <Process name='Process-1' parent=25398 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=25398 started>
+           │                └ <function DefaultContext.get_context at 0x7f4e170c5790>
+           └ <multiprocessing.context.DefaultContext object at 0x7f4e16ffe640>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=25398 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=25398 started>
+    │    └ <function Popen._launch at 0x7f4e131d70d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7f4e131c2e50>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7f4e16ffd5e0>
+           └ <Process name='Process-1' parent=25398 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7f4e16ffbc10>
+    └ <Process name='Process-1' parent=25398 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=25398 started>
+    │    │        │    └ (RequestDataSet(id=44, text='lasik', xml='<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response ...
+    │    │        └ <Process name='Process-1' parent=25398 started>
+    │    └ <function Yandex at 0x7f4e13221700>
+    └ <Process name='Process-1' parent=25398 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 255, in __init__
+    self.get_site_list()
+    │    └ <function Yandex.get_site_list at 0x7f4e13221ca0>
+    └ <__main__.Yandex object at 0x7f4e16f619d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 352, in get_site_list
+    self._prepare_site_data(top_direct_sites, organic_sites, bottom_direct_sites)
+    │    │                  │                 │              └ [<query><url>monaliza18.ru</url><title>Глазная клиника "Мона Лиза". Лазерная коррекция зрения</title><snippet>Офтальмологичес...
+    │    │                  │                 └ [<doc><url>https://ru.wikipedia.org/wiki/LASIK</url><title>LASIK — Википедия</title><breadcrumbs></breadcrumbs><passages><pas...
+    │    │                  └ []
+    │    └ <function Yandex._prepare_site_data at 0x7f4e13221c10>
+    └ <__main__.Yandex object at 0x7f4e16f619d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 330, in _prepare_site_data
+    self._make_datasets(top_direct_sites, 'direct')
+    │    │              └ []
+    │    └ <function Yandex._make_datasets at 0x7f4e13221b80>
+    └ <__main__.Yandex object at 0x7f4e16f619d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 321, in _make_datasets
+    order_on_page = self._prepare_site_data.order_on_page
+                    │    └ <function Yandex._prepare_site_data at 0x7f4e13221c10>
+                    └ <__main__.Yandex object at 0x7f4e16f619d0>
+
+AttributeError: 'function' object has no attribute 'order_on_page'
+17:51:55 An error has been caught in function 'run', process 'Process-1' (25578), thread 'MainThread' (140388104808256):
+Traceback (most recent call last):
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2131, in <module>
+    main()
+    └ <function main at 0x7faea5b604c0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 2122, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 39217, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x7faea5b624c0>
+              └ <__main__.PyDB object at 0x7faea6363ee0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1431, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x7faea5b62550>
+           └ <__main__.PyDB object at 0x7faea6363ee0>
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/pydevd.py", line 1438, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+    │             └ <function execfile at 0x7faea6a1a280>
+    └ <module '_pydev_bundle.pydev_imports' from '/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_bundle/...
+
+  File "/home/wenfort/Загрузки/pycharm-2020.1/plugins/python/helpers/pydev/_pydev_imps/_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ '/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py'
+                 └ 'from microservices.conc_settings import *\nfrom multiprocessing import Process, Queue\nfrom threading import Thread\nfrom lo...
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 1025, in <module>
+    Manager()
+    └ <function Manager at 0x7faea41180d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 39, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7fae94cf9280>
+    └ <__main__.Manager object at 0x7fae94ce8f10>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 76, in run_processes
+    self.start_processes()
+    │    └ <function Manager.start_processes at 0x7fae94cf93a0>
+    └ <__main__.Manager object at 0x7fae94ce8f10>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 84, in start_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7faea410d940>
+    └ <Process name='Process-1' parent=25567 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=25567 started>
+    │    │        │    └ <staticmethod object at 0x7faea4109a00>
+    │    │        └ <Process name='Process-1' parent=25567 started>
+    │    └ None
+    └ <Process name='Process-1' parent=25567 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=25567 started>
+           │                └ <function DefaultContext.get_context at 0x7faea59753a0>
+           └ <multiprocessing.context.DefaultContext object at 0x7faea4110dc0>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=25567 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=25567 started>
+    │    └ <function Popen._launch at 0x7fae94cabc10>
+    └ <multiprocessing.popen_fork.Popen object at 0x7fae94c9fd60>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 9
+           │           └ <function BaseProcess._bootstrap at 0x7faea4124280>
+           └ <Process name='Process-1' parent=25567 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7faea410d8b0>
+    └ <Process name='Process-1' parent=25567 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=25567 started>
+    │    │        │    └ (RequestDataSet(id=44, text='lasik', xml='<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response ...
+    │    │        └ <Process name='Process-1' parent=25567 started>
+    │    └ <function Yandex at 0x7fae94cf8280>
+    └ <Process name='Process-1' parent=25567 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 255, in __init__
+    self.get_site_list()
+    │    └ <function Yandex.get_site_list at 0x7fae94cf8820>
+    └ <__main__.Yandex object at 0x7faea4110790>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 353, in get_site_list
+    self._prepare_site_data(top_direct_sites, organic_sites, bottom_direct_sites)
+    │    │                  │                 │              └ [<query><url>monaliza18.ru</url><title>Глазная клиника "Мона Лиза". Лазерная коррекция зрения</title><snippet>Офтальмологичес...
+    │    │                  │                 └ [<doc><url>https://ru.wikipedia.org/wiki/LASIK</url><title>LASIK — Википедия</title><breadcrumbs></breadcrumbs><passages><pas...
+    │    │                  └ []
+    │    └ <function Yandex._prepare_site_data at 0x7fae94cf8790>
+    └ <__main__.Yandex object at 0x7faea4110790>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 330, in _prepare_site_data
+    self._prepare_site_data.order_on_page = 1
+    │    └ <function Yandex._prepare_site_data at 0x7fae94cf8790>
+    └ <__main__.Yandex object at 0x7faea4110790>
+
+AttributeError: 'method' object has no attribute 'order_on_page'
+17:51:59 An error has been caught in function 'run', process 'Process-1' (25632), thread 'MainThread' (140677392488256):
+Traceback (most recent call last):
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 1025, in <module>
+    Manager()
+    └ <function Manager at 0x7ff20175dca0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 39, in __init__
+    self.run_processes()
+    │    └ <function Manager.run_processes at 0x7ff1fd962700>
+    └ <__main__.Manager object at 0x7ff1fd960400>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 76, in run_processes
+    self.start_processes()
+    │    └ <function Manager.start_processes at 0x7ff1fd962820>
+    └ <__main__.Manager object at 0x7ff1fd960400>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 84, in start_processes
+    process.start()
+    │       └ <function BaseProcess.start at 0x7ff201748ca0>
+    └ <Process name='Process-1' parent=25625 started>
+
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+    │    │        │    │      └ <Process name='Process-1' parent=25625 started>
+    │    │        │    └ <staticmethod object at 0x7ff2018c5430>
+    │    │        └ <Process name='Process-1' parent=25625 started>
+    │    └ None
+    └ <Process name='Process-1' parent=25625 started>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+           │                │                            └ <Process name='Process-1' parent=25625 started>
+           │                └ <function DefaultContext.get_context at 0x7ff201812790>
+           └ <multiprocessing.context.DefaultContext object at 0x7ff20174a640>
+  File "/usr/lib/python3.8/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+           │     └ <Process name='Process-1' parent=25625 started>
+           └ <class 'multiprocessing.popen_fork.Popen'>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+    │    │       └ <Process name='Process-1' parent=25625 started>
+    │    └ <function Popen._launch at 0x7ff1fd9240d0>
+    └ <multiprocessing.popen_fork.Popen object at 0x7ff1fd91c1c0>
+  File "/usr/lib/python3.8/multiprocessing/popen_fork.py", line 75, in _launch
+    code = process_obj._bootstrap(parent_sentinel=child_r)
+           │           │                          └ 7
+           │           └ <function BaseProcess._bootstrap at 0x7ff20174b5e0>
+           └ <Process name='Process-1' parent=25625 started>
+  File "/usr/lib/python3.8/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x7ff201748c10>
+    └ <Process name='Process-1' parent=25625 started>
+> File "/usr/lib/python3.8/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Process name='Process-1' parent=25625 started>
+    │    │        │    └ (RequestDataSet(id=44, text='lasik', xml='<?xml version="1.0" encoding="UTF-8" ?>\n<yandexsearch version="1.0">\n  <response ...
+    │    │        └ <Process name='Process-1' parent=25625 started>
+    │    └ <function Yandex at 0x7ff1fd96e700>
+    └ <Process name='Process-1' parent=25625 started>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 255, in __init__
+    self.get_site_list()
+    │    └ <function Yandex.get_site_list at 0x7ff1fd96eca0>
+    └ <__main__.Yandex object at 0x7ff2016ae9d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 353, in get_site_list
+    self._prepare_site_data(top_direct_sites, organic_sites, bottom_direct_sites)
+    │    │                  │                 │              └ [<query><url>monaliza18.ru</url><title>Глазная клиника "Мона Лиза". Лазерная коррекция зрения</title><snippet>Офтальмологичес...
+    │    │                  │                 └ [<doc><url>https://ru.wikipedia.org/wiki/LASIK</url><title>LASIK — Википедия</title><breadcrumbs></breadcrumbs><passages><pas...
+    │    │                  └ []
+    │    └ <function Yandex._prepare_site_data at 0x7ff1fd96ec10>
+    └ <__main__.Yandex object at 0x7ff2016ae9d0>
+
+  File "/home/wenfort/PycharmProjects/concurent_site_release/microservices/new_requests_handler.py", line 330, in _prepare_site_data
+    self._prepare_site_data.order_on_page = 1
+    │    └ <function Yandex._prepare_site_data at 0x7ff1fd96ec10>
+    └ <__main__.Yandex object at 0x7ff2016ae9d0>
+
+AttributeError: 'method' object has no attribute 'order_on_page'
