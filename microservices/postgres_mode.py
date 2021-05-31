@@ -95,11 +95,14 @@ def custom_request_to_database_without_return(sql):
     conn.commit()
     conn.close()
 
-def custom_request_to_database_with_return(sql):
+def custom_request_to_database_with_return(sql, fetchone=''):
     conn = psycopg2.connect(dbname=DATABASE, user=USER, password=PASSWORD, host=HOST)
     cursor = conn.cursor()
     cursor.execute(sql)
-    data = cursor.fetchall()
+    if fetchone:
+        data = cursor.fetchone()
+    else:
+        data = cursor.fetchall()
     conn.commit()
     conn.close()
     return data

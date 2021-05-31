@@ -213,7 +213,7 @@ class Concurency:
 
         self.get_concurency_from_database()
         if self.check_is_absourd_request():
-            self.importance = ABSURD_STEM_IMPORTANCE
+            self.importance = ABSURD_IMPORTANCE
         else:
             self.importance = STANDART_IMPORTANCE
 

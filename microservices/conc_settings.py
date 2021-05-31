@@ -1,5 +1,6 @@
 core_number = 4
 REQUEST_COST = 0.5
+CURRENT_YEAR = 2021
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -114,7 +115,7 @@ STANDART_IMPORTANCE = {
     'Ссылочное': 0.2,
 }
 
-ABSURD_STEM_IMPORTANCE = {
+ABSURD_IMPORTANCE = {
     'Возраст сайта': 0.15,
     'Стемирование': 0.7,
     'Объем статей': 0,

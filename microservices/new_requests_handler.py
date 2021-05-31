@@ -3,13 +3,13 @@ from multiprocessing import Process, Queue
 from threading import Thread
 from loguru import logger
 import time
-import pymorphy2
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from microservices import postgres_mode as pm
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from main.tools.stemmer import stem_text
 
 
 @dataclass
@@ -26,6 +26,18 @@ class SiteDataSet:
     html: str
     type: str
     order_on_page: int
+    domain: str = ''
+    invalid_domain_zone: bool = False
+    domain_age: int = 0
+    unique_backlinks: int = 0
+    total_backlinks: int = 0
+    backlinks_status: str = ''
+    domain_group: int = 0
+    content_letters_amount: int = 0
+    content_stemmed_title: list = field(default_factory=lambda: [])
+    is_content_valid: bool = True
+
+
 
 @logger.catch
 class Manager:
@@ -143,90 +155,93 @@ class Manager:
                 sql = f"UPDATE concurent_site.main_handledxml SET status = 'conf' WHERE request_id = {yandex_object['ID запроса']};"
                 pm.custom_request_to_database_without_return(sql)
 
+
 @logger.catch
 class Site:
-    def __init__(self, position, soup):
-        self.start = time.time()
-        self.soup = soup[0]
-        self.estimated_site_type = soup[1]
-        self.position = position
+    def __init__(self, site_dataset):
+        self.site_dataset = site_dataset
+
         self.url = str()
-        self.domain = str()
-        self.site_type = str()
         self.html = str()
-        self.domain_object = str()
-        self.content_object = str()
 
         self.get_url()
-        self.get_domain()
         self.get_site_type()
+        self.get_domain()
 
-        if self.estimated_site_type == 'unknown':
-            try:
-                self.get_html()
-                self.make_content_object()
-                self.make_domain_object()
-            except:
-                logger.critical(f'Критическая ошибка с доменом {self.domain}')
-
-        self.clean_garbage()
-
-    def clean_garbage(self):
-        del self.html
-        del self.start
-        del self.soup
-        del self.domain
+        self.get_html()
+        self.add_domain_data_to_dataset()
+        self.add_content_data_to_dataset()
 
     def get_url(self):
-        self.url = self.soup.find('url').text
+        self.url = self.site_dataset.html.find('url').text
+        if 'http' not in self.url:
+            self.url = 'https://' + self.url
 
     def get_site_type(self):
-        if self.estimated_site_type == 'direct' or 'yabs.yandex.ru' in self.url:
-            self.site_type = 'direct'
-        elif 'yandex.ru' in self.url or 'youtube.com' in self.url or 'wikipedia.org' in self.url:
-            self.site_type = 'super'
-        else:
-            self.site_type = 'organic'
+        """
+        Иногда, XML сервис работает некорректно и показывает полное отсутствие рекламных блоков. Но, на самом деле,
+        они есть. Просто спарсились как стандартные объявления вида yabs.yandex.ru.
+        Этот метод перепроверяет estimated_site_type и выносит окончательный вердикт, является ли сайт рекламный.
+        Перепроверка по URL, а не по всему html блоку занимает не очень много времени,
+        но делает результаты на 100% точными.
+        """
+        if self.site_dataset.type == 'direct' or 'yabs.yandex.ru' in self.url:
+            self.site_dataset.type = 'direct'
 
     def get_domain(self):
-        if self.estimated_site_type == 'direct':
-            self.domain = self.url
+        """
+        Домены могут быть разных уровней. В большинстве случаев достаточно просто получить домен с помощью
+        библиотеки urlparse и отрезать www. Но иногда, яндекс показывает домены без указания первого уровня. Напимер:
+        okna-msk. К таким доменам автоматически добавляется .ru. В to-do листе есть задача по более точному
+        определению домена первого уровня, так как, теориетически, это может быть и .net и .com, но пока не реализована.
+        Еще одна проблема - домены третьего и даже четвертого уровня. Цикл проходит по таким доменам и обрезает лишнее
+        вплоть до домена 2 уровня.
+        Самый спорный момент - присвоение домена abstract-average-site.ru при нахождении Турбо Страницы. Так как
+        реальный url можно получить только после открытия турбо-страницы, а они генерируются с помощью JS, необходимо
+        поднимать Selenium. И поскольку Selenium в проекте больше нигде не используется, пришлось бы заложить
+        дополнительные требования к ОЗУ, что приведет к удорожанию проекта. Либо можно просто
+        пожертвовать незначительной долей точности и обрабатывать турбо страницы (они встречаются довольно редко) как
+        абстрактный сайт с усредненными показателями
+        """
+        if self.site_dataset.type == 'direct':
+            domain = self.url
         else:
-            self.domain = urlparse(self.url)
-            self.domain = self.domain.netloc
-            self.domain.replace('www.', '')
+            domain = urlparse(self.url)
+            domain = domain.netloc
+            domain.replace('www.', '')
 
-        if 'Турбо-страница' in self.domain:
-            self.domain = 'yandex.ru'
+        if 'Турбо-страница' in domain:
+            domain = 'abstract-average-site.ru'
 
-        if self.domain.count('.') == 0:
-            self.domain = self.domain + '.ru'
+        if domain.count('.') == 0:
+            domain = domain + '.ru'
 
-        while self.domain.count('.') != 1:
-            first_dot = self.domain.find('.') + 1
-            self.domain = self.domain[first_dot:]
+        while domain.count('.') != 1:
+            first_dot = domain.find('.') + 1
+            domain = domain[first_dot:]
+
+        self.site_dataset.domain = domain
 
     def is_pdf(self):
         if '.pdf' in self.url:
             return True
-        else:
-            return False
 
     def get_html(self):
-        try:
+        """
+        Метод принимает URL и перепроверяет не ведет ли он на pdf файл. Если все в порядке, то собирантся html под
+        сайта и парсится с помощью BS4.
+        """
+        if not self.is_pdf():
             r = requests.get(self.url, headers=HEADERS, verify=False, timeout=15).content
-            if not self.is_pdf():
-                self.html = BeautifulSoup(r, 'html.parser')
-            else:
-                self.html = ''
-        except:
-            logger.critical(f'Не удалось загрузить {self.url}')
+            self.html = BeautifulSoup(r, 'html.parser')
+        else:
+            self.html = ''
 
-    def make_domain_object(self):
-        self.domain_object = Domain(self.domain)
+    def add_domain_data_to_dataset(self):
+        Domain(self.site_dataset)
 
-    def make_content_object(self):
-        self.content_object = Content(self.html, self.site_type, self.domain)
+    def add_content_data_to_dataset(self):
+        Content(self.html, self.site_dataset)
 
 
 @logger.catch
@@ -238,27 +253,21 @@ class Yandex:
         self.xml_text = request.xml
         self.region_id = request.region_id
         self.q = q
-        self.stemmed_request = list()
+
         self.site_list = list()
-        self.site_objects_list = list()
         self.thread_list = str()
-        self.concurency_object = str()
-        self.result = dict()
-        self.request_views = int()
+        self.concurency_object = object()
+        self.order_on_page = int()
 
         self.start_logging()
-
-        self.stem_request()
-
+        self.stemmed_request = stem_text(self.request_text)
         self.parse_xml_text_with_bs4()
         self.get_request_views()
         self.get_site_list()
 
         self.clean_garbage()
 
-        self.make_threads()
         self.run_threads()
-        self.check_threads()
 
         self.make_concurency_object()
         self.prepare_result()
@@ -281,90 +290,68 @@ class Yandex:
         logger.debug('Класс Yandex создан')
         logger.info(f'Запрос: {self.request_text}')
 
-    def _is_functional_part_of_speech(self, part_of_speech):
-        if part_of_speech == 'PREP' or part_of_speech == 'CONJ' or part_of_speech == 'PRCL' or part_of_speech == 'INTJ':
-            return True
-
-    def stem_request(self):
-        """
-        Стемироание - приведение слова к его изначальной форме. Например, слова "покупка" и "купить" будет приведены
-        к слову "купить". Это очень полезно для оценки конкуренции по вхождению ключевых слов в заголовок страницы.
-        Метод _is_functional_part_of_speech отсекает служебные части речи. Они не нужны.
-        """
-        morpher = pymorphy2.MorphAnalyzer()
-        for word in self.request_text.split():
-            stemed_word = morpher.parse(word)
-            the_best_form_of_stemed_word = stemed_word[0]
-            part_of_speech = str(the_best_form_of_stemed_word.tag.POS)
-            if not self._is_functional_part_of_speech(part_of_speech):
-                self.stemmed_request.append(the_best_form_of_stemed_word.normal_form)
-
-        logger.info(f'Стемированный запрос: {self.stemmed_request}')
-
     def parse_xml_text_with_bs4(self):
         self.xml_text = BeautifulSoup(self.xml_text, 'lxml')
 
     def _parse_url_data_from_page_xml(self, xml_tag, ad_tag=''):
         """
-        Из объекта BS4 парсится html код, содержащий базовую информацию о сайте
+        Метод ищет в xml список сайтов внутри тега xml_tag. Очень важно разделить рекламные сайты и органические,
+        поэтому в некоторых случаях передается необязательный аргумент ad_tag. Если в ad_tag нет сайтов, возвращается
+        пустой список
         """
         if ad_tag:
-            text = self.xml_text.find(ad_tag)
-            if text:
-                return text.find_all(xml_tag)
-            else:
+            try:
+                return self.xml_text.find(ad_tag).find_all(xml_tag)
+            except:
                 return []
         else:
             return self.xml_text.find_all(xml_tag)
 
-    def _make_datasets(self, html_list, site_type):
-
-        order_on_page = self._prepare_site_data.order_on_page
-        for site in html_list:
-            site_dataset = SiteDataSet(html=site, type=site_type, order_on_page=order_on_page)
-            order_on_page += 1
+    def _prepare_datasets(self, site_list, site_list_type):
+        """
+        Метод принимает распаршенный список html блоков. Каждый из блок - сниппет сайта из поисковой страницы Яндекса.
+        Также, метод принимает тип списка: direct(реклама) или organic(не реклама)
+        Подготавливается датасет, в который отправлется html блок из списка site_list, тип сайта и его
+            порядок на поисковой странице Яндекса
+        """
+        for site in site_list:
+            site_dataset = SiteDataSet(html=site, type=site_list_type, order_on_page=self.order_on_page)
+            self.order_on_page += 1
             self.site_list.append(site_dataset)
 
-    def _prepare_site_data(self, top_direct_sites, organic_sites, bottom_direct_sites):
-
-        self._prepare_site_data.order_on_page = 1
-        self._make_datasets(top_direct_sites, 'direct')
-
-        for site in top_direct_sites:
-            site_dataset = SiteDataSet(html=site, type='direct', order_on_page=order_on_page)
-            order_on_page += 1
-            self.site_list.append(site_dataset)
-
-        for site in organic_sites:
-            site_dataset = SiteDataSet(html=site, type='organic', order_on_page=order_on_page)
-            order_on_page += 1
-            self.site_list.append(site_dataset)
-
-        for site in bottom_direct_sites:
-            site_dataset = SiteDataSet(html=site, type='direct', order_on_page=order_on_page)
-            order_on_page += 1
-            self.site_list.append(site_dataset)
+    def _prepare_all_datasets(self, top_direct_sites, organic_sites, bottom_direct_sites):
+        self._prepare_datasets(top_direct_sites, 'direct')
+        self._prepare_datasets(organic_sites, 'organic')
+        self._prepare_datasets(bottom_direct_sites, 'direct')
 
     def get_site_list(self):
         top_direct_sites = self._parse_url_data_from_page_xml('query', 'topads')
         organic_sites = self._parse_url_data_from_page_xml('doc')
         bottom_direct_sites = self._parse_url_data_from_page_xml('query', 'bottomads')
 
-        self._prepare_site_data(top_direct_sites, organic_sites, bottom_direct_sites)
+        self._prepare_all_datasets(top_direct_sites, organic_sites, bottom_direct_sites)
 
-        logger.info(f'Собран список сайтов {self.request}')
+        logger.info(f'Собран список сайтов {self.request_text}')
 
     def clean_garbage(self):
-        del self.xml
+        """
+        Полный XML страницы больше не понадобится, при этом, он занимает очень много места в оперативной памяти.
+        """
+        del self.xml_text
 
-    def make_site_object(self, position, site):
-        self.site_objects_list.append(Site(position, site))
-
-    def make_threads(self):
-        self.thread_list = [Thread(target=self.make_site_object, args=(str(position), site)) for position, site in
-                            enumerate(self.site_list, 1)]
+    def make_site_object(self, site_dataset):
+        Site(site_dataset)
 
     def run_threads(self):
+        self.make_threads()
+        self.start_threads()
+        self.check_threads()
+
+    def make_threads(self):
+        self.thread_list = [Thread(target=self.make_site_object, args=(site_dataset,))
+                            for site_dataset in self.site_list]
+
+    def start_threads(self):
         for thread in self.thread_list:
             thread.start()
 
@@ -373,7 +360,7 @@ class Yandex:
             thread.join()
 
     def make_concurency_object(self):
-        self.concurency_object = Concurency(self.site_objects_list, self.stemmed_request, self.request)
+        self.concurency_object = Concurency(self.site_list, self.stemmed_request)
 
     def prepare_result(self):
         self.result = {
@@ -426,179 +413,196 @@ class Yandex:
 
 @logger.catch
 class Backlinks:
-    def __init__(self, domain):
-        self.domain = domain
+    def __init__(self, site_dataset):
+        self.site_dataset = site_dataset
         self.token = str()
-        self.request_json = str()
-        self.total_backlinks = str()
-        self.unique_backlinks = str()
         self.status = str()
-        self.domain_group = 0
 
         self.get_token()
         self.get_backlinks()
 
     def get_token(self):
-        accounts_with_balance = pm.check_in_database('main_payload', 'balance', 25)
-        self.token = accounts_with_balance[0][0]
+        sql = "SELECT key FROM concurent_site.main_payload WHERE balance > 25 LIMIT 1;"
+
+        answer_from_database = pm.custom_request_to_database_with_return(sql)
+        self.token = answer_from_database[0][0]
 
     def get_backlinks(self):
+        service_api_url = 'https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey='
+        params = 'parameterList=mjDin,mjHin'
+        api_request_url = f'{service_api_url}{self.token}&host={self.site_dataset.domain}&{params}'
 
-        self.request_json = requests.get(
-            f'https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey={self.token}&host={self.domain}&parameterList=mjDin,mjHin').json()
+        request_json = requests.get(api_request_url).json()
 
-        if self.request_json['success'] == False:
-            logger.info(f'{self.domain} данные не получены по причине {self.request_json["message"]}')
-            self.unique_backlinks = 0
-            self.total_backlinks = 0
-            self.status = 'pending'
+        if not request_json['success']:
+            logger.info(f'{self.site_dataset.domain} данные не получены по причине {request_json["message"]}')
+            self.site_dataset.backlinks_status = 'pending'
         else:
-            self.unique_backlinks = int(self.request_json["summary"]["mjDin"])
-            self.total_backlinks = int(self.request_json["summary"]["mjHin"])
-            self.status = 'complete'
+            self.site_dataset.unique_backlinks = int(request_json["summary"]["mjDin"])
+            self.site_dataset.total_backlinks = int(request_json["summary"]["mjHin"])
+            self.site_dataset.backlinks_status = 'complete'
 
-            if self.unique_backlinks >= 10000 or self.total_backlinks >= 30000:
-                self.domain_group = 1
+            if self.site_dataset.unique_backlinks >= 10000 or self.site_dataset.total_backlinks >= 30000:
+                self.site_dataset.domain_group = 1
 
 
 @logger.catch
 class Domain:
-    def __init__(self, domain):
-        self.domain = domain
-        self.domain_age = str()
-        self.unique_backlinks = str()
-        self.total_backlinks = str()
-        self.backlinks_object = str()
-        self.domain_group = int()
+    def __init__(self, site_dataset):
+        self.site_dataset = site_dataset
+        self.domain_data_in_database = list()
 
-        if self.check_data_in_database():
-            pass
+        if self.is_domain_data_in_database():
+            self.add_domain_data_to_dataset()
         else:
             try:
-                self.get_domain_age()
-                self.make_backlinks_object()
-                self.domain_group = self.backlinks_object.domain_group
-                self.define_backlinks_amount()
-                self.add_domain_backlinks_to_database()
+                self.get_domain_data()
             except:
                 logger.critical(f'Проблемы с доменом {self.domain}')
 
-    def check_data_in_database(self):
-        check = pm.check_in_database('main_domain', 'name', self.domain)
+    def get_domain_data(self):
+        self.get_domain_age()
+        self.make_backlinks_object()
+        self.add_domain_backlinks_to_database()
 
-        if check:
-            self.domain_age = check[0][1]
-            self.unique_backlinks = check[0][2]
-            self.total_backlinks = check[0][3]
-            self.domain_group = check[0][5]
+    def add_domain_data_to_dataset(self):
+        self.site_dataset.domain_age = self.domain_data_in_database[0]
+        self.site_dataset.unique_backlinks = self.domain_data_in_database[1]
+        self.site_dataset.total_backlinks = self.domain_data_in_database[2]
+        self.site_dataset.domain_group = self.domain_data_in_database[3]
+
+    def is_domain_data_in_database(self):
+        sql = ("SELECT age, unique_backlinks, total_backlinks, domain_group "
+               "FROM concurent_site.main_domain "
+               f"WHERE name = '{self.site_dataset.domain}';")
+
+        self.domain_data_in_database = pm.custom_request_to_database_with_return(sql, 'one')
+
+        if self.domain_data_in_database:
             return True
-        else:
-            return False
-
-    def define_backlinks_amount(self):
-        self.unique_backlinks = self.backlinks_object.unique_backlinks
-        self.total_backlinks = self.backlinks_object.total_backlinks
 
     def add_domain_backlinks_to_database(self):
-        values_to_go = (
-            self.domain, self.domain_age, self.unique_backlinks,
-            self.total_backlinks, self.backlinks_object.status, self.backlinks_object.domain_group)
-        pm.add_to_database('main_domain', values_to_go)
+        sql = ("INSERT INTO "
+               "concurent_site.main_domain(name, age, unique_backlinks, total_backlinks, status, domain_group) "
+               "VALUES "
+               f"('{self.site_dataset.domain}', {self.site_dataset.domain_age}, {self.site_dataset.unique_backlinks},"
+               f"{self.site_dataset.total_backlinks}, '{self.site_dataset.backlinks_status}',"
+               f"{self.site_dataset.domain_group});")
+
+
+        pm.custom_request_to_database_without_return(sql)
+
+    def _get_domain_age_with_creation_date_pattern(self, soup):
+        start = soup.find('Creation Date') + 15
+        finish = start + 4
+        year = soup[start:finish]
+        self.site_dataset.domain_age = CURRENT_YEAR - int(year)
+
+    def _get_domain_age_with_registered_on_pattern(self, soup):
+        start = soup.find('Registered on')
+        finish = soup.find('Registry fee')
+        year = soup[start:finish].split()[4]
+        self.site_dataset.domain_age = CURRENT_YEAR - int(year)
+
+    def _get_domain_age_with_created_pattern(self, soup):
+        """
+        В отчетах по доменным зонам из кортежа invalid_domain_zones отсутствует год регистрации домена.
+        Однако, в них присутствует слово 'created', которое используется для идентификации паттерна.
+        Валидности данных о возрасте в таком случае присваивается флаг False, а возраст остается пустым.
+        """
+        invalid_domain_zones = ('.lv', '.club', '.to', '.ua', '.eu')
+        if any(zone in self.site_dataset.domain for zone in invalid_domain_zones):
+            self.site_dataset.invalid_domain_zone = False
+        else:
+            start = soup.find('created') + 8
+            finish = start + 4
+            item = soup[start:finish]
+            self.site_dataset.domain_age = CURRENT_YEAR - int(item)
 
     def get_domain_age(self):
-        URL = f'https://www.nic.ru/whois/?searchWord={self.domain}'
+        """
+        Чтобы получить возраст домена, необходимо обратиться к стороннему сервису, распарсить ответ и сравнить с
+        номером текущего года.
+        Сложность задачи в том, что во-первых, сторонний сервис поддерживает не все доменные зоны, а во-вторых,
+        формат ответа у разных доменных зон отичается. Есть три основных паттерна, использующих слова:
+        Creation Date
+        Registered on
+        created
+        В зависимости от наличия этих слов в html, запускается соответствующий паттерн обработки данных.
+        Если нашлась какая-то необычная доменная зона, домен добавляется в лог файл, валидность данных о возрасте в
+        таком случае присваивается флаг False, а возраст остается пустым.
+        """
+        URL = f'https://www.nic.ru/whois/?searchWord={self.site_dataset.domain}'
         r = requests.get(URL).content
         soup = BeautifulSoup(r, 'html.parser').text
 
         try:
             if 'Creation Date' in soup:
-                start = soup.find('Creation Date') + 15
-                finish = start + 4
-                item = soup[start:finish]
-                self.domain_age = 2021 - int(item)
+                self._get_domain_age_with_creation_date_pattern(soup)
             elif 'Registered on' in soup:
-                start = soup.find('Registered on')
-                finish = soup.find('Registry fee')
-                item = soup[start:finish].split()[4]
-                self.domain_age = 2021 - int(item)
+                self._get_domain_age_with_registered_on_pattern(soup)
             elif 'created' in soup:
-                if '.lv' in self.domain or '.club' in self.domain or '.to' in self.domain or '.ua' in self.domain or '.eu' in self.domain:
-                    self.valid = False
-                    self.domain_age = 5
-                else:
-                    start = soup.find('created') + 8
-                    finish = start + 4
-                    item = soup[start:finish]
-                    self.domain_age = 2021 - int(item)
+                self._get_domain_age_with_created_pattern(soup)
         except:
-            print(f'Возраст домена {self.domain} определен неправильно')
-            self.domain_age = 5
-
-
+            logger.critical(f'Возраст домена {self.domain} определен неправильно')
+            self.site_dataset.invalid_domain_zone = False
 
     def make_backlinks_object(self):
-        self.backlinks_object = Backlinks(self.domain)
+        Backlinks(self.site_dataset)
 
 
 @logger.catch
 class Content:
-    def __init__(self, html, site_type, domain):
-        self.start = time.time()
-        self.domain = domain
+    def __init__(self, html, site_dataset):
+        self.site_dataset = site_dataset
         self.html = html
-        self.site_type = site_type
-        self.text = str()
-        self.letters_amount = str()
-        self.words_amount = str()
-        self.title = str()
-        self.stemmed_title = list()
-        self.valid = True
 
-        if self.site_type == 'organic':
-            logger.add("critical.txt", format="{time:HH:mm:ss} {message}", level='CRITICAL', encoding="UTF-8")
+        self.text = str()
+
+        if self.site_dataset.type == 'organic':
             try:
                 self.get_text()
-                self.count_letters_amount()
-                self.get_title()
-                self.delete_punctuation_from_title()
-                self.stem_title()
+                self.add_letters_amount_to_dataset()
+                self.add_stemmed_title_to_dataset()
             except:
-                self.valid = False
+                self.site_dataset.is_content_valid = False
                 logger.critical(f"Проблема с валидностью контента {self.domain}. ")
 
-        logger.debug(f'Закончил собирать контент сайта {domain} за {time.time() - self.start}')
-        self.clean_garbage()
+
+    def add_stemmed_title_to_dataset(self):
+        """
+        Метод стеммирует тайтл и помещает его в датасет
+        """
+        title = self.get_title()
+        title_without_puctuation = self.delete_punctuation_from_title(title)
+        self.site_dataset.stemmed_title = stem_text(title_without_puctuation)
 
     def get_text(self):
+        """
+        Из html парсится текст и очищается от переносов.
+        """
         self.text = self.html.text.replace('\n', '')
 
-    def count_letters_amount(self):
-        self.letters_amount = len(self.text)
+    def add_letters_amount_to_dataset(self):
+        self.site_dataset.letters_amount = len(self.text)
 
     def get_title(self):
-        self.title = self.html.find('title').text
-        self.title = self.title.replace('\n', '')
+        title = self.html.find('title').text
+        title = title.replace('\n', '')
 
-    def delete_punctuation_from_title(self):
-        self.title = re.sub(r'[^\w\s]', '', self.title)
+        return title
 
-    def stem_title(self):
-        morph = pymorphy2.MorphAnalyzer()
-        for word in self.title.split():
-            self.stemmed_title.append(morph.parse(word)[0].normal_form)
-
-    def clean_garbage(self):
-        del self.html
-        del self.text
-        del self.start
+    def delete_punctuation_from_title(self, title):
+        title_without_puctuation = re.sub(r'[^\w\s]', '', title)
+        return title_without_puctuation
 
 
 @logger.catch
 class Concurency:
-    def __init__(self, site_objects_list, stemmed_request, req):
-        self.site_objects_list = site_objects_list
-        self.request = stemmed_request
-        self.report_file_name = req
+    def __init__(self, site_datasets, stemmed_request):
+        self.site_datasets = site_datasets
+        self.stemmed_request = stemmed_request
+
         self.organic_site_objects_list = list()
         self.super_site_objects_list = list()
         self.direct_site_objects_list = list()
@@ -624,18 +628,10 @@ class Concurency:
         self.vital_domains = list()
         self.vital_domains_amount = int()
 
-        self.check_site_object_type()
-
-        if len(self.direct_site_objects_list) > 0:
-            self.WEIGHTS = WEIGHTS_DIRECT
-        else:
-            self.WEIGHTS = WEIGHTS_ORGANIC
+        self.get_stat_weights()
 
         self.calculate_site_stem_concurency()
-        if self.check_is_absourd_request():
-            self.importance = ABSURD_STEM_IMPORTANCE
-        else:
-            self.importance = STANDART_IMPORTANCE
+        self.get_params_importance()
 
         self.calculate_site_age_concurency()
         self.calculate_site_volume_concurency()
@@ -643,6 +639,7 @@ class Concurency:
         self.check_valid_backlinks_sample()
         self.calculate_direct_upscale()
         self.calculate_direct_concurency()
+        self.calculate_site_backlinks_concurency()
 
         if self.valid_backlinks_rate >= 1:
             self.calculate_site_backlinks_concurency()
@@ -657,100 +654,132 @@ class Concurency:
 
         self.convert_vital_domains_to_sting()
 
-    def check_site_object_type(self):
-        for site_object in self.site_objects_list:
-            if site_object.site_type == 'organic':
-                if site_object.content_object.valid:
-                    self.organic_site_objects_list.append(site_object)
-            elif site_object.site_type == 'direct':
-                if int(site_object.position) <= 4:
-                    self.super_ads_amount += 1
-                self.direct_site_objects_list.append(site_object)
-            else:
-                self.super_site_objects_list.append(site_object)
+    def get_params_importance(self):
+        """
+        IMPORTANCE - вес разных параметров конкуренции. В зависимости от абсурдности запроса, вес меняется.
+        """
+        if self._check_is_absourd_request():
+            self.importance = ABSURD_IMPORTANCE
+        else:
+            self.importance = STANDART_IMPORTANCE
+
+    def get_stat_weights(self):
+        """
+        WEIGHTS - вес разных позиций в поисковоый выдаче при оценке конкуренции.
+        В зависимости от присутствия в выдаче директа, вес меняется.
+        """
+        if self._is_direct_in_dataset:
+            self.WEIGHTS = WEIGHTS_DIRECT
+        else:
+            self.WEIGHTS = WEIGHTS_ORGANIC
+
+    def _is_direct_in_dataset(self):
+        """
+        Происходит проверка, есть ли в списке датасетов рекламные сайты. Для этого достаточно проверить первый
+        и последний датасет. Реклама всегда находится либо в начале, либо в конце.
+        """
+        site_datasets_amount = len(self.site_datasets)
+        first_dataset = self.site_datasets[0]
+        last_dataset = self.site_datasets[site_datasets_amount-1]
+        if first_dataset.type == 'direct' or last_dataset.type == 'direct':
+            return True
 
     def calculate_site_age_concurency(self):
+        """
+        Метод обходит каждый датасет в списке датасетов.
+        Создаются две переменные:
+            max_age_concurency накапливает максимально возможную сложность по формуле: '10 * позиция сайта в поиске'
+            real_age_concurency накапливает реальную сложность запроса по формуле
+                'возраст сайта * позиция сайта в поиске'.
+        Чтобы привести результаты к единообразию, максимальный возраст сайта ограничен 10-летием. Это важно, т.к.
+            супер-витальные 25-летние сайты просто смазывали бы всю картину за счет своего возраста и резко бы завышали
+            конкуренцию. Но так как в выдаче не 1 место, а 20, наличие в ней пары супер-витальных сайтов не так важно.
+        Итоговая конкуренция считается по 100-балльной системе. Необходимо разделить реальную сложность на
+        максимальную и умножить на 100.
+        """
         max_age_concurency = 0
         real_age_concurency = 0
-        total_site_age = 0
+        max_important_age = 10
 
-        for site_object in self.site_objects_list:
-            try:
-                max_age_concurency += 10 * self.WEIGHTS[site_object.position]
-                if site_object.site_type == 'organic':
-                    site_age = site_object.domain_object.domain_age
-                    total_site_age += site_age
-
-                    if site_age > 10:
-                        site_age = 10
-
-                    real_age_concurency += site_age * self.WEIGHTS[site_object.position]
-                else:
-                    real_age_concurency += 10 * self.WEIGHTS[site_object.position]
-
-            except:
-                logger.critical(
-                    f'В calculate_site_age_concurency срочно нужен дебаг. Проблема с доменом {site_object.content_object.domain}')
+        for site_dataset in self.site_datasets:
+            max_age_concurency += max_important_age * self.WEIGHTS[site_dataset.order_on_page]
+            if site_dataset.type == 'direct' or site_dataset.domain_age > max_important_age:
+                real_age_concurency += max_important_age * self.WEIGHTS[site_dataset.order_on_page]
+            else:
+                real_age_concurency += site_dataset.domain_age * self.WEIGHTS[site_dataset.order_on_page]
 
         self.site_age_concurency = int(real_age_concurency / max_age_concurency * 100)
-        self.average_site_age = int(total_site_age / len(self.organic_site_objects_list))
+
 
     def calculate_site_volume_concurency(self):
+        """
+        Метод обходит каждый датасет в списке датасетов.
+        Создаются две переменные:
+            max_volume_concurency накапливает максимально возможную сложность по формуле:
+                '10000 * позиция сайта в поиске'
+            real_volume_concurency накапливает реальную сложность запроса по формуле:
+                'количество знаков в контенте * позиция сайта в поиске'.
+        Чтобы привести результаты к единообразию, максимальный объем контента сайта ограничен 10000 знаков.
+            Это важно, т.к. супер-объемыные сайты просто смазывали бы всю картину за счет супер-лонгридов и резко бы
+            завышали конкуренцию. Но так как в выдаче не 1 место, а 20, наличие в ней пары супер-витальных сайтов
+            не так важно.
+        Итоговая конкуренция считается по 100-балльной системе. Необходимо разделить реальную сложность на
+        максимальную и умножить на 100.
+        """
         max_volume_concurency = 0
         real_volume_concurency = 0
-        maximum_letters = 10000
+        max_important_volume = 10000
 
-        total_letters = 0
-
-        for site_object in self.site_objects_list:
-            max_volume_concurency += 10000 * self.WEIGHTS[site_object.position]
-            if site_object.site_type == 'organic':
-                if site_object.content_object.valid:
-                    letters_amount = site_object.content_object.letters_amount
-                    total_letters += letters_amount
-
-                    if letters_amount > maximum_letters:
-                        letters_amount = maximum_letters
-
-                    real_volume_concurency += letters_amount * self.WEIGHTS[site_object.position]
-                else:
-                    real_volume_concurency += 5000 * self.WEIGHTS[site_object.position]
+        for site_dataset in self.site_datasets:
+            max_volume_concurency += max_important_volume * self.WEIGHTS[site_dataset.order_on_page]
+            if site_dataset.type == 'direct' or site_dataset.content_letters_amount > max_important_volume:
+                real_volume_concurency += max_important_volume * self.WEIGHTS[site_dataset.order_on_page]
             else:
-                real_volume_concurency += 10000 * self.WEIGHTS[site_object.position]
+                real_volume_concurency += site_dataset.content_letters_amount * self.WEIGHTS[site_dataset.order_on_page]
 
         self.site_volume_concurency = int(real_volume_concurency / max_volume_concurency * 100)
-        self.average_site_volume = int(total_letters / len(self.organic_site_objects_list))
 
     def calculate_site_stem_concurency(self):
+        """
+        Метод обходит каждый датасет в списке датасетов.
+        Создаются две переменные:
+            max_stem_concurency накапливает максимально возможную сложность по формуле '1 * позиция сайта в поиске'
+            real_stem_concurency накапливает реальную сложность запроса по формуле
+                'matched_stem_items_amount (от 0 до 1) * позиция сайта в поиске'.
+        Итоговая конкуренция считается по 100-балльной системе. Необходимо разделить реальную сложность на
+        максимальную и умножить на 100.
+        """
         max_stem_concurency = 0
         real_stem_concurency = 0
 
-        for site_object in self.site_objects_list:
-            max_stem_concurency += self.WEIGHTS[site_object.position]
-            if site_object.site_type == 'organic':
-                matched_stem_items = self.count_matched_stem_items(site_object.content_object.stemmed_title)
-                real_stem_concurency += matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
+        for site_dataset in self.site_datasets:
+            max_stem_concurency += self.WEIGHTS[site_dataset.order_on_page]
+            if site_dataset.type == 'direct':
+                real_stem_concurency += self.WEIGHTS[site_dataset.order_on_page]
             else:
-                real_stem_concurency += self.WEIGHTS[site_object.position]
+                matched_stem_items_amount = self.count_matched_stem_items(site_dataset.stemmed_title)
+                real_stem_concurency += matched_stem_items_amount / len(self.request) * self.WEIGHTS[site_dataset.order_on_page]
 
         self.site_stem_concurency = int(real_stem_concurency / max_stem_concurency * 100)
 
     def count_matched_stem_items(self, stemmed_title):
-        matched_stem_items = 0
+        """
+        Возвращает количество совпадений в стемированном title и стемированном запросе пользователя.
+        """
+        matched_stemmed_words = set(stemmed_title) & set(self.stemmed_request)
+        matched_stemmed_words_amount = len(matched_stemmed_words)
 
-        for stemmed_request_word in self.request:
-            for stemmed_title_word in stemmed_title:
-                if stemmed_request_word in stemmed_title_word:
-                    matched_stem_items += 1
-                    print(f'{stemmed_request_word} in {stemmed_title_word}')
+        return matched_stemmed_words_amount
 
-        return matched_stem_items
-
-
-
-    def check_is_absourd_request(self):
+    def _check_is_absourd_request(self):
+        """
+        Иногда, пользователи задают абсурдные запросы. Например "Купить слона в Нижневартовске с подъемом на этаж".
+        Яндекс покажет максимально релевантные результаты. Например, мягкие игрушки или футболки с принтами.
+        Однако, очевидно, что доставка слонов - другая ниша. Поэтому, если количество совпадений в тайтле сайтов
+        и запросе пользователя не превышает 30%, запрос считается "абсурдным". 30% - не идеал, этот брейкпоинт
+        тестируется.
+        """
         if self.site_stem_concurency < 30:
-            print('Запрос абсурдный')
             return True
 
     def check_valid_backlinks_sample(self):
@@ -769,50 +798,32 @@ class Concurency:
         logger.info(f'Данные есть о {valid_backlinks} из {domains_amount} ({int(valid_backlinks_rate * 100)}%)')
 
     def calculate_site_backlinks_concurency(self):
+        """
+        Метод обходит каждый датасет в списке датасетов.
+        Создаются две переменные:
+            max_backlinks_concurency накапливает максимально возможную сложность по формуле:
+                '500 * позиция сайта в поиске'
+            real_backlinks_concurency накапливает реальную сложность запроса по формуле:
+                'количество бэклинков * позиция сайта в поиске'.
+        Чтобы привести результаты к единообразию, максимальное количество уник бэклинков сайта ограничен 500 ссылками.
+            Это важно, т.к. супер-трастовые просто смазывали бы всю картину за счет огромного ссылочного
+            профиля и резко бы завышали конкуренцию. Но так как в выдаче не 1 место, а 20, наличие в ней пары
+            супер-витальных сайтов не так важно.
+        Итоговая конкуренция считается по 100-балльной системе. Необходимо разделить реальную сложность на
+        максимальную и умножить на 100.
+        """
         max_backlinks_concurency = 0
         real_backlinks_concurency = 0
-        maximum_backlinks = 500
-
-        total_total_backlinks = 0
-        total_unique_backlinks = 0
-
-        file = open(f'./reports/backs.txt', 'a', encoding='utf-8')
-        for site_object in self.site_objects_list:
-            try:
-                unique_backlinks = site_object.domain_object.unique_backlinks
-                total_backlinks = site_object.domain_object.total_backlinks
-                domain_group = site_object.domain_object.domain_group
-
-                if domain_group:
-                    file.write(f'Сайт: {site_object.domain_object.domain}. Уников: {site_object.domain_object.unique_backlinks}. Тотал: {site_object.domain_object.total_backlinks}. Витальный сайт, в статистику не попал \n')
-                else:
-                    file.write(f'Сайт: {site_object.domain_object.domain}. Уников: {site_object.domain_object.unique_backlinks}. Тотал: {site_object.domain_object.total_backlinks}. НЕ витальный сайт\n')
-
-
-                if site_object.site_type == 'organic':
-                    if domain_group != 1:
-                        total_unique_backlinks += unique_backlinks
-                        total_total_backlinks += total_backlinks
-                    else:
-                        if int(site_object.position) + self.super_ads_amount <= 10:
-                            self.vital_domains.append(site_object.domain_object.domain)
-                elif site_object.site_type == 'super':
-                    if int(site_object.position) + self.super_ads_amount <= 10:
-                        self.vital_domains.append(site_object.domain_object.domain)
-
-                if unique_backlinks > maximum_backlinks:
-                    unique_backlinks = maximum_backlinks
-                real_backlinks_concurency += unique_backlinks * self.WEIGHTS[site_object.position]
-                max_backlinks_concurency += 500 * self.WEIGHTS[site_object.position]
-            except:
-                real_backlinks_concurency += 500 * self.WEIGHTS[site_object.position]
-                max_backlinks_concurency += 500 * self.WEIGHTS[site_object.position]
+        max_important_backlinks = 500
+        сделать для не уник бэков
+        for site_dataset in self.site_datasets:
+            max_backlinks_concurency += max_important_backlinks * self.WEIGHTS[site_dataset.order_on_page]
+            if site_dataset.type == 'direct' or site_dataset.unique_backlinks > max_important_backlinks:
+                real_backlinks_concurency += max_important_backlinks * self.WEIGHTS[site_dataset.order_on_page]
+            else:
+                real_backlinks_concurency += site_dataset.unique_backlinks * self.WEIGHTS[site_dataset.order_on_page]
 
         self.site_backlinks_concurency = int(real_backlinks_concurency / max_backlinks_concurency * 100)
-        self.average_total_backlinks = int(total_total_backlinks / len(self.organic_site_objects_list))
-        self.average_unique_backlinks = int(total_unique_backlinks / len(self.organic_site_objects_list))
-        file.write(f'Среднее тотал {self.average_total_backlinks}, среднее уник {self.average_unique_backlinks}')
-        file.close()
 
     def calculate_direct_upscale(self):
         direct_upscale = 0
