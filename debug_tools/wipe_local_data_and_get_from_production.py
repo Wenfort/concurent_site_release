@@ -24,8 +24,7 @@ def clean_all_data_from_database(connection):
     sql = (f'DELETE FROM {SCHEMA}.main_order;'
            f'DELETE FROM {SCHEMA}.main_handledxml;'
            f'DELETE FROM {SCHEMA}.main_requestqueue;'
-           f'DELETE FROM {SCHEMA}.main_request;'
-           f'DELETE FROM {SCHEMA}.main_domain;')
+           f'DELETE FROM {SCHEMA}.main_request;')
 
     cursor.execute(sql)
     connection.commit()

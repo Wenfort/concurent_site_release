@@ -23,9 +23,9 @@ class RequestDataSet:
 
 @dataclass
 class SiteDataSet:
-    html: str
-    type: str
-    order_on_page: int
+    html: str = ''
+    type: str = ''
+    order_on_page: int = 1
 
     domain: str = ''
     invalid_domain_zone: bool = False
@@ -38,7 +38,6 @@ class SiteDataSet:
     content_letters_amount: int = 0
     content_stemmed_title: list = field(default_factory=lambda: [])
     is_content_valid: bool = True
-
 
 
 @logger.catch
@@ -54,9 +53,6 @@ class Manager:
 
         if len(self.process_list) > 0:
             self.refresh_balance()
-            self.delete_requests_from_queue()
-
-        print(f'СОбрано {len(self.process_list)} первичных запросов')
 
     def get_requests_from_queue(self):
         """
@@ -106,12 +102,14 @@ class Manager:
         sql = ('SELECT key '
                'FROM concurent_site.main_payload;')
 
-        return pm.custom_request_to_database_with_return(sql)
+        database_return = pm.custom_request_to_database_with_return(sql)
+        keys_list = [key[0] for key in database_return]
+        return keys_list
 
     @staticmethod
     def _get_balance(key):
-        balance_request_return = requests.get(
-            f'https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey={key}&host=yandex.ru&parameterList=').json()
+        url = f'https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey={key}&host=yandex.ru&parameterList=spam'
+        balance_request_return = requests.get(url).json()
         return balance_request_return['hostLimitsBalance']
 
     @staticmethod
@@ -124,9 +122,7 @@ class Manager:
 
     @staticmethod
     def _update_checktrust_api_balance_accounts(key, balance):
-        sql = ("UPDATE concurent_site.main_payload "
-               f"SET key = '{key}' "
-               f"balance = {balance};")
+        sql = f"UPDATE concurent_site.main_payload SET balance = {balance} WHERE key = '{key}';"
 
         pm.custom_request_to_database_without_return(sql)
 
@@ -147,15 +143,6 @@ class Manager:
                 self._update_checktrust_api_balance_accounts(key, balance)
 
         self._delete_checktrust_zero_balance_accounts(zero_balance_accounts_count)
-
-    def delete_requests_from_queue(self):
-        for yandex_object in self.yandex_objects_list:
-            if yandex_object['Статус'] == 'backlinks':
-                sql = f"UPDATE concurent_site.main_handledxml SET status = 'pending' WHERE request_id = {yandex_object['ID запроса']};"
-                pm.custom_request_to_database_without_return(sql)
-            else:
-                sql = f"UPDATE concurent_site.main_handledxml SET status = 'conf' WHERE request_id = {yandex_object['ID запроса']};"
-                pm.custom_request_to_database_without_return(sql)
 
 
 @logger.catch
@@ -205,12 +192,9 @@ class Site:
         пожертвовать незначительной долей точности и обрабатывать турбо страницы (они встречаются довольно редко) как
         абстрактный сайт с усредненными показателями
         """
-        if self.site_dataset.type == 'direct':
-            domain = self.url
-        else:
-            domain = urlparse(self.url)
-            domain = domain.netloc
-            domain.replace('www.', '')
+        domain = urlparse(self.url)
+        domain = domain.netloc
+        domain = domain.replace('www.', '')
 
         if 'Турбо-страница' in domain:
             domain = 'abstract-average-site.ru'
@@ -231,13 +215,19 @@ class Site:
     def get_html(self):
         """
         Метод принимает URL и перепроверяет не ведет ли он на pdf файл. Если все в порядке, то собирантся html под
-        сайта и парсится с помощью BS4.
+        сайта и парсится с помощью BS4. Если сайт лежит или стоит защита от парсинга контента - возвращается пустой html
+        такое случается редко, радикального влияние на точность результатов не оказывает
         """
         if not self.is_pdf():
-            r = requests.get(self.url, headers=HEADERS, verify=False, timeout=15).content
-            self.html = BeautifulSoup(r, 'html.parser')
+            try:
+                r = requests.get(self.url, headers=HEADERS, verify=False, timeout=15).content
+                self.html = BeautifulSoup(r, 'html.parser')
+            except:
+                self.html = ''
+                self.site_dataset.is_content_valid = False
         else:
             self.html = ''
+            self.site_dataset.is_content_valid = False
 
     def add_domain_data_to_dataset(self):
         Domain(self.site_dataset)
@@ -249,7 +239,6 @@ class Site:
 @logger.catch
 class Yandex:
     def __init__(self, request, q):
-        print('ya')
         self.request_id = request.id
         self.request_text = request.text
         self.xml_text = request.xml
@@ -259,7 +248,7 @@ class Yandex:
         self.site_list = list()
         self.thread_list = str()
         self.concurency_object = object()
-        self.order_on_page = int()
+        self.order_on_page = 1
 
         self.start_logging()
         self.stemmed_request = stem_text(self.request_text)
@@ -274,8 +263,26 @@ class Yandex:
         self.make_concurency_object()
         self.prepare_result()
         self.add_result_to_database()
+        self.change_request_status_in_queue()
 
-        self.q.put(self.result)
+        self.q.put('ready')
+
+    def change_request_status_in_queue(self):
+        """
+        Если в процессе обхода были собраны не все бэклинки, то строке в таблице main_handledxml присваивается
+        значение backlinks. Это нужно для повторного использования xml кода сервисом pending_request_handler.
+        Иначе, присваивается статус confirmation, означающий, что по бэклинкам достаточно данных.
+        Confirm означает, что решение об удалении запроса из очереди передается  микросервису
+            xml_handler. Он удалит этот запрос из очереди после завершения всех перепроверок объявлений
+            в очереди. Запросы без статуса confirm удалены не будут, так как их еще не обработал
+            new_requests_handler.
+        """
+        if self.concurency_object.status == 'backlinks':
+            sql = f"UPDATE concurent_site.main_handledxml SET status = 'pending' WHERE request_id = {self.request_id};"
+            pm.custom_request_to_database_without_return(sql)
+        else:
+            sql = f"UPDATE concurent_site.main_handledxml SET status = 'confirm' WHERE request_id = {self.request_id};"
+            pm.custom_request_to_database_without_return(sql)
 
     def get_request_views(self):
         """
@@ -365,55 +372,34 @@ class Yandex:
         self.concurency_object = Concurency(self.site_list, self.stemmed_request)
 
     def prepare_result(self):
-        self.result = {
-            'Запрос': self.request,
-            'Конкуренция по возрасту': self.concurency_object.site_age_concurency,
-            'Конкуренция по стему': self.concurency_object.site_stem_concurency,
-            'Конкуренция по объему': self.concurency_object.site_volume_concurency,
-            'Конкуренция по ссылочному': self.concurency_object.site_backlinks_concurency,
-            'Итоговая конкуренция': self.concurency_object.site_total_concurency,
-            'Модификатор директ': self.concurency_object.direct_upscale,
-            'Статус': self.concurency_object.status,
-            'Средний возраст': self.concurency_object.average_site_age,
-            'Средний объем': self.concurency_object.average_site_volume,
-            'Средние уник бэклинки': self.concurency_object.average_unique_backlinks,
-            'Средние тотал бэклинки': self.concurency_object.average_total_backlinks,
-            'Гео': self.geo,
-            'Показов запроса': self.request_views,
-            'ID запроса': self.request_id
-        }
+        self.result = self.concurency_object
 
     def add_result_to_database(self):
-
-        if self.concurency_object.site_backlinks_concurency == '':
-            self.concurency_object.site_backlinks_concurency = 0
-
-        if self.concurency_object.site_total_concurency == '':
-            self.concurency_object.site_total_concurency = 0
+        if self.concurency_object.all_backlinks_collected:
+            self.concurency_object.status = 'ready'
+        else:
+            self.concurency_object.status = 'backlinks'
 
         pm.custom_request_to_database_without_return(
             f"UPDATE concurent_site.main_request SET "
-            f"site_age_concurency = {self.concurency_object.site_age_concurency}, "
-            f"site_stem_concurency = {self.concurency_object.site_stem_concurency}, "
-            f"site_volume_concurency = {self.concurency_object.site_volume_concurency}, "
-            f"site_backlinks_concurency = {self.concurency_object.site_backlinks_concurency}, "
-            f"site_total_concurency = {self.concurency_object.site_total_concurency}, "
+            f"age_concurency = {self.concurency_object.site_age_concurency}, "
+            f"stem_concurency = {self.concurency_object.site_stem_concurency}, "
+            f"volume_concurency = {self.concurency_object.site_volume_concurency}, "
+            f"backlinks_concurency = {self.concurency_object.site_backlinks_concurency}, "
+            f"total_concurency = {self.concurency_object.site_total_concurency}, "
             f"direct_upscale = {self.concurency_object.direct_upscale}, "
             f"status = '{self.concurency_object.status}', "
-            f"site_direct_concurency = {self.concurency_object.site_direct_concurency}, "
-            f"site_seo_concurency = {self.concurency_object.site_seo_concurency}, "
-            f"request_views = {self.request_views}, "
+            f"direct_concurency = {self.concurency_object.site_direct_concurency}, "
+            f"seo_concurency = {self.concurency_object.site_seo_concurency}, "
+            f"views = {self.request_views}, "
             f"average_age = {self.concurency_object.average_site_age}, "
             f"average_volume = {self.concurency_object.average_site_volume}, "
             f"average_total_backlinks = {self.concurency_object.average_total_backlinks}, "
-            f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks}, "
-            f"vital_sites = '{self.concurency_object.vital_domains}', "
-            f"vital_sites_count = {self.concurency_object.vital_domains_amount} "
-            f"WHERE request_id = {self.request_id}"
+            f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks} "
+            f"WHERE id = {self.request_id}"
         )
 
 
-@logger.catch
 class Backlinks:
     def __init__(self, site_dataset):
         self.site_dataset = site_dataset
@@ -426,15 +412,19 @@ class Backlinks:
     def get_token(self):
         sql = "SELECT key FROM concurent_site.main_payload WHERE balance > 25 LIMIT 1;"
 
-        answer_from_database = pm.custom_request_to_database_with_return(sql)
-        self.token = answer_from_database[0][0]
+        answer_from_database = pm.custom_request_to_database_with_return(sql, 'one')
+        self.token = answer_from_database[0]
 
-    def get_backlinks(self):
+    def _get_backlinks_service_json_answer(self, domain):
         service_api_url = 'https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey='
         params = 'parameterList=mjDin,mjHin'
-        api_request_url = f'{service_api_url}{self.token}&host={self.site_dataset.domain}&{params}'
+        api_request_url = f'{service_api_url}{self.token}&host={domain}&{params}'
 
         request_json = requests.get(api_request_url).json()
+        return request_json
+
+    def get_backlinks(self):
+        request_json = self._get_backlinks_service_json_answer(self.site_dataset.domain)
 
         if not request_json['success']:
             logger.info(f'{self.site_dataset.domain} данные не получены по причине {request_json["message"]}')
@@ -472,12 +462,13 @@ class Domain:
         self.site_dataset.unique_backlinks = self.domain_data_in_database[1]
         self.site_dataset.total_backlinks = self.domain_data_in_database[2]
         self.site_dataset.domain_group = self.domain_data_in_database[3]
-        self.site_dataset.backlinks_status = 'complete'
+        self.site_dataset.backlinks_status = self.domain_data_in_database[4]
 
     def is_domain_data_in_database(self):
-        sql = ("SELECT age, unique_backlinks, total_backlinks, domain_group "
+        sql = ("SELECT age, unique_backlinks, total_backlinks, domain_group, status "
                "FROM concurent_site.main_domain "
-               f"WHERE name = '{self.site_dataset.domain}';")
+               f"WHERE "
+               f"name = '{self.site_dataset.domain}';")
 
         self.domain_data_in_database = pm.custom_request_to_database_with_return(sql, 'one')
 
@@ -485,6 +476,10 @@ class Domain:
             return True
 
     def add_domain_backlinks_to_database(self):
+        """
+        Может сложиться так, что два процесса пытаются одновременно добавить один и тот же домен в БД.
+        Для обработки этой коллизии используется исключение
+        """
         sql = ("INSERT INTO "
                "concurent_site.main_domain(name, age, unique_backlinks, total_backlinks, status, domain_group) "
                "VALUES "
@@ -492,8 +487,11 @@ class Domain:
                f"{self.site_dataset.total_backlinks}, '{self.site_dataset.backlinks_status}',"
                f"{self.site_dataset.domain_group});")
 
+        try:
+            pm.custom_request_to_database_without_return(sql)
+        except Exception as e:
+            print(e)
 
-        pm.custom_request_to_database_without_return(sql)
 
     def _get_domain_age_with_creation_date_pattern(self, soup):
         start = soup.find('Creation Date') + 15
@@ -562,15 +560,14 @@ class Content:
 
         self.text = str()
 
-        if self.site_dataset.type == 'organic':
+        if self.site_dataset.type == 'organic' and self.site_dataset.is_content_valid:
             try:
                 self.get_text()
                 self.add_letters_amount_to_dataset()
                 self.add_stemmed_title_to_dataset()
             except:
                 self.site_dataset.is_content_valid = False
-                logger.critical(f"Проблема с валидностью контента {self.domain}. ")
-
+                logger.critical(f"Проблема с валидностью контента {self.site_dataset.domain}. ")
 
     def add_stemmed_title_to_dataset(self):
         """
@@ -578,7 +575,7 @@ class Content:
         """
         title = self.get_title()
         title_without_puctuation = self.delete_punctuation_from_title(title)
-        self.site_dataset.stemmed_title = stem_text(title_without_puctuation)
+        self.site_dataset.content_stemmed_title = stem_text(title_without_puctuation)
 
     def get_text(self):
         """
@@ -587,7 +584,7 @@ class Content:
         self.text = self.html.text.replace('\n', '')
 
     def add_letters_amount_to_dataset(self):
-        self.site_dataset.letters_amount = len(self.text)
+        self.site_dataset.content_letters_amount = len(self.text)
 
     def get_title(self):
         title = self.html.find('title').text
@@ -624,6 +621,7 @@ class Concurency:
         self.average_site_volume = int()
         self.average_unique_backlinks = int()
         self.average_total_backlinks = int()
+        self.all_backlinks_collected = True
 
         self.get_stat_weights()
 
@@ -633,14 +631,11 @@ class Concurency:
         self.calculate_site_backlinks_concurency()
         self.get_params_importance()
 
+        self.calculate_statistics()
         self.calculate_direct_upscale()
         self.calculate_direct_concurency()
 
-        self.calculate_statistics()
-
         self.calculate_site_total_concurency()
-        self.status = 'ready'
-
 
     def get_params_importance(self):
         """
@@ -668,7 +663,7 @@ class Concurency:
         """
         site_datasets_amount = len(self.site_datasets)
         first_dataset = self.site_datasets[0]
-        last_dataset = self.site_datasets[site_datasets_amount-1]
+        last_dataset = self.site_datasets[site_datasets_amount - 1]
         if first_dataset.type == 'direct' or last_dataset.type == 'direct':
             return True
 
@@ -705,7 +700,6 @@ class Concurency:
 
         self.site_age_concurency = self._calculate_concurency(10, 'domain_age')
 
-
     def calculate_site_volume_concurency(self):
         """
         Метод обходит каждый датасет в списке датасетов.
@@ -722,7 +716,6 @@ class Concurency:
         максимальную и умножить на 100.
         """
         self.site_volume_concurency = self._calculate_concurency(10000, 'content_letters_amount')
-
 
     def calculate_site_stem_concurency(self):
         """
@@ -742,8 +735,9 @@ class Concurency:
             if site_dataset.type == 'direct':
                 real_stem_concurency += self.WEIGHTS[site_dataset.order_on_page]
             else:
-                matched_stem_items_amount = self.count_matched_stem_items(site_dataset.stemmed_title)
-                real_stem_concurency += matched_stem_items_amount / len(self.request) * self.WEIGHTS[site_dataset.order_on_page]
+                matched_stem_items_amount = self.count_matched_stem_items(site_dataset.content_stemmed_title)
+                real_stem_concurency += matched_stem_items_amount / len(self.stemmed_request) * self.WEIGHTS[
+                    site_dataset.order_on_page]
 
         self.site_stem_concurency = int(real_stem_concurency / max_stem_concurency * 100)
 
@@ -778,7 +772,6 @@ class Concurency:
         total_backlinks_total_count = 0
         content_letters_total_count = 0
         domain_age_total_count = 0
-        all_backlinks_collected = True
 
         for site_dataset in self.site_datasets:
             if site_dataset.type == 'organic':
@@ -786,20 +779,20 @@ class Concurency:
                 domain_age_total_count += site_dataset.domain_age
                 content_letters_total_count += site_dataset.content_letters_amount
 
-                if site_dataset.backlinks_status == 'complete' and all_backlinks_collected:
+                if site_dataset.backlinks_status == 'complete' and self.all_backlinks_collected:
                     unique_backlinks_total_count += site_dataset.unique_backlinks
                     total_backlinks_total_count += site_dataset.total_backlinks
                 else:
-                    all_backlinks_collected = False
+                    self.all_backlinks_collected = False
             else:
                 self.direct_sites_amount += 1
 
-        self.average_site_age = int(domain_age_total_count / self.organic_sites_count)
-        self.average_site_volume = int(content_letters_total_count / self.organic_sites_count)
+        self.average_site_age = int(domain_age_total_count / self.organic_sites_amount)
+        self.average_site_volume = int(content_letters_total_count / self.organic_sites_amount)
 
-        if all_backlinks_collected:
-            self.average_unique_backlinks = unique_backlinks_total_count / self.organic_sites_count
-            self.average_total_backlinks = total_backlinks_total_count / self.organic_sites_count
+        if self.all_backlinks_collected:
+            self.average_unique_backlinks = unique_backlinks_total_count / self.organic_sites_amount
+            self.average_total_backlinks = total_backlinks_total_count / self.organic_sites_amount
 
     def calculate_site_backlinks_concurency(self):
         """
@@ -817,7 +810,7 @@ class Concurency:
         максимальную и умножить на 100.
         """
 
-        self._calculate_concurency(500, 'unique_backlinks')
+        self.site_backlinks_concurency = self._calculate_concurency(500, 'unique_backlinks')
 
     def calculate_direct_upscale(self):
         """
@@ -828,44 +821,55 @@ class Concurency:
             чем то, что находится под результатами поиска. И гораздо больше влияет на конкуренцию.
         В нижней части страницы могут находиться максимум 5 объявлений, в верхней - 4. В сумме - 9.
         """
-        if self.direct_sites >= 5:
+        if self.direct_sites_amount >= 5:
             self.direct_upscale += 8
-            self.direct_sites -= 5
+            self.direct_sites_amount -= 5
 
-            if self.direct_sites == 4:
+            if self.direct_sites_amount == 4:
                 self.direct_upscale += 27
-            elif self.direct_sites == 3:
+            elif self.direct_sites_amount == 3:
                 self.direct_upscale += 23
-            elif self.direct_sites == 2:
+            elif self.direct_sites_amount == 2:
                 self.direct_upscale += 17
-            elif self.direct_sites == 1:
+            elif self.direct_sites_amount == 1:
                 self.direct_upscale += 8
         else:
-            if self.direct_sites == 5:
+            if self.direct_sites_amount == 5:
                 self.direct_upscale += 8
-            elif self.direct_sites == 4:
+            elif self.direct_sites_amount == 4:
                 self.direct_upscale += 6.4
-            elif self.direct_sites == 3:
+            elif self.direct_sites_amount == 3:
                 self.direct_upscale += 4.8
-            elif self.direct_sites == 2:
+            elif self.direct_sites_amount == 2:
                 self.direct_upscale += 3.2
-            elif self.direct_sites == 1:
+            elif self.direct_sites_amount == 1:
                 self.direct_upscale += 1.6
 
+    def _calculate_base_total_difficulty(self):
+        """
+        У каждого из факторов итоговой конкуренции есть собственная важность. Она находится в словаре self.importance.
+        Базовая итоговая сложность конкуренции - результат сложения каждого из видов оценки конкуренции, умноженного
+        на важность этих видов конкуренции.
+        """
+        age_share_in_total_concurency = self.site_age_concurency * self.importance['Возраст сайта']
+        stem_share_in_total_concurency = self.site_stem_concurency * self.importance['Стемирование']
+        volume_share_in_total_concurency = self.site_volume_concurency * self.importance['Объем статей']
+        backlinks_share_in_total_concurency = self.site_backlinks_concurency * self.importance['Ссылочное']
+
+        base_total_difficulty = age_share_in_total_concurency + stem_share_in_total_concurency + \
+                                volume_share_in_total_concurency + backlinks_share_in_total_concurency
+
+        return int(base_total_difficulty)
+
     def calculate_site_total_concurency(self):
-        total_difficulty = int(
-            self.site_age_concurency * self.importance['Возраст сайта'] + self.site_stem_concurency * self.importance[
-                'Стемирование'] + self.site_volume_concurency * self.importance[
-                'Объем статей'] + self.site_backlinks_concurency * self.importance['Ссылочное'])
-        self.site_seo_concurency = total_difficulty
-        total_difficulty += self.direct_upscale
+        """
+        Итоговая сложность конкуренции считается по формуле "базовая сложность" + "эффект повышения сложности от
+        рекламных блоков (direct_upscale)
+        """
+
+        base_total_difficulty = self._calculate_base_total_difficulty()
+        total_difficulty = base_total_difficulty + self.direct_upscale
         self.site_total_concurency = int(total_difficulty)
-        logger.info(f'Конкуренция от возраста: {self.site_age_concurency}')
-        logger.info(f'Конкуренция от объема: {self.site_volume_concurency}')
-        logger.info(f'Конкуренция от стема: {self.site_stem_concurency}')
-        logger.info(f'Конкуренция от бэклинков: {self.site_backlinks_concurency}')
-        logger.info(f'Модификатор от директа: {self.direct_upscale}')
-        logger.info(f'Итоговая конкуренция: {total_difficulty}')
 
     def calculate_direct_concurency(self):
         """
@@ -874,12 +878,9 @@ class Concurency:
         """
         self.site_direct_concurency = int(self.direct_upscale / 35 * 100)
 
-    def convert_vital_domains_to_sting(self):
-        self.vital_domains_amount = len(self.vital_domains)
-        self.vital_domains = ' '.join(self.vital_domains)
-
 
 if __name__ == "__main__":
     while True:
         Manager()
+        print('Готово!')
         time.sleep(10)

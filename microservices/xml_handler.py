@@ -454,4 +454,5 @@ class XmlReport:
 
 while True:
     XmlReport()
+    print('Готово!')
     time.sleep(10)

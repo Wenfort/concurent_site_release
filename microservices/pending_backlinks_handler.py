@@ -1,46 +1,50 @@
-import requests
 from microservices import postgres_mode as pm
 import time
-
-def get_token():
-    accounts_with_balance = pm.check_in_database('main_payload', 'balance', 25)
-    token = accounts_with_balance[0][0]
-    return token
-
-def run():
-    domains = pm.check_in_database('main_domain', 'status', 'pending')
-    total = 0
-    if domains:
-        token = get_token()
-        for domain_data in domains:
-            domain = domain_data[0]
-            request_json = requests.get(
-                f'https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey={token}&host={domain}&parameterList=mjDin,mjHin').json()
-
-            if not request_json['success']:
-                pass
-            else:
-                total += 1
-                unique_backlinks = int(request_json["summary"]["mjDin"])
-                total_backlinks = int(request_json["summary"]["mjHin"])
-                domain_group = 0
-
-                if unique_backlinks >= 10000 or total_backlinks >= 30000:
-                    domain_group = 1
+from microservices.new_requests_handler import Backlinks
 
 
-                pm.custom_request_to_database_without_return(
-                    "UPDATE concurent_site.main_domain SET "
-                    f"unique_backlinks = {unique_backlinks}, "
-                    f"total_backlinks = {total_backlinks}, "
-                    f"status = 'complete', "
-                    f"domain_group = {domain_group} "
-                    f"WHERE "
-                    f"name = '{domain}';"
-                )
+class BacklinksHandler(Backlinks):
+    def __init__(self):
+        self.token = str()
+        self.status = str()
+        self.unique_backlinks = int()
+        self.total_backlinks = int()
+        self.backlinks_status = str()
+        self.domain_group = 0
 
-    print(f'Добавлено {total} ссылок для доменов в БД. В очереди {len(domains)}: {domains}.')
+        self.get_token()
+        for domain in self.get_pending_domains():
+            if self.have_new_backlinks_data(domain):
+                self.update_database()
+
+    def get_pending_domains(self):
+        sql = "SELECT name FROM concurent_site.main_domain WHERE status = 'pending'"
+        database_return = pm.custom_request_to_database_with_return(sql)
+        pending_domains = [domain[0] for domain in database_return]
+        return pending_domains
+
+    def have_new_backlinks_data(self, domain):
+        request_json = self._get_backlinks_service_json_answer(domain)
+        if request_json['success']:
+            self.unique_backlinks = int(request_json["summary"]["mjDin"])
+            self.total_backlinks = int(request_json["summary"]["mjHin"])
+            self.backlinks_status = 'complete'
+
+            if self.unique_backlinks >= 10000 or self.total_backlinks >= 30000:
+                self.domain_group = 1
+
+            return True
+
+    def update_database(self):
+        sql = ("UPDATE concurent_site.main_domain SET "
+               f"unique_backlinks = {self.unique_backlinks}, "
+               f"total_backlinks = {self.total_backlinks}, "
+               f"status = '{self.backlinks_status}', "
+               f"domain_group = {self.domain_group}")
+
+        pm.custom_request_to_database_without_return(sql)
 
 while True:
-    run()
+    BacklinksHandler()
+    print('Готово!')
     time.sleep(30)
