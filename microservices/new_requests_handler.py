@@ -26,6 +26,7 @@ class SiteDataSet:
     html: str
     type: str
     order_on_page: int
+
     domain: str = ''
     invalid_domain_zone: bool = False
     domain_age: int = 0
@@ -33,6 +34,7 @@ class SiteDataSet:
     total_backlinks: int = 0
     backlinks_status: str = ''
     domain_group: int = 0
+
     content_letters_amount: int = 0
     content_stemmed_title: list = field(default_factory=lambda: [])
     is_content_valid: bool = True
@@ -470,6 +472,7 @@ class Domain:
         self.site_dataset.unique_backlinks = self.domain_data_in_database[1]
         self.site_dataset.total_backlinks = self.domain_data_in_database[2]
         self.site_dataset.domain_group = self.domain_data_in_database[3]
+        self.site_dataset.backlinks_status = 'complete'
 
     def is_domain_data_in_database(self):
         sql = ("SELECT age, unique_backlinks, total_backlinks, domain_group "
@@ -603,10 +606,6 @@ class Concurency:
         self.site_datasets = site_datasets
         self.stemmed_request = stemmed_request
 
-        self.organic_site_objects_list = list()
-        self.super_site_objects_list = list()
-        self.direct_site_objects_list = list()
-        self.super_ads_amount = int()
         self.WEIGHTS = dict()
         self.importance = dict()
         self.site_age_concurency = int()
@@ -616,43 +615,32 @@ class Concurency:
         self.site_total_concurency = int()
         self.site_seo_concurency = int()
         self.site_direct_concurency = int()
-        self.valid_backlinks_rate = 0
         self.direct_upscale = int()
-        self.status = str()
+
+        self.direct_sites_amount = int()
+        self.organic_sites_amount = int()
 
         self.average_site_age = int()
         self.average_site_volume = int()
         self.average_unique_backlinks = int()
         self.average_total_backlinks = int()
 
-        self.vital_domains = list()
-        self.vital_domains_amount = int()
-
         self.get_stat_weights()
 
         self.calculate_site_stem_concurency()
-        self.get_params_importance()
-
         self.calculate_site_age_concurency()
         self.calculate_site_volume_concurency()
+        self.calculate_site_backlinks_concurency()
+        self.get_params_importance()
 
-        self.check_valid_backlinks_sample()
         self.calculate_direct_upscale()
         self.calculate_direct_concurency()
-        self.calculate_site_backlinks_concurency()
 
-        if self.valid_backlinks_rate >= 1:
-            self.calculate_site_backlinks_concurency()
-            logger.info(f'Выборки ({self.request}) хватило')
-            self.calculate_site_total_concurency()
-            self.status = 'ready'
-        else:
-            logger.info(f'Выборки не хватило ({int(self.valid_backlinks_rate * 100)}%)')
-            self.status = 'backlinks'
+        self.calculate_statistics()
 
-        self.prepare_report()
+        self.calculate_site_total_concurency()
+        self.status = 'ready'
 
-        self.convert_vital_domains_to_sting()
 
     def get_params_importance(self):
         """
@@ -684,6 +672,23 @@ class Concurency:
         if first_dataset.type == 'direct' or last_dataset.type == 'direct':
             return True
 
+    def _calculate_concurency(self, max_important_value, attribute_name):
+        max_concurency = 0
+        real_concurency = 0
+
+        for site_dataset in self.site_datasets:
+            concurency_attribute = getattr(site_dataset, attribute_name)
+            max_concurency += max_important_value * self.WEIGHTS[site_dataset.order_on_page]
+
+            if site_dataset.type == 'direct' or concurency_attribute > max_important_value:
+                real_concurency += max_important_value * self.WEIGHTS[site_dataset.order_on_page]
+            else:
+                real_concurency += concurency_attribute * self.WEIGHTS[site_dataset.order_on_page]
+
+        concurency_percent = int(real_concurency / max_concurency * 100)
+
+        return concurency_percent
+
     def calculate_site_age_concurency(self):
         """
         Метод обходит каждый датасет в списке датасетов.
@@ -697,18 +702,8 @@ class Concurency:
         Итоговая конкуренция считается по 100-балльной системе. Необходимо разделить реальную сложность на
         максимальную и умножить на 100.
         """
-        max_age_concurency = 0
-        real_age_concurency = 0
-        max_important_age = 10
 
-        for site_dataset in self.site_datasets:
-            max_age_concurency += max_important_age * self.WEIGHTS[site_dataset.order_on_page]
-            if site_dataset.type == 'direct' or site_dataset.domain_age > max_important_age:
-                real_age_concurency += max_important_age * self.WEIGHTS[site_dataset.order_on_page]
-            else:
-                real_age_concurency += site_dataset.domain_age * self.WEIGHTS[site_dataset.order_on_page]
-
-        self.site_age_concurency = int(real_age_concurency / max_age_concurency * 100)
+        self.site_age_concurency = self._calculate_concurency(10, 'domain_age')
 
 
     def calculate_site_volume_concurency(self):
@@ -726,18 +721,8 @@ class Concurency:
         Итоговая конкуренция считается по 100-балльной системе. Необходимо разделить реальную сложность на
         максимальную и умножить на 100.
         """
-        max_volume_concurency = 0
-        real_volume_concurency = 0
-        max_important_volume = 10000
+        self.site_volume_concurency = self._calculate_concurency(10000, 'content_letters_amount')
 
-        for site_dataset in self.site_datasets:
-            max_volume_concurency += max_important_volume * self.WEIGHTS[site_dataset.order_on_page]
-            if site_dataset.type == 'direct' or site_dataset.content_letters_amount > max_important_volume:
-                real_volume_concurency += max_important_volume * self.WEIGHTS[site_dataset.order_on_page]
-            else:
-                real_volume_concurency += site_dataset.content_letters_amount * self.WEIGHTS[site_dataset.order_on_page]
-
-        self.site_volume_concurency = int(real_volume_concurency / max_volume_concurency * 100)
 
     def calculate_site_stem_concurency(self):
         """
@@ -782,20 +767,39 @@ class Concurency:
         if self.site_stem_concurency < 30:
             return True
 
-    def check_valid_backlinks_sample(self):
-        valid_backlinks = 0
-        domains_amount = len(self.organic_site_objects_list) + len(self.super_site_objects_list)
+    def calculate_statistics(self):
+        """
+        Метод обходит каждый датасет в списке датасетов.
+        Цель обхода - собрать статистические данные из датасета: кол-во органик и директ сайтов, уникальные бэклинки,
+        не уникальные бэклинки, количество знаков в контенте, возраст доменов.
+        После этого вычисляет средние показатели.
+        """
+        unique_backlinks_total_count = 0
+        total_backlinks_total_count = 0
+        content_letters_total_count = 0
+        domain_age_total_count = 0
+        all_backlinks_collected = True
 
-        for site_object in self.site_objects_list:
-            try:
-                if site_object.domain_object.unique_backlinks > 0:
-                    valid_backlinks += 1
-            except:
-                pass
+        for site_dataset in self.site_datasets:
+            if site_dataset.type == 'organic':
+                self.organic_sites_amount += 1
+                domain_age_total_count += site_dataset.domain_age
+                content_letters_total_count += site_dataset.content_letters_amount
 
-        valid_backlinks_rate = valid_backlinks / domains_amount
-        self.valid_backlinks_rate = valid_backlinks_rate
-        logger.info(f'Данные есть о {valid_backlinks} из {domains_amount} ({int(valid_backlinks_rate * 100)}%)')
+                if site_dataset.backlinks_status == 'complete' and all_backlinks_collected:
+                    unique_backlinks_total_count += site_dataset.unique_backlinks
+                    total_backlinks_total_count += site_dataset.total_backlinks
+                else:
+                    all_backlinks_collected = False
+            else:
+                self.direct_sites_amount += 1
+
+        self.average_site_age = int(domain_age_total_count / self.organic_sites_count)
+        self.average_site_volume = int(content_letters_total_count / self.organic_sites_count)
+
+        if all_backlinks_collected:
+            self.average_unique_backlinks = unique_backlinks_total_count / self.organic_sites_count
+            self.average_total_backlinks = total_backlinks_total_count / self.organic_sites_count
 
     def calculate_site_backlinks_concurency(self):
         """
@@ -812,56 +816,41 @@ class Concurency:
         Итоговая конкуренция считается по 100-балльной системе. Необходимо разделить реальную сложность на
         максимальную и умножить на 100.
         """
-        max_backlinks_concurency = 0
-        real_backlinks_concurency = 0
-        max_important_backlinks = 500
-        сделать для не уник бэков
-        for site_dataset in self.site_datasets:
-            max_backlinks_concurency += max_important_backlinks * self.WEIGHTS[site_dataset.order_on_page]
-            if site_dataset.type == 'direct' or site_dataset.unique_backlinks > max_important_backlinks:
-                real_backlinks_concurency += max_important_backlinks * self.WEIGHTS[site_dataset.order_on_page]
-            else:
-                real_backlinks_concurency += site_dataset.unique_backlinks * self.WEIGHTS[site_dataset.order_on_page]
 
-        self.site_backlinks_concurency = int(real_backlinks_concurency / max_backlinks_concurency * 100)
+        self._calculate_concurency(500, 'unique_backlinks')
 
     def calculate_direct_upscale(self):
-        direct_upscale = 0
-        direct_sites = 0
+        """
+        direct_upscale - условные единицы повышения конкуренции по поисковому запросу из-за наличия рекламных блоков
 
-        for site_object in self.site_objects_list:
-            if site_object.site_type == 'direct':
-                direct_sites += 1
+        Метод подсчитывает количество объявлений в верхней и нижней части страницы поисковой выдачи.
+        У каждого из объявлений разный коэффицент важности. Объявление на первом месте поисковой выдачи гораздо важнее,
+            чем то, что находится под результатами поиска. И гораздо больше влияет на конкуренцию.
+        В нижней части страницы могут находиться максимум 5 объявлений, в верхней - 4. В сумме - 9.
+        """
+        if self.direct_sites >= 5:
+            self.direct_upscale += 8
+            self.direct_sites -= 5
 
-        logger.debug(f'Всего {direct_sites} сайтов в директе')
-
-        if direct_sites >= 5:
-            direct_upscale += 8
-            direct_sites -= 5
-
-            if direct_sites == 4:
-                direct_upscale += 27
-            elif direct_sites == 3:
-                direct_upscale += 23
-            elif direct_sites == 2:
-                direct_upscale += 17
-            elif direct_sites == 1:
-                direct_upscale += 8
+            if self.direct_sites == 4:
+                self.direct_upscale += 27
+            elif self.direct_sites == 3:
+                self.direct_upscale += 23
+            elif self.direct_sites == 2:
+                self.direct_upscale += 17
+            elif self.direct_sites == 1:
+                self.direct_upscale += 8
         else:
-            if direct_sites == 5:
-                direct_upscale += 8
-            elif direct_sites == 4:
-                direct_upscale += 6.4
-            elif direct_sites == 3:
-                direct_upscale += 4.8
-            elif direct_sites == 2:
-                direct_upscale += 3.2
-            elif direct_sites == 1:
-                direct_upscale += 1.6
-
-        logger.debug(f'Upscale = {direct_upscale}')
-
-        self.direct_upscale = direct_upscale
+            if self.direct_sites == 5:
+                self.direct_upscale += 8
+            elif self.direct_sites == 4:
+                self.direct_upscale += 6.4
+            elif self.direct_sites == 3:
+                self.direct_upscale += 4.8
+            elif self.direct_sites == 2:
+                self.direct_upscale += 3.2
+            elif self.direct_sites == 1:
+                self.direct_upscale += 1.6
 
     def calculate_site_total_concurency(self):
         total_difficulty = int(
@@ -879,152 +868,11 @@ class Concurency:
         logger.info(f'Итоговая конкуренция: {total_difficulty}')
 
     def calculate_direct_concurency(self):
+        """
+        direct_concurency - рейтинг конкуренции, завязанный на процентгую шкалу. Считается с помощью деления
+            накопленного direct upscale на 35 (максимально возможный upscale)
+        """
         self.site_direct_concurency = int(self.direct_upscale / 35 * 100)
-
-    def prepare_report(self):
-        file = open(f'./reports/{self.report_file_name}.txt', 'a', encoding='utf-8')
-
-        file.write(f'Стемированный запрос: {self.request}\n')
-        file.write('----------------------------------------\n')
-        file.write(f'Конкуренция от возраста сайта:\n')
-        real_concurency = int()
-        max_concurency = int()
-
-        for site_object in self.site_objects_list:
-            try:
-                file.write(
-                    f'Сайт: {site_object.content_object.domain}. Возраст сайта {site_object.domain_object.domain_age}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]} из {10 * self.WEIGHTS[site_object.position]}\n')
-                real_concurency += site_object.domain_object.domain_age * self.WEIGHTS[site_object.position]
-                max_concurency += 10 * self.WEIGHTS[site_object.position]
-            except:
-                file.write(
-                    f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {10 * self.WEIGHTS[site_object.position]} из {10 * self.WEIGHTS[site_object.position]}\n')
-                real_concurency += 10 * self.WEIGHTS[site_object.position]
-                max_concurency += 10 * self.WEIGHTS[site_object.position]
-        file.write(
-            f'Уровень конкуренции от возраста: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_age_concurency}\n')
-        file.write('----------------------------------------\n')
-        file.write(f'Конкуренция от объема контента:\n')
-        real_concurency = int()
-        max_concurency = int()
-        for site_object in self.site_objects_list:
-            try:
-
-                if site_object.content_object.valid:
-                    if site_object.site_type == 'super':
-                        file.write(
-                            f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {10000 * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
-                        real_concurency += 10000 * self.WEIGHTS[site_object.position]
-                        max_concurency += 10000 * self.WEIGHTS[site_object.position]
-                    else:
-                        file.write(
-                            f'Сайт: {site_object.content_object.domain}. Объем статьи {site_object.content_object.letters_amount}. Находится на {site_object.position}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {site_object.content_object.letters_amount * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
-                        real_concurency += site_object.content_object.letters_amount * self.WEIGHTS[
-                            site_object.position]
-                        max_concurency += 10000 * self.WEIGHTS[site_object.position]
-                else:
-                    file.write(
-                        f'Сайт: {site_object.content_object.domain}. Контент не валиден (5000 знаков по умолчанию). Находится на {site_object.position}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {5000 * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
-                    real_concurency += 5000 * self.WEIGHTS[site_object.position]
-                    max_concurency += 10000 * self.WEIGHTS[site_object.position]
-            except:
-                file.write(
-                    f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {10000 * self.WEIGHTS[site_object.position]} из {10000 * self.WEIGHTS[site_object.position]}\n')
-                real_concurency += 10000 * self.WEIGHTS[site_object.position]
-                max_concurency += 10000 * self.WEIGHTS[site_object.position]
-        file.write(
-            f'Уровень конкуренции от объема контента: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_volume_concurency}\n')
-        file.write('----------------------------------------\n')
-        file.write(f'Конкуренция от стема:\n')
-        real_concurency = int()
-        max_concurency = int()
-
-        for site_object in self.site_objects_list:
-            max_concurency += self.WEIGHTS[site_object.position]
-            if site_object.site_type == 'organic':
-                matched_stem_items = len(set(self.request) & set(site_object.content_object.stemmed_title))
-                real_concurency += int(matched_stem_items / len(self.request)) * self.WEIGHTS[site_object.position]
-                test = matched_stem_items / len(self.request)
-                test2 = matched_stem_items / len(self.request) * self.WEIGHTS[site_object.position]
-                file.write(
-                    f'Сайт: {site_object.content_object.domain}. Запрос: {self.request}. Стемированный тайтл: {site_object.content_object.stemmed_title}. Кол-во совпадений: {matched_stem_items}.Находится на {site_object.position} месте. Процент совпадений: {round(test, 2)}. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {test2} из максимальных {self.WEIGHTS[site_object.position]}.\n')
-            else:
-                file.write(
-                    f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {self.WEIGHTS[site_object.position]} из {self.WEIGHTS[site_object.position]}\n')
-                real_concurency += self.WEIGHTS[site_object.position]
-        file.write(
-            f'Уровень конкуренции от стема: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_stem_concurency}\n')
-        file.write('----------------------------------------\n')
-        file.write('Апскейл от директа:\n')
-
-        direct_upscale = 0
-        for site_object in self.site_objects_list:
-            if site_object.site_type == 'direct':
-                if site_object.position == '1':
-                    direct_upscale += 13.0
-                    direct_upscale = round(direct_upscale, 2)
-                    file.write(f'Direct обнаружен на позиции {site_object.position}. Уровень вырос на 13\n')
-                elif site_object.position == '2':
-                    direct_upscale += 9.0
-                    direct_upscale = round(direct_upscale, 2)
-                    file.write(f'Direct обнаружен на позиции {site_object.position}. Уровень вырос на 9\n')
-                elif site_object.position == '3':
-                    direct_upscale += 6.0
-                    direct_upscale = round(direct_upscale, 2)
-                    file.write(f'Direct обнаружен на позиции {site_object.position}. Уровень вырос на 6\n')
-                elif site_object.position == '4':
-                    direct_upscale += 4.0
-                    direct_upscale = round(direct_upscale, 2)
-                    file.write(f'Direct обнаружен на позиции {site_object.position}. Уровень вырос на 4\n')
-                else:
-                    direct_upscale += float(0.6)
-                    direct_upscale = round(direct_upscale, 2)
-                    file.write(f'Direct обнаружен на позиции {site_object.position}. Уровень вырос на 0.6\n')
-        file.write('----------------------------------------\n')
-        file.write(f'Конкуренция от бэклинков:\n')
-        real_concurency = int()
-        max_concurency = int()
-
-        if self.status == 'ready':
-            for site_object in self.site_objects_list:
-                max_concurency += 500 * self.WEIGHTS[site_object.position]
-                if site_object.site_type == 'organic':
-                    real_concurency += site_object.domain_object.unique_backlinks * self.WEIGHTS[site_object.position]
-                    file.write(
-                        f'Сайт: {site_object.content_object.domain}. Количество бэклинков: {site_object.domain_object.unique_backlinks}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]} Сложность повысилась на {site_object.domain_object.unique_backlinks * self.WEIGHTS[site_object.position]} из {500 * self.WEIGHTS[site_object.position]}\n')
-                else:
-                    real_concurency += 500 * self.WEIGHTS[site_object.position]
-                    file.write(
-                        f'Сайт: {site_object.url}. Тип сайта: {site_object.site_type}. Находится на {site_object.position} месте. Кэф {self.WEIGHTS[site_object.position]}. Сложность повысилась на {500 * self.WEIGHTS[site_object.position]} из {500 * self.WEIGHTS[site_object.position]}\n')
-            file.write(
-                f'Уровень конкуренции от бэклинков: {real_concurency} из {max_concurency}. Процент: {int(real_concurency / max_concurency * 100)}. Значение в базе: {self.site_backlinks_concurency}\n')
-
-            file.write(f'Итоговая конкуренция:\n')
-            total_difficulty = int(
-                self.site_age_concurency * self.importance['Возраст сайта'] + self.site_stem_concurency *
-                self.importance[
-                    'Стемирование'] + self.site_volume_concurency * self.importance[
-                    'Объем статей'] + self.site_backlinks_concurency * self.importance['Ссылочное'])
-
-            file.write(
-                f"От возраста: {self.site_age_concurency} * {self.importance['Возраст сайта']} = {self.site_age_concurency * self.importance['Возраст сайта']}\n")
-            file.write(
-                f"От стема: {self.site_stem_concurency} * {self.importance['Стемирование']} = {self.site_stem_concurency * self.importance['Стемирование']}\n")
-            file.write(
-                f"От объема: {self.site_volume_concurency} * {self.importance['Объем статей']} = {self.site_volume_concurency * self.importance['Объем статей']}\n")
-            file.write(
-                f"От ссылочного: {self.site_backlinks_concurency} * {self.importance['Ссылочное']} = {self.site_backlinks_concurency * self.importance['Ссылочное']}\n")
-            file.write(f'До вычета direct upscale: {total_difficulty}\n')
-
-            total_difficulty += direct_upscale
-            file.write(f'После вычета direct upscale ({direct_upscale}): {total_difficulty}\n')
-
-
-
-        else:
-            file.write('Бэклинков недостаточно\n')
-        file.close()
-        print('ya')
 
     def convert_vital_domains_to_sting(self):
         self.vital_domains_amount = len(self.vital_domains)

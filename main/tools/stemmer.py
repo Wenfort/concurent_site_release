@@ -1,5 +1,6 @@
 import pymorphy2
 
+
 def _is_functional_part_of_speech(part_of_speech):
     if part_of_speech == 'PREP' or part_of_speech == 'CONJ' or part_of_speech == 'PRCL' or part_of_speech == 'INTJ':
         return True
@@ -21,4 +22,3 @@ def stem_text(request_text):
             stemmed_text.append(the_best_form_of_stemed_word.normal_form)
 
     return stemmed_text
-#    logger.info(f'Стемированный запрос: {self.stemmed_request}')
