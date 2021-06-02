@@ -1,8 +1,7 @@
 from microservices import postgres_mode as pm
 from threading import Thread
-from microservices.conc_settings import *
 import time
-from microservices.new_requests_handler import RequestDataSet, Yandex, Site, Concurency, Domain
+from microservices.new_requests_handler import RequestDataSet, Yandex, Site, Concurency
 
 
 class Manager:
@@ -14,10 +13,6 @@ class Manager:
         self.get_requests_from_queue()
         self.run_threads()
 
-        #if len(self.requests) > 0:
-        #    self.delete_requests_from_queue()
-
-        print(f'Обработано {len(self.requests)} запросов ожидающих ссылок')
 
     def run_threads(self):
         """
@@ -48,7 +43,7 @@ class Manager:
         self.requests = tuple(self.requests)
 
     def create_yandex_object(self, request_dataset):
-        self.yandex_objects_list.append(PendingRequestYandex(request_dataset))
+        PendingRequestYandex(request_dataset)
 
     def make_threads(self):
         self.threads_list = [Thread(target=self.create_yandex_object, args=(request_dataset,))
@@ -61,16 +56,6 @@ class Manager:
     def check_threads(self):
         for thread in self.threads_list:
             thread.join()
-
-    def delete_requests_from_queue(self):
-        for yandex_object in self.yandex_objects_list:
-            if yandex_object.concurency_object:
-                if yandex_object.concurency_object.status == 'ready':
-                    pm.custom_request_to_database_without_return(
-                        f"UPDATE concurent_site.main_handledxml SET status = 'conf' WHERE request_id = {yandex_object.request_id};"
-                    )
-                else:
-                    print('ya')
 
 
 class PendingRequestYandex(Yandex):
@@ -91,12 +76,27 @@ class PendingRequestYandex(Yandex):
         self.run_threads()
 
         self.make_concurency_object()
+        if self.concurency_object.all_backlinks_collected:
+            self.update_data_in_database()
+            self.delete_request_from_queue()
 
     def make_site_object(self, site_dataset):
         PendingRequestSite(site_dataset)
 
     def make_concurency_object(self):
         self.concurency_object = PendingRequesConcurency(self.site_list, self.request_id)
+
+    def update_data_in_database(self):
+        sql = ("UPDATE concurent_site.main_request "
+               f"SET backlinks_concurency = {self.concurency_object.site_backlinks_concurency}, "
+               f"total_concurency = {self.concurency_object.site_total_concurency};")
+
+        pm.custom_request_to_database_without_return(sql)
+
+    def delete_request_from_queue(self):
+        sql = f"UPDATE concurent_site.main_handledxml SET status = 'conf' WHERE request_id = {self.request_id};"
+
+        pm.custom_request_to_database_without_return(sql)
 
 class PendingRequestSite(Site):
     def __init__(self, site_dataset):
@@ -121,6 +121,7 @@ class PendingRequesConcurency(Concurency):
         self.site_stem_concurency = int()
         self.site_volume_concurency = int()
         self.direct_upscale = int()
+        self.all_backlinks_collected = True
 
         self.site_backlinks_concurency = int()
         self.site_total_concurency = int()
@@ -129,6 +130,7 @@ class PendingRequesConcurency(Concurency):
 
         if self.all_backlinks_collected:
             self.get_stat_weights()
+            self.get_params_importance()
             self.get_concurency_data_from_database()
             self.calculate_site_backlinks_concurency()
             self.calculate_site_total_concurency()
@@ -164,7 +166,6 @@ class PendingRequesConcurency(Concurency):
         self.site_stem_concurency = database_return[1]
         self.site_volume_concurency = database_return[2]
         self.direct_upscale = database_return[3]
-
 
 
 if __name__ == '__main__':
