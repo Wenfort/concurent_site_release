@@ -89,7 +89,10 @@ class PendingRequestYandex(Yandex):
     def update_data_in_database(self):
         sql = ("UPDATE concurent_site.main_request "
                f"SET backlinks_concurency = {self.concurency_object.site_backlinks_concurency}, "
-               f"total_concurency = {self.concurency_object.site_total_concurency};")
+               f"total_concurency = {self.concurency_object.site_total_concurency}, "
+               f"average_total_backlinks = {self.concurency_object.average_total_backlinks}, "
+               f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks}, "
+               f"status = 'ready';")
 
         pm.custom_request_to_database_without_return(sql)
 
@@ -171,4 +174,5 @@ class PendingRequesConcurency(Concurency):
 if __name__ == '__main__':
     while True:
         Manager()
+        print('Готово!')
         time.sleep(20)

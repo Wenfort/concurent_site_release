@@ -114,8 +114,8 @@ class XmlReport:
             sql = ("UPDATE concurent_site.main_request "
                    f"SET direct_upscale = {direct_upscale}, "
                    f"is_direct_final = 1, "
-                   f"site_direct_concurency = {direct_concurency} "
-                   f"WHERE request_id = {request_id};")
+                   f"direct_concurency = {direct_concurency} "
+                   f"WHERE id = {request_id};")
 
             pm.custom_request_to_database_without_return(sql)
 
