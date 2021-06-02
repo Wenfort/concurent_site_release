@@ -40,7 +40,6 @@ class SiteDataSet:
     is_content_valid: bool = True
 
 
-@logger.catch
 class Manager:
     def __init__(self):
         self.requests = list()
@@ -144,8 +143,6 @@ class Manager:
 
         self._delete_checktrust_zero_balance_accounts(zero_balance_accounts_count)
 
-
-@logger.catch
 class Site:
     def __init__(self, site_dataset):
         self.site_dataset = site_dataset
@@ -236,13 +233,12 @@ class Site:
         Content(self.html, self.site_dataset)
 
 
-@logger.catch
 class Yandex:
-    def __init__(self, request, q):
-        self.request_id = request.id
-        self.request_text = request.text
-        self.xml_text = request.xml
-        self.region_id = request.region_id
+    def __init__(self, request_dataset, q):
+        self.request_id = request_dataset.id
+        self.request_text = request_dataset.text
+        self.xml_text = request_dataset.xml
+        self.region_id = request_dataset.region_id
         self.q = q
 
         self.site_list = list()
@@ -425,7 +421,7 @@ class Backlinks:
 
     def get_backlinks(self):
         request_json = self._get_backlinks_service_json_answer(self.site_dataset.domain)
-
+        print(f'Попробовали получить данные от домена {self.site_dataset.domain}')
         if not request_json['success']:
             logger.info(f'{self.site_dataset.domain} данные не получены по причине {request_json["message"]}')
             self.site_dataset.backlinks_status = 'pending'
@@ -438,7 +434,6 @@ class Backlinks:
                 self.site_dataset.domain_group = 1
 
 
-@logger.catch
 class Domain:
     def __init__(self, site_dataset):
         self.site_dataset = site_dataset
@@ -454,7 +449,7 @@ class Domain:
 
     def get_domain_data(self):
         self.get_domain_age()
-        self.make_backlinks_object()
+        self.add_backlinks_data_to_dataset()
         self.add_domain_backlinks_to_database()
 
     def add_domain_data_to_dataset(self):
@@ -548,11 +543,10 @@ class Domain:
             logger.critical(f'Возраст домена {self.domain} определен неправильно')
             self.site_dataset.invalid_domain_zone = False
 
-    def make_backlinks_object(self):
+    def add_backlinks_data_to_dataset(self):
         Backlinks(self.site_dataset)
 
 
-@logger.catch
 class Content:
     def __init__(self, html, site_dataset):
         self.site_dataset = site_dataset
@@ -597,7 +591,6 @@ class Content:
         return title_without_puctuation
 
 
-@logger.catch
 class Concurency:
     def __init__(self, site_datasets, stemmed_request):
         self.site_datasets = site_datasets
@@ -624,18 +617,18 @@ class Concurency:
         self.all_backlinks_collected = True
 
         self.get_stat_weights()
+        self.get_params_importance()
+        self.calculate_statistics()
 
         self.calculate_site_stem_concurency()
         self.calculate_site_age_concurency()
         self.calculate_site_volume_concurency()
-        self.calculate_site_backlinks_concurency()
-        self.get_params_importance()
-
-        self.calculate_statistics()
         self.calculate_direct_upscale()
         self.calculate_direct_concurency()
 
-        self.calculate_site_total_concurency()
+        if self.all_backlinks_collected:
+            self.calculate_site_backlinks_concurency()
+            self.calculate_site_total_concurency()
 
     def get_params_importance(self):
         """
