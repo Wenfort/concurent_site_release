@@ -1,5 +1,6 @@
 from microservices import postgres_mode as pm
 from dataclasses import dataclass
+import time
 
 
 @dataclass
@@ -23,7 +24,7 @@ class OrderStatusHandler:
 
     def _update_completition_percent(self, order_dataset):
         sql = ("UPDATE concurent_site.main_order SET "
-               f"progress = {order_dataset.actual_completition_percent}"
+               f"progress = {order_dataset.actual_completition_percent} "
                f"WHERE id ={order_dataset.id};")
 
         pm.custom_request_to_database_without_return(sql)
@@ -53,5 +54,6 @@ class OrderStatusHandler:
         database_return = pm.custom_request_to_database_with_return(sql)
         return database_return
 
-
-OrderStatusHandler()
+while True:
+    OrderStatusHandler()
+    time.sleep(60)

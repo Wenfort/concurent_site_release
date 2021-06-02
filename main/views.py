@@ -113,7 +113,7 @@ class NewRequestHandler:
         try:
             order = Order.objects.get(user_id=self.user_id, user_order_id=self.user_order_id)
             order.ordered_keywords_amount += self.new_requests_amount
-            order.status = 0
+            order.progress = 0
             order.save()
         except:
             latest_user_order_id = self.get_latest_user_order(self.user_id)
