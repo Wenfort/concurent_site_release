@@ -1,50 +1,57 @@
-import time
-from microservices.postgres_mode import establish_connection
-from main.tools.microservice_email_sender import send_order_ready_mail
+from microservices import postgres_mode as pm
+from dataclasses import dataclass
 
 
-while True:
-    connection = establish_connection()
-    cursor = connection.cursor()
-    sql_request = 'SELECT order_id, user_id, user_order_id FROM concurent_site.main_orderstatus WHERE status = 0'
-    cursor.execute(sql_request)
-    pending_orders = [(item[0], item[1], item[2]) for item in cursor.fetchall()]
+@dataclass
+class OrderDataSet:
+    id: int
+    actual_completition_percent: int
+    stored_completition_percent: int
 
 
+class OrderStatusHandler:
+    def __init__(self):
+        self.order_datasets = list()
 
-    for pending_order in pending_orders:
-        order_id = pending_order[0]
-        user_id = pending_order[1]
-        user_order_id = pending_order[2]
-        sql_request = f'SELECT request_id FROM concurent_site.main_order WHERE order_id = {order_id}'
-        cursor.execute(sql_request)
-        order_requests = [str(item[0]) for item in cursor.fetchall()]
-        order_requests = ','.join(order_requests)
+        self.make_order_datasets()
+        self.update_orders_status()
 
-        sql_request = f'SELECT status FROM concurent_site.main_request WHERE request_id IN ({order_requests})'
-        cursor.execute(sql_request)
-        order_requests = [str(item[0]) for item in cursor.fetchall()]
+    def update_orders_status(self):
+        for order_dataset in self.order_datasets:
+            if order_dataset.actual_completition_percent > order_dataset.stored_completition_percent:
+                self._update_completition_percent(order_dataset)
 
-        total_requests = len(order_requests)
-        complete_requests = 0
+    def _update_completition_percent(self, order_dataset):
+        sql = ("UPDATE concurent_site.main_order SET "
+               f"progress = {order_dataset.actual_completition_percent}"
+               f"WHERE id ={order_dataset.id};")
 
-        for order_request in order_requests:
-            if order_request == 'ready':
-                complete_requests += 1
+        pm.custom_request_to_database_without_return(sql)
 
-        complete_requests_percent = int(complete_requests / total_requests * 100)
+    def make_order_datasets(self):
+        not_completed_orders_data = self._get_not_completed_orders_data()
 
-        if complete_requests_percent == 100:
-            sql_request = f"UPDATE concurent_site.main_orderstatus SET status = 1, progress = {complete_requests_percent} WHERE order_id = {order_id};"
-            email_request = f'SELECT email FROM concurent_site.auth_user WHERE id = {user_id}'
-            cursor.execute(email_request)
-            email = cursor.fetchone()[0]
-            send_order_ready_mail(email, user_order_id)
-        else:
-            sql_request = f'UPDATE concurent_site.main_orderstatus SET progress = {complete_requests_percent} WHERE order_id = {order_id};'
+        self.order_datasets = [OrderDataSet(id=order[0], actual_completition_percent=order[1],
+                                            stored_completition_percent=order[2])
+                               for order in not_completed_orders_data]
 
-        cursor.execute(sql_request)
-    connection.commit()
 
-    connection.close()
-    time.sleep(15)
+    def _get_not_completed_orders_data(self):
+        sql = """
+                SELECT order_id,
+                       ceil(cast(COUNT(*) as decimal) / MAX(ordered_keywords_amount) * 100) as comletition_percent,
+                       MAX(progress) AS progress
+                FROM concurent_site.main_request req
+                INNER JOIN
+                    concurent_site.main_order ord ON (req.order_id = ord.id)
+                WHERE order_id IN
+                      (SELECT id FROM concurent_site.main_order WHERE main_order.progress < 100) AND
+                      req.status = 'ready'
+                GROUP BY order_id;
+              """
+
+        database_return = pm.custom_request_to_database_with_return(sql)
+        return database_return
+
+
+OrderStatusHandler()
