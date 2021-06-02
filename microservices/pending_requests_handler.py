@@ -92,7 +92,8 @@ class PendingRequestYandex(Yandex):
                f"total_concurency = {self.concurency_object.site_total_concurency}, "
                f"average_total_backlinks = {self.concurency_object.average_total_backlinks}, "
                f"average_unique_backlinks = {self.concurency_object.average_unique_backlinks}, "
-               f"status = 'ready';")
+               f"status = 'ready'"
+               f"WHERE id = {self.request_id};")
 
         pm.custom_request_to_database_without_return(sql)
 

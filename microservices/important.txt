@@ -7931,3 +7931,5 @@ Traceback (most recent call last):
 
 psycopg2.errors.StringDataRightTruncation: value too long for type character varying(10)
 
+17:01:47 Проблема с валидностью контента yandex.by. 
+17:13:58 Проблема с валидностью контента wikichi.ru. 

@@ -15,7 +15,7 @@ class BacklinksHandler(Backlinks):
         self.get_token()
         for domain in self.get_pending_domains():
             if self.have_new_backlinks_data(domain):
-                self.update_database()
+                self.update_database(domain)
 
     def get_pending_domains(self):
         sql = "SELECT name FROM concurent_site.main_domain WHERE status = 'pending'"
@@ -35,12 +35,13 @@ class BacklinksHandler(Backlinks):
 
             return True
 
-    def update_database(self):
+    def update_database(self, domain):
         sql = ("UPDATE concurent_site.main_domain SET "
                f"unique_backlinks = {self.unique_backlinks}, "
                f"total_backlinks = {self.total_backlinks}, "
                f"status = '{self.backlinks_status}', "
-               f"domain_group = {self.domain_group}")
+               f"domain_group = {self.domain_group} "
+               f"WHERE name = '{domain}';")
 
         pm.custom_request_to_database_without_return(sql)
 
