@@ -37,7 +37,7 @@ class SiteDataSet:
 
     content_letters_amount: int = 0
     content_stemmed_title: list = field(default_factory=lambda: [])
-    is_content_valid: bool = True
+    is_content_valid: bool = False
 
 
 class Manager:
@@ -189,16 +189,17 @@ class Site:
         пожертвовать незначительной долей точности и обрабатывать турбо страницы (они встречаются довольно редко) как
         абстрактный сайт с усредненными показателями
         """
-        domain = urlparse(self.url)
-        domain = domain.netloc
-        domain = domain.replace('www.', '')
-
-        if 'Турбо-страница' in domain:
+        if 'Турбо-страница' in self.url:
             domain = 'abstract-average-site.ru'
+        else:
+            parsed_url_object = urlparse(self.url)
+            domain = parsed_url_object.netloc
+
+        if not domain:
+            domain = self.url
 
         if domain.count('.') == 0:
             domain = domain + '.ru'
-
         while domain.count('.') != 1:
             first_dot = domain.find('.') + 1
             domain = domain[first_dot:]
@@ -206,7 +207,10 @@ class Site:
         self.site_dataset.domain = domain
 
     def is_pdf(self):
-        if '.pdf' in self.url:
+        """
+        Метод ищет .pdf в конце строки. Такие url обходить не нужно.
+        """
+        if '.pdf' in self.url[-4:]:
             return True
 
     def get_html(self):
@@ -219,12 +223,9 @@ class Site:
             try:
                 r = requests.get(self.url, headers=HEADERS, verify=False, timeout=15).content
                 self.html = BeautifulSoup(r, 'html.parser')
+                self.site_dataset.is_content_valid = True
             except:
-                self.html = ''
-                self.site_dataset.is_content_valid = False
-        else:
-            self.html = ''
-            self.site_dataset.is_content_valid = False
+                pass
 
     def add_domain_data_to_dataset(self):
         Domain(self.site_dataset)
