@@ -9,9 +9,9 @@ from dataclasses import dataclass
 
 @dataclass
 class Request:
-    id: int
-    text: str
-    region_id: int
+    id: int = 0
+    text: str = ''
+    region_id: int = 0
     xml_url: str = ''
     validated_text: str = ''
     status: str = ''
@@ -199,7 +199,7 @@ class XmlReport:
         запроса пользователя с регионом, указанным в админке. После этого к датасету добавляется url для xml запроса
         """
         for request_data in self.requests:
-            if int(request_data.region_id) == 255:
+            if request_data.region_id == 255:
                 xml_url = f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_data.text}'
             else:
                 xml_url = f'http://xmlriver.com/search_yandex/xml?user=1391&key=893df7feb2a0f02343085ea6bc9e5424056aa945&query={request_data.text}&lr={request_data.region_id}'
@@ -289,7 +289,8 @@ class XmlReport:
                 error_text = f'Ответ от поисковой системы не получен {request}: {validated_text}'
                 self.write_to_log_file(request, error_text)
 
-    def get_ads_block(self, soup, placement):
+    @staticmethod
+    def get_ads_block(soup, placement):
         """
         Принимает два placement:
         'topads' - объявления в верхней части страницы (спецразмещение)
@@ -307,7 +308,8 @@ class XmlReport:
 
         return ads_block, ads_count
 
-    def get_real_ads_count(self, bottom_ads_count):
+    @staticmethod
+    def get_real_ads_count(bottom_ads_count):
         """
         Еще одна ошибка в работе внешнего XML сервиса - он часто ошибочно не разделяет объявления в верхней и
         нижней части, записывая все объявления в нижнюю. Всего может быть только 9 объявлений - 4 свеху и 5 снизу.
@@ -358,7 +360,8 @@ class XmlReport:
 
         return validated_text
 
-    def validate_quotes_for_sql(self, raw_xml):
+    @staticmethod
+    def validate_quotes_for_sql(raw_xml):
         """
         Экранирует кавычки для добавления в БД
         """
@@ -451,8 +454,8 @@ class XmlReport:
 
         pm.custom_request_to_database_without_return(sql)
 
-
-while True:
-    XmlReport()
-    print('Готово!')
-    time.sleep(10)
+if __name__ == "__main__":
+    while True:
+        XmlReport()
+        print('Готово!')
+        time.sleep(10)
