@@ -2,6 +2,9 @@ import unittest
 from microservices.new_requests_handler import Manager as NRHManager
 from microservices.new_requests_handler import Yandex as NRHYandex
 from microservices.new_requests_handler import Site as NRHSite
+from microservices.new_requests_handler import Domain as NRHDomain
+from microservices.new_requests_handler import Backlinks as NRHBacklinks
+from microservices.new_requests_handler import Content as NRHContent
 from microservices.new_requests_handler import RequestDataSet, SiteDataSet
 from microservices import postgres_mode as pm
 from main.tools.stemmer import stem_text
@@ -23,6 +26,17 @@ class NRHUnitTestSite(NRHSite):
     def __init__(self):
         pass
 
+class NRHUnitTestDomain(NRHDomain):
+    def __init__(self):
+        pass
+
+class NRHUnitTestBacklinks(NRHBacklinks):
+    def __init__(self):
+        pass
+
+class NRHUnitTestContent(NRHContent):
+    def __init__(self):
+        pass
 
 class TestManager(unittest.TestCase):
 
@@ -78,12 +92,23 @@ class TestManager(unittest.TestCase):
 
         pm.custom_request_to_database_without_return(sql)
 
+        sql = ("INSERT INTO "
+               "concurent_site.main_domain "
+               "VALUES "
+               "('test-domain-one.ru', 8, 400, 800, 'complete', 0),"
+               "('test-domain-two.ru', 12, 600, 1200, 'pending', 1),"
+               "('test-domain-three.ru', 45, 100500, 1000000, 'fake', 2)")
+
+        pm.custom_request_to_database_without_return(sql)
+
     def tearDown(self):
         SCHEMA = 'concurent_site'
+        test_domains = ('test-domain-one.ru', 'test-domain-two.ru', 'test-domain-three.ru')
         sql = (f'DELETE FROM {SCHEMA}.main_order; '
                f'DELETE FROM {SCHEMA}.main_handledxml; '
                f'DELETE FROM {SCHEMA}.main_requestqueue; '
-               f'DELETE FROM {SCHEMA}.main_request; ')
+               f'DELETE FROM {SCHEMA}.main_request; '
+               f'DELETE FROM {SCHEMA}.main_domain WHERE name in {test_domains};')
 
         pm.custom_request_to_database_without_return(sql)
 
@@ -245,11 +270,12 @@ class TestManager(unittest.TestCase):
 
             pair_number += 1
 
-    # def test_internet_connection(self):
-    #    first_request = requests.get('https://ya.ru')
-    #    second_request = requests.get('https://google.com')
-    #    self.assertEqual(200, first_request.status_code)
-    #    self.assertEqual(200, second_request.status_code)
+    """
+    def test_internet_connection(self):
+        first_request = requests.get('https://ya.ru')
+        second_request = requests.get('https://google.com')
+        self.assertEqual(200, first_request.status_code)
+        self.assertEqual(200, second_request.status_code)
 
     def test_get_html(self):
         site_dataset = SiteDataSet(is_content_valid=True)
@@ -259,15 +285,48 @@ class TestManager(unittest.TestCase):
         first_site_object.site_dataset = site_dataset
         first_site_object.url = 'https://ya.ru'
         first_site_object.get_html()
+        got_first_site_html = bool(first_site_object.html)
 
         second_site_object = NRHUnitTestSite()
         second_site_object.html = ''
         second_site_object.site_dataset = site_dataset
         second_site_object.url = 'https://jgfdgjfjiogjsdijgosd'
         second_site_object.get_html()
+        got_second_site_html = bool(second_site_object.html)
+        
+        self.assertEqual(True, got_first_site_html)
+        self.assertEqual(False, got_second_site_html)
 
-        self.assertEqual(True, bool(first_site_object.html))
-        self.assertEqual(False, bool(second_site_object.html))
+    def test_get_domain_age(self):
+        domains_list = ['yandex.ru', 'yahoo.com', 'riga.lv', 'highreighoifdgoidfhgdfonifew.ru']
+        assertions_list = ((24, False), (26, False), (5, True), (5, True))
+        pair_number = 0
+        for domain in domains_list:
+
+            dataset = SiteDataSet()
+            domain_object = NRHUnitTestDomain()
+            domain_object.site_dataset = dataset
+            domain_object.site_dataset.domain = domain
+            domain_object.get_domain_age()
+            assertion_domain_age = assertions_list[pair_number][0]
+            assertion_invalid_domain_zone = assertions_list[pair_number][1]
+            self.assertEqual(assertion_domain_age, domain_object.site_dataset.domain_age)
+            self.assertEqual(assertion_invalid_domain_zone, domain_object.site_dataset.invalid_domain_zone)
+
+            pair_number += 1
+    
+    def test_get_backlinks(self):
+        backlinks_object = NRHUnitTestBacklinks()
+        backlinks_object.token = ''
+        backlinks_object.get_token()
+        backlinks_object.site_dataset = SiteDataSet(domain='yandex.ru')
+        backlinks_object.get_backlinks()
+
+        self.assertGreater(backlinks_object.site_dataset.unique_backlinks, 590000)
+        self.assertGreater(backlinks_object.site_dataset.total_backlinks, 1000000000)
+        self.assertEqual(1, backlinks_object.site_dataset.domain_group)
+    
+    """
 
     def test_is_pdf(self):
         first_site_object = NRHUnitTestSite()
@@ -277,12 +336,80 @@ class TestManager(unittest.TestCase):
         second_site_object.url = 'https://www.pdfo.ru/ordinar_page'
 
         third_site_object = NRHUnitTestSite()
-        third_site_object.url = 'https://yandex.ru'
+        third_site_object.url = 'https://yandef.pd'
 
         self.assertEqual(True, first_site_object.is_pdf())
         self.assertEqual(None, second_site_object.is_pdf())
         self.assertEqual(None, third_site_object.is_pdf())
 
+    def test_domain_data_in_database(self):
+        dataset = SiteDataSet()
+
+        first_domain_object = NRHUnitTestDomain()
+        first_domain_object.site_dataset = dataset
+        first_domain_object.domain_data_in_database = ''
+        first_domain_object.site_dataset.domain = 'test-domain-one.ru'
+        first_result = first_domain_object.is_domain_data_in_database()
+
+        dataset = SiteDataSet()
+        second_domain_object = NRHUnitTestDomain()
+        second_domain_object.site_dataset = dataset
+        second_domain_object.domain_data_in_database = ''
+        second_domain_object.site_dataset.domain = 'fake-test-domain-one.ru'
+        second_result = second_domain_object.is_domain_data_in_database()
+
+        self.assertEqual(True, first_result)
+        self.assertEqual(None, second_result)
+
+    def test_add_domain_data_to_dataset(self):
+        dataset = SiteDataSet()
+        site_data = (8, 400, 800, 0, 'complete')
+
+        domain_object = NRHUnitTestDomain()
+        domain_object.site_dataset = dataset
+        domain_object.domain_data_in_database = site_data
+        domain_object.add_domain_data_to_dataset()
+
+        self.assertEqual(8, domain_object.site_dataset.domain_age)
+        self.assertEqual(400, domain_object.site_dataset.unique_backlinks)
+        self.assertEqual(800, domain_object.site_dataset.total_backlinks)
+        self.assertEqual(0, domain_object.site_dataset.domain_group)
+        self.assertEqual('complete', domain_object.site_dataset.backlinks_status)
+
+    def test_add_letters_amount_to_dataset(self):
+        file = open("site_html", "r")
+        html = file.read()
+        file.close()
+        html = BeautifulSoup(html, 'html.parser')
+
+        content_object = NRHUnitTestContent()
+        content_object.site_dataset = SiteDataSet()
+        content_object.html = html
+        content_object.get_text()
+        content_object.add_letters_amount_to_dataset()
+        self.assertEqual(4607, content_object.site_dataset.content_letters_amount)
+
+    def test_get_title(self):
+        file = open("site_html", "r")
+        html = file.read()
+        file.close()
+        html = BeautifulSoup(html, 'html.parser')
+
+        content_object = NRHUnitTestContent()
+        content_object.site_dataset = SiteDataSet()
+        content_object.html = html
+        title = content_object.get_title()
+        self.assertEqual('Яндекс', title)
+
+    def test_delete_punctuation_from_title(self):
+        first_title = 'Hello,!@#$%^&*()+|/":;,<>. World'
+        second_title = 'Good day'
+
+        content_object = NRHUnitTestContent()
+        first_title_without_puctutation = content_object.delete_punctuation_from_title(first_title)
+        second_title_without_puctutation = content_object.delete_punctuation_from_title(second_title)
+        self.assertEqual('Hello World', first_title_without_puctutation)
+        self.assertEqual('Good day', second_title_without_puctutation)
 
 if __name__ == '__main__':
     unittest.main()
