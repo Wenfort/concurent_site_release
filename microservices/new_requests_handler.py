@@ -483,11 +483,7 @@ class Domain:
                f"{self.site_dataset.total_backlinks}, '{self.site_dataset.backlinks_status}',"
                f"{self.site_dataset.domain_group});")
 
-        try:
-            pm.custom_request_to_database_without_return(sql)
-        except Exception as e:
-            print(e)
-
+        pm.custom_request_to_database_without_return(sql)
 
     def _get_domain_age_with_creation_date_pattern(self, soup):
         start = soup.find('Creation Date') + 15
@@ -509,7 +505,8 @@ class Domain:
         """
         invalid_domain_zones = ('.lv', '.club', '.to', '.ua', '.eu')
         if any(zone in self.site_dataset.domain for zone in invalid_domain_zones):
-            self.site_dataset.invalid_domain_zone = False
+            self.site_dataset.domain_age = 5
+            self.site_dataset.invalid_domain_zone = True
         else:
             start = soup.find('created') + 8
             finish = start + 4
@@ -541,8 +538,9 @@ class Domain:
             elif 'created' in soup:
                 self._get_domain_age_with_created_pattern(soup)
         except:
-            logger.critical(f'Возраст домена {self.domain} определен неправильно')
-            self.site_dataset.invalid_domain_zone = False
+            logger.critical(f'Возраст домена {self.site_dataset.domain} определен неправильно')
+            self.site_dataset.domain_age = 5
+            self.site_dataset.invalid_domain_zone = True
 
     def add_backlinks_data_to_dataset(self):
         Backlinks(self.site_dataset)
@@ -587,7 +585,8 @@ class Content:
 
         return title
 
-    def delete_punctuation_from_title(self, title):
+    @staticmethod
+    def delete_punctuation_from_title(title):
         title_without_puctuation = re.sub(r'[^\w\s]', '', title)
         return title_without_puctuation
 
@@ -645,12 +644,12 @@ class Concurency:
         WEIGHTS - вес разных позиций в поисковоый выдаче при оценке конкуренции.
         В зависимости от присутствия в выдаче директа, вес меняется.
         """
-        if self._is_direct_in_dataset:
+        if self._is_direct_in_datasets():
             self.WEIGHTS = WEIGHTS_DIRECT
         else:
             self.WEIGHTS = WEIGHTS_ORGANIC
 
-    def _is_direct_in_dataset(self):
+    def _is_direct_in_datasets(self):
         """
         Происходит проверка, есть ли в списке датасетов рекламные сайты. Для этого достаточно проверить первый
         и последний датасет. Реклама всегда находится либо в начале, либо в конце.
