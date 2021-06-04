@@ -617,10 +617,11 @@ class Concurency:
         self.all_backlinks_collected = True
 
         self.get_stat_weights()
-        self.get_params_importance()
         self.calculate_statistics()
 
         self.calculate_site_stem_concurency()
+        self.get_params_importance()
+
         self.calculate_site_age_concurency()
         self.calculate_site_volume_concurency()
         self.calculate_direct_upscale()
@@ -644,12 +645,12 @@ class Concurency:
         WEIGHTS - вес разных позиций в поисковоый выдаче при оценке конкуренции.
         В зависимости от присутствия в выдаче директа, вес меняется.
         """
-        if self._is_direct_in_datasets():
+        if self.check_is_direct_in_datasets():
             self.WEIGHTS = WEIGHTS_DIRECT
         else:
             self.WEIGHTS = WEIGHTS_ORGANIC
 
-    def _is_direct_in_datasets(self):
+    def check_is_direct_in_datasets(self):
         """
         Происходит проверка, есть ли в списке датасетов рекламные сайты. Для этого достаточно проверить первый
         и последний датасет. Реклама всегда находится либо в начале, либо в конце.
@@ -751,7 +752,7 @@ class Concurency:
         и запросе пользователя не превышает 30%, запрос считается "абсурдным". 30% - не идеал, этот брейкпоинт
         тестируется.
         """
-        if self.site_stem_concurency < 30:
+        if self.site_stem_concurency < ABSURD_STEM_BREAKPOINT:
             return True
 
     def calculate_statistics(self):

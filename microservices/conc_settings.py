@@ -108,6 +108,8 @@ WEIGHTS_DIRECT = {
     35: 2,
 }
 
+ABSURD_STEM_BREAKPOINT = 30
+
 STANDART_IMPORTANCE = {
     'Возраст сайта': 0.4,
     'Стемирование': 0.3,
