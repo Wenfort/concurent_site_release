@@ -5,10 +5,12 @@ from microservices.new_requests_handler import Site as NRHSite
 from microservices.new_requests_handler import Domain as NRHDomain
 from microservices.new_requests_handler import Backlinks as NRHBacklinks
 from microservices.new_requests_handler import Content as NRHContent
+from microservices.new_requests_handler import Concurency as NRHConcurency
 from microservices.new_requests_handler import RequestDataSet, SiteDataSet
 from microservices import postgres_mode as pm
 from main.tools.stemmer import stem_text
 from bs4 import BeautifulSoup
+from microservices.conc_settings import WEIGHTS_ORGANIC, WEIGHTS_DIRECT, STANDART_IMPORTANCE
 import requests
 
 
@@ -26,22 +28,29 @@ class NRHUnitTestSite(NRHSite):
     def __init__(self):
         pass
 
+
 class NRHUnitTestDomain(NRHDomain):
     def __init__(self):
         pass
+
 
 class NRHUnitTestBacklinks(NRHBacklinks):
     def __init__(self):
         pass
 
+
 class NRHUnitTestContent(NRHContent):
+    def __init__(self):
+        pass
+
+
+class NRHUnitTestConcurency(NRHConcurency):
     def __init__(self):
         pass
 
 class TestManager(unittest.TestCase):
 
     def setUp(self):
-        self.test_manager = NRHUnitTestManager()
         order_id = 1
         self.manager = TestManager()
 
@@ -51,12 +60,11 @@ class TestManager(unittest.TestCase):
 
         pm.custom_request_to_database_without_return(sql)
 
-        request_ids = [1, 2]
         sql = ("INSERT INTO "
                "concurent_site.main_request "
                f"VALUES "
-               f"({request_ids[0]}, 'Lasik', 0, 0, 0, 0, 0, 0, 0, 0, 'in work', 0, 0, 0, 0, 0, '', 0, 0, 255, {order_id}), "
-               f"({request_ids[1]}, 'Коррекция зрения', 0, 0, 0, 0, 0, 0, 0, 0, 'in work', 0, 0, 0, 0, 0, '', 0, 0, 255, {order_id})")
+               f"(1, 'Lasik', 0, 0, 0, 0, 0, 0, 0, 0, 'in work', 0, 0, 0, 0, 0, '', 0, 0, 255, {order_id}), "
+               f"(2, 'Коррекция зрения', 0, 0, 0, 0, 0, 0, 0, 0, 'in work', 0, 0, 0, 0, 0, '', 0, 0, 255, {order_id})")
 
         pm.custom_request_to_database_without_return(sql)
 
@@ -66,13 +74,15 @@ class TestManager(unittest.TestCase):
 
         sql = ("INSERT INTO "
                "concurent_site.main_requestqueue "
-               f"VALUES (DEFAULT, FALSE, 255, {request_ids[0]})")
+               f"VALUES (DEFAULT, FALSE, 255, 1)")
 
         pm.custom_request_to_database_without_return(sql)
 
         sql = ("INSERT INTO "
                "concurent_site.main_handledxml "
-               f"VALUES (DEFAULT, '{xml}', 'in work', 0, 0, 0, 0, 255, {request_ids[0]})")
+               f"VALUES "
+               f"(DEFAULT, '{xml}', 'in work', 0, 0, 0, 0, 255, 1),"
+               f"(DEFAULT, '{xml}', 'in work', 0, 0, 0, 0, 255, 2)")
 
         pm.custom_request_to_database_without_return(sql)
 
@@ -82,13 +92,7 @@ class TestManager(unittest.TestCase):
 
         sql = ("INSERT INTO "
                "concurent_site.main_requestqueue "
-               f"VALUES (DEFAULT, FALSE, 255, {request_ids[1]})")
-
-        pm.custom_request_to_database_without_return(sql)
-
-        sql = ("INSERT INTO "
-               "concurent_site.main_handledxml "
-               f"VALUES (DEFAULT, '{xml}', 'in work', 0, 0, 0, 0, 255, {request_ids[1]})")
+               f"VALUES (DEFAULT, FALSE, 255, 2)")
 
         pm.custom_request_to_database_without_return(sql)
 
@@ -152,15 +156,16 @@ class TestManager(unittest.TestCase):
         self.assertEqual(second_request[0], 2)
 
     def test_get_requests_from_queue(self):
-        self.test_manager.get_requests_from_queue()
+        manager_object = NRHUnitTestManager()
+        manager_object.get_requests_from_queue()
 
-        first_request = self.test_manager.requests[0]
-        second_request = self.test_manager.requests[1]
+        request = manager_object.requests[0]
+        self.assertEqual(1, request.id)
+        self.assertEqual('Lasik', request.text)
 
-        self.assertEqual(first_request.id, 1)
-        self.assertEqual(first_request.text, 'Lasik')
-        self.assertEqual(second_request.id, 2)
-        self.assertEqual(second_request.text, 'Коррекция зрения')
+        request = manager_object.requests[1]
+        self.assertEqual(2, request.id)
+        self.assertEqual('Коррекция зрения', request.text)
 
     def test_request_dataset_creation(self):
         file = open("first_xml_answer", "r")
@@ -410,6 +415,604 @@ class TestManager(unittest.TestCase):
         second_title_without_puctutation = content_object.delete_punctuation_from_title(second_title)
         self.assertEqual('Hello World', first_title_without_puctutation)
         self.assertEqual('Good day', second_title_without_puctutation)
+
+    def test_is_direct_in_datasets(self):
+        first_datasets = (SiteDataSet(type='direct'), SiteDataSet(type='organic'), SiteDataSet(type='direct'))
+        second_datasets = (SiteDataSet(type='direct'), SiteDataSet(type='organic'), SiteDataSet(type='organic'))
+        third_datasets = (SiteDataSet(type='organic'), SiteDataSet(type='direct'), SiteDataSet(type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = first_datasets
+        direct_in_datasets = concurency_object.check_is_direct_in_datasets()
+        self.assertEqual(True, direct_in_datasets)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = second_datasets
+        direct_in_datasets = concurency_object.check_is_direct_in_datasets()
+        self.assertEqual(True, direct_in_datasets)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = third_datasets
+        direct_in_datasets = concurency_object.check_is_direct_in_datasets()
+        self.assertEqual(None, direct_in_datasets)
+
+    def test_get_stats_weight(self):
+        first_datasets = (SiteDataSet(type='direct'), SiteDataSet(type='organic'), SiteDataSet(type='direct'))
+        second_datasets = (SiteDataSet(type='direct'), SiteDataSet(type='organic'), SiteDataSet(type='organic'))
+        third_datasets = (SiteDataSet(type='organic'), SiteDataSet(type='direct'), SiteDataSet(type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = first_datasets
+        concurency_object.WEIGHTS = ''
+        concurency_object.get_stat_weights()
+        self.assertEqual(15, concurency_object.WEIGHTS[2])
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = second_datasets
+        concurency_object.WEIGHTS = ''
+        concurency_object.get_stat_weights()
+        self.assertEqual(15, concurency_object.WEIGHTS[2])
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = third_datasets
+        concurency_object.WEIGHTS = ''
+        concurency_object.get_stat_weights()
+        self.assertEqual(22, concurency_object.WEIGHTS[2])
+
+    def test_check_is_absourd_request(self):
+        concurency_object = NRHUnitTestConcurency()
+
+        concurency_object.site_stem_concurency = 50
+        is_absourd_request = concurency_object._check_is_absourd_request()
+        self.assertEqual(None, is_absourd_request)
+
+        concurency_object.site_stem_concurency = 15
+        is_absourd_request = concurency_object._check_is_absourd_request()
+        self.assertEqual(True, is_absourd_request)
+
+    def test_get_params_importance(self):
+        concurency_object = NRHUnitTestConcurency()
+
+        concurency_object.site_stem_concurency = 50
+        concurency_object.importance = ''
+        concurency_object.get_params_importance()
+        self.assertEqual(0.4, concurency_object.importance['Возраст сайта'])
+        self.assertEqual(0.2, concurency_object.importance['Ссылочное'])
+
+        concurency_object.site_stem_concurency = 15
+        concurency_object.importance = ''
+        concurency_object.get_params_importance()
+        self.assertEqual(0.15, concurency_object.importance['Возраст сайта'])
+        self.assertEqual(0.15, concurency_object.importance['Ссылочное'])
+
+    def test_calculate_statistics(self):
+        first_datasets = (SiteDataSet(type='direct', domain_age=5, content_letters_amount=1000,
+                                      backlinks_status='pending', unique_backlinks=500, total_backlinks=1000),
+                          SiteDataSet(type='organic', domain_age=6, content_letters_amount=7000,
+                                      backlinks_status='complete', unique_backlinks=900, total_backlinks=1200),
+                          SiteDataSet(type='direct', domain_age=8, content_letters_amount=4200,
+                                      backlinks_status='complete', unique_backlinks=300, total_backlinks=640))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.organic_sites_amount = int()
+        concurency_object.site_datasets = first_datasets
+        concurency_object.all_backlinks_collected = True
+        concurency_object.direct_sites_amount = int()
+        concurency_object.average_site_age = int()
+        concurency_object.average_site_volume = int()
+        concurency_object.average_unique_backlinks = int()
+        concurency_object.average_total_backlinks = int()
+        concurency_object.calculate_statistics()
+        self.assertEqual(6, concurency_object.average_site_age)
+        self.assertEqual(1, concurency_object.organic_sites_amount)
+        self.assertEqual(2, concurency_object.direct_sites_amount)
+        self.assertEqual(7000, concurency_object.average_site_volume)
+        self.assertEqual(900, concurency_object.average_unique_backlinks)
+        self.assertEqual(1200, concurency_object.average_total_backlinks)
+        self.assertEqual(True, concurency_object.all_backlinks_collected)
+
+        second_datasets = (SiteDataSet(type='direct', domain_age=5, content_letters_amount=1000,
+                                      backlinks_status='pending', unique_backlinks=500, total_backlinks=1000),
+                           SiteDataSet(type='organic', domain_age=6, content_letters_amount=7000,
+                                      backlinks_status='complete', unique_backlinks=900, total_backlinks=1200),
+                           SiteDataSet(type='organic', domain_age=8, content_letters_amount=4200,
+                                      backlinks_status='complete', unique_backlinks=300, total_backlinks=640))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.organic_sites_amount = int()
+        concurency_object.site_datasets = second_datasets
+        concurency_object.all_backlinks_collected = True
+        concurency_object.direct_sites_amount = int()
+        concurency_object.average_site_age = int()
+        concurency_object.average_site_volume = int()
+        concurency_object.average_unique_backlinks = int()
+        concurency_object.average_total_backlinks = int()
+        concurency_object.calculate_statistics()
+        self.assertEqual(7, concurency_object.average_site_age)
+        self.assertEqual(2, concurency_object.organic_sites_amount)
+        self.assertEqual(1, concurency_object.direct_sites_amount)
+        self.assertEqual(5600, concurency_object.average_site_volume)
+        self.assertEqual(600, concurency_object.average_unique_backlinks)
+        self.assertEqual(920, concurency_object.average_total_backlinks)
+        self.assertEqual(True, concurency_object.all_backlinks_collected)
+
+        third_datasets = (SiteDataSet(type='organic', domain_age=5, content_letters_amount=1000,
+                                      backlinks_status='pending', unique_backlinks=500, total_backlinks=1000),
+                          SiteDataSet(type='direct', domain_age=6, content_letters_amount=7000,
+                                      backlinks_status='complete', unique_backlinks=900, total_backlinks=1200),
+                          SiteDataSet(type='organic', domain_age=8, content_letters_amount=4200,
+                                      backlinks_status='complete', unique_backlinks=300, total_backlinks=640))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.organic_sites_amount = int()
+        concurency_object.site_datasets = third_datasets
+        concurency_object.all_backlinks_collected = True
+        concurency_object.direct_sites_amount = int()
+        concurency_object.average_site_age = int()
+        concurency_object.average_site_volume = int()
+        concurency_object.average_unique_backlinks = int()
+        concurency_object.average_total_backlinks = int()
+        concurency_object.calculate_statistics()
+        self.assertEqual(6, concurency_object.average_site_age)
+        self.assertEqual(2, concurency_object.organic_sites_amount)
+        self.assertEqual(1, concurency_object.direct_sites_amount)
+        self.assertEqual(2600, concurency_object.average_site_volume)
+        self.assertEqual(0, concurency_object.average_unique_backlinks)
+        self.assertEqual(0, concurency_object.average_total_backlinks)
+        self.assertEqual(False, concurency_object.all_backlinks_collected)
+
+    def test_count_matched_stem_items(self):
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.stemmed_request = ['слово', 'один', 'красивый', 'обычно', 'пятое']
+        stemmed_title = ['слово', 'один', 'красивый', 'обычно', 'пятое']
+        matched_stem_words = concurency_object.count_matched_stem_items(stemmed_title)
+        self.assertEqual(5, matched_stem_words)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.stemmed_request = ['слово', 'один', 'красивый', 'обычно', 'пятое']
+        stemmed_title = ['слово', 'два', 'красивый', 'необычно', 'пятое']
+        matched_stem_words = concurency_object.count_matched_stem_items(stemmed_title)
+        self.assertEqual(3, matched_stem_words)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.stemmed_request = ['слово', 'один', 'красивый', 'обычно', 'пятое']
+        stemmed_title = ['слово', 'один', 'красив', 'обычно', 'пятое']
+        matched_stem_words = concurency_object.count_matched_stem_items(stemmed_title)
+        self.assertEqual(4, matched_stem_words)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.stemmed_request = ['слово', 'один', 'красивый', 'обычно', 'пятое']
+        stemmed_title = []
+        matched_stem_words = concurency_object.count_matched_stem_items(stemmed_title)
+        self.assertEqual(0, matched_stem_words)
+
+    def test_calculate_site_stem_concurency(self):
+
+        datasets = (SiteDataSet(content_stemmed_title=['слово', 'один', 'красивый', 'обычно', 'пятое'],
+                                order_on_page=1, type='organic'),
+                    SiteDataSet(content_stemmed_title=['слово', 'два', 'красивый', 'необычно', 'пятое'],
+                                order_on_page=2, type='organic'),
+                    SiteDataSet(content_stemmed_title=['слово', 'один', 'красив', 'обычно', 'пятое'],
+                                order_on_page=3, type='organic'),
+                    SiteDataSet(content_stemmed_title=[],
+                                order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_stem_concurency = int()
+        concurency_object.stemmed_request = ['слово', 'один', 'красивый', 'обычно', 'пятое']
+        concurency_object.calculate_site_stem_concurency()
+        self.assertEqual(71, concurency_object.site_stem_concurency)
+
+        datasets = (SiteDataSet(content_stemmed_title=['слово', 'один', 'красивый', 'обычно', 'пятое'],
+                                order_on_page=1, type='organic'),
+                    SiteDataSet(content_stemmed_title=['слово', 'два', 'красивый', 'необычно', 'пятое'],
+                                order_on_page=2, type='organic'),
+                    SiteDataSet(content_stemmed_title=['слово', 'один', 'красив', 'обычно', 'пятое'],
+                                order_on_page=3, type='direct'),
+                    SiteDataSet(content_stemmed_title=[],
+                                order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_DIRECT
+        concurency_object.site_stem_concurency = int()
+        concurency_object.stemmed_request = ['слово', 'один', 'красивый', 'обычно', 'пятое']
+        concurency_object.calculate_site_stem_concurency()
+        self.assertEqual(74, concurency_object.site_stem_concurency)
+
+        datasets = (SiteDataSet(content_stemmed_title=['слово', 'один', 'красивый', 'обычно', 'пятое'],
+                                order_on_page=1, type='organic'),
+                    SiteDataSet(content_stemmed_title=['слово', 'два', 'красивый', 'необычно', 'пятое'],
+                                order_on_page=2, type='organic'),
+                    SiteDataSet(content_stemmed_title=['слово', 'один', 'красив', 'обычно', 'пятое'],
+                                order_on_page=3, type='organic'),
+                    SiteDataSet(content_stemmed_title=[],
+                                order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_stem_concurency = int()
+        concurency_object.stemmed_request = ['слово', 'один', 'красивый', 'обычно', 'пятое']
+        concurency_object.calculate_site_stem_concurency()
+        self.assertEqual(71, concurency_object.site_stem_concurency)
+
+        datasets = (SiteDataSet(content_stemmed_title=['слово', 'один', 'красивый', 'обычно', 'пятое'],
+                                order_on_page=1, type='organic'),
+                    SiteDataSet(content_stemmed_title=['слово', 'два', 'красивый', 'необычно', 'пятое'],
+                                order_on_page=2, type='direct'),
+                    SiteDataSet(content_stemmed_title=['слово', 'один', 'красив', 'обычно', 'пятое'],
+                                order_on_page=3, type='direct'),
+                    SiteDataSet(content_stemmed_title=[],
+                                order_on_page=4, type='direct'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_stem_concurency = int()
+        concurency_object.stemmed_request = ['слово', 'один', 'красивый', 'обычно', 'пятое']
+        concurency_object.calculate_site_stem_concurency()
+        self.assertEqual(100, concurency_object.site_stem_concurency)
+
+        datasets = (SiteDataSet(content_stemmed_title=['слово', 'один', 'красивый', 'обычно', 'пятое'],
+                                order_on_page=1, type='direct'),
+                    SiteDataSet(content_stemmed_title=['слово', 'два', 'красивый', 'необычно', 'пятое'],
+                                order_on_page=2, type='direct'),
+                    SiteDataSet(content_stemmed_title=['слово', 'один', 'красив', 'обычно', 'пятое'],
+                                order_on_page=3, type='direct'),
+                    SiteDataSet(content_stemmed_title=[],
+                                order_on_page=4, type='direct'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_DIRECT
+        concurency_object.site_stem_concurency = int()
+        concurency_object.stemmed_request = ['слово', 'один', 'красивый', 'обычно', 'пятое']
+        concurency_object.calculate_site_stem_concurency()
+        self.assertEqual(100, concurency_object.site_stem_concurency)
+
+        datasets = (SiteDataSet(content_stemmed_title=[],
+                                order_on_page=1, type='organic'),
+                    SiteDataSet(content_stemmed_title=[],
+                                order_on_page=2, type='organic'),
+                    SiteDataSet(content_stemmed_title=[],
+                                order_on_page=3, type='organic'),
+                    SiteDataSet(content_stemmed_title=[],
+                                order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_stem_concurency = int()
+        concurency_object.stemmed_request = ['слово', 'один', 'красивый', 'обычно', 'пятое']
+        concurency_object.calculate_site_stem_concurency()
+        self.assertEqual(0, concurency_object.site_stem_concurency)
+
+    def test_calculate_concurency(self):
+        datasets = (SiteDataSet(domain_age=10, order_on_page=1, type='organic'),
+                    SiteDataSet(domain_age=10, order_on_page=2, type='organic'),
+                    SiteDataSet(domain_age=25, order_on_page=3, type='organic'),
+                    SiteDataSet(domain_age=30, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_age_concurency = int()
+        concurency_percent = concurency_object._calculate_concurency(10, 'domain_age')
+        self.assertEqual(100, concurency_percent)
+
+        datasets = (SiteDataSet(domain_age=0, order_on_page=1, type='organic'),
+                    SiteDataSet(domain_age=10, order_on_page=2, type='organic'),
+                    SiteDataSet(domain_age=25, order_on_page=3, type='organic'),
+                    SiteDataSet(domain_age=30, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_age_concurency = int()
+        concurency_percent = concurency_object._calculate_concurency(10, 'domain_age')
+        self.assertEqual(60, concurency_percent)
+
+        datasets = (SiteDataSet(domain_age=0, order_on_page=1, type='direct'),
+                    SiteDataSet(domain_age=10, order_on_page=2, type='organic'),
+                    SiteDataSet(domain_age=25, order_on_page=3, type='organic'),
+                    SiteDataSet(domain_age=30, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_DIRECT
+        concurency_object.site_age_concurency = int()
+        concurency_percent = concurency_object._calculate_concurency(10, 'domain_age')
+        self.assertEqual(100, concurency_percent)
+
+    def test_calculate_site_age_concurency(self):
+        datasets = (SiteDataSet(domain_age=10, order_on_page=1, type='organic'),
+                    SiteDataSet(domain_age=10, order_on_page=2, type='organic'),
+                    SiteDataSet(domain_age=25, order_on_page=3, type='organic'),
+                    SiteDataSet(domain_age=30, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_age_concurency = int()
+        concurency_object.calculate_site_age_concurency()
+        self.assertEqual(100, concurency_object.site_age_concurency)
+
+        datasets = (SiteDataSet(domain_age=0, order_on_page=1, type='organic'),
+                    SiteDataSet(domain_age=10, order_on_page=2, type='organic'),
+                    SiteDataSet(domain_age=25, order_on_page=3, type='organic'),
+                    SiteDataSet(domain_age=30, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_age_concurency = int()
+        concurency_object.calculate_site_age_concurency()
+        self.assertEqual(60, concurency_object.site_age_concurency)
+
+        datasets = (SiteDataSet(domain_age=0, order_on_page=1, type='direct'),
+                    SiteDataSet(domain_age=10, order_on_page=2, type='organic'),
+                    SiteDataSet(domain_age=25, order_on_page=3, type='organic'),
+                    SiteDataSet(domain_age=30, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_DIRECT
+        concurency_object.site_age_concurency = int()
+        concurency_object.calculate_site_age_concurency()
+        self.assertEqual(100, concurency_object.site_age_concurency)
+
+    def test_calculate_site_backlinks_concurency(self):
+        datasets = (SiteDataSet(unique_backlinks=500, order_on_page=1, type='organic'),
+                    SiteDataSet(unique_backlinks=500, order_on_page=2, type='organic'),
+                    SiteDataSet(unique_backlinks=2500, order_on_page=3, type='organic'),
+                    SiteDataSet(unique_backlinks=3000, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_backlinks_concurency = int()
+        concurency_object.calculate_site_backlinks_concurency()
+        self.assertEqual(100, concurency_object.site_backlinks_concurency)
+
+        datasets = (SiteDataSet(unique_backlinks=0, order_on_page=1, type='organic'),
+                    SiteDataSet(unique_backlinks=500, order_on_page=2, type='organic'),
+                    SiteDataSet(unique_backlinks=2500, order_on_page=3, type='organic'),
+                    SiteDataSet(unique_backlinks=3000, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_backlinks_concurency = int()
+        concurency_object.calculate_site_backlinks_concurency()
+        self.assertEqual(60, concurency_object.site_backlinks_concurency)
+
+        datasets = (SiteDataSet(unique_backlinks=0, order_on_page=1, type='direct'),
+                    SiteDataSet(unique_backlinks=1000, order_on_page=2, type='organic'),
+                    SiteDataSet(unique_backlinks=2500, order_on_page=3, type='organic'),
+                    SiteDataSet(unique_backlinks=3000, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_DIRECT
+        concurency_object.site_backlinks_concurency = int()
+        concurency_object.calculate_site_backlinks_concurency()
+        self.assertEqual(100, concurency_object.site_backlinks_concurency)
+
+    def test_calculate_site_volume_concurency(self):
+        datasets = (SiteDataSet(content_letters_amount=10000, order_on_page=1, type='organic'),
+                    SiteDataSet(content_letters_amount=10000, order_on_page=2, type='organic'),
+                    SiteDataSet(content_letters_amount=10000, order_on_page=3, type='organic'),
+                    SiteDataSet(content_letters_amount=10000, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_volume_concurency = int()
+        concurency_object.calculate_site_volume_concurency()
+        self.assertEqual(100, concurency_object.site_volume_concurency)
+
+        datasets = (SiteDataSet(content_letters_amount=0, order_on_page=1, type='organic'),
+                    SiteDataSet(content_letters_amount=10000, order_on_page=2, type='organic'),
+                    SiteDataSet(content_letters_amount=25000, order_on_page=3, type='organic'),
+                    SiteDataSet(content_letters_amount=30000, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_volume_concurency = int()
+        concurency_object.calculate_site_volume_concurency()
+        self.assertEqual(60, concurency_object.site_volume_concurency)
+
+        datasets = (SiteDataSet(content_letters_amount=0, order_on_page=1, type='direct'),
+                    SiteDataSet(content_letters_amount=10000, order_on_page=2, type='organic'),
+                    SiteDataSet(content_letters_amount=25000, order_on_page=3, type='organic'),
+                    SiteDataSet(content_letters_amount=30000, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_DIRECT
+        concurency_object.site_volume_concurency = int()
+        concurency_object.calculate_site_volume_concurency()
+        self.assertEqual(100, concurency_object.site_volume_concurency)
+
+    def test_calculate_site_age_concurency(self):
+        datasets = (SiteDataSet(domain_age=10, order_on_page=1, type='organic'),
+                    SiteDataSet(domain_age=10, order_on_page=2, type='organic'),
+                    SiteDataSet(domain_age=25, order_on_page=3, type='organic'),
+                    SiteDataSet(domain_age=30, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_age_concurency = int()
+        concurency_object.calculate_site_age_concurency()
+        self.assertEqual(100, concurency_object.site_age_concurency)
+
+        datasets = (SiteDataSet(domain_age=0, order_on_page=1, type='organic'),
+                    SiteDataSet(domain_age=10, order_on_page=2, type='organic'),
+                    SiteDataSet(domain_age=25, order_on_page=3, type='organic'),
+                    SiteDataSet(domain_age=30, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_age_concurency = int()
+        concurency_object.calculate_site_age_concurency()
+        self.assertEqual(60, concurency_object.site_age_concurency)
+
+        datasets = (SiteDataSet(domain_age=0, order_on_page=1, type='direct'),
+                    SiteDataSet(domain_age=10, order_on_page=2, type='organic'),
+                    SiteDataSet(domain_age=25, order_on_page=3, type='organic'),
+                    SiteDataSet(domain_age=30, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_DIRECT
+        concurency_object.site_age_concurency = int()
+        concurency_object.calculate_site_age_concurency()
+        self.assertEqual(100, concurency_object.site_age_concurency)
+
+    def test_calculate_site_volume_concurency(self):
+        datasets = (SiteDataSet(content_letters_amount=10000, order_on_page=1, type='organic'),
+                    SiteDataSet(content_letters_amount=10000, order_on_page=2, type='organic'),
+                    SiteDataSet(content_letters_amount=10000, order_on_page=3, type='organic'),
+                    SiteDataSet(content_letters_amount=10000, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_volume_concurency = int()
+        concurency_object.calculate_site_volume_concurency()
+        self.assertEqual(100, concurency_object.site_volume_concurency)
+
+        datasets = (SiteDataSet(content_letters_amount=0, order_on_page=1, type='organic'),
+                    SiteDataSet(content_letters_amount=10000, order_on_page=2, type='organic'),
+                    SiteDataSet(content_letters_amount=25000, order_on_page=3, type='organic'),
+                    SiteDataSet(content_letters_amount=30000, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_ORGANIC
+        concurency_object.site_volume_concurency = int()
+        concurency_object.calculate_site_volume_concurency()
+        self.assertEqual(60, concurency_object.site_volume_concurency)
+
+        datasets = (SiteDataSet(content_letters_amount=0, order_on_page=1, type='direct'),
+                    SiteDataSet(content_letters_amount=10000, order_on_page=2, type='organic'),
+                    SiteDataSet(content_letters_amount=25000, order_on_page=3, type='organic'),
+                    SiteDataSet(content_letters_amount=30000, order_on_page=4, type='organic'))
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_datasets = datasets
+        concurency_object.WEIGHTS = WEIGHTS_DIRECT
+        concurency_object.site_volume_concurency = int()
+        concurency_object.calculate_site_volume_concurency()
+        self.assertEqual(100, concurency_object.site_volume_concurency)
+
+    def test_calculate_direct_upscale(self):
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.direct_upscale = int()
+        concurency_object.direct_sites_amount = 0
+        concurency_object.calculate_direct_upscale()
+        self.assertEqual(0, concurency_object.direct_upscale)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.direct_upscale = int()
+        concurency_object.direct_sites_amount = 4
+        concurency_object.calculate_direct_upscale()
+        self.assertEqual(6.4, concurency_object.direct_upscale)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.direct_upscale = int()
+        concurency_object.direct_sites_amount = 5
+        concurency_object.calculate_direct_upscale()
+        self.assertEqual(8, concurency_object.direct_upscale)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.direct_upscale = int()
+        concurency_object.direct_sites_amount = 7
+        concurency_object.calculate_direct_upscale()
+        self.assertEqual(25, concurency_object.direct_upscale)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.direct_upscale = int()
+        concurency_object.direct_sites_amount = 8
+        concurency_object.calculate_direct_upscale()
+        self.assertEqual(31, concurency_object.direct_upscale)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.direct_upscale = int()
+        concurency_object.direct_sites_amount = 9
+        concurency_object.calculate_direct_upscale()
+        self.assertEqual(35, concurency_object.direct_upscale)
+
+    def test_calculate_direct_concurency(self):
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_direct_concurency = int()
+        concurency_object.direct_upscale = 35
+        concurency_object.calculate_direct_concurency()
+        self.assertEqual(100, concurency_object.site_direct_concurency)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_direct_concurency = int()
+        concurency_object.direct_upscale = 17.5
+        concurency_object.calculate_direct_concurency()
+        self.assertEqual(50, concurency_object.site_direct_concurency)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_direct_concurency = int()
+        concurency_object.direct_upscale = 0
+        concurency_object.calculate_direct_concurency()
+        self.assertEqual(0, concurency_object.site_direct_concurency)
+
+    def test_calculate_base_total_difficulty(self):
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_age_concurency = 100
+        concurency_object.site_stem_concurency = 100
+        concurency_object.site_volume_concurency = 100
+        concurency_object.site_backlinks_concurency = 100
+        concurency_object.importance = STANDART_IMPORTANCE
+        base_total_concurency = concurency_object._calculate_base_total_difficulty()
+        self.assertEqual(100, base_total_concurency)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_age_concurency = 100
+        concurency_object.site_stem_concurency = 0
+        concurency_object.site_volume_concurency = 100
+        concurency_object.site_backlinks_concurency = 100
+        concurency_object.importance = STANDART_IMPORTANCE
+        base_total_concurency = concurency_object._calculate_base_total_difficulty()
+        self.assertEqual(70, base_total_concurency)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_age_concurency = 100
+        concurency_object.site_stem_concurency = 50
+        concurency_object.site_volume_concurency = 100
+        concurency_object.site_backlinks_concurency = 100
+        concurency_object.importance = STANDART_IMPORTANCE
+        base_total_concurency = concurency_object._calculate_base_total_difficulty()
+        self.assertEqual(85, base_total_concurency)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_age_concurency = 0
+        concurency_object.site_stem_concurency = 0
+        concurency_object.site_volume_concurency = 0
+        concurency_object.site_backlinks_concurency = 0
+        concurency_object.importance = STANDART_IMPORTANCE
+        base_total_concurency = concurency_object._calculate_base_total_difficulty()
+        self.assertEqual(0, base_total_concurency)
+
+        concurency_object = NRHUnitTestConcurency()
+        concurency_object.site_age_concurency = 25
+        concurency_object.site_stem_concurency = 50
+        concurency_object.site_volume_concurency = 100
+        concurency_object.site_backlinks_concurency = 100
+        concurency_object.importance = STANDART_IMPORTANCE
+        base_total_concurency = concurency_object._calculate_base_total_difficulty()
+        self.assertEqual(55, base_total_concurency)
 
 if __name__ == '__main__':
     unittest.main()
