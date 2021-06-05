@@ -213,7 +213,8 @@ class XmlReport:
             file.write('----------------------------------------\n')
             file.write(f'{arg}\n')
 
-    def finalize_dataset(self, request, validated_text, refresh_timer, reruns_count, bottom_ads_count, top_ads_count):
+    @staticmethod
+    def finalize_dataset(request, validated_text, refresh_timer, reruns_count, bottom_ads_count, top_ads_count):
         request.validated_text = validated_text
         request.status = 'in work'
         request.refresh_timer = refresh_timer
@@ -221,12 +222,16 @@ class XmlReport:
         request.bottom_ads_count = bottom_ads_count
         request.top_ads_count = top_ads_count
 
-    def get_refresh_timer_and_reruns_count(self, top_ads_count, bottom_ads_count):
+    @staticmethod
+    def get_refresh_timer_and_reruns_count(top_ads_count, bottom_ads_count):
         """
         Всего на странице может быть только 9 объявлений. Если в XML ответе их именно столько, дальнейшие
         перепроверки не требуются. Иначе - задаем стартовые данные для того, чтобы передать этот запрос на перепроверку
         """
-        if top_ads_count + bottom_ads_count == 9:
+        total_ads_count = top_ads_count + bottom_ads_count
+        if total_ads_count > 9 or total_ads_count < 0:
+            raise ValueError('Столько объявлений быть не может')
+        elif total_ads_count == 9:
             reruns_count = 4
             refresh_timer = 0
         else:
@@ -235,7 +240,8 @@ class XmlReport:
 
         return reruns_count, refresh_timer
 
-    def found_more_ads_then_before(self, request, top_ads_count, bottom_ads_count):
+    @staticmethod
+    def check_found_more_ads_then_before(request, top_ads_count, bottom_ads_count):
 
         this_run_total_ads_count = top_ads_count + bottom_ads_count
         maximum_run_ads_count = request.bottom_ads_count + request.top_ads_count
@@ -248,7 +254,8 @@ class XmlReport:
 
         return r.text
 
-    def is_rerun(self, request):
+    @staticmethod
+    def check_is_rerun(request):
         if request.reruns_count:
             return True
 
@@ -275,8 +282,8 @@ class XmlReport:
             reruns_count, refresh_timer = self.get_refresh_timer_and_reruns_count(top_ads_count, bottom_ads_count)
 
             if 'Ответ от поисковой системы не получен' not in validated_text:
-                if self.is_rerun(request):
-                    if self.found_more_ads_then_before(request, top_ads_count, bottom_ads_count):
+                if self.check_is_rerun(request):
+                    if self.check_found_more_ads_then_before(request, top_ads_count, bottom_ads_count):
                         self.finalize_dataset(request, validated_text, refresh_timer, reruns_count, bottom_ads_count,
                                               top_ads_count)
 
@@ -345,7 +352,8 @@ class XmlReport:
 
         return overcaped_ads_count, top_ads_count, bottom_ads_count, bottom_ads_block
 
-    def edit_xml_answer_text(self, overcaped_ads_count, bottom_ads_block, text):
+    @staticmethod
+    def edit_xml_answer_text(overcaped_ads_count, bottom_ads_block, text):
         """
         В переменной bottom_ads_block находится список рекламных блоков, находящихся в нижней части страницы.
         Метод вырезает их блока избыточные объявления и переносит их верхнюю часть документа внутрь тега <topads>.
@@ -353,7 +361,7 @@ class XmlReport:
         overcaped_ads_block_text = ''
 
         for i in range(overcaped_ads_count):
-            overcaped_ads_block_text += str(bottom_ads_block[i])
+            overcaped_ads_block_text += str(bottom_ads_block[i]) + '\n'
 
         text = text.replace(overcaped_ads_block_text, '')
         validated_text = '<topads>' + overcaped_ads_block_text + '</topads>' + text
