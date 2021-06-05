@@ -200,3 +200,112 @@ class TestManager(unittest.TestCase):
         string = "Д'Артаньян"
         string_for_sql = handler_object.validate_quotes_for_sql(string)
         self.assertEqual("Д''Артаньян", string_for_sql)
+
+    def test_edit_xml_answer_text(self):
+        file = open("first_xml_answer_with_overcap", "r")
+        xml = file.read()
+        file.close()
+        soup = BeautifulSoup(xml, 'html.parser')
+
+        handler_object = XHUnitTestXmlReport()
+        bottom_ads_block, _ = handler_object.get_ads_block(soup, 'bottomads')
+        edited_xml_text = handler_object.edit_xml_answer_text(4, bottom_ads_block, xml)
+
+        soup = BeautifulSoup(edited_xml_text, 'html.parser')
+        top_ads = soup.find('topads')
+        top_ads_count = len(top_ads.find_all('query'))
+        bottom_ads = soup.find('bottomads')
+        bottom_ads_count = len(bottom_ads.find_all('query'))
+
+        self.assertEqual(9, edited_xml_text.count('<query>'))
+        self.assertEqual(4, top_ads_count)
+        self.assertEqual(5, bottom_ads_count)
+
+        file = open("second_xml_answer_with_overcap", "r")
+        xml = file.read()
+        file.close()
+        soup = BeautifulSoup(xml, 'html.parser')
+
+        handler_object = XHUnitTestXmlReport()
+        bottom_ads_block, _ = handler_object.get_ads_block(soup, 'bottomads')
+        edited_xml_text = handler_object.edit_xml_answer_text(2, bottom_ads_block, xml)
+
+        soup = BeautifulSoup(edited_xml_text, 'html.parser')
+        top_ads = soup.find('topads')
+        top_ads_count = len(top_ads.find_all('query'))
+        bottom_ads = soup.find('bottomads')
+        bottom_ads_count = len(bottom_ads.find_all('query'))
+
+        self.assertEqual(7, edited_xml_text.count('<query>'))
+        self.assertEqual(2, top_ads_count)
+        self.assertEqual(5, bottom_ads_count)
+
+        file = open("third_xml_answer_with_overcap", "r")
+        xml = file.read()
+        file.close()
+        soup = BeautifulSoup(xml, 'html.parser')
+
+        handler_object = XHUnitTestXmlReport()
+        bottom_ads_block, _ = handler_object.get_ads_block(soup, 'bottomads')
+        edited_xml_text = handler_object.edit_xml_answer_text(0, bottom_ads_block, xml)
+
+        soup = BeautifulSoup(edited_xml_text, 'html.parser')
+        top_ads = soup.find('topads')
+        top_ads_count = len(top_ads.find_all('query'))
+        bottom_ads = soup.find('bottomads')
+        bottom_ads_count = len(bottom_ads.find_all('query'))
+
+        self.assertEqual(5, edited_xml_text.count('<query>'))
+        self.assertEqual(0, top_ads_count)
+        self.assertEqual(5, bottom_ads_count)
+
+    def test_get_refresh_timer_and_reruns_count(self):
+        handler_object = XHUnitTestXmlReport()
+        reruns_count, refresh_timer = handler_object.get_refresh_timer_and_reruns_count(4, 5)
+        self.assertEqual(4, reruns_count)
+        self.assertEqual(0, refresh_timer)
+
+        reruns_count, refresh_timer = handler_object.get_refresh_timer_and_reruns_count(4, 4)
+        self.assertEqual(1, reruns_count)
+        self.assertEqual(10, refresh_timer)
+
+        self.assertRaises(ValueError, handler_object.get_refresh_timer_and_reruns_count, 14, 5)
+
+    def test_is_rerun(self):
+
+        handler_object = XHUnitTestXmlReport()
+        request = Request(reruns_count=0)
+        is_rerun = handler_object.check_is_rerun(request)
+        self.assertEqual(None, is_rerun)
+
+        request = Request(reruns_count=2)
+        is_rerun = handler_object.check_is_rerun(request)
+        self.assertEqual(True, is_rerun)
+
+    def test_found_more_ads_then_before(self):
+
+        handler_object = XHUnitTestXmlReport()
+        request = Request(top_ads_count=4, bottom_ads_count=5)
+        found_more = handler_object.check_found_more_ads_then_before(request, 4, 5)
+        self.assertEqual(None, found_more)
+
+        handler_object = XHUnitTestXmlReport()
+        request = Request(top_ads_count=4, bottom_ads_count=5)
+        found_more = handler_object.check_found_more_ads_then_before(request, 3, 4)
+        self.assertEqual(None, found_more)
+
+        handler_object = XHUnitTestXmlReport()
+        request = Request(top_ads_count=0, bottom_ads_count=5)
+        found_more = handler_object.check_found_more_ads_then_before(request, 1, 5)
+        self.assertEqual(True, found_more)
+
+    def test_finalize_dataset(self):
+        handler_object = XHUnitTestXmlReport()
+        request = Request()
+        handler_object.finalize_dataset(request, 'hello', 10, 1, 5, 4)
+        self.assertEqual('hello', request.validated_text)
+        self.assertEqual('in work', request.status)
+        self.assertEqual(10, request.refresh_timer)
+        self.assertEqual(1, request.reruns_count)
+        self.assertEqual(4, request.top_ads_count)
+        self.assertEqual(5, request.bottom_ads_count)
