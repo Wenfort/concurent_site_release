@@ -68,7 +68,7 @@ class TestManager(unittest.TestCase):
 
         pm.custom_request_to_database_without_return(sql)
 
-        file = open("first_xml_answer", "r")
+        file = open("text_files_for_tests/first_xml_answer", "r")
         xml = file.read()
         file.close()
 
@@ -86,7 +86,7 @@ class TestManager(unittest.TestCase):
 
         pm.custom_request_to_database_without_return(sql)
 
-        file = open("second_xml_answer", "r")
+        file = open("text_files_for_tests/second_xml_answer", "r")
         xml = file.read()
         file.close()
 
@@ -168,7 +168,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual('Коррекция зрения', request.text)
 
     def test_request_dataset_creation(self):
-        file = open("first_xml_answer", "r")
+        file = open("text_files_for_tests/first_xml_answer", "r")
         xml = file.read()
         file.close()
 
@@ -178,7 +178,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual(request_dataset.xml_status, 'in work')
 
     def test_stem_text(self):
-        file = open("second_xml_answer", "r")
+        file = open("text_files_for_tests/second_xml_answer", "r")
         xml = file.read()
         file.close()
 
@@ -190,7 +190,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual(stemmed_request, ['коррекция', 'зрение'])
 
     def test_parse_xml_text_with_bs4(self):
-        file = open("second_xml_answer", "r")
+        file = open("text_files_for_tests/second_xml_answer", "r")
         xml = file.read()
         file.close()
 
@@ -204,7 +204,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual(advcount, '4')
 
     def test_get_site_list(self):
-        file = open("second_xml_answer", "r")
+        file = open("text_files_for_tests/second_xml_answer", "r")
         xml = file.read()
         file.close()
 
@@ -228,7 +228,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual(second_dataset.type, 'organic')
 
     def test_get_url(self):
-        file = open("yandex_block_html", "r")
+        file = open("text_files_for_tests/yandex_block_html", "r")
         html = file.read()
         file.close()
         html = BeautifulSoup(html, 'html.parser')
@@ -382,7 +382,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual('complete', domain_object.site_dataset.backlinks_status)
 
     def test_add_letters_amount_to_dataset(self):
-        file = open("site_html", "r")
+        file = open("text_files_for_tests/site_html", "r")
         html = file.read()
         file.close()
         html = BeautifulSoup(html, 'html.parser')
@@ -395,7 +395,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual(4607, content_object.site_dataset.content_letters_amount)
 
     def test_get_title(self):
-        file = open("site_html", "r")
+        file = open("text_files_for_tests/site_html", "r")
         html = file.read()
         file.close()
         html = BeautifulSoup(html, 'html.parser')

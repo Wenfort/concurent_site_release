@@ -30,7 +30,7 @@ class TestManager(unittest.TestCase):
 
         pm.custom_request_to_database_without_return(sql)
 
-        file = open("first_xml_answer", "r")
+        file = open("text_files_for_tests/first_xml_answer", "r")
         xml = file.read()
         file.close()
 
@@ -50,7 +50,7 @@ class TestManager(unittest.TestCase):
 
         pm.custom_request_to_database_without_return(sql)
 
-        file = open("second_xml_answer", "r")
+        file = open("text_files_for_tests/second_xml_answer", "r")
         xml = file.read()
         file.close()
 
@@ -154,7 +154,7 @@ class TestManager(unittest.TestCase):
             handler_object.requests[1].xml_url)
 
     def test_get_ads_block(self):
-        file = open("first_xml_answer", "r")
+        file = open("text_files_for_tests/first_xml_answer", "r")
         xml = file.read()
         file.close()
 
@@ -175,7 +175,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual(4, overcaped_bottom_ads_count)
 
     def test_count_ads(self):
-        file = open("first_xml_answer", "r")
+        file = open("text_files_for_tests/first_xml_answer", "r")
         xml = file.read()
         file.close()
 
@@ -185,7 +185,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual(4, top_ads_count)
         self.assertEqual(5, bottom_ads_count)
 
-        file = open("first_xml_answer_with_overcap", "r")
+        file = open("text_files_for_tests/first_xml_answer_with_overcap", "r")
         xml = file.read()
         file.close()
 
@@ -202,7 +202,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual("Д''Артаньян", string_for_sql)
 
     def test_edit_xml_answer_text(self):
-        file = open("first_xml_answer_with_overcap", "r")
+        file = open("text_files_for_tests/first_xml_answer_with_overcap", "r")
         xml = file.read()
         file.close()
         soup = BeautifulSoup(xml, 'html.parser')
@@ -221,7 +221,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual(4, top_ads_count)
         self.assertEqual(5, bottom_ads_count)
 
-        file = open("second_xml_answer_with_overcap", "r")
+        file = open("text_files_for_tests/second_xml_answer_with_overcap", "r")
         xml = file.read()
         file.close()
         soup = BeautifulSoup(xml, 'html.parser')
@@ -240,7 +240,7 @@ class TestManager(unittest.TestCase):
         self.assertEqual(2, top_ads_count)
         self.assertEqual(5, bottom_ads_count)
 
-        file = open("third_xml_answer_with_overcap", "r")
+        file = open("text_files_for_tests/third_xml_answer_with_overcap", "r")
         xml = file.read()
         file.close()
         soup = BeautifulSoup(xml, 'html.parser')
