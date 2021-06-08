@@ -96,7 +96,10 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': 5432,
         'OPTIONS': {
-            'options': '-c search_path=concurent_site'
+            'options': '-c search_path=concurent_site,public'
+        },
+        'TEST': {
+            'NAME': 'test_postgres', # test database name
         },
     }
 }
