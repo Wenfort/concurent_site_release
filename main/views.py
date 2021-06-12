@@ -1,8 +1,9 @@
-from django.http import HttpResponse, HttpResponseRedirect, FileResponse
+from django.http import HttpResponse, HttpResponseRedirect, FileResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from .models import Request, RequestQueue, UserData, Order, Region
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from main.tools.request_page_sorting import unmask_sort_type
 
 from main.tools.xls_exporter import export_page
 
@@ -18,29 +19,82 @@ def index(request):
         return redirect('/authorization')
 
 
-class Orders:
+class ConfirmationData:
+    def __init__(self, post_data):
+        self.post_data = post_data
+        self.raw_all_ordered_requests = post_data['requests_list']
+        self.order_id = int()
+        self.all_ordered_requests = list()
+        self.requests_amount = int()
+        self.bill = int()
+
+        self.get_order_id()
+        self.get_all_ordered_requests_list()
+        self.calculate_bill()
+
+    def get_order_id(self):
+        try:
+            self.order_id = int(self.post_data['order_id'])
+        except:
+            self.order_id = None
+
+    def get_all_ordered_requests_list(self):
+        self.all_ordered_requests = [request for request in self.raw_all_ordered_requests.split('\r\n') if request]
+        self.requests_amount = len(self.all_ordered_requests)
+
+    def calculate_bill(self):
+        self.bill = self.requests_amount * REQUEST_COST
+
+
+class OrderEngine:
     def __init__(self, user_data):
         self.user_id = user_data.id
         self.is_staff = user_data.account_data.is_staff
+        self.all_requests_queryset = object()
+        self.all_orders_queryset = object()
+        self.sort_type = str()
 
     def get_all_user_orders(self):
-        return Order.objects.filter(user_id=self.user_id)
+        self.all_orders_queryset = Order.objects.filter(user_id=self.user_id)
 
-    def get_admin_queryset(self):
-        return Request.objects.all()
-
-    def get_user_queryset(self, order_id):
+    def _get_user_queryset(self, order_id):
         if order_id:
             return Request.objects.filter(order__user_order_id=order_id)
         else:
             return Request.objects.filter(order__user_id=self.user_id)
 
-    def get_all_user_order_rows(self, order_id=0):
+    def get_sorted_order_rows(self, request, order_id=0):
+        """
+        Сортировка на странице работает с помощью GET запроса. По умолчанию работает сортировка по уровню конкуренции в
+            SEO. Названия альтернативных сортировок похожи на названия полей в БД, но все же отличаются от них.
+            Это сделано в целях безопасности. Название сортировки приходит в GET запросе, отправляется в функцию
+            unmask_sort_type, в ответ возвращается название поле в БД, по которому необходимо отсортировать данные.
+        """
+        self._get_all_user_requests_queryset(order_id)
 
-        if self.is_staff:
-            return self.get_admin_queryset()
+        if 'sort' in request.GET:
+            self.sort_type = request.GET['sort']
+            unmasked_sort_type = unmask_sort_type(self.sort_type)
+            self.all_requests_queryset = self.all_requests_queryset.select_related('region').order_by(
+                unmasked_sort_type)
         else:
-            return self.get_user_queryset(order_id)
+            self.all_requests_queryset = self.all_requests_queryset.select_related('region').order_by('seo_concurency')
+            self.sort_type = 'seo_concurency'
+
+    def _get_all_user_requests_queryset(self, order_id=0):
+        if self.is_staff:
+            self.all_requests_queryset = Request.objects.all()
+        else:
+            self.all_requests_queryset = self._get_user_queryset(order_id)
+
+    @staticmethod
+    def check_download_request(request):
+        if 'download' in request.GET:
+            return True
+
+    def download_xls_file(self, user_data):
+        buffer = export_page(self.all_requests_queryset, user_data.account_data.is_staff)
+        return FileResponse(buffer, as_attachment=True, filename='report.xlsx')
 
 
 class NewRequestHandler:
@@ -55,13 +109,13 @@ class NewRequestHandler:
         self.requests_list = list()
 
         self.new_order = False
-        self.money_is_enough = True
+        self.is_money_enough = True
 
         self.get_user_data()
         self.make_requests_list()
         self.new_requests_amount = len(self.requests_list)
 
-        if self.new_requests_amount > 0 and self.is_money_enough():
+        if self.new_requests_amount > 0 and self.check_money_enough():
             if not user_order_id:
                 self.new_order = True
 
@@ -70,7 +124,7 @@ class NewRequestHandler:
 
             self.update_user_balance()
         else:
-            self.money_is_enough = False
+            self.is_money_enough = False
 
     def get_user_data(self):
         self.user_data = SiteUser(self.request_account_data)
@@ -93,8 +147,11 @@ class NewRequestHandler:
             new_request_id = new_request.pk
             RequestQueue(request_id=new_request_id, region_id=self.user_data.region_id).save()
 
-
     def get_latest_user_order(self, user_id):
+        """
+        У каждого пользователя собственная нумерация заказов. Начинается с 1. Для создания нового заказа
+        необходимо получить номер предыдущего. Если заказ первый, то возвращается 0.
+        """
         try:
             latest_user_order_id = Order.objects.latest('user_order_id').user_order_id
         except:
@@ -126,6 +183,10 @@ class NewRequestHandler:
         self.order_id = order.id
 
     def update_user_balance(self):
+        """
+        Если пользователь создал новый заказ, то счетчик заказов увеличивается. Иначе, увеличивается только кол-во
+        заказанных ключевых слов.
+        """
         user = UserData.objects.filter(user_id=self.user_id)
         if self.new_order:
             user.update(balance=self.user_data.balance - self.new_requests_amount * REQUEST_COST,
@@ -137,56 +198,10 @@ class NewRequestHandler:
                         ordered_keywords=self.user_data.ordered_keywords + self.new_requests_amount,
                         )
 
-    def is_money_enough(self):
+    def check_money_enough(self):
         if self.new_requests_amount * REQUEST_COST <= self.user_data.balance:
             return True
 
-
-def unmask_sort_type(masked_sort_type):
-    """Прячет от пользователя реальное название row в таблице БД"""
-    unmasked_sort_type = str()
-    if 'request' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('request', 'request_text')
-    elif 'age' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('age', 'age_concurency')
-    elif 'stem' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('stem', 'stem_concurency')
-    elif 'volume' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('volume', 'volume_concurency')
-    elif 'backlinks' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('backlinks', 'backlinks_concurency')
-    elif 'seo' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('seo', 'seo_concurency')
-    elif 'direct' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('direct', 'direct_upscale')
-    elif 'total' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('total', 'total_concurency')
-    elif 'region' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('region', 'region_id')
-    elif 'amount' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('amount', 'request_views')
-    elif 'vital_count' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('vital_count', 'vital_sites_count')
-    elif 'avg_backs' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('avg_backs', 'average_total_backlinks')
-    elif 'avg_unique_backs' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('avg_unique_backs', 'average_unique_backlinks')
-    elif 'avg_vol' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('avg_vol', 'average_volume')
-    elif 'avg_old' in masked_sort_type:
-        unmasked_sort_type = masked_sort_type.replace('avg_old', 'average_age')
-
-    return unmasked_sort_type
-
-
-def check_download_request(request):
-    if 'download' in request.GET:
-        return True
-
-
-def download_xls_file(all_requests, user_data):
-    buffer = export_page(all_requests, user_data.account_data.is_staff)
-    return FileResponse(buffer, as_attachment=True, filename='report.xlsx')
 
 def render_page_with_privilegies(request, context):
     if request.user.is_staff:
@@ -195,65 +210,60 @@ def render_page_with_privilegies(request, context):
         return render(request, 'main/non_restricted_requests.html', context)
 
 
-def get_sorted_order_rows(request, all_user_order_rows):
-    if 'sort' in request.GET:
-        sort_type = request.GET['sort']
-        unmasked_sort_type = unmask_sort_type(sort_type)
-        all_user_order_rows = all_user_order_rows.select_related('region').order_by(unmasked_sort_type)
-    else:
-        all_user_order_rows = all_user_order_rows.select_related('region').order_by('seo_concurency')
-        sort_type = 'seo_concurency'
-
-    return all_user_order_rows, sort_type
-
 @login_required
 def results(request):
     """
-    Отображает абсолютно все заказанные пользователем ключевые слова.
+    Метод отображает абсолютно все заказанные пользователем ключевые слова.
     Если страницу просматривает админ, показываются абсолютно все заказанные ключевые слова всех пользователей.
+    Если пришел запрос на загрузку xls файла, метод обрабатывает только его.
     """
     user_data = SiteUser(request.user)
+    order_engine = OrderEngine(user_data)
+
+    if order_engine.check_download_request(request):
+        return order_engine.download_xls_file(user_data)
+
+    order_engine.get_sorted_order_rows(request)
+
     all_regions = Region.objects.all().order_by('name')
-    all_requests = Orders(user_data).get_all_user_order_rows()
 
-    if check_download_request(request):
-        return download_xls_file(all_requests, user_data)
-
-    all_requests, sort_type = get_sorted_order_rows(request, all_requests)
-
-    context = {'all_requests': all_requests,
+    context = {'all_requests': order_engine.all_requests_queryset,
+               'sort_type': order_engine.sort_type,
                'orders': user_data.orders,
                'keywords_ordered': user_data.ordered_keywords,
+               'region': user_data.region_name,
                'balance': user_data.balance,
                'regions': all_regions,
-               'region': user_data.region,
-               'sort_type': sort_type,
                }
 
     return render_page_with_privilegies(request, context)
 
 
 @login_required
-def requests_from_order(request, order_id=0):
+def requests_from_order(request, order_id):
     """
-    Отображает все ключевые слова в рамках заказа
+    Отображает все ключевые слова в рамках заказа.
     """
     user_data = SiteUser(request.user)
-    all_requests = Orders(user_data).get_all_user_order_rows(order_id)
+    order_engine = OrderEngine(user_data)
+
+    order_engine.get_sorted_order_rows(request, order_id)
+
+    if not order_engine.all_requests_queryset:
+        return HttpResponseNotFound('Страница не найдена')
+
+    if order_engine.check_download_request(request):
+        return order_engine.download_xls_file(user_data)
+
     all_regions = Region.objects.all().order_by('name')
-    all_requests, sort_type = get_sorted_order_rows(request, all_requests)
 
-    if check_download_request(request):
-        return download_xls_file(all_requests, user_data)
-
-    context = {'all_requests': all_requests,
+    context = {'all_requests': order_engine.all_requests_queryset,
+               'sort_type': order_engine.sort_type,
                'orders': user_data.orders,
                'keywords_ordered': user_data.ordered_keywords,
+               'region': user_data.region_name,
                'balance': user_data.balance,
-               'order_id': order_id,
                'regions': all_regions,
-               'region': user_data.region,
-               'sort_type': sort_type,
                }
 
     return render_page_with_privilegies(request, context)
@@ -265,57 +275,60 @@ def get_orders_page(request):
     Отображает все заказы пользователя
     """
     user_data = SiteUser(request.user)
-    all_user_orders = Orders(user_data).get_all_user_orders()
+    order_engine = OrderEngine(user_data)
+    order_engine.get_all_user_orders()
+
     all_regions = Region.objects.all().order_by('name')
 
-    context = {'all_orders_list': all_user_orders,
+    context = {'all_orders_list': order_engine.all_orders_queryset,
                'orders': user_data.orders,
                'keywords_ordered': user_data.ordered_keywords,
                'balance': user_data.balance,
                'regions': all_regions,
-               'region': user_data.region
+               'region': user_data.region_name
                }
 
     return render(request, 'main/orders.html', context)
 
+
+@login_required
 def user_confirmation(request):
     user_data = SiteUser(request.user)
+    confirmation_data = ConfirmationData(request.POST)
 
-    try:
-        order_id = int(request.POST['order_id'])
-    except:
-        order_id = None
-
-    post_data = request.POST
-    requests_list_without_format = post_data['requests_list']
-    requests_list = requests_list_without_format.split('\r\n')
-    requests_amount = len(requests_list)
-    bill = requests_amount * REQUEST_COST
     context = {
+        'requests_list': confirmation_data.all_ordered_requests,
+        'requests_list_without_format': confirmation_data.raw_all_ordered_requests,
+        'previous_page': confirmation_data.post_data['previous_page'],
+        'requests_amount': confirmation_data.requests_amount,
+        'funds': confirmation_data.bill,
+        'order_id': confirmation_data.order_id,
         'user_data': user_data,
-        'requests_list': requests_list,
         'orders': user_data.orders,
         'keywords_ordered': user_data.ordered_keywords,
         'balance': user_data.balance,
-        'requests_list_without_format': requests_list_without_format,
-        'previous_page': post_data['previous_page'],
-        'geo': post_data['geo'],
-        'requests_amount': requests_amount,
-        'funds': bill,
-        'order_id': order_id,
+        'geo': user_data.region_name,
     }
+
     return render(request, 'main/user_confirmation.html', context)
 
 
+def get_id_from_post_data(post_data):
+    try:
+        order_id = int(post_data['order_id'])
+    except:
+        order_id = None
+
+    return order_id
+
+
+@login_required
 def handle_new_request(request):
     if request.method == "POST":
-        try:
-            order_id = int(request.POST['order_id'])
-        except:
-            order_id = None
+        order_id = get_id_from_post_data(request.POST)
 
         request_handler = NewRequestHandler(request, order_id)
-        if request_handler.is_money_enough():
+        if request_handler.check_money_enough():
             previous_page = request.POST['previous_page']
 
             return HttpResponseRedirect(previous_page)
