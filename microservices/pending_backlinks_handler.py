@@ -24,6 +24,9 @@ class BacklinksHandler(Backlinks):
         return pending_domains
 
     def have_new_backlinks_data(self, domain):
+        """
+        Каждый домен из БД со статусом 'pending' попадает на перепроврку через сторонний сервис checktrust
+        """
         request_json = self._get_backlinks_service_json_answer(domain)
         if request_json['success']:
             self.unique_backlinks = int(request_json["summary"]["mjDin"])
