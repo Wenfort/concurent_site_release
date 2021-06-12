@@ -5,17 +5,19 @@ from .user_logic import user_logic
 from .ticket_logic import ticket_logic
 
 urlpatterns = [
+
     path('balance', user_logic.balance, name='balance'),
     path('registration', user_logic.registration, name='registration'),
     path('authorization/', user_logic.authorization, name='authorization'),
-    path('logout', user_logic.logout, name='logout'),
-    path('change_region', user_logic.change_region, name='change_region'),
     path('change_password', user_logic.change_password, name='change_password'),
     path('password_reset', user_logic.password_reset, name='password_reset'),
 
-    path('tickets', ticket_logic.new_ticket_page, name='ntickets_page'),
-    path('tickets/<int:ticket_id>', ticket_logic.get_posts_from_ticket, name='ntickets_from'),
-    path('close_ticket/<int:ticket_id>', ticket_logic.close_ticket, name='ntickets_close'),
+    path('logout', user_logic.logout, name='logout'),
+    path('change_region', user_logic.change_region, name='change_region'),
+
+    path('tickets', ticket_logic.new_ticket_page, name='tickets_page'),
+    path('tickets/<int:ticket_id>', ticket_logic.get_posts_from_ticket, name='tickets_from'),
+    path('close_ticket/<int:ticket_id>', ticket_logic.close_ticket, name='tickets_close'),
 
     path('', views.index, name='index'),
     path('results', views.results, name='results'),
