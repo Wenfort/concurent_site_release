@@ -12,7 +12,8 @@ class OrderStatusHandler:
 
     def update_orders_status(self):
         """
-        Метод перепроверяет
+        Если метод обнаруживает, что актуальный процент выполнения запроса выше, чем сохраненный в БД, вызывает
+            метод перезаписи данных.
         """
         for order_dataset in self.order_datasets:
             if order_dataset.actual_completition_percent > order_dataset.stored_completition_percent:
