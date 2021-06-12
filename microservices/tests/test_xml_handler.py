@@ -1,7 +1,7 @@
 import unittest
 from microservices import postgres_mode as pm
 from microservices.xml_handler import XmlReport as XHXmlReport
-from microservices.xml_handler import Request
+from microservices.xml_handler import XmlRequest
 from bs4 import BeautifulSoup
 
 class XHUnitTestXmlReport(XHXmlReport):
@@ -139,8 +139,8 @@ class TestManager(unittest.TestCase):
         self.assertEqual('ФРК', request.text)
 
     def test_add_url_to_dataset(self):
-        request_datasets = (Request(text='Lasik', region_id=255),
-                            Request(text='ФРК', region_id=10))
+        request_datasets = (XmlRequest(text='Lasik', region_id=255),
+                            XmlRequest(text='ФРК', region_id=10))
 
         handler_object = XHUnitTestXmlReport()
         handler_object.requests = request_datasets
@@ -274,34 +274,34 @@ class TestManager(unittest.TestCase):
     def test_is_rerun(self):
 
         handler_object = XHUnitTestXmlReport()
-        request = Request(reruns_count=0)
+        request = XmlRequest(reruns_count=0)
         is_rerun = handler_object.check_is_rerun(request)
         self.assertEqual(None, is_rerun)
 
-        request = Request(reruns_count=2)
+        request = XmlRequest(reruns_count=2)
         is_rerun = handler_object.check_is_rerun(request)
         self.assertEqual(True, is_rerun)
 
     def test_found_more_ads_then_before(self):
 
         handler_object = XHUnitTestXmlReport()
-        request = Request(top_ads_count=4, bottom_ads_count=5)
+        request = XmlRequest(top_ads_count=4, bottom_ads_count=5)
         found_more = handler_object.check_found_more_ads_then_before(request, 4, 5)
         self.assertEqual(None, found_more)
 
         handler_object = XHUnitTestXmlReport()
-        request = Request(top_ads_count=4, bottom_ads_count=5)
+        request = XmlRequest(top_ads_count=4, bottom_ads_count=5)
         found_more = handler_object.check_found_more_ads_then_before(request, 3, 4)
         self.assertEqual(None, found_more)
 
         handler_object = XHUnitTestXmlReport()
-        request = Request(top_ads_count=0, bottom_ads_count=5)
+        request = XmlRequest(top_ads_count=0, bottom_ads_count=5)
         found_more = handler_object.check_found_more_ads_then_before(request, 1, 5)
         self.assertEqual(True, found_more)
 
     def test_finalize_dataset(self):
         handler_object = XHUnitTestXmlReport()
-        request = Request()
+        request = XmlRequest()
         handler_object.finalize_dataset(request, 'hello', 10, 1, 5, 4)
         self.assertEqual('hello', request.validated_text)
         self.assertEqual('in work', request.status)
