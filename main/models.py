@@ -10,12 +10,14 @@ class Region(models.Model):
     def __str__(self):
         return self.name
 
+
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     status = models.SmallIntegerField(default=0)
     progress = models.SmallIntegerField(default=0)
     ordered_keywords_amount = models.SmallIntegerField(default=0)
     user_order_id = models.IntegerField(default=1)
+
 
 class Request(models.Model):
     text = models.CharField(max_length=150)
@@ -84,10 +86,12 @@ class UserData(models.Model):
     ordered_keywords = models.IntegerField(default=0)
     region = models.ForeignKey(Region, on_delete=models.DO_NOTHING, default=255)
 
+
 class RequestQueue(models.Model):
     request = models.OneToOneField(Request, on_delete=models.CASCADE)
     region = models.ForeignKey(Region, on_delete=models.DO_NOTHING, default=255)
     is_recheck = models.BooleanField(default=False)
+
 
 class Ticket(models.Model):
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
@@ -98,6 +102,7 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.author
+
 
 class TicketPost(models.Model):
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
