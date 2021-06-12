@@ -8,36 +8,9 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from microservices import postgres_mode as pm
 import re
-from dataclasses import dataclass, field
 from main.tools.stemmer import stem_text
 
-
-@dataclass
-class RequestDataSet:
-    id: int
-    text: str
-    xml: str
-    xml_status: str
-    region_id: int
-
-
-@dataclass
-class SiteDataSet:
-    html: str = ''
-    type: str = ''
-    order_on_page: int = 1
-
-    domain: str = ''
-    invalid_domain_zone: bool = False
-    domain_age: int = 0
-    unique_backlinks: int = 0
-    total_backlinks: int = 0
-    backlinks_status: str = ''
-    domain_group: int = 0
-
-    content_letters_amount: int = 0
-    content_stemmed_title: list = field(default_factory=lambda: [])
-    is_content_valid: bool = False
+from microservices.microservices_dataclasses import RequestDataSet, SiteDataSet
 
 
 class Manager:

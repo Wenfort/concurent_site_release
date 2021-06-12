@@ -4,43 +4,31 @@ from microservices import postgres_mode as pm
 from threading import Thread
 import re
 from bs4 import BeautifulSoup
-from dataclasses import dataclass
-
-
-@dataclass
-class Request:
-    id: int = 0
-    text: str = ''
-    region_id: int = 0
-    xml_url: str = ''
-    validated_text: str = ''
-    status: str = ''
-    refresh_timer: int = 0
-    reruns_count: int = 0
-    bottom_ads_count: int = 0
-    top_ads_count: int = 0
+from microservices.microservices_dataclasses import XmlRequest
 
 
 class XmlReport:
 
     def __init__(self):
+        """
+        Класс сначала проверяет есть ли запросы в очереди и обрабатывает их. Если запросы не найдены, происходит
+            перепроврка запросов с подозрительными результатами. Подробнее - в комментариях к методам.
+        """
         self.requests = list()
         self.thread_list = list()
 
         self.get_requests_from_queue()
-
-        if len(self.requests) == 0:
-            self.get_requests_for_recheck()
-            if len(self.requests) != 0:
-                self.add_url_to_dataset()
-                self.update_reruns_for_recheck_requests()
-                self.run_threads()
-            self.update_fully_rechecked_requests()
-            self.delete_fully_rechecked_requests()
-        else:
+        if self.requests:
             self.add_url_to_dataset()
             self.run_threads()
             self.add_xml_answers_to_database()
+        else:
+            self.get_requests_for_recheck()
+            self.add_url_to_dataset()
+            self.run_threads()
+            self.update_reruns_for_recheck_requests()
+            self.update_fully_rechecked_requests()
+            self.delete_fully_rechecked_requests()
 
         self.update_refresh_timer()
 
@@ -157,7 +145,7 @@ class XmlReport:
         database_return = pm.custom_request_to_database_with_return(sql)
 
         for data in database_return:
-            request_data = Request(id=data[0], text=data[1], region_id=data[2])
+            request_data = XmlRequest(id=data[0], text=data[1], region_id=data[2])
 
             self.requests.append(request_data)
 
@@ -183,9 +171,9 @@ class XmlReport:
         database_return = pm.custom_request_to_database_with_return(sql)
 
         for data in database_return:
-            request_data = Request(id=data[0], text=data[1], region_id=data[2],
-                                   reruns_count=data[3], top_ads_count=data[4],
-                                   bottom_ads_count=data[5], status=data[6])
+            request_data = XmlRequest(id=data[0], text=data[1], region_id=data[2],
+                                      reruns_count=data[3], top_ads_count=data[4],
+                                      bottom_ads_count=data[5], status=data[6])
 
             self.requests.append(request_data)
 

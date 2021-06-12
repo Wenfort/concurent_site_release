@@ -1,13 +1,8 @@
 from microservices import postgres_mode as pm
-from dataclasses import dataclass
 import time
+from microservices.microservices_dataclasses import OrderDataSet
 
 
-@dataclass
-class OrderDataSet:
-    id: int
-    actual_completition_percent: int
-    stored_completition_percent: int
 
 
 class OrderStatusHandler:
