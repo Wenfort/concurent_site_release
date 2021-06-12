@@ -172,15 +172,6 @@ class LogicTestCase(TestCase):
         self.assertEqual('Текст первого поста тикета', first_ticket_post.text)
         self.assertEqual('Текст второго поста тикета', second_ticket_post.text)
 
-    def test_user_close_ticket(self):
-                #NIY
-        pass
-
-
-    def test_admin_close_ticket(self):
-        # NIY
-        pass
-
     def test_registration_success(self):
         url = reverse('registration')
 

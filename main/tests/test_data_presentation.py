@@ -608,3 +608,18 @@ class LogicTestCase(TestCase):
         last_request_text = all_requests[-3].text
         self.assertEqual('ФРК', first_request_text)
         self.assertEqual('Операция на глаза', last_request_text)
+
+    def test_close_ticket(self):
+        user = User.objects.get(username='user')
+        ticket = Ticket.objects.create(author_id=user.id)
+        TicketPost.objects.create(author_id=user.id, ticket_id=ticket.id,
+                                text='Текст первого поста тикета')
+
+        url = reverse('tickets_close', args=(ticket.user_ticket_id,))
+        response = self.user.get(url)
+        content = response.content
+
+        soup = BeautifulSoup(content, 'html.parser')
+        text = soup.text
+        text_response_position_in_text = text.find('Тикет закрыт')
+        self.assertGreater(text_response_position_in_text, 0)
