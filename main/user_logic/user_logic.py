@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 from main.models import UserData, Region
 from main.tools.password_generator import generate_password
-from main.tools.microservice_email_sender import MailEngine
+from main.tools.email_sender import MailEngine
 
 from django.contrib import messages
 
