@@ -3,8 +3,6 @@ import time
 from microservices.microservices_dataclasses import OrderDataSet
 
 
-
-
 class OrderStatusHandler:
     def __init__(self):
         self.order_datasets = list()
@@ -13,6 +11,9 @@ class OrderStatusHandler:
         self.update_orders_status()
 
     def update_orders_status(self):
+        """
+        Метод перепроверяет
+        """
         for order_dataset in self.order_datasets:
             if order_dataset.actual_completition_percent > order_dataset.stored_completition_percent:
                 self._update_completition_percent(order_dataset)
@@ -33,6 +34,16 @@ class OrderStatusHandler:
 
 
     def _get_not_completed_orders_data(self):
+        """
+        Метод берет из БД заказы, чей прогресс выполнения меньше 100%. Внутри запроса сразу подготавливает процент
+            выполнения для каждого заказа.
+        Комментарии к запросу:
+            comletition_percent - актуальный процент выполнения заказа пользователя. Для его получения необходимо
+                посчитать количество запросов со статусом 'ready', разделить на ordered_keywords_amount из таблцы ord и
+                умножить на 100.
+            progress - процент выполнения заказа пользователя, который уже сохранен в ДБ. Хранится в столбце progress
+                таблицы ord
+        """
         sql = """
                 SELECT order_id,
                        ceil(cast(COUNT(*) as decimal) / MAX(ordered_keywords_amount) * 100) as comletition_percent,
