@@ -144,7 +144,7 @@ class Site:
         Перепроверка по URL, а не по всему html блоку занимает не очень много времени,
         но делает результаты на 100% точными.
         """
-        if self.site_dataset.type == 'direct' or 'yabs.yandex.ru' in self.url:
+        if 'yabs.yandex.ru' in self.url:
             self.site_dataset.type = 'direct'
 
     def get_domain(self):
@@ -219,9 +219,9 @@ class Yandex:
         self.thread_list = str()
         self.concurency_object = object()
         self.order_on_page = 1
+        self.stemmed_request = stem_text(self.request_text)
 
         self.start_logging()
-        self.stemmed_request = stem_text(self.request_text)
         self.parse_xml_text_with_bs4()
         self.get_request_views()
         self.get_site_list()
@@ -231,7 +231,6 @@ class Yandex:
         self.run_threads()
 
         self.make_concurency_object()
-        self.prepare_result()
         self.add_result_to_database()
         self.change_request_status_in_queue()
 
@@ -341,9 +340,6 @@ class Yandex:
     def make_concurency_object(self):
         self.concurency_object = Concurency(self.site_list, self.stemmed_request)
 
-    def prepare_result(self):
-        self.result = self.concurency_object
-
     def add_result_to_database(self):
         if self.concurency_object.all_backlinks_collected:
             self.concurency_object.status = 'ready'
@@ -417,11 +413,11 @@ class Domain:
             self.add_domain_data_to_dataset()
         else:
             try:
-                self.get_domain_data()
+                self.get_domain_data_with_external_services()
             except:
                 logger.critical(f'Проблемы с доменом {self.domain}')
 
-    def get_domain_data(self):
+    def get_domain_data_with_external_services(self):
         self.get_domain_age()
         self.add_backlinks_data_to_dataset()
         self.add_domain_backlinks_to_database()
@@ -433,13 +429,16 @@ class Domain:
         self.site_dataset.domain_group = self.domain_data_in_database[3]
         self.site_dataset.backlinks_status = self.domain_data_in_database[4]
 
-    def is_domain_data_in_database(self):
+    def _get_domain_data_from_database(self):
         sql = ("SELECT age, unique_backlinks, total_backlinks, domain_group, status "
                "FROM concurent_site.main_domain "
                f"WHERE "
                f"name = '{self.site_dataset.domain}';")
 
         self.domain_data_in_database = pm.custom_request_to_database_with_return(sql, 'one')
+
+    def is_domain_data_in_database(self):
+        self._get_domain_data_from_database()
 
         if self.domain_data_in_database:
             return True

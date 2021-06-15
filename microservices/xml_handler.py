@@ -32,22 +32,6 @@ class XmlReport:
 
         self.update_refresh_timer()
 
-    def get_fully_rechecked_requests(self):
-        """
-        Собирает из БД все запросы, у которых прошло максимальное количество перепроверок
-        Очень важно, что также учитывается статус запроса в таблице main_request
-        Если бы такой дополнительной проверки не было, запросы могли бы удаляться из таблицы xml_handler до того,
-        как их обработает new_requests_handler
-        """
-        sql = ("SELECT request_id, bottom_ads_count, top_ads_count "
-               "FROM concurent_site.main_handledxml xml "
-               "INNER JOIN concurent_site.main_request request "
-               "ON (xml.request_id = request.id) "
-               "WHERE request.status = 'ready' AND "
-               "xml.reruns_count = 4;")
-
-        rechecked_requests = pm.custom_request_to_database_with_return(sql)
-        return rechecked_requests
 
     def get_direct_upscale_and_concurency(self, request):
         """
@@ -88,6 +72,23 @@ class XmlReport:
         direct_concurency = int(direct_upscale / 35 * 100)
 
         return direct_upscale, direct_concurency
+
+    def get_fully_rechecked_requests(self):
+        """
+        Собирает из БД все запросы, у которых прошло максимальное количество перепроверок
+        Очень важно, что также учитывается статус запроса в таблице main_request
+        Если бы такой дополнительной проверки не было, запросы могли бы удаляться из таблицы xml_handler до того,
+        как их обработает new_requests_handler
+        """
+        sql = ("SELECT request_id, bottom_ads_count, top_ads_count "
+               "FROM concurent_site.main_handledxml xml "
+               "INNER JOIN concurent_site.main_request request "
+               "ON (xml.request_id = request.id) "
+               "WHERE request.status = 'ready' AND "
+               "xml.reruns_count = 4;")
+
+        rechecked_requests = pm.custom_request_to_database_with_return(sql)
+        return rechecked_requests
 
     def update_fully_rechecked_requests(self):
         """
