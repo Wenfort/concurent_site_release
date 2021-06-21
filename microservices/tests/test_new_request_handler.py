@@ -11,7 +11,6 @@ from microservices import postgres_mode as pm
 from main.tools.stemmer import stem_text
 from bs4 import BeautifulSoup
 from microservices.conc_settings import WEIGHTS_ORGANIC, WEIGHTS_DIRECT, STANDART_IMPORTANCE
-import requests
 
 
 class NRHUnitTestManager(NRHManager):

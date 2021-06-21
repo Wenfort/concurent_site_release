@@ -1,8 +1,10 @@
 from django.urls import path
+from rest_framework.routers import SimpleRouter
 
 from . import views
 from .user_logic import user_logic
 from .ticket_logic import ticket_logic
+
 
 urlpatterns = [
 
@@ -26,3 +28,4 @@ urlpatterns = [
     path('user_confirmation', views.user_confirmation, name='user_confirmation'),
     path('handle_new_request', views.handle_new_request, name='handle_new_request'),
 ]
+

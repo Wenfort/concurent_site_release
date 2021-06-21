@@ -23,3 +23,6 @@ sqlparse==0.4.1
 starkbank-ecdsa==1.1.0
 urllib3==1.26.4
 XlsxWriter==1.3.7
+djangorestframework~=3.12.4
+django-debug-toolbar~=3.2.1
+django-filter~=2.4.0
