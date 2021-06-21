@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect, FileResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
+
 from .models import Request, RequestQueue, UserData, Order, Region
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from main.tools.request_page_sorting import unmask_sort_type
 
