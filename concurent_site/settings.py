@@ -21,13 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'zs_8uh!va$xehk*ld=8s&1-%a1bc8)gdgt6t*9-%7tuk3gg+i1'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 LOGIN_URL = '/authorization/'
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -90,9 +90,9 @@ WSGI_APPLICATION = 'concurent_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'fn3kMls1',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
         'HOST': 'localhost',
         'PORT': 5432,
         'OPTIONS': {
@@ -127,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -144,11 +144,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = "/home/django/concurent_site_release/static"
 
-RECIPIENTS_EMAIL = ['misteriska@Ya.ru']
-DEFAULT_FROM_EMAIL = 'admin@seonior.ru'
+DEFAULT_FROM_EMAIL = os.environ['ADMIN_EMAIL']
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = os.environ['SENDGRID_API_KEY']
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
