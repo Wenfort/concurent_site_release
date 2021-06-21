@@ -1,6 +1,8 @@
-core_number = 4
-REQUEST_COST = 0.5
-CURRENT_YEAR = 2021
+import os
+
+CORE_NUMBER = os.environ['CORE_NUMBER']
+REQUEST_COST = os.environ['REQUEST_COST']
+CURRENT_YEAR = os.environ['CURRENT_YEAR']
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "

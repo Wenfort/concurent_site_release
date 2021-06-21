@@ -1,11 +1,12 @@
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
+import os
 
 class MailEngine:
     def __init__(self, post_data):
-        self.admin_email = 'admin@seonior.ru'
-        self.SENDGRID_API_KEY = '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'
+        self.admin_email = os.environ['ADMIN_EMAIL']
+        self.SENDGRID_API_KEY = os.environ['SENDGRID_API_KEY']
         self.post_data = post_data
         self.recipients = list()
 

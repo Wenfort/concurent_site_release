@@ -1,10 +1,11 @@
 import psycopg2
+import os
 
-DATABASE = 'postgres'
+DATABASE = os.environ['EXTERNAL_DB_NAME']
 SCHEMA = 'concurent_site'
-USER = 'postgres'
-PASSWORD = 'fn3kMls1'
-HOST = '127.0.0.1'
+USER = os.environ['EXTERNAL_DB_USER']
+PASSWORD = os.environ['EXTERNAL_DB_PASSWORD']
+HOST = os.environ['EXTERNAL_DB_HOST']
 
 
 def custom_request_to_database_without_return(sql):

@@ -1,19 +1,19 @@
 import psycopg2
+import os
 
 SCHEMA = 'concurent_site'
 
-
 def establish_connection(type):
     if type == 'local':
-        DATABASE = 'postgres'
-        USER = 'postgres'
-        PASSWORD = 'fn3kMls1'
-        HOST = '127.0.0.1'
+        DATABASE = os.environ['LOCAL_DB_NAME']
+        USER = os.environ['LOCAL_DB_NAME']
+        PASSWORD = os.environ['LOCAL_DB_PASSWORD']
+        HOST = os.environ['LOCAL_DB_HOST']
     else:
-        DATABASE = 'project_live'
-        USER = 'postgres'
-        PASSWORD = 'fn3kMls1'
-        HOST = '178.250.158.252'
+        DATABASE = os.environ['EXTERNAL_DB_NAME']
+        USER = os.environ['EXTERNAL_DB_USER']
+        PASSWORD = os.environ['EXTERNAL_DB_PASSWORD']
+        HOST = os.environ['EXTERNAL_DB_HOST']
 
     connection = psycopg2.connect(dbname=DATABASE, user=USER, password=PASSWORD, host=HOST, port='5432')
     return connection
@@ -65,32 +65,15 @@ def get_data_from_database(connection):
     return order, orderstatus, handledxml, requestqueue, request, domain
 
 
-def insert_data_to_database(connection):
-    def insert_data_to_table(dataset, table):
-        for data in dataset:
-            sql = f"INSERT INTO {SCHEMA}.{table} VALUES {data};"
-            cursor.execute(sql)
+if __name__ == '__main__':
+    pass
+    #local_connection = establish_connection('local')
+    #remote_connection = establish_connection('remote')
 
-    cursor = connection.cursor()
+    #clean_all_data_from_database(local_connection)
+    #order, orderstatus, handledxml, requestqueue, request, domain = get_data_from_database(remote_connection)
+    #insert_data_to_database(local_connection)
 
-    insert_data_to_table(orderstatus, 'main_orderstatus')
-    insert_data_to_table(request, 'main_request')
-    insert_data_to_table(requestqueue, 'main_requestqueue')
-    insert_data_to_table(handledxml, 'main_handledxml')
-    insert_data_to_table(order, 'main_order')
-    insert_data_to_table(domain, 'main_domain')
-    connection.commit()
-
-
-local_connection = establish_connection('local')
-#remote_connection = establish_connection('remote')
-
-#clean_all_data_from_database(local_connection)
-#order, orderstatus, handledxml, requestqueue, request, domain = get_data_from_database(remote_connection)
-#insert_data_to_database(local_connection)
-
-#fetch_regions_from_production_to_testing(remote_connection, local_connection)
-clean_all_data_from_database(local_connection)
-
-local_connection.close()
-#remote_connection.close()
+    #fetch_regions_from_production_to_testing(remote_connection, local_connection)
+    #local_connection.close()
+    #remote_connection.close()
