@@ -444,12 +444,14 @@ class XmlReport:
         """
         list_of_rechecking_requests_ids = [str(request.id) for request in self.requests]
         requests_ids = ','.join(list_of_rechecking_requests_ids)
-        sql = ("UPDATE concurent_site.main_handledxml SET "
-               "reruns_count = reruns_count + 1, "
-               "refresh_timer = 10 "
-               f"WHERE request_id IN ({requests_ids})")
 
-        pm.custom_request_to_database_without_return(sql)
+        if requests_ids:
+            sql = ("UPDATE concurent_site.main_handledxml SET "
+                   "reruns_count = reruns_count + 1, "
+                   "refresh_timer = 10 "
+                   f"WHERE request_id IN ({requests_ids})")
+
+            pm.custom_request_to_database_without_return(sql)
 
 if __name__ == "__main__":
     while True:
