@@ -24,16 +24,6 @@
                                     </th>
                                     <th>
                                         <div style="text-align: center">
-
-                                                {% if sort_type == '-vital_count' %}
-                                                    <a href="?sort=vital_count">Витальных сайтов в топ-10</a>
-                                                {% else %}
-                                                    <a href="?sort=-vital_count">Витальных сайтов в топ-10</a>
-                                                {% endif %}
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div style="text-align: center">
                                             {% if sort_type == '-avg_backs' %}
                                                 <a href="?sort=avg_backs"> Среднее количество бэклинков</a>
                                             {% else %}
@@ -107,29 +97,24 @@
                                         {% if request.status == 'progress'  %}
                                             <tr>
                                                 <td>{{ request.text }}</td>
-                                                <td colspan="7" style="text-align: center">Запрос в очереди.</td>
+                                                <td colspan="6" style="text-align: center">Запрос в очереди.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% elif request.status == 'backlinks' %}
                                             <tr>
                                                 <td>{{ request.text }}</td>
-                                                <td colspan="7" style="text-align: center">Запрос обрабатывается.</td>
+                                                <td colspan="6" style="text-align: center">Запрос обрабатывается.</td>
                                                 <td> {{ request.region.name }}</td>
                                             </tr>
                                         {% else %}
                                             <tr>
                                             <div style="text-align: center">
                                                 <td> {{ request.text }} </td>
-                                                {% if request.vital_sites_count == 0 %}
-                                                    <td> <div style="text-align: center"> 0 </div> </td>
-                                                {% else %}
-                                                    <td> <div style="text-align: center"><div class="vital_sites" data-title="{{ request.vital_sites }}">{{ request.vital_sites_count }}</div></div> </td>
-                                                {% endif %}
                                                 <td> <div style="text-align: center">{{ request.average_total_backlinks }} ссылок</div> </td>
                                                 <td> <div style="text-align: center">{{ request.average_unique_backlinks }} ссылок</div> </td>
                                                 <td> <div style="text-align: center">{{ request.average_volume }} знаков </div> </td>
                                                 <td> <div style="text-align: center">{{ request.average_age }} лет </div> </td>
-                                                <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1;"> <div style="text-align: center">{{ request.seo_concurency }}%</div> </td>
+                                                <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1;"> <div style="text-align: center">{{ request.total_concurency }}%</div> </td>
                                                 {% if request.is_direct_final == 0 %}
                                                     <td style="background-color: #fff4c1; border-top: 1px solid #fff4c1; color: red;"> <div style="color: red; text-align: center;"><div class="vital_sites" data-title="Предварительные данные. Они могут автоматически измениться в течение 5-10 минут. ">{{ request.direct_concurency }}%</div></div></td>
                                                 {% else %}
