@@ -1,7 +1,7 @@
 Структура проекта:
-[Структура базы данных](https://lucid.app/lucidchart/45eb7003-c18a-48f7-869d-0dfeba193875/view)
-[Алгоритм работы сервиса](https://lucid.app/lucidchart/7cc211e6-9874-4500-9600-8f8a0f56a47e/view)
-[Схема взаимодействия классов и баз данных](https://lucid.app/lucidchart/028b9ac8-d755-423e-8b02-049f92f29e32/view)
++ [Структура базы данных](https://lucid.app/lucidchart/45eb7003-c18a-48f7-869d-0dfeba193875/view)
++ [Алгоритм работы сервиса](https://lucid.app/lucidchart/7cc211e6-9874-4500-9600-8f8a0f56a47e/view)
++ [Схема взаимодействия классов и баз данных](https://lucid.app/lucidchart/028b9ac8-d755-423e-8b02-049f92f29e32/view)
 
 Краткое описание:
 
